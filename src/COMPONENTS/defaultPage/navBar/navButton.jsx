@@ -21,7 +21,7 @@ const NavButton = ({ children }) => {
       );
     };
 
-    btnRef.current.addEventListener("mousemove", handleMouseMove);
+    btnRef.current?.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       btnRef.current?.removeEventListener("mousemove", handleMouseMove);
