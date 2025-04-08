@@ -1,14 +1,11 @@
-import App from "./src/App";
+import App from "./App";
+import MainPage from "./PAGES/defaultPage";
 
 const routes = [
   {
-    path: "/",
+    path: "/home/:name?/:link?",
     element: <App />,
     // errorElement: <ErrorPage />,
-  },
-  {
-    path: "profile/:name",
-    // element: <Profile />,
   },
 ];
 
