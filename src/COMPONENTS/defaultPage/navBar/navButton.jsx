@@ -1,7 +1,7 @@
 import classes from "./navArea.module.scss";
 import { useRef, useEffect } from "react";
 
-const NavButton = ({ children }) => {
+const NavButton = ({ children, onClick }) => {
   const btnRef = useRef(null);
   const spanRef = useRef(null);
 
@@ -30,7 +30,7 @@ const NavButton = ({ children }) => {
 
   return (
     <div className={classes.navButtonContainer}>
-      <button ref={btnRef}>
+      <button ref={btnRef} onClick={onClick}>
         <div className={classes.insideButtonWrapper}>{children}</div>
         <span className={classes.mouseDot} ref={spanRef} />
       </button>
