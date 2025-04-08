@@ -1,6 +1,8 @@
+import classes from "./navArea.module.scss";
+
 const NavTitle = () => {
   return (
-    <div>
+    <div className={classes.navTitleContainer}>
       <h1>Title</h1>
     </div>
   );

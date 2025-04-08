@@ -7,6 +7,9 @@ import DefaultUI from "./PAGES/defaultPage";
 import AccountPage from "./PAGES/account";
 import AboutUsPage from "./PAGES/aboutUs";
 import UpcomingEventsPage from "./PAGES/upcomingEvents";
+import { createContext, useState } from "react";
+
+export const ActiveTab = createContext();
 
 function App() {
   const { home, name, link } = useParams();
@@ -20,16 +23,18 @@ function App() {
   const PageToView = namePage[name];
 
   return (
-    <>
-      <DefaultUI />
-      {name ? (
-        <PageToView />
-      ) : (
-        <>
-          <h1>welcome home</h1>
-        </>
-      )}
-    </>
+    <div className="appContainer">
+      <ActiveTab.Provider value={{ home, name, link }}>
+        <DefaultUI />
+        {name ? (
+          <PageToView />
+        ) : (
+          <>
+            <h1>welcome home</h1>
+          </>
+        )}
+      </ActiveTab.Provider>
+    </div>
   );
 }
 

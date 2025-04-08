@@ -1,9 +1,12 @@
 import classes from "./navArea.module.scss";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useContext, useState } from "react";
+import React from "react";
+import { ActiveTab } from "../../../App";
 
-const NavButton = ({ children, onClick }) => {
+const NavButton = React.memo(({ children, onClick, externalClass }) => {
   const btnRef = useRef(null);
   const spanRef = useRef(null);
+  const { home, name } = useContext(ActiveTab);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -30,12 +33,12 @@ const NavButton = ({ children, onClick }) => {
 
   return (
     <div className={classes.navButtonContainer}>
-      <button ref={btnRef} onClick={onClick}>
+      <button ref={btnRef} onClick={onClick} className={externalClass}>
         <div className={classes.insideButtonWrapper}>{children}</div>
         <span className={classes.mouseDot} ref={spanRef} />
       </button>
     </div>
   );
-};
+});
 
 export default NavButton;
