@@ -1,8 +1,8 @@
 .navBarContainer {
-  background-color: gray;
+  background-color: #242832;
 
   min-width: 100vw;
-  height: 55vh;
+  height: 400px;
 
   display: flex;
   flex-direction: column;
@@ -14,16 +14,25 @@
     justify-content: space-evenly;
     align-items: center;
     margin-top: auto;
-    margin-bottom: 10px;
 
     min-width: fit-content;
     min-height: 55px;
-    width: 50%;
+    width: 100%;
   }
 
   .navTitleContainer {
     background-color: orange;
     margin: auto;
+  }
+
+  .navButtonsAndSearchBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: -130px;
+    width: 50%;
+    height: 100px;
   }
 }
 
@@ -52,18 +61,18 @@
     position: relative;
     transition: background-color 0.2s ease;
     overflow: hidden;
-    background-color: gray;
+    background-color: #6d6d7b;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   }
 
   .buttonTarget {
-    background-color: rgba(28, 0, 139, 0.248) !important;
+    background-color: #242832c4 !important;
   }
 
   .insideButtonWrapper {
     height: 94%;
     width: 97%;
-    background-color: gray;
+    background-color: #6d6d7b;
 
     display: flex;
     justify-content: center;
@@ -84,8 +93,8 @@
     position: absolute;
     border-radius: 50%;
 
-    background-color: white;
-    opacity: 15%;
+    background-color: rgb(146, 157, 220);
+    opacity: 25%;
 
     -webkit-mask-image: radial-gradient(
       circle,

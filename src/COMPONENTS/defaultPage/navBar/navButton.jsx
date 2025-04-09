@@ -1,12 +1,10 @@
 import classes from "./navArea.module.scss";
-import { useRef, useEffect, useContext, useState } from "react";
+import { useRef, useEffect } from "react";
 import React from "react";
-import { ActiveTab } from "../../../App";
 
 const NavButton = React.memo(({ children, onClick, externalClass }) => {
   const btnRef = useRef(null);
   const spanRef = useRef(null);
-  const { home, name } = useContext(ActiveTab);
 
   useEffect(() => {
     const handleMouseMove = (e) => {

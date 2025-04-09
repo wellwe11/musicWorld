@@ -1,8 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import classes from "./navArea.module.scss";
 import NavButton from "./navButton";
 import NavTitle from "./navTitle";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+import SearchInput from "../searchInput/searchInput";
 
 const NavBar = () => {
   const [activeButton, setActiveButton] = useState(0);
@@ -22,20 +23,22 @@ const NavBar = () => {
   return (
     <div className={classes.navBarContainer}>
       <NavTitle />
-
-      <div className={classes.navBarButtons}>
-        {Object.keys(buttonsObject).map((el, index) => (
-          <NavButton
-            onClick={() => {
-              handleNavigate(buttonsObject[el]);
-              setActiveButton(index);
-            }}
-            key={index}
-            externalClass={activeButton === index ? classes.buttonTarget : ""}
-          >
-            {el}
-          </NavButton>
-        ))}
+      <div className={classes.navButtonsAndSearchBar}>
+        <SearchInput />
+        <div className={classes.navBarButtons}>
+          {Object.keys(buttonsObject).map((el, index) => (
+            <NavButton
+              onClick={() => {
+                handleNavigate(buttonsObject[el]);
+                setActiveButton(index);
+              }}
+              key={index}
+              externalClass={activeButton === index ? classes.buttonTarget : ""}
+            >
+              {el}
+            </NavButton>
+          ))}
+        </div>
       </div>
     </div>
   );
