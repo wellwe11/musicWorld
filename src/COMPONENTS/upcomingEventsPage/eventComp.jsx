@@ -6,8 +6,7 @@ const Event = ({ title, date, image, location }) => {
       <h4>{title}</h4>
       <h5>{date}</h5>
       <h6>{location}</h6>
-      <img src={image} alt="" />
-      <div></div>
+      <img src={image.url} alt="" />
     </div>
   );
 };

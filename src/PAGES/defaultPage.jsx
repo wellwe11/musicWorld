@@ -7,7 +7,6 @@ const DefaultUI = () => {
   return (
     <div className={classes.defaultUIContainer}>
       <NavBar />
-      <SearchInput />
     </div>
   );
 };

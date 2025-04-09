@@ -6,11 +6,11 @@
   display: flex;
 
   align-items: center;
-  padding: 3px;
 
-  input {
+  .searchInput {
     width: 90%;
     border: none;
     outline: none;
+    padding: 5px;
   }
 }

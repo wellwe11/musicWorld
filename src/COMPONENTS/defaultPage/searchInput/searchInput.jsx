@@ -3,7 +3,10 @@ import classes from "./searchInput.module.scss";
 const SearchInput = () => {
   return (
     <div className={classes.searchInputContainer}>
-      <input placeholder="write something..."></input>
+      <input
+        className={classes.searchInput}
+        placeholder="write something..."
+      ></input>
     </div>
   );
 };

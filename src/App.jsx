@@ -10,18 +10,21 @@ import UpcomingEventsPage from "./PAGES/upcomingEvents";
 import { useEffect, useState, createContext } from "react";
 
 const fetchData = async () => {
+  const BASE_URL = "https://app.ticketmaster.com/discovery/v2";
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
+  const url = `${BASE_URL}/events.json?classificationName=music&keyword=${encodeURIComponent(
+    "rock"
+  )}&apikey=${ticketMasterApiKey}`;
   try {
-    const response = await fetch(
-      `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&apikey=${ticketMasterApiKey}`
-    );
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error("Fetched failed");
     }
 
     const data = await response.json();
+    console.log(data);
     return data || [];
   } catch (error) {
     console.error("fetch error", error);
