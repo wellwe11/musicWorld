@@ -1,0 +1,17 @@
+.events {
+  border: 1px solid orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  justify-self: center;
+
+  width: 80%;
+}
+
+.event {
+  height: 400px;
+  width: 200px;
+
+  background-color: orange;
+}
