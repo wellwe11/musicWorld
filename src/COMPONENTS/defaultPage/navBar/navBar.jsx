@@ -8,10 +8,12 @@ import SearchInput from "../searchInput/searchInput";
 const ExtendedButtons = () => {
   return (
     <div className={classes.extendedButtons}>
-      <NavButton onClick={() => {}}>Hello</NavButton>
-      <NavButton onClick={() => {}}>Hello</NavButton>
-      <NavButton onClick={() => {}}>Hello</NavButton>
-      <NavButton onClick={() => {}}>Hello</NavButton>
+      <div className={classes.extendedButtonsWrapper}>
+        <NavButton onClick={() => {}}>Area</NavButton>
+        <NavButton onClick={() => {}}>Date from</NavButton>
+        <NavButton onClick={() => {}}>Date till</NavButton>
+        <NavButton onClick={() => {}}>Clear filter</NavButton>
+      </div>
     </div>
   );
 };
@@ -50,19 +52,27 @@ const NavBar = () => {
       <NavTitle />
       <div className={classes.navButtonsAndSearchBar}>
         <SearchInput />
-        <div className={classes.navBarButtons}>
-          {Object.keys(buttonsObject).map((el, index) => (
-            <NavButton
-              onClick={() => {
-                handleNavigate(buttonsObject[el]);
-                setActiveButton(index);
-              }}
-              key={index}
-              externalClass={activeButton === index ? classes.buttonTarget : ""}
-            >
-              {el}
-            </NavButton>
-          ))}
+        <div
+          className={`${classes.navBarButtons} ${
+            activeButton > 0 ? classes.buttonActive : ""
+          }`}
+        >
+          <div className={classes.navBarButtonsWrapper}>
+            {Object.keys(buttonsObject).map((el, index) => (
+              <NavButton
+                onClick={() => {
+                  handleNavigate(buttonsObject[el]);
+                  setActiveButton(index);
+                }}
+                key={index}
+                externalClass={
+                  activeButton === index ? classes.buttonTarget : ""
+                }
+              >
+                {el}
+              </NavButton>
+            ))}
+          </div>
         </div>
         {name === "upcomingEvents" && <ExtendedButtons />}
       </div>
