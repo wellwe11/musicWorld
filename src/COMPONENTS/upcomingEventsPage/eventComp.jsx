@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import classes from "./upcomingEvents.module.scss";
 
 const Event = ({ title, date, image, location }) => {
