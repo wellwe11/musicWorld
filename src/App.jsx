@@ -7,7 +7,7 @@ import DefaultUI from "./PAGES/defaultPage";
 import AccountPage from "./PAGES/account";
 import AboutUsPage from "./PAGES/aboutUs";
 import UpcomingEventsPage from "./PAGES/upcomingEvents";
-import { useEffect, useState, createContext } from "react";
+import { useEffect, useState, createContext, useCallback } from "react";
 
 const fetchData = async () => {
   const BASE_URL = "https://app.ticketmaster.com/discovery/v2";
@@ -33,17 +33,18 @@ const fetchData = async () => {
 };
 
 export const EventContext = createContext();
+
 function App() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getEvents = async () => {
+  const getEvents = useCallback(async () => {
     const fetchedData = await fetchData();
     if (fetchedData) {
       setEvents(fetchedData._embedded.events);
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getEvents();

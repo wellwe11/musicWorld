@@ -13,7 +13,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: auto;
+    margin-top: 2%;
 
     min-width: fit-content;
     min-height: 55px;
@@ -116,5 +116,18 @@
 
     transition: transform 0.4s, border 0.4s;
     pointer-events: none;
+  }
+}
+
+.extendedButtons {
+  margin-top: 2%;
+  width: 100%;
+  min-height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    max-width: 80%;
   }
 }

@@ -5,6 +5,17 @@ import NavTitle from "./navTitle";
 import React, { useEffect, useState } from "react";
 import SearchInput from "../searchInput/searchInput";
 
+const ExtendedButtons = () => {
+  return (
+    <div className={classes.extendedButtons}>
+      <NavButton onClick={() => {}}>Hello</NavButton>
+      <NavButton onClick={() => {}}>Hello</NavButton>
+      <NavButton onClick={() => {}}>Hello</NavButton>
+      <NavButton onClick={() => {}}>Hello</NavButton>
+    </div>
+  );
+};
+
 const NavBar = () => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
@@ -32,6 +43,8 @@ const NavBar = () => {
     Account: "home/account",
   };
 
+  console.log(name);
+
   return (
     <div className={classes.navBarContainer}>
       <NavTitle />
@@ -51,6 +64,7 @@ const NavBar = () => {
             </NavButton>
           ))}
         </div>
+        {name === "upcomingEvents" && <ExtendedButtons />}
       </div>
     </div>
   );
