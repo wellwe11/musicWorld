@@ -9,7 +9,7 @@
   width: 80%;
 
   .eventContainer {
-    filter: blur(10px);
+    filter: blur(5px);
     display: flex;
     align-self: center;
     width: 100%;
@@ -24,8 +24,6 @@
   }
 
   div:hover {
-    border-top: 3.5px solid #6d6d7b;
-    border-bottom: 3.5px solid #6d6d7b;
   }
 }
 
@@ -39,7 +37,7 @@
   display: flex;
   justify-content: space-between;
 
-  background-color: orange;
+  background-color: #b8b8ca;
 
   img {
     object-fit: cover;
