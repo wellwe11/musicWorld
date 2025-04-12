@@ -9,41 +9,13 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
-
-  .navBarAndSmoothEdges {
-    width: 50%;
-
-    .navBarButtons {
-      display: flex;
-      justify-content: space-evenly;
-      align-items: flex-start;
-
-      min-width: fit-content;
-      min-height: 80px;
-      min-width: 100%;
-
-      background-color: var(--mainThemeColor);
-
-      transition: all 0.1s ease-out;
-
-      .navBarButtonsWrapper {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-
-        height: 50px;
-        min-width: 100%;
-
-        z-index: 1;
-      }
-    }
-  }
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
   .buttonActive {
-    border-top-right-radius: 0px !important;
-    border-top-left-radius: 0px !important;
-    // border-bottom-left-radius: 30px;
-    // border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px !important;
+    border-top-left-radius: 30px !important;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
   }
 
   .navTitleContainer {
@@ -52,57 +24,43 @@
 
   .navButtonsAndSearchBar {
     display: flex;
-
+    flex-direction: column;
     align-items: center;
 
-    width: 100%;
+    width: 50%;
     margin-top: 352px;
     height: fit-content;
   }
-}
 
-.navSmoothEdges {
-  height: 100%;
-  width: 25%;
-
-  background-color: var(--mainThemeTwo);
-
-  .navSmoothTop {
-    background-color: var(--mainThemeColor);
-
-    height: 1px;
-
+  .navBarButtons {
+    border-top-right-radius: 30px !important;
+    border-top-left-radius: 30px !important;
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-  }
+    justify-content: space-evenly;
+    align-items: center;
 
-  .navSmoothBottom {
-    background-color: var(--mainThemeTwo);
-
-    border: none;
-    height: 19.2px;
-
-    width: 97%;
-
-    border-top-right-radius: 15px;
-  }
-
-  .navSmoothLongBar {
-    height: 99%;
-    width: 3%;
+    min-width: fit-content;
+    min-height: 80px;
+    min-width: 100%;
 
     background-color: var(--mainThemeColor);
 
-    justify-self: flex-end;
+    transition: all 0.1s ease-out;
 
-    border-bottom-left-radius: 15px;
+    .navBarButtonsWrapper {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      height: 50px;
+      min-width: 100%;
+
+      z-index: 1;
+    }
   }
 }
 
 .navButtonContainer {
-  border-radius: 20px;
-
   height: 100%;
 
   width: 20%;
@@ -125,18 +83,28 @@
     position: relative;
     transition: background-color 0.2s ease;
     overflow: hidden;
-    background-color: #545478b9;
+    background-color: #545e78b9;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   }
 
   .buttonTarget {
-    background-color: #8b8ec4c9 !important;
+    background-color: #40414cc9 !important;
+
+    .insideButtonWrapper {
+      background-color: rgb(35, 40, 49) !important;
+    }
+
+    .mouseDot {
+      background-color: rgba(108, 109, 142, 0.627);
+      opacity: 20%;
+    }
   }
 
   .insideButtonWrapper {
+    transition: all 0.2s ease;
     height: 94%;
-    width: 97%;
-    background-color: #6d6d7b;
+    width: 98%;
+    background-color: #3d3d4a;
 
     display: flex;
     justify-content: center;
@@ -188,12 +156,13 @@
   min-height: 50px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 
   background-color: var(--mainThemeColor);
 
-  // border-end-end-radius: 30px;
-  // border-end-start-radius: 30px;
+  border-end-end-radius: 30px;
+  border-end-start-radius: 30px;
+  animation: fadeIn 0.2s ease;
 
   .extendedButtonsWrapper {
     width: 100%;

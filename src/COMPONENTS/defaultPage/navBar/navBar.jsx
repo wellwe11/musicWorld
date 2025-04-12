@@ -18,20 +18,6 @@ const ExtendedButtons = () => {
   );
 };
 
-const NavSmoothEdges = ({ direction }) => {
-  return (
-    <div
-      className={classes.navSmoothEdges}
-      style={{ transform: direction === "left" ? "scaleX(-1)" : "" }}
-    >
-      <div className={classes.navSmoothTop}>
-        <div className={classes.navSmoothBottom}></div>
-      </div>
-      <div className={classes.navSmoothLongBar}></div>
-    </div>
-  );
-};
-
 const NavBar = () => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
@@ -65,34 +51,30 @@ const NavBar = () => {
     <div className={classes.navBarContainer}>
       <NavTitle />
       <div className={classes.navButtonsAndSearchBar}>
-        {/* <SearchInput /> */}
-        <NavSmoothEdges />
-        <div className={classes.navBarAndSmoothEdges}>
-          <div
-            className={`${classes.navBarButtons} ${
-              !activeButton > 0 ? classes.buttonActive : ""
-            }`}
-          >
-            <div className={classes.navBarButtonsWrapper}>
-              {Object.keys(buttonsObject).map((el, index) => (
-                <NavButton
-                  onClick={() => {
-                    handleNavigate(buttonsObject[el]);
-                    setActiveButton(index);
-                  }}
-                  key={index}
-                  externalClass={
-                    activeButton === index ? classes.buttonTarget : ""
-                  }
-                >
-                  {el}
-                </NavButton>
-              ))}
-            </div>
+        <SearchInput />
+        <div
+          className={`${classes.navBarButtons} ${
+            !activeButton > 0 ? classes.buttonActive : ""
+          }`}
+        >
+          <div className={classes.navBarButtonsWrapper}>
+            {Object.keys(buttonsObject).map((el, index) => (
+              <NavButton
+                onClick={() => {
+                  handleNavigate(buttonsObject[el]);
+                  setActiveButton(index);
+                }}
+                key={index}
+                externalClass={
+                  activeButton === index ? classes.buttonTarget : ""
+                }
+              >
+                {el}
+              </NavButton>
+            ))}
           </div>
-          {name === "upcomingEvents" && <ExtendedButtons />}
         </div>
-        <NavSmoothEdges direction={"left"} />
+        {name === "upcomingEvents" && <ExtendedButtons />}
       </div>
     </div>
   );
