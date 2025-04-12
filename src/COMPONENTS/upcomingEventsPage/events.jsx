@@ -1,13 +1,24 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Event from "./eventComp";
 
 import classes from "./upcomingEvents.module.scss";
 import { EventContext } from "../../App";
 
 const Events = () => {
+  const [displayEvents, setDisplayEvents] = useState(false);
   const { events, loading } = useContext(EventContext);
+
   // ref for effect below
   const elementsRef = useRef([]);
+
+  useEffect(() => {
+    console.log(loading, "loading...");
+    if (!loading) {
+      setTimeout(() => {
+        setDisplayEvents(true);
+      }, 1000);
+    }
+  });
 
   // creates a smooth transition for events to make them look a bit
   // nicer when scrolling
@@ -30,23 +41,29 @@ const Events = () => {
     return () => observer.disconnect();
   });
 
+  console.log(events);
+
   return (
     <div className={classes.events}>
-      {!loading &&
-        events.map((event, index) => (
+      {displayEvents ? (
+        events.events.map((event, index) => (
           <div
             key={index}
             ref={(el) => (elementsRef.current[index] = el)}
             className={classes.eventContainer}
           >
             <Event
-              title={event.name}
-              date={event.dates.start.dateTime}
+              title={event._embedded.attractions[0].name}
+              date={event.dates.start.localDate}
               image={event.images[0]}
-              location={event.locale}
+              country={event._embedded.venues[0].country.name}
+              city={event._embedded.venues[0].city.name}
             />
           </div>
-        ))}
+        ))
+      ) : (
+        <h1>Loading</h1>
+      )}
     </div>
   );
 };

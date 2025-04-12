@@ -45,8 +45,6 @@ const NavBar = () => {
     Account: "home/account",
   };
 
-  console.log(name);
-
   return (
     <div className={classes.navBarContainer}>
       <NavTitle />

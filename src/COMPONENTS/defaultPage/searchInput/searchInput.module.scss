@@ -13,10 +13,29 @@
   justify-content: center;
 
   .searchInput {
-    width: 90%;
+    width: 92%;
 
     border: none;
     outline: none;
     padding: 10px;
+  }
+
+  .searchIcon {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+  }
+
+  svg {
+    min-width: 150% !important;
+  }
+
+  .searchIcon path {
+    fill: var(--buttonContainerTheme);
   }
 }

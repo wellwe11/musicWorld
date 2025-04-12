@@ -9,13 +9,14 @@ import AboutUsPage from "./PAGES/aboutUs";
 import UpcomingEventsPage from "./PAGES/upcomingEvents";
 import { useEffect, useState, createContext, useCallback } from "react";
 
+export const EventContext = createContext();
+
 const fetchData = async () => {
-  const BASE_URL = "https://app.ticketmaster.com/discovery/v2";
+  const BASE_URL =
+    "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music";
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
-  const url = `${BASE_URL}/events.json?classificationName=music&keyword=${encodeURIComponent(
-    "rock"
-  )}&apikey=${ticketMasterApiKey}`;
+  const url = `${BASE_URL}&apikey=${ticketMasterApiKey}`;
   try {
     const response = await fetch(url);
 
@@ -24,7 +25,6 @@ const fetchData = async () => {
     }
 
     const data = await response.json();
-    console.log(data);
     return data || [];
   } catch (error) {
     console.error("fetch error", error);
@@ -32,24 +32,9 @@ const fetchData = async () => {
   }
 };
 
-export const EventContext = createContext();
-
 function App() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const getEvents = useCallback(async () => {
-    const fetchedData = await fetchData();
-    if (fetchedData) {
-      setEvents(fetchedData._embedded.events);
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    getEvents();
-  }, []);
-
   const { home, name, link } = useParams();
 
   const namePage = {
@@ -59,6 +44,18 @@ function App() {
   };
 
   const PageToView = namePage[name];
+
+  const getEvents = useCallback(async () => {
+    const fetchedData = await fetchData();
+    if (fetchedData) {
+      setEvents(fetchedData._embedded);
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <div className="appContainer">
