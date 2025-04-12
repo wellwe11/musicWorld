@@ -8,6 +8,10 @@ const Events = () => {
   const [displayEvents, setDisplayEvents] = useState(false);
   const { events, loading } = useContext(EventContext);
 
+  // create an array that looks for same artists and if the
+  // same band is "beside" itself on several days, just merge the
+  // dates instead so that they dont take too much space
+
   // ref for effect below
   const elementsRef = useRef([]);
 

@@ -13,7 +13,7 @@ export const EventContext = createContext();
 
 const fetchData = async () => {
   const BASE_URL =
-    "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music";
+    "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&countryCode=SE";
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
   const url = `${BASE_URL}&apikey=${ticketMasterApiKey}`;
