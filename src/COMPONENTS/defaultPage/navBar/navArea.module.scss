@@ -2,57 +2,60 @@
   background-color: var(--mainThemeColor);
 
   min-width: 100vw;
-  height: 400px;
+  min-height: 100%;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  position: relative;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
-  .buttonActive {
-    border-top-right-radius: 30px !important;
-    border-top-left-radius: 30px !important;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-  }
+  margin-top: 100px;
+  // box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
   .navTitleContainer {
-    background-color: orange;
-  }
-
-  .navButtonsAndSearchBar {
+    height: 200px;
+    width: 100px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
 
-    width: 50%;
-    margin-top: 352px;
-    height: fit-content;
+    img {
+      height: 200px;
+      width: 200px;
+      transition: all 0.2s ease;
+      background-size: auto;
+      cursor: pointer;
+    }
+
+    img:hover {
+      height: 205px;
+      width: 205px;
+    }
   }
 
   .navBarButtons {
-    border-top-right-radius: 30px !important;
-    border-top-left-radius: 30px !important;
+    margin-top: 5px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
 
     min-width: fit-content;
-    min-height: 80px;
-    min-width: 100%;
+    height: fit-content;
+    padding: 10px;
+    width: 50%;
 
-    background-color: var(--mainThemeColor);
+    background-color: var(--buttonContainerTheme);
 
     transition: all 0.1s ease-out;
 
     .navBarButtonsWrapper {
       display: flex;
       justify-content: space-evenly;
-      align-items: center;
+      align-items: flex-start;
 
-      height: 50px;
+      height: 60px;
       min-width: 100%;
 
       z-index: 1;
@@ -66,10 +69,11 @@
   width: 20%;
   display: flex;
   justify-content: center;
+  align-items: center;
 
   button {
     width: 100%;
-    min-height: 100%;
+    height: 80%;
 
     display: flex;
     justify-content: center;
@@ -91,12 +95,12 @@
     background-color: #40414cc9 !important;
 
     .insideButtonWrapper {
-      background-color: rgb(35, 40, 49) !important;
+      background-color: var(--buttonContainerTheme) !important;
     }
 
     .mouseDot {
       background-color: rgba(108, 109, 142, 0.627);
-      opacity: 20%;
+      opacity: 40%;
     }
   }
 
@@ -126,7 +130,7 @@
     border-radius: 50%;
 
     background-color: rgba(145, 152, 190, 0.627);
-    opacity: 80%;
+    opacity: 50%;
 
     -webkit-mask-image: radial-gradient(
       circle,
@@ -158,7 +162,7 @@
   justify-content: center;
   align-items: center;
 
-  background-color: var(--mainThemeColor);
+  background-color: var(--buttonContainerTheme);
 
   border-end-end-radius: 30px;
   border-end-start-radius: 30px;
@@ -166,15 +170,23 @@
 
   .extendedButtonsWrapper {
     width: 100%;
+    min-height: 100% !important;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
 
+  .navButtonContainer {
     height: 30px;
   }
 
   button {
-    max-width: 80%;
+    max-width: 90%;
+    height: 100%;
+  }
+
+  .insideButtonWrapper {
+    height: 90%;
   }
 
   @keyframes fadeIn {

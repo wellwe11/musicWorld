@@ -13,7 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
 
   --mainThemeColor: #13161c;
-  --mainThemeTwo: #3f3f3f;
+  --mainThemeTwo: #13161c;
+  --buttonContainerTheme: #262930;
 }
 
 /* Reset margin and padding */

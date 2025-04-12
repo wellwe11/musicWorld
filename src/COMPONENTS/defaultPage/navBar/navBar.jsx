@@ -50,29 +50,25 @@ const NavBar = () => {
   return (
     <div className={classes.navBarContainer}>
       <NavTitle />
-      <div className={classes.navButtonsAndSearchBar}>
-        <SearchInput />
-        <div
-          className={`${classes.navBarButtons} ${
-            !activeButton > 0 ? classes.buttonActive : ""
-          }`}
-        >
-          <div className={classes.navBarButtonsWrapper}>
-            {Object.keys(buttonsObject).map((el, index) => (
-              <NavButton
-                onClick={() => {
-                  handleNavigate(buttonsObject[el]);
-                  setActiveButton(index);
-                }}
-                key={index}
-                externalClass={
-                  activeButton === index ? classes.buttonTarget : ""
-                }
-              >
-                {el}
-              </NavButton>
-            ))}
-          </div>
+      <SearchInput />
+      <div
+        className={`${classes.navBarButtons} ${
+          !activeButton > 0 ? classes.buttonActive : ""
+        }`}
+      >
+        <div className={classes.navBarButtonsWrapper}>
+          {Object.keys(buttonsObject).map((el, index) => (
+            <NavButton
+              onClick={() => {
+                handleNavigate(buttonsObject[el]);
+                setActiveButton(index);
+              }}
+              key={index}
+              externalClass={activeButton === index ? classes.buttonTarget : ""}
+            >
+              {el}
+            </NavButton>
+          ))}
         </div>
         {name === "upcomingEvents" && <ExtendedButtons />}
       </div>
