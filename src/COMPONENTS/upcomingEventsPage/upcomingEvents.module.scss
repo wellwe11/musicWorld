@@ -19,8 +19,8 @@
     transition: all 0.2s ease;
     cursor: pointer;
 
-    border-top: 6px solid #6d6d7b;
-    border-bottom: 6px solid #6d6d7b;
+    border-top: 6px solid var(--mainThemeTwo);
+    border-bottom: 6px solid var(--mainThemeTwo);
   }
 
   div:hover {

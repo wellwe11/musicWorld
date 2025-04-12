@@ -5,12 +5,15 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #6d6d7b;
+  background-color: var(--mainThemeTwo);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --mainThemeColor: #181f28;
+  --mainThemeTwo: #535e6e;
 }
 
 /* Reset margin and padding */

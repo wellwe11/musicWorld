@@ -1,5 +1,5 @@
 .navBarContainer {
-  background-color: #242832;
+  background-color: var(--mainThemeColor);
 
   min-width: 100vw;
   height: 400px;
@@ -16,18 +16,15 @@
     .navBarButtons {
       display: flex;
       justify-content: space-evenly;
-      align-items: center;
+      align-items: flex-start;
 
       min-width: fit-content;
       min-height: 80px;
       min-width: 100%;
 
-      background-color: #242832;
+      background-color: var(--mainThemeColor);
 
       transition: all 0.1s ease-out;
-
-      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
-        rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
       .navBarButtonsWrapper {
         display: flex;
@@ -68,26 +65,35 @@
   height: 100%;
   width: 25%;
 
+  background-color: var(--mainThemeTwo);
+
   .navSmoothTop {
-    background-color: #242832;
-    height: 30%;
+    background-color: var(--mainThemeColor);
+
+    height: 1px;
+
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
   }
 
   .navSmoothBottom {
-    background-color: #6d6d7b;
-    height: 80%;
+    background-color: var(--mainThemeTwo);
+
+    border: none;
+    height: 19.2px;
+
     width: 97%;
 
     border-top-right-radius: 15px;
   }
 
   .navSmoothLongBar {
-    height: 70%;
+    height: 99%;
     width: 3%;
-    background-color: #242832;
+
+    background-color: var(--mainThemeColor);
+
     justify-self: flex-end;
 
     border-bottom-left-radius: 15px;
@@ -179,17 +185,15 @@
 
 .extendedButtons {
   width: 100%;
-  min-height: 40px;
+  min-height: 50px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  animation: fadeIn 0.1s ease-out forwards;
-  background-color: #242832;
+  align-items: flex-start;
+
+  background-color: var(--mainThemeColor);
 
   // border-end-end-radius: 30px;
   // border-end-start-radius: 30px;
-
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
   .extendedButtonsWrapper {
     width: 100%;
