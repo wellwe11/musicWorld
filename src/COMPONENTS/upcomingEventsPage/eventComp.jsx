@@ -52,7 +52,7 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
             cy="65"
             r="55"
             stroke="#ffffff"
-            stroke-width="12"
+            strokeWidth="12"
             fill="none"
           />
         ) : (

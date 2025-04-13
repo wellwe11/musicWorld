@@ -9,6 +9,7 @@ const Events = () => {
   const { events, loading } = useContext(EventContext);
   const [imageClicked, setImageClicked] = useState(false);
   const [clickedEvent, setClickedEvent] = useState(null);
+  const [eventsArray, setEventsArray] = useState([]);
 
   // create an array that looks for same artists and if the
   // same band is "beside" itself on several days, just merge the
@@ -20,11 +21,34 @@ const Events = () => {
   useEffect(() => {
     console.log(loading, "loading...");
     if (!loading) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setDisplayEvents(true);
       }, 1000);
+
+      return () => clearTimeout(timer);
     }
   });
+
+  const addEvents = () => {
+    const updatedArray = [];
+    const idSet = new Set();
+
+    const filteredArray = events?.events?.filter((event) => {
+      const idToNotMatch = event?._embedded?.attractions[0]?.id;
+      if (idToNotMatch && !idSet.has(idToNotMatch)) {
+        idSet.add(idToNotMatch);
+        updatedArray.push(event);
+      }
+    });
+
+    if (updatedArray.length > 0) {
+      setEventsArray(updatedArray);
+    }
+  };
+
+  useEffect(() => {
+    addEvents();
+  }, []);
 
   // creates a smooth transition for events to make them look a bit
   // nicer when scrolling
@@ -47,12 +71,10 @@ const Events = () => {
     return () => observer.disconnect();
   });
 
-  console.log(events);
-
   return (
     <div className={classes.events}>
       {displayEvents ? (
-        events.events.map((event, index) => (
+        eventsArray.map((event, index) => (
           <div
             key={index}
             ref={(el) => (elementsRef.current[index] = el)}
@@ -68,7 +90,7 @@ const Events = () => {
               location={event?._embedded?.venues[0]?.address?.line1}
               imageClicked={clickedEvent === index ? imageClicked : ""}
               setImageClicked={setImageClicked}
-              onClickLink={event?.url}
+              onClickLink={event?._embedded?.attractions[0]?.url}
             />
           </div>
         ))
