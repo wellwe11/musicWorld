@@ -33,7 +33,7 @@ const Events = () => {
     const updatedArray = [];
     const idSet = new Set();
 
-    const filteredArray = events?.events?.filter((event) => {
+    events?.events?.forEach((event) => {
       const idToNotMatch = event?._embedded?.attractions[0]?.id;
       if (idToNotMatch && !idSet.has(idToNotMatch)) {
         idSet.add(idToNotMatch);
@@ -48,7 +48,7 @@ const Events = () => {
 
   useEffect(() => {
     addEvents();
-  }, []);
+  }, [events]);
 
   // creates a smooth transition for events to make them look a bit
   // nicer when scrolling
