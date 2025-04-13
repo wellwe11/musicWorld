@@ -68,6 +68,7 @@ const Events = () => {
               location={event?._embedded?.venues[0]?.address?.line1}
               imageClicked={clickedEvent === index ? imageClicked : ""}
               setImageClicked={setImageClicked}
+              onClickLink={event?.url}
             />
           </div>
         ))

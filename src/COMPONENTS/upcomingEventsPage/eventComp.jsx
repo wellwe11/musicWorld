@@ -3,7 +3,7 @@ import classes from "./upcomingEvents.module.scss";
 import TicketButton from "./ticketButton";
 
 import playIcon from "./playIcons/play-button.png";
-import pauseIcon from "./playIcons/music-player.png";
+import pauseIcon from "./playIcons/pause-button.png";
 
 const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
   const [imageHover, setImageHover] = useState(false);
@@ -29,9 +29,11 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
 
   useEffect(() => {
     if (imageClicked) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setImageClicked(false);
       }, 4000);
+
+      return () => clearTimeout(timer);
     }
   }, [imageClicked]);
 
@@ -42,6 +44,22 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
       onMouseEnter={() => handleImageHover().onHover()}
       onMouseLeave={() => handleImageHover().onLeave()}
     >
+      <svg height="130" width="130">
+        {imageClicked ? (
+          <circle
+            className={classes.circle}
+            cx="65"
+            cy="65"
+            r="55"
+            stroke="#ffffff"
+            stroke-width="12"
+            fill="none"
+          />
+        ) : (
+          ""
+        )}
+      </svg>
+      <div className={classes.logo}></div>
       {imageHover &&
         (imageClicked ? (
           <img className={classes.playPauseIcon} src={pauseIcon} alt="" />
@@ -71,6 +89,7 @@ const Event = ({
   location,
   imageClicked,
   setImageClicked,
+  onClickLink,
 }) => {
   return (
     <div className={classes.event}>
@@ -89,7 +108,7 @@ const Event = ({
           <h5>{location}</h5>
         </div>
         <h3>{date}</h3>
-        <TicketButton />
+        <TicketButton onClickLink={onClickLink} />
       </div>
     </div>
   );
