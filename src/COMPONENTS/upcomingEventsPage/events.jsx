@@ -5,10 +5,25 @@ import classes from "./upcomingEvents.module.scss";
 import { EventContext } from "../../App";
 
 const Events = () => {
+  // useState for loading (via the useContext(eventContext)). I need it for setTimeout
   const [displayEvents, setDisplayEvents] = useState(false);
+
+  // events are the displayed events. Loading is turned false if the fetch is successful
   const { events, loading } = useContext(EventContext);
+
+  // this is a state used inside of each event which is passed as a prop.
+  // It forces a single-play option. Otherwise, if a user wants to click several
+  // events to hear music, it'll play them all at the same time.
+  // Having this state in parent, you avoid this as it can only be true
+  // for one child
   const [imageClicked, setImageClicked] = useState(false);
+
+  //
+  // a local state to track which event has clicked it's play button. Helps avoid all children
+  // click play once you interact with an element
   const [clickedEvent, setClickedEvent] = useState(null);
+
+  // a new array containing filtered events to avoid duplicates
   const [eventsArray, setEventsArray] = useState([]);
 
   // create an array that looks for same artists and if the
@@ -18,6 +33,8 @@ const Events = () => {
   // ref for effect below
   const elementsRef = useRef([]);
 
+  // displays loading before the fetches are finalized. Loading is stored in the same component
+  // such as the fetch. Loading is then turned true or false depending on the return of the JSON
   useEffect(() => {
     console.log(loading, "loading...");
     if (!loading) {
@@ -29,11 +46,20 @@ const Events = () => {
     }
   });
 
+  // filters the events so it doesnt display a large amount of same events.
+  // in the coming days I will be storing their future dates as well, returning it to
+  // the object, and allowing it to be displayed such as "startDate - endDate"(endDate being the final day of the same "days")
+  // OR if possible, I will try to find final days of tour/event in the fetch
   const addEvents = () => {
+    // local array to save component from reloading
     const updatedArray = [];
+
+    // create a new set to store unique id's which is related to events. Same events store the same ID, thus avoiding many of the same events to be displayed on the page.
     const idSet = new Set();
 
+    // events.events is the original fetch
     events?.events?.forEach((event) => {
+      // add local variable for readable code
       const idToNotMatch = event?._embedded?.attractions[0]?.id;
       if (idToNotMatch && !idSet.has(idToNotMatch)) {
         idSet.add(idToNotMatch);
@@ -41,11 +67,13 @@ const Events = () => {
       }
     });
 
+    // finally push array to components local state
     if (updatedArray.length > 0) {
       setEventsArray(updatedArray);
     }
   };
 
+  // calls the filter whenever the original fetch is updated (I.e. you click "next page" to view more evnets)
   useEffect(() => {
     addEvents();
   }, [events]);
@@ -57,6 +85,7 @@ const Events = () => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           console.log("show");
+          // adds a blur class to events
           entry.target.classList.add(classes.show);
         } else {
           entry.target.classList.remove(classes.show);
@@ -64,6 +93,7 @@ const Events = () => {
       });
     });
 
+    // because we are tracking many elements, we need to skim through them
     elementsRef.current.forEach((el) => {
       if (el) observer.observe(el);
     });
