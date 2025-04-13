@@ -7,6 +7,8 @@ import { EventContext } from "../../App";
 const Events = () => {
   const [displayEvents, setDisplayEvents] = useState(false);
   const { events, loading } = useContext(EventContext);
+  const [imageClicked, setImageClicked] = useState(false);
+  const [clickedEvent, setClickedEvent] = useState(null);
 
   // create an array that looks for same artists and if the
   // same band is "beside" itself on several days, just merge the
@@ -55,13 +57,17 @@ const Events = () => {
             key={index}
             ref={(el) => (elementsRef.current[index] = el)}
             className={classes.eventContainer}
+            onClick={() => setClickedEvent(index)}
           >
             <Event
-              title={event._embedded.attractions[0].name}
-              date={event.dates.start.localDate}
-              image={event.images[0]}
-              country={event._embedded.venues[0].country.name}
-              city={event._embedded.venues[0].city.name}
+              title={event?._embedded?.attractions[0]?.name}
+              date={event?.dates?.start?.localDate}
+              image={event?.images[0]}
+              country={event?._embedded?.venues[0]?.country?.name}
+              city={event?._embedded?.venues[0]?.city?.name}
+              location={event?._embedded?.venues[0]?.address?.line1}
+              imageClicked={clickedEvent === index ? imageClicked : ""}
+              setImageClicked={setImageClicked}
             />
           </div>
         ))
