@@ -5,12 +5,12 @@ import NavTitle from "./navTitle";
 import React, { useEffect, useRef, useState } from "react";
 import SearchInput from "../searchInput/searchInput";
 
-const ExtendedButtons = () => {
+const ExtendedButtons = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
   const inputRefOne = useRef();
   const inputRefTwo = useRef();
-  const [arean, setArea] = useState(null);
-  const [dateFrom, setDateFrom] = useState(null);
-  const [dateTill, setDateTill] = useState(null);
+  const [localDateFrom, setLocalDateFrom] = useState();
+  const [localDateTill, setLocalDateTill] = useState();
+
   const today = new Date().toISOString().split("T")[0];
 
   const handleDateFromShowPicker = () => {
@@ -24,24 +24,25 @@ const ExtendedButtons = () => {
   const handleClearFilter = () => {
     setDateFrom(null);
     setDateTill(null);
-    setArea(null);
+    setLocalDateFrom(null);
+    setLocalDateTill(null);
   };
 
   useEffect(() => {
     console.log(dateFrom, dateTill);
   }, [dateFrom, dateTill]);
 
-  const handleDateTill = (e) => {
-    setDateTill(e);
+  const handleDatedFetch = () => {
+    setDateFrom(localDateFrom);
+    setDateTill(localDateTill);
   };
 
   return (
     <div className={classes.extendedButtons}>
       <div className={classes.extendedButtonsWrapper}>
-        <NavButton onClick={() => {}}>Area</NavButton>
         <>
           <NavButton onClick={handleDateFromShowPicker}>
-            {dateFrom || "Date from"}
+            {localDateFrom || dateFrom || "Date from"}
           </NavButton>
           <input
             type="date"
@@ -52,12 +53,13 @@ const ExtendedButtons = () => {
               opacity: "0",
             }}
             min={today}
-            onChange={(e) => setDateFrom(e.target.value)}
+            max={localDateTill || dateFrom || ""}
+            onChange={(e) => setLocalDateFrom(e.target.value)}
           />
         </>
         <>
           <NavButton onClick={handleDateTillShowPicker}>
-            {dateTill || "Date till"}
+            {localDateTill || dateTill || "Date till"}
           </NavButton>
           <input
             type="date"
@@ -67,18 +69,18 @@ const ExtendedButtons = () => {
               height: "0px",
               opacity: "0",
             }}
-            min={dateFrom || today}
-            onChange={(e) => handleDateTill(e.target.value)}
-            onClick={(e) => handleDateTill(e.target.value)}
+            min={localDateFrom || dateFrom || today}
+            onChange={(e) => setLocalDateTill(e.target.value)}
           />
         </>
+        <NavButton onClick={handleDatedFetch}>Search</NavButton>
         <NavButton onClick={handleClearFilter}>Clear filter</NavButton>
       </div>
     </div>
   );
 };
 
-const NavBar = () => {
+const NavBar = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
   const { home, name } = useParams();
@@ -128,7 +130,14 @@ const NavBar = () => {
             </NavButton>
           ))}
         </div>
-        {name === "upcomingEvents" && <ExtendedButtons />}
+        {name === "upcomingEvents" && (
+          <ExtendedButtons
+            setDateFrom={setDateFrom}
+            setDateTill={setDateTill}
+            dateFrom={dateFrom}
+            dateTill={dateTill}
+          />
+        )}
       </div>
     </div>
   );
