@@ -1,13 +1,14 @@
 import { useParams, Link } from "react-router-dom";
+import { useEffect, useState, createContext, useCallback } from "react";
 
-import "./App.css";
-
-import DefaultUI from "./PAGES/defaultPage";
+import classes from "../src/PAGES/defaultPage.module.scss";
 
 import AccountPage from "./PAGES/account";
 import AboutUsPage from "./PAGES/aboutUs";
 import UpcomingEventsPage from "./PAGES/upcomingEvents";
-import { useEffect, useState, createContext, useCallback } from "react";
+
+import NavBar from "./COMPONENTS/defaultPage/navBar/navBar";
+import Footer from "./COMPONENTS/defaultPage/footer/footer";
 
 export const EventContext = createContext();
 
@@ -60,16 +61,19 @@ function App() {
 
   return (
     <div className="appContainer">
-      <DefaultUI />
       <EventContext.Provider value={{ events, loading }}>
-        {name && events ? (
-          <PageToView />
-        ) : (
-          <>
-            <h1>welcome home</h1>
-          </>
-        )}
+        <NavBar />
+        <div className={classes.routesContainer}>
+          {name && events ? (
+            <PageToView />
+          ) : (
+            <>
+              <h1>welcome home</h1>
+            </>
+          )}
+        </div>
       </EventContext.Provider>
+      <Footer />
     </div>
   );
 }

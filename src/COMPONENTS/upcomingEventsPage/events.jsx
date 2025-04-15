@@ -30,9 +30,6 @@ const Events = ({ maxViewEVent, minViewEvent }) => {
   // same band is "beside" itself on several days, just merge the
   // dates instead so that they dont take too much space
 
-  // ref for effect below
-  const elementsRef = useRef([]);
-
   // displays loading before the fetches are finalized. Loading is stored in the same component
   // such as the fetch. Loading is then turned true or false depending on the return of the JSON
   useEffect(() => {
@@ -78,29 +75,6 @@ const Events = ({ maxViewEVent, minViewEvent }) => {
     addEvents();
   }, [events]);
 
-  // creates a smooth transition for events to make them look a bit
-  // nicer when scrolling
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          console.log("show");
-          // adds a blur class to events
-          entry.target.classList.add(classes.show);
-        } else {
-          entry.target.classList.remove(classes.show);
-        }
-      });
-    });
-
-    // because we are tracking many elements, we need to skim through them
-    elementsRef.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  });
-
   return (
     <div className={classes.events}>
       {displayEvents ? (
@@ -110,7 +84,6 @@ const Events = ({ maxViewEVent, minViewEvent }) => {
             index <= maxViewEVent && (
               <div
                 key={index}
-                ref={(el) => (elementsRef.current[index] = el)}
                 className={classes.eventContainer}
                 onClick={() => setClickedEvent(index)}
               >

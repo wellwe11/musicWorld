@@ -1,5 +1,4 @@
 import App from "./App";
-import MainPage from "./PAGES/defaultPage";
 
 const routes = [
   {

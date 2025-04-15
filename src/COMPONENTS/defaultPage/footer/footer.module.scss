@@ -1,0 +1,57 @@
+.footer {
+  .footerContainer {
+    background-color: var(--buttonContainerTheme);
+    color: white;
+
+    display: flex;
+    min-height: 250px;
+    padding: 10px;
+  }
+}
+
+.footerButtonsContainer {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  border-right: 1px solid white;
+  margin: 30px;
+
+  .footerButtonsWrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  h4 {
+  }
+
+  button {
+    margin-top: 5px;
+    width: fit-content;
+  }
+
+  button:hover {
+    box-shadow: inset 0px -1px 0px white;
+  }
+}
+
+.footerInformationTwo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  padding: 50px;
+  .headerContainer {
+  }
+
+  .pContainer {
+    display: flex;
+    font-weight: 600;
+  }
+
+  .pContainer p:nth-child(2) {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

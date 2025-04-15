@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Events from "../COMPONENTS/upcomingEventsPage/events";
+import classes from "./defaultPage.module.scss";
 
 const PageToView = ({ currentPage, setCurrentPage }) => {
   const handleCurrentPage = (type) => {
@@ -14,29 +15,31 @@ const PageToView = ({ currentPage, setCurrentPage }) => {
     }
   };
 
+  const next = ">";
+  const previous = "<";
+
   return (
-    <div>
-      <button onClick={() => handleCurrentPage("+")}>Next</button>
+    <div className={classes.pageToView}>
+      <button onClick={() => handleCurrentPage("-")}>{previous}</button>
       <p>{currentPage}</p>
-      <p>{currentPage + 1}...</p>
-      <button onClick={() => handleCurrentPage("-")}>Previous</button>
+      <button onClick={() => handleCurrentPage("+")}>{next}</button>
     </div>
   );
 };
 
 const UpcomingEventsPage = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [maxViewEvent, setMaxViewEVent] = useState(5);
   const [minViewEvent, setMinViewEvent] = useState(0);
 
   useEffect(() => {
-    if (currentPage === 0) {
-      setMinViewEvent(0);
+    if (currentPage === 1) {
+      setMinViewEvent(1);
       setMaxViewEVent(5);
     }
 
-    if (currentPage > 0) {
+    if (currentPage > 1) {
       setMaxViewEVent(currentPage * 5);
     }
   }, [currentPage]);
@@ -47,7 +50,6 @@ const UpcomingEventsPage = () => {
 
   return (
     <div>
-      <h1>Upcoming events page</h1>
       <Events minViewEvent={minViewEvent} maxViewEVent={maxViewEvent} />
       <PageToView currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>

@@ -5,9 +5,9 @@
   justify-self: center;
   flex-wrap: wrap;
   width: 90%;
+  height: 916px;
 
   .eventContainer {
-    filter: blur(3px);
     display: flex;
     align-self: center;
     justify-content: center;
@@ -21,10 +21,6 @@
 
   div:hover {
   }
-}
-
-.show {
-  filter: blur(0px) !important;
 }
 
 .event {
