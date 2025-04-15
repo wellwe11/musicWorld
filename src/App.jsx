@@ -19,17 +19,9 @@ const fetchData = async (size, page, dateStart, dateEnd) => {
 
   let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0`;
 
-  if (dateStart) {
-    console.log("fetch updating with startDateTime...", dateStart);
-    url += `&startDateTime=${dateStart}T00:00:00Z`;
+  if (dateStart && dateEnd) {
+    url += `&startDateTime=${dateStart}T00:00:00Z&endDateTime=${dateEnd}T23:59:59Z`;
   }
-
-  if (dateEnd) {
-    console.log("fetch updating with endDateTime...", dateEnd);
-    url += `&endDateTime=${dateEnd}T23:59:59Z`;
-  }
-
-  console.log(url);
 
   try {
     const response = await fetch(url);
@@ -63,8 +55,8 @@ function App() {
   const PageToView = namePage[name];
 
   const getEvents = useCallback(async (size, page, dateStart, dateEnd) => {
-    const fetchedData = await fetchData(size, page, dateStart, dateEnd);
     setLoading(true);
+    const fetchedData = await fetchData(size, page, dateStart, dateEnd);
     if (fetchedData) {
       setEvents(fetchedData._embedded);
       setLoading(false);
@@ -76,7 +68,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("Updating search", dateFrom, dateTill);
     if (dateFrom || dateTill) {
       getEvents("", "", dateFrom, dateTill);
     } else {

@@ -33,8 +33,12 @@ const ExtendedButtons = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
   }, [dateFrom, dateTill]);
 
   const handleDatedFetch = () => {
-    setDateFrom(localDateFrom);
-    setDateTill(localDateTill);
+    if (localDateFrom && localDateTill) {
+      setDateFrom(localDateFrom);
+      setDateTill(localDateTill);
+    } else {
+      console.log("need to input both dates");
+    }
   };
 
   return (
@@ -73,7 +77,7 @@ const ExtendedButtons = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
             onChange={(e) => setLocalDateTill(e.target.value)}
           />
         </>
-        <NavButton onClick={handleDatedFetch}>Search</NavButton>
+        <NavButton onClick={handleDatedFetch}>Search dates</NavButton>
         <NavButton onClick={handleClearFilter}>Clear filter</NavButton>
       </div>
     </div>
