@@ -2,17 +2,77 @@ import { useNavigate, useParams } from "react-router-dom";
 import classes from "./navArea.module.scss";
 import NavButton from "./navButton";
 import NavTitle from "./navTitle";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SearchInput from "../searchInput/searchInput";
 
 const ExtendedButtons = () => {
+  const inputRefOne = useRef();
+  const inputRefTwo = useRef();
+  const [arean, setArea] = useState(null);
+  const [dateFrom, setDateFrom] = useState(null);
+  const [dateTill, setDateTill] = useState(null);
+  const today = new Date().toISOString().split("T")[0];
+
+  const handleDateFromShowPicker = () => {
+    inputRefOne?.current?.showPicker();
+  };
+
+  const handleDateTillShowPicker = () => {
+    inputRefTwo?.current?.showPicker();
+  };
+
+  const handleClearFilter = () => {
+    setDateFrom(null);
+    setDateTill(null);
+    setArea(null);
+  };
+
+  useEffect(() => {
+    console.log(dateFrom, dateTill);
+  }, [dateFrom, dateTill]);
+
+  const handleDateTill = (e) => {
+    setDateTill(e);
+  };
+
   return (
     <div className={classes.extendedButtons}>
       <div className={classes.extendedButtonsWrapper}>
         <NavButton onClick={() => {}}>Area</NavButton>
-        <NavButton onClick={() => {}}>Date from</NavButton>
-        <NavButton onClick={() => {}}>Date till</NavButton>
-        <NavButton onClick={() => {}}>Clear filter</NavButton>
+        <>
+          <NavButton onClick={handleDateFromShowPicker}>
+            {dateFrom || "Date from"}
+          </NavButton>
+          <input
+            type="date"
+            ref={inputRefOne}
+            style={{
+              width: "0px",
+              height: "0px",
+              opacity: "0",
+            }}
+            min={today}
+            onChange={(e) => setDateFrom(e.target.value)}
+          />
+        </>
+        <>
+          <NavButton onClick={handleDateTillShowPicker}>
+            {dateTill || "Date till"}
+          </NavButton>
+          <input
+            type="date"
+            ref={inputRefTwo}
+            style={{
+              width: "0px",
+              height: "0px",
+              opacity: "0",
+            }}
+            min={dateFrom || today}
+            onChange={(e) => handleDateTill(e.target.value)}
+            onClick={(e) => handleDateTill(e.target.value)}
+          />
+        </>
+        <NavButton onClick={handleClearFilter}>Clear filter</NavButton>
       </div>
     </div>
   );
