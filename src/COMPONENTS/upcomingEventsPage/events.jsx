@@ -4,7 +4,7 @@ import Event from "./eventComp";
 import classes from "./upcomingEvents.module.scss";
 import { EventContext } from "../../App";
 
-const Events = () => {
+const Events = ({ maxViewEVent, minViewEvent }) => {
   // useState for loading (via the useContext(eventContext)). I need it for setTimeout
   const [displayEvents, setDisplayEvents] = useState(false);
 
@@ -104,26 +104,34 @@ const Events = () => {
   return (
     <div className={classes.events}>
       {displayEvents ? (
-        eventsArray.map((event, index) => (
-          <div
-            key={index}
-            ref={(el) => (elementsRef.current[index] = el)}
-            className={classes.eventContainer}
-            onClick={() => setClickedEvent(index)}
-          >
-            <Event
-              title={event?._embedded?.attractions[0]?.name}
-              date={event?.dates?.start?.localDate}
-              image={event?.images[0]}
-              country={event?._embedded?.venues[0]?.country?.name}
-              city={event?._embedded?.venues[0]?.city?.name}
-              location={event?._embedded?.venues[0]?.address?.line1}
-              imageClicked={clickedEvent === index ? imageClicked : ""}
-              setImageClicked={setImageClicked}
-              onClickLink={event?._embedded?.attractions[0]?.url}
-            />
-          </div>
-        ))
+        eventsArray.map(
+          (event, index) =>
+            index >= minViewEvent &&
+            index <= maxViewEVent && (
+              <div
+                key={index}
+                ref={(el) => (elementsRef.current[index] = el)}
+                className={classes.eventContainer}
+                onClick={() => setClickedEvent(index)}
+              >
+                <Event
+                  title={
+                    event?._embedded?.attractions?.[0]?.name || event?.name
+                  }
+                  date={event?.dates?.start?.localDate}
+                  image={event?.images[0]}
+                  country={event?._embedded?.venues[0]?.country?.name}
+                  city={event?._embedded?.venues[0]?.city?.name}
+                  location={event?._embedded?.venues[0]?.address?.line1}
+                  imageClicked={clickedEvent === index ? imageClicked : ""}
+                  setImageClicked={setImageClicked}
+                  onClickLink={
+                    event?._embedded?.attractions?.[0]?.url || event?.url
+                  }
+                />
+              </div>
+            )
+        )
       ) : (
         <h1>Loading</h1>
       )}

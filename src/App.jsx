@@ -11,12 +11,12 @@ import { useEffect, useState, createContext, useCallback } from "react";
 
 export const EventContext = createContext();
 
-const fetchData = async () => {
+const fetchData = async (size, page) => {
   const BASE_URL =
     "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&countryCode=SE";
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
-  const url = `${BASE_URL}&apikey=${ticketMasterApiKey}`;
+  const url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0`;
   try {
     const response = await fetch(url);
 
@@ -25,6 +25,7 @@ const fetchData = async () => {
     }
 
     const data = await response.json();
+
     return data || [];
   } catch (error) {
     console.error("fetch error", error);
@@ -51,7 +52,7 @@ function App() {
       setEvents(fetchedData._embedded);
       setLoading(false);
     }
-  }, []);
+  });
 
   useEffect(() => {
     getEvents();
