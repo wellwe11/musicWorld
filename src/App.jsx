@@ -24,10 +24,7 @@ const fetchData = async (size, page, dateStart, dateEnd, genre) => {
   }
 
   if (genre) {
-    console.log("Adding genre:", genre);
     url += `&genreId=${genre}`;
-
-    console.log(url);
   }
 
   try {
@@ -130,6 +127,5 @@ export default App;
 /**
  *
  * Fix search-bar
- * fix genre-button
- * style genre-button
+ * Fix page button so you cant click into pages that dont exist
  */
