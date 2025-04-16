@@ -7,7 +7,7 @@ import {
   musicGenres,
 } from "./inputInformation.jsx";
 
-const SearchInput = () => {
+const SearchInput = ({ setDateFrom, setDateTill, setGenre, setCountry }) => {
   const [input, setInput] = useState(null);
 
   const handleInputChange = (e) => {
@@ -27,10 +27,12 @@ const SearchInput = () => {
 
       if (isoCountries[checkedInput]) {
         console.log(isoCountries[checkedInput]);
+        setCountry(isoCountries[checkedInput]);
       }
 
       if (musicGenres[checkedInput]) {
         console.log(musicGenres[checkedInput]);
+        setGenre(musicGenres[checkedInput]);
       }
 
       console.log(checkedInput);
@@ -40,8 +42,30 @@ const SearchInput = () => {
 
     if (cleanedInput && Number(cleanedInput)) {
       const date = new Date(`${input}`);
-      let formattedDate = date.toUTCString();
-      console.log(formattedDate);
+      const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 2));
+      const [year, month, day] = [
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+      ];
+
+      const [tillYear, tillMonth, tillDay] = [
+        tillDate.getFullYear(),
+        tillDate.getMonth(),
+        tillDate.getDate(),
+      ];
+
+      const formattedDate = `${year}-${month < 9 ? 0 : ""}${month + 1}-${
+        day < 10 ? 0 : ""
+      }${day}`;
+
+      const formattedTillDate = `${tillYear}-${tillMonth < 9 ? 0 : ""}${
+        tillMonth + 1
+      }-${tillDay < 10 ? 0 : ""}${tillDay}`;
+
+      console.log(formattedDate, formattedTillDate);
+      setDateFrom(formattedDate);
+      setDateTill(formattedTillDate);
     }
   };
 

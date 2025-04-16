@@ -145,6 +145,7 @@ const NavBar = ({
   dateTill,
   genre,
   setGenre,
+  setCountry,
 }) => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
@@ -175,7 +176,12 @@ const NavBar = ({
   return (
     <div className={classes.navBarContainer}>
       <NavTitle />
-      <SearchInput />
+      <SearchInput
+        setDateFrom={setDateFrom}
+        setDateTill={setDateTill}
+        setGenre={setGenre}
+        setCountry={setCountry}
+      />
       <div
         className={`${classes.navBarButtons} ${
           !activeButton > 0 ? classes.buttonActive : ""

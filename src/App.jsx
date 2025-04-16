@@ -12,9 +12,9 @@ import Footer from "./COMPONENTS/defaultPage/footer/footer";
 
 export const EventContext = createContext();
 
-const fetchData = async (size, page, dateStart, dateEnd, genre) => {
+const fetchData = async (size, page, dateStart, dateEnd, genre, country) => {
   const BASE_URL =
-    "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&countryCode=SE";
+    "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music";
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
   let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0`;
@@ -25,6 +25,12 @@ const fetchData = async (size, page, dateStart, dateEnd, genre) => {
 
   if (genre) {
     url += `&genreId=${genre}`;
+  }
+
+  if (country) {
+    url += `&countryCode=${country}`;
+  } else {
+    url += `&countryCode=SE`;
   }
 
   try {
@@ -50,6 +56,7 @@ function App() {
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTill, setDateTill] = useState(null);
   const [genre, setGenre] = useState(null);
+  const [country, setCountry] = useState(null);
 
   const namePage = {
     upcomingEvents: UpcomingEventsPage,
@@ -60,14 +67,15 @@ function App() {
   const PageToView = namePage[name];
 
   const getEvents = useCallback(
-    async (size, page, dateStart, dateEnd, genre) => {
+    async (size, page, dateStart, dateEnd, genre, country) => {
       setLoading(true);
       const fetchedData = await fetchData(
         size,
         page,
         dateStart,
         dateEnd,
-        genre
+        genre,
+        country
       );
       if (fetchedData) {
         setEvents(fetchedData._embedded);
@@ -82,17 +90,21 @@ function App() {
 
   useEffect(() => {
     if (dateFrom && dateTill) {
-      getEvents("", "", dateFrom, dateTill, "");
+      getEvents("", "", dateFrom, dateTill, "", "");
     }
 
     if (genre) {
-      getEvents("", "", "", "", genre);
+      getEvents("", "", "", "", genre, "");
+    }
+
+    if (country) {
+      getEvents("", "", "", "", "", country);
     }
 
     if (!dateFrom && !dateTill && !genre) {
       getEvents();
     }
-  }, [dateFrom, dateTill, genre]);
+  }, [dateFrom, dateTill, genre, country]);
 
   return (
     <div className="appContainer">
@@ -104,6 +116,7 @@ function App() {
           dateTill={dateTill}
           genre={genre}
           setGenre={setGenre}
+          setCountry={setCountry}
         />
         <div className={classes.routesContainer}>
           {name && events ? (
