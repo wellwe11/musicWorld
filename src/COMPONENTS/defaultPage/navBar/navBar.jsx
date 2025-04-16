@@ -5,11 +5,20 @@ import NavTitle from "./navTitle";
 import React, { useEffect, useRef, useState } from "react";
 import SearchInput from "../searchInput/searchInput";
 
-const ExtendedButtons = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
+const ExtendedButtons = ({
+  setDateFrom,
+  setDateTill,
+  dateFrom,
+  dateTill,
+  genre,
+  setGenre,
+}) => {
   const inputRefOne = useRef();
   const inputRefTwo = useRef();
   const [localDateFrom, setLocalDateFrom] = useState();
   const [localDateTill, setLocalDateTill] = useState();
+  const [localGenre, setLocalGenre] = useState();
+  const [genreClicked, setGenreClicked] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -21,24 +30,47 @@ const ExtendedButtons = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
     inputRefTwo?.current?.showPicker();
   };
 
+  const handleGenreClicked = () => {
+    genreClicked ? setGenreClicked(false) : setGenreClicked(true);
+  };
+
   const handleClearFilter = () => {
     setDateFrom(null);
     setDateTill(null);
     setLocalDateFrom(null);
     setLocalDateTill(null);
+    setLocalGenre(null);
+    setGenre(null);
   };
 
-  useEffect(() => {
-    console.log(dateFrom, dateTill);
-  }, [dateFrom, dateTill]);
-
   const handleDatedFetch = () => {
+    if (
+      (localDateFrom && !localDateTill) ||
+      (!localDateFrom && localDateTill)
+    ) {
+      console.log("To use dates, please update both from and till.");
+    }
+
     if (localDateFrom && localDateTill) {
       setDateFrom(localDateFrom);
       setDateTill(localDateTill);
-    } else {
-      console.log("need to input both dates");
     }
+
+    if (localGenre) {
+      setGenre(localGenre);
+    }
+  };
+
+  const musicGenres = {
+    KnvZfZ7vAeA: "Rock",
+    KnvZfZ7vAev: "Pop",
+    KnvZfZ7vAv1: "Hip-Hop",
+    KnvZfZ7vAee: "R&B",
+    KnvZfZ7vAvE: "Jazz",
+    KnvZfZ7v7nJ: "Classical",
+    KnvZfZ7vAv6: "Country",
+    KnvZfZ7vAvF: "Electronic",
+    KnvZfZ7vAvt: "Metal",
   };
 
   return (
@@ -77,14 +109,43 @@ const ExtendedButtons = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
             onChange={(e) => setLocalDateTill(e.target.value)}
           />
         </>
-        <NavButton onClick={handleDatedFetch}>Search dates</NavButton>
+        <>
+          <NavButton onClick={handleGenreClicked}>
+            {musicGenres[localGenre] || musicGenres[genre] || "Genre"}
+          </NavButton>
+          {genreClicked && (
+            <div className={classes.genreContainer}>
+              <ul>
+                {Object.keys(musicGenres).map((genre, index) => (
+                  <button
+                    onClick={() => {
+                      handleGenreClicked();
+                      setLocalGenre(genre);
+                    }}
+                    key={index}
+                  >
+                    {musicGenres[genre]}
+                  </button>
+                ))}
+              </ul>
+            </div>
+          )}
+        </>
+        <NavButton onClick={handleDatedFetch}>Search filter</NavButton>
         <NavButton onClick={handleClearFilter}>Clear filter</NavButton>
       </div>
     </div>
   );
 };
 
-const NavBar = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
+const NavBar = ({
+  setDateFrom,
+  setDateTill,
+  dateFrom,
+  dateTill,
+  genre,
+  setGenre,
+}) => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
   const { home, name } = useParams();
@@ -140,6 +201,8 @@ const NavBar = ({ setDateFrom, setDateTill, dateFrom, dateTill }) => {
             setDateTill={setDateTill}
             dateFrom={dateFrom}
             dateTill={dateTill}
+            setGenre={setGenre}
+            genre={genre}
           />
         )}
       </div>
