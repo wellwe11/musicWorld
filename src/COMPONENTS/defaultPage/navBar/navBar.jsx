@@ -31,7 +31,11 @@ const ExtendedButtons = ({
   };
 
   const handleGenreClicked = () => {
-    genreClicked ? setGenreClicked(false) : setGenreClicked(true);
+    const timeout = setTimeout(() => {
+      genreClicked ? setGenreClicked(false) : setGenreClicked(true);
+    }, 200);
+
+    return () => clearTimeout(timeout);
   };
 
   const handleClearFilter = () => {
@@ -115,7 +119,7 @@ const ExtendedButtons = ({
           </NavButton>
           {genreClicked && (
             <div className={classes.genreContainer}>
-              <ul>
+              <ul onMouseLeave={handleGenreClicked}>
                 {Object.keys(musicGenres).map((genre, index) => (
                   <button
                     onClick={() => {
@@ -145,7 +149,10 @@ const NavBar = ({
   dateTill,
   genre,
   setGenre,
+  country,
   setCountry,
+  city,
+  setCity,
 }) => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
@@ -180,7 +187,10 @@ const NavBar = ({
         setDateFrom={setDateFrom}
         setDateTill={setDateTill}
         setGenre={setGenre}
+        country={country}
         setCountry={setCountry}
+        city={city}
+        setCity={setCity}
       />
       <div
         className={`${classes.navBarButtons} ${

@@ -5,10 +5,62 @@ import {
   isoCountries,
   regionsNotCountries,
   musicGenres,
+  bigCities,
 } from "./inputInformation.jsx";
 
-const SearchInput = ({ setDateFrom, setDateTill, setGenre, setCountry }) => {
-  const [input, setInput] = useState(null);
+const CountrySelect = ({ country, setCountry }) => {
+  const [containerClicked, setContainerClicked] = useState(false);
+  const [countryISO, setCountryISO] = useState();
+
+  const handleContainerClicked = () => {
+    const timeout = setTimeout(() => {
+      containerClicked ? setContainerClicked(false) : setContainerClicked(true);
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  };
+
+  useEffect(() => {
+    setCountryISO(country);
+  }, [country]);
+
+  return (
+    <div className={classes.countrySelect}>
+      <div onMouseDown={handleContainerClicked}>
+        {containerClicked && (
+          <div
+            className={classes.countiesContainer}
+            onMouseLeave={handleContainerClicked}
+          >
+            {Object.values(isoCountries).map((country, index) => (
+              <button
+                onClick={() => {
+                  setCountryISO(country);
+                  setCountry(country);
+                }}
+                key={index}
+              >
+                {country}
+              </button>
+            ))}
+          </div>
+        )}
+        <button>{countryISO}</button>
+      </div>
+    </div>
+  );
+};
+
+const SearchInput = ({
+  setDateFrom,
+  setDateTill,
+  setGenre,
+  country,
+  setCountry,
+  city,
+  setCity,
+}) => {
+  const [input, setInput] = useState("");
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -16,9 +68,8 @@ const SearchInput = ({ setDateFrom, setDateTill, setGenre, setCountry }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
 
-    if (!Number(input)) {
+    if (!Number(input) && input) {
       let checkedInput = input.toString("").toLowerCase();
 
       if (regionsNotCountries.includes(checkedInput)) {
@@ -28,6 +79,12 @@ const SearchInput = ({ setDateFrom, setDateTill, setGenre, setCountry }) => {
       if (isoCountries[checkedInput]) {
         console.log(isoCountries[checkedInput]);
         setCountry(isoCountries[checkedInput]);
+        setInput("");
+        setCity("");
+      }
+
+      if (bigCities[country][checkedInput]) {
+        setCity(bigCities[country][checkedInput]);
       }
 
       if (musicGenres[checkedInput]) {
@@ -38,9 +95,10 @@ const SearchInput = ({ setDateFrom, setDateTill, setGenre, setCountry }) => {
       console.log(checkedInput);
     }
 
-    let cleanedInput = input.replace(/[^0-9]/g, "");
+    let cleanedInput;
 
     if (cleanedInput && Number(cleanedInput)) {
+      cleanedInput = input.replace(/[^0-9]/g, "");
       const date = new Date(`${input}`);
       const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 2));
       const [year, month, day] = [
@@ -74,10 +132,12 @@ const SearchInput = ({ setDateFrom, setDateTill, setGenre, setCountry }) => {
       <div className={classes.searchIcon}>
         <SearchSVG />
       </div>
+      <CountrySelect setCountry={setCountry} country={country} />
       <input
         className={classes.searchInput}
         placeholder="write something..."
         onChange={handleInputChange}
+        value={input}
       ></input>
     </form>
   );
