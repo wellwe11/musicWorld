@@ -34,6 +34,7 @@ const Events = ({ maxViewEVent, minViewEvent }) => {
   // such as the fetch. Loading is then turned true or false depending on the return of the JSON
   useEffect(() => {
     console.log(loading, "loading...");
+
     if (!loading) {
       const timer = setTimeout(() => {
         setDisplayEvents(true);
@@ -64,9 +65,21 @@ const Events = ({ maxViewEVent, minViewEvent }) => {
       }
     });
 
-    // finally push array to components local state
     if (updatedArray.length > 0) {
-      setEventsArray(updatedArray);
+      // sort items by date
+      const sortedUpdatedArray = updatedArray.sort((a, b) => {
+        let numOne = a?.dates?.start?.localDate
+          .toString("")
+          .replaceAll("-", "");
+        let numTwo = b?.dates?.start?.localDate
+          .toString("")
+          .replaceAll("-", "");
+
+        return +numOne - +numTwo;
+      });
+
+      // finally push array to components local state
+      setEventsArray(sortedUpdatedArray);
     }
   };
 

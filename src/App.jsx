@@ -100,3 +100,12 @@ function App() {
 }
 
 export default App;
+
+// to read for tomorrow:
+
+/**
+ *
+ * Figure out if we need a genre-button
+ * Fix search-bar
+
+ */

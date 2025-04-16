@@ -37,6 +37,11 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
     }
   }, [imageClicked]);
 
+  // prevents the events to load play on mount
+  useEffect(() => {
+    setImageClicked(false);
+  }, []);
+
   return (
     <div
       className={classes.eventImage}
