@@ -68,6 +68,7 @@ const SearchInput = ({
   setCity,
 }) => {
   const [input, setInput] = useState("");
+  let placeholderIndex = Object.values(isoCountries).indexOf(country);
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -145,7 +146,9 @@ const SearchInput = ({
       />
       <input
         className={classes.searchInput}
-        placeholder="write something..."
+        placeholder={`Search for events in ${
+          Object.keys(isoCountries)[placeholderIndex]
+        } ${", " + city + "..."}`}
         onChange={handleInputChange}
         value={input}
       ></input>
