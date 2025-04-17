@@ -49,7 +49,7 @@ const UpcomingEventsPage = () => {
   }, [maxViewEvent]);
 
   return (
-    <div>
+    <div className={classes.UpcomingEventsPage}>
       <Events minViewEvent={minViewEvent} maxViewEVent={maxViewEvent} />
       <PageToView currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>

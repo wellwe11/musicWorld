@@ -83,56 +83,387 @@ export const isoCountries = {
   uruguay: "UY",
   venezuela: "VE",
 };
-
 export const bigCities = {
-  SE: {
-    stockholm: "Stockholm",
-    gothenburg: "Gothenburg",
-    malmö: "Malmö",
-    uppsala: "Uppsala",
-    västerås: "Västerås",
+  US: {
+    new_york: "NY",
+    los_angeles: "LA",
+    chicago: "Chi",
+    houston: "Hou",
+    miami: "Mia",
   },
-  DE: {
-    berlin: "Berlin",
-    munich: "Munich",
-    hamburg: "Hamburg",
-    cologne: "Cologne",
-    frankfurt: "Frankfurt",
+  AD: {
+    andorra_la_vella: "AV",
+    escaldes: "Es",
   },
-  NO: {
-    oslo: "Oslo",
-    bergen: "Bergen",
-    stavanger: "Stavanger",
-    trondheim: "Trondheim",
-    drammen: "Drammen",
+  AI: {
+    the_valley: "TV",
+    blowing_point: "BP",
   },
-  PL: {
-    warsaw: "Warsaw",
-    kraków: "Kraków",
-    łódź: "Łódź",
-    wrocław: "Wrocław",
-    gdańsk: "Gdańsk",
+  AR: {
+    buenos_aires: "BA",
+    cordoba: "Co",
+    rosario: "Ro",
+    mendoza: "Me",
+  },
+  AU: {
+    sydney: "Sy",
+    melbourne: "Me",
+    brisbane: "Br",
+    perth: "Pe",
+    adelaide: "Ad",
+  },
+  AT: {
+    vienna: "Vi",
+    graz: "Gr",
+    linz: "Li",
+    salzburg: "Sa",
+  },
+  AZ: {
+    baku: "Ba",
+    ganja: "Ga",
+    sumqayit: "Su",
+  },
+  BS: {
+    nassau: "Na",
+    freeport: "Fr",
+  },
+  BH: {
+    manama: "Ma",
+    riffa: "Ri",
+  },
+  BB: {
+    bridgetown: "Br",
+    speightstown: "Sp",
+  },
+  BE: {
+    brussels: "Br",
+    antwerp: "An",
+    ghent: "Gh",
+    bruges: "Brg",
+  },
+  BM: {
+    hamilton: "Ha",
+    saint_george: "SG",
+  },
+  BR: {
+    sao_paulo: "SP",
+    rio_de_janeiro: "RJ",
+    brasilia: "Br",
+    salvador: "Sa",
+  },
+  BG: {
+    sofia: "So",
+    plovdiv: "Pl",
+    varna: "Va",
+  },
+  CA: {
+    toronto: "To",
+    vancouver: "Va",
+    montreal: "Mo",
+    calgary: "Ca",
+  },
+  CL: {
+    santiago: "Sa",
+    valparaiso: "Va",
+    concepcion: "Co",
+  },
+  CN: {
+    beijing: "Be",
+    shanghai: "Sh",
+    guangzhou: "Gu",
+    shenzhen: "SZ",
+  },
+  CO: {
+    bogota: "Bo",
+    medellin: "Me",
+    cali: "Ca",
+  },
+  CR: {
+    san_jose: "SJ",
+    limon: "Li",
+  },
+  HR: {
+    zagreb: "Za",
+    split: "Sp",
+    rijeka: "Ri",
+  },
+  CY: {
+    nicosia: "Ni",
+    limassol: "Li",
+  },
+  CZ: {
+    prague: "Pr",
+    brno: "Br",
+    ostrava: "Os",
+  },
+  DK: {
+    copenhagen: "Co",
+    aarhus: "Aa",
+    odense: "Od",
+  },
+  DO: {
+    santo_domingo: "SD",
+    santiago: "Sa",
+  },
+  EC: {
+    quito: "Qi",
+    guayaquil: "Gu",
+  },
+  EE: {
+    tallinn: "Ta",
+    tartu: "Ta",
+  },
+  FO: {
+    torshavn: "To",
+    klaksvik: "Kl",
   },
   FI: {
-    helsinki: "Helsinki",
-    espoo: "Espoo",
-    tampere: "Tampere",
-    vantaa: "Vantaa",
-    oulu: "Oulu",
+    helsinki: "He",
+    espoo: "Es",
+    tampere: "Ta",
+    vantaa: "Va",
+    oulu: "Ou",
+  },
+  FR: {
+    paris: "Pa",
+    marseille: "Ma",
+    lyon: "Ly",
+    toulouse: "To",
+    nice: "Ni",
+  },
+  GE: {
+    tbilisi: "Tb",
+    batumi: "Ba",
+  },
+  DE: {
+    berlin: "Be",
+    munich: "Mu",
+    hamburg: "Ha",
+    cologne: "Co",
+    frankfurt: "Fr",
+  },
+  GH: {
+    accra: "Ac",
+    kumasi: "Ku",
+  },
+  GI: {
+    gibraltar: "Gi",
   },
   GB: {
-    london: "London",
-    birmingham: "Birmingham",
-    manchester: "Manchester",
-    liverpool: "Liverpool",
-    leeds: "Leeds",
+    london: "Lo",
+    birmingham: "Bi",
+    manchester: "Ma",
+    liverpool: "Li",
+    leeds: "Le",
+  },
+  GR: {
+    athens: "At",
+    thessaloniki: "Th",
+  },
+  HK: {
+    hong_kong: "HK",
+  },
+  HU: {
+    budapest: "Bu",
+    debrecen: "De",
+  },
+  IS: {
+    reykjavik: "Re",
+    akureyri: "Ak",
+  },
+  IN: {
+    mumbai: "Mu",
+    delhi: "De",
+    bangalore: "Ba",
+    chennai: "Ch",
+    kolkata: "Ko",
+  },
+  IE: {
+    dublin: "Du",
+    cork: "Co",
+  },
+  IL: {
+    tel_aviv: "TA",
+    jerusalem: "Je",
+  },
+  IT: {
+    rome: "Ro",
+    milan: "Mi",
+    naples: "Na",
+    turin: "Tu",
+  },
+  JM: {
+    kingston: "Ki",
+    montego_bay: "MB",
+  },
+  JP: {
+    tokyo: "To",
+    osaka: "Os",
+    kyoto: "Ky",
+  },
+  KR: {
+    seoul: "Se",
+    busan: "Bu",
+  },
+  LV: {
+    riga: "Ri",
+    daugavpils: "Da",
+  },
+  LB: {
+    beirut: "Be",
+  },
+  LT: {
+    vilnius: "Vi",
+    kaunas: "Ka",
+  },
+  LU: {
+    luxembourg: "Lu",
+  },
+  MY: {
+    kuala_lumpur: "KL",
+    george_town: "GT",
+  },
+  MT: {
+    valletta: "Va",
+    birkirkara: "Bi",
+  },
+  MX: {
+    mexico_city: "MC",
+    guadalajara: "Gu",
+    monterrey: "Mo",
+  },
+  MC: {
+    monaco: "Mo",
+  },
+  ME: {
+    podgorica: "Po",
+    niksic: "Ni",
+  },
+  MA: {
+    casablanca: "Ca",
+    rabat: "Ra",
+  },
+  NL: {
+    amsterdam: "Am",
+    rotterdam: "Ro",
+    the_hague: "TH",
+    utrecht: "Ut",
+  },
+  AN: {
+    willemstad: "Wi",
+  },
+  NZ: {
+    auckland: "Au",
+    wellington: "We",
+    christchurch: "Ch",
+  },
+  ND: {
+    belfast: "Be",
+    derry: "De",
+  },
+  NO: {
+    oslo: "Os",
+    bergen: "Be",
+    stavanger: "St",
+    trondheim: "Tr",
+  },
+  PE: {
+    lima: "Li",
+    arequipa: "Ar",
+  },
+  PL: {
+    warsaw: "Wa",
+    krakow: "Kr",
+    wroclaw: "Wr",
+    gdansk: "Gd",
+  },
+  PT: {
+    lisbon: "Li",
+    porto: "Po",
+  },
+  RO: {
+    bucharest: "Bu",
+    cluj: "Cl",
+  },
+  RU: {
+    moscow: "Mo",
+    saint_petersburg: "SP",
+  },
+  LC: {
+    castries: "Ca",
+  },
+  SA: {
+    riyadh: "Ri",
+    jeddah: "Je",
+  },
+  RS: {
+    belgrade: "Be",
+    novi_sad: "NS",
+  },
+  SG: {
+    singapore: "Si",
+  },
+  SK: {
+    bratislava: "Br",
+    kosice: "Ko",
+  },
+  SI: {
+    ljubljana: "Lj",
+    maribor: "Ma",
+  },
+  ZA: {
+    johannesburg: "Jo",
+    cape_town: "CT",
   },
   ES: {
-    madrid: "Madrid",
-    barcelona: "Barcelona",
-    valencia: "Valencia",
-    seville: "Seville",
-    zaragoza: "Zaragoza",
+    madrid: "Ma",
+    barcelona: "Ba",
+    valencia: "Va",
+    seville: "Se",
+  },
+  SE: {
+    stockholm: "St",
+    gothenburg: "Go",
+    malmö: "Ma",
+    uppsala: "Up",
+    västerås: "Vä",
+  },
+  CH: {
+    zurich: "Zu",
+    geneva: "Ge",
+    basel: "Ba",
+  },
+  TW: {
+    taipei: "Ta",
+    kaohsiung: "Ka",
+  },
+  TH: {
+    bangkok: "Ba",
+    chiang_mai: "CM",
+  },
+  TT: {
+    port_of_spain: "PS",
+    san_fernando: "SF",
+  },
+  TR: {
+    istanbul: "Is",
+    ankara: "An",
+    izmir: "Iz",
+  },
+  UA: {
+    kyiv: "Ky",
+    lviv: "Lv",
+  },
+  AE: {
+    dubai: "Du",
+    abu_dhabi: "AD",
+  },
+  UY: {
+    montevideo: "Mo",
+  },
+  VE: {
+    caracas: "Ca",
+    maracaibo: "Ma",
   },
 };
 

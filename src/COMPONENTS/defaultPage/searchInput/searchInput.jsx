@@ -8,9 +8,9 @@ import {
   bigCities,
 } from "./inputInformation.jsx";
 
-const CountrySelect = ({ country, setCountry }) => {
+const CountrySelect = ({ getter, setter, object }) => {
   const [containerClicked, setContainerClicked] = useState(false);
-  const [countryISO, setCountryISO] = useState();
+  const [localSetter, setLocalSetter] = useState();
 
   const handleContainerClicked = () => {
     const timeout = setTimeout(() => {
@@ -21,8 +21,8 @@ const CountrySelect = ({ country, setCountry }) => {
   };
 
   useEffect(() => {
-    setCountryISO(country);
-  }, [country]);
+    setLocalSetter(getter);
+  }, [getter]);
 
   return (
     <div className={classes.countrySelect}>
@@ -32,20 +32,27 @@ const CountrySelect = ({ country, setCountry }) => {
             className={classes.countiesContainer}
             onMouseLeave={handleContainerClicked}
           >
-            {Object.values(isoCountries).map((country, index) => (
+            {object.map((value, index) => (
               <button
                 onClick={() => {
-                  setCountryISO(country);
-                  setCountry(country);
+                  setLocalSetter(value);
+                  setter(value);
                 }}
                 key={index}
               >
-                {country}
+                {value}
               </button>
             ))}
           </div>
         )}
-        <button>{countryISO}</button>
+        {localSetter && localSetter.length > 1 ? (
+          <button>
+            {localSetter[0]}
+            {localSetter[1]}
+          </button>
+        ) : (
+          <button>{localSetter}</button>
+        )}
       </div>
     </div>
   );
@@ -77,7 +84,6 @@ const SearchInput = ({
       }
 
       if (isoCountries[checkedInput]) {
-        console.log(isoCountries[checkedInput]);
         setCountry(isoCountries[checkedInput]);
         setInput("");
         setCity("");
@@ -88,19 +94,15 @@ const SearchInput = ({
       }
 
       if (musicGenres[checkedInput]) {
-        console.log(musicGenres[checkedInput]);
         setGenre(musicGenres[checkedInput]);
       }
-
-      console.log(checkedInput);
     }
 
-    let cleanedInput;
+    let cleanedInput = input.replace(/[^0-9]/g, "");
 
     if (cleanedInput && Number(cleanedInput)) {
-      cleanedInput = input.replace(/[^0-9]/g, "");
       const date = new Date(`${input}`);
-      const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 2));
+      const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 3));
       const [year, month, day] = [
         date.getFullYear(),
         date.getMonth(),
@@ -121,7 +123,6 @@ const SearchInput = ({
         tillMonth + 1
       }-${tillDay < 10 ? 0 : ""}${tillDay}`;
 
-      console.log(formattedDate, formattedTillDate);
       setDateFrom(formattedDate);
       setDateTill(formattedTillDate);
     }
@@ -132,7 +133,16 @@ const SearchInput = ({
       <div className={classes.searchIcon}>
         <SearchSVG />
       </div>
-      <CountrySelect setCountry={setCountry} country={country} />
+      <CountrySelect
+        getter={country}
+        setter={setCountry}
+        object={Object.values(isoCountries)}
+      />
+      <CountrySelect
+        getter={city}
+        setter={setCity}
+        object={Object.keys(bigCities[country])}
+      />
       <input
         className={classes.searchInput}
         placeholder="write something..."

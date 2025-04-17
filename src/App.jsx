@@ -9,6 +9,7 @@ import UpcomingEventsPage from "./PAGES/upcomingEvents";
 
 import NavBar from "./COMPONENTS/defaultPage/navBar/navBar";
 import Footer from "./COMPONENTS/defaultPage/footer/footer";
+import { bigCities } from "./COMPONENTS/defaultPage/searchInput/inputInformation";
 
 export const EventContext = createContext();
 
@@ -35,15 +36,14 @@ const fetchData = async (
   }
 
   if (country) {
-    url += `&countryCode=${country}`;
-  } else if (!country) {
-    url += `&locale=DE`;
+    url += `&countryCode=${country}&city=${city}`;
   }
 
   if (city) {
     url += `&city=${city}`;
-    console.log("city:", url);
   }
+
+  console.log(url);
 
   try {
     const response = await fetch(url);
@@ -69,7 +69,7 @@ function App() {
   const [dateTill, setDateTill] = useState(null);
   const [genre, setGenre] = useState(null);
   const [country, setCountry] = useState("DE");
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState(Object.keys(bigCities[country])[0]);
 
   const namePage = {
     upcomingEvents: UpcomingEventsPage,
@@ -99,33 +99,25 @@ function App() {
   );
 
   useEffect(() => {
-    getEvents();
+    getEvents("", "", "", "", "", country, city);
   }, []);
 
   useEffect(() => {
-    if (dateFrom && dateTill) {
-      getEvents("", "", dateFrom, dateTill, "", "", "");
+    setCity(Object.keys(bigCities[country])[0]);
+  }, [country]);
+
+  useEffect(() => {
+    if (dateFrom || dateTill || genre || country || city) {
+      getEvents("", "", dateFrom, dateTill, genre, country, city);
     }
 
-    if (genre) {
-      getEvents("", "", "", "", genre, "", "");
-    }
-
-    if (country) {
-      getEvents("", "", "", "", "", country, "");
-    }
-
-    if (city) {
-      getEvents("", "", "", "", "", country, city);
-    }
-
-    if (!dateFrom && !dateTill && !genre && !country) {
+    if (!dateFrom && !dateTill && !genre && !country && city) {
       getEvents();
     }
   }, [dateFrom, dateTill, genre, country, city]);
 
   return (
-    <div className="appContainer">
+    <div className={classes.appContainer}>
       <EventContext.Provider value={{ events, loading }}>
         <NavBar
           setDateFrom={setDateFrom}
@@ -161,5 +153,15 @@ export default App;
 /**
  *
  * Fix search-bar
+ * -- there are buggs but currently theyre unknow.
+ * -- !!Note them down once they are found!!
+ *
  * Fix page button so you cant click into pages that dont exist
+ *
+ * Fix so that the container that has events scales!
+ * -- currently, if a event is too big, it drops down unto footer
+ *
+ * Make it so if you click enter on search-bar, "Upcoming Events" is automatically tabbed
+ *
+ * if you input country/city and later a number, my if's check for strings on numbers (because its inside of !Number() statement)
  */

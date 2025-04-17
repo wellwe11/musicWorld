@@ -13,7 +13,7 @@
   justify-content: center;
 
   .searchInput {
-    width: 89%;
+    width: 85%;
 
     border: none;
     outline: none;
@@ -47,32 +47,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 
   position: relative;
   margin-left: 5px;
   color: white;
 
-  z-index: 20;
   .countiesContainer {
-    margin-top: -150px;
+    z-index: 20;
+    margin-top: -5px;
+    margin-left: 30px;
     background-color: var(--buttonContainerTheme);
-    border: 1px solid black;
     display: flex;
     align-items: center;
 
-    flex-direction: column;
-
-    max-height: 300px;
-    width: 80px;
+    max-height: 40px;
+    max-width: 644px;
+    width: 40vw;
     overflow: scroll;
     position: absolute;
     z-index: 1;
 
     button {
+      z-index: 15;
       cursor: pointer;
       padding: 5px;
-      width: 90%;
+      min-width: 10%;
 
       transition: all 0.2s ease;
 

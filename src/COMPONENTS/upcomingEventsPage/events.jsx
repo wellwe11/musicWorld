@@ -58,7 +58,7 @@ const Events = ({ maxViewEVent, minViewEvent }) => {
     // events.events is the original fetch
     events?.events?.forEach((event) => {
       // add local variable for readable code
-      const idToNotMatch = event?._embedded?.attractions[0]?.id;
+      const idToNotMatch = event?._embedded?.attractions?.[0]?.id;
       if (idToNotMatch && !idSet.has(idToNotMatch)) {
         idSet.add(idToNotMatch);
         updatedArray.push(event);
