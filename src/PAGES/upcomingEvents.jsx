@@ -16,14 +16,11 @@ const PageToView = ({ currentPage, setCurrentPage }) => {
   const handleCurrentPage = (type) => {
     switch (type) {
       case "+":
-        if (currentPage < amountOfPages) {
-          return setCurrentPage((prevPage) => prevPage + 1);
-        }
-
+        if (currentPage < amountOfPages)
+          setCurrentPage((prevPage) => prevPage + 1);
         break;
       case "-":
-        if (currentPage > 1) return setCurrentPage((prevPage) => prevPage - 1);
-
+        if (currentPage > 1) setCurrentPage((prevPage) => prevPage - 1);
         break;
       default:
         return console.log("handleCurrentPage isn't working");
@@ -31,7 +28,6 @@ const PageToView = ({ currentPage, setCurrentPage }) => {
   };
 
   useEffect(() => {
-    console.log(currentPage);
     if (currentPage === 1) setMaxPagedReached("-");
 
     if (currentPage === amountOfPages) setMaxPagedReached("+");

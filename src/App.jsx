@@ -43,6 +43,7 @@ const fetchData = async (
     url += `&city=${city}`;
   }
 
+  console.log(url);
   try {
     const response = await fetch(url);
 
@@ -114,8 +115,9 @@ function App() {
   }, [name]);
 
   useEffect(() => {
+    console.log(dateFrom, dateTill, genre, country, city);
     fetchEvents();
-  }, [dateFrom, dateTill, genre, country, city, name]);
+  }, [dateFrom, dateTill, genre, country, city]);
 
   useEffect(() => {
     setCity(Object.keys(bigCities[country])[0]);

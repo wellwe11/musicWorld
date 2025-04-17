@@ -14,12 +14,16 @@ const CountrySelect = ({ getter, setter, object }) => {
   const [localSetter, setLocalSetter] = useState();
   const mouseTarget = useRef(null);
 
-  const handleContainerClicked = () => {
-    const timeout = setTimeout(() => {
-      containerClicked ? setContainerClicked(false) : setContainerClicked(true);
-    }, 50);
+  const handleContainerClicked = (e) => {
+    if (e && e.nativeEvent.pointerType === "mouse") {
+      const timeout = setTimeout(() => {
+        containerClicked
+          ? setContainerClicked(false)
+          : setContainerClicked(true);
+      }, 130);
 
-    return () => clearTimeout(timeout);
+      return () => clearTimeout(timeout);
+    }
   };
 
   const handleContainerClickedSlow = () => {
@@ -41,9 +45,8 @@ const CountrySelect = ({ getter, setter, object }) => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  });
+  }, [containerClicked]);
 
   useEffect(() => {
     setLocalSetter(getter);
@@ -51,7 +54,7 @@ const CountrySelect = ({ getter, setter, object }) => {
 
   return (
     <div className={classes.countrySelect}>
-      <div onMouseDown={handleContainerClicked}>
+      <div onClick={(e) => handleContainerClicked(e)}>
         {containerClicked && (
           <div
             className={classes.countiesContainer}
@@ -61,8 +64,8 @@ const CountrySelect = ({ getter, setter, object }) => {
             {object.map((value, index) => (
               <button
                 onClick={() => {
-                  setLocalSetter(value);
                   setter(value);
+                  setLocalSetter(value);
                 }}
                 key={index}
               >
@@ -165,7 +168,6 @@ const SearchInput = ({
     <form
       className={classes.searchInputContainer}
       onSubmit={(e) => {
-        handleNavigate("home/upcomingEvents");
         handleSubmit(e);
       }}
     >
