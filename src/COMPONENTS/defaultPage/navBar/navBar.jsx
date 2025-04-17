@@ -48,16 +48,26 @@ const ExtendedButtons = ({
   };
 
   const handleDatedFetch = () => {
-    if (
-      (localDateFrom && !localDateTill) ||
-      (!localDateFrom && localDateTill)
-    ) {
-      console.log("To use dates, please update both from and till.");
-    }
-
     if (localDateFrom && localDateTill) {
       setDateFrom(localDateFrom);
       setDateTill(localDateTill);
+    } else if (localDateFrom && !localDateTill) {
+      const date = new Date(`${localDateFrom}`);
+      const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 3));
+
+      console.log(tillDate);
+
+      const [tillYear, tillMonth, tillDay] = [
+        tillDate.getFullYear(),
+        tillDate.getMonth(),
+        tillDate.getDate(),
+      ];
+
+      const formattedTillDate = `${tillYear}-${tillMonth < 9 ? 0 : ""}${
+        tillMonth + 1
+      }-${tillDay < 10 ? 0 : ""}${tillDay}`;
+
+      setDateTill(formattedTillDate);
     }
 
     if (localGenre) {

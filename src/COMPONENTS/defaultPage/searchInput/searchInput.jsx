@@ -99,6 +99,7 @@ const SearchInput = ({
       }
     }
 
+    // clean out items to determine if the input was a date
     let cleanedInput = input.replace(/[^0-9]/g, "");
 
     if (cleanedInput && Number(cleanedInput)) {

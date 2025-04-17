@@ -36,7 +36,7 @@ const fetchData = async (
   }
 
   if (country) {
-    url += `&countryCode=${country}&city=${city}`;
+    url += `&countryCode=${country}`;
   }
 
   if (city) {
@@ -164,4 +164,6 @@ export default App;
  * Make it so if you click enter on search-bar, "Upcoming Events" is automatically tabbed
  *
  * if you input country/city and later a number, my if's check for strings on numbers (because its inside of !Number() statement)
+ *
+ * if only date-from is selected, make it so it displays only 2 months in future events
  */
