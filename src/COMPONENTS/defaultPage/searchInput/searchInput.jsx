@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./searchInput.module.scss";
 import { SearchSVG } from "./svg.jsx";
 import {
@@ -11,14 +11,38 @@ import {
 const CountrySelect = ({ getter, setter, object }) => {
   const [containerClicked, setContainerClicked] = useState(false);
   const [localSetter, setLocalSetter] = useState();
+  const mouseTarget = useRef(null);
 
   const handleContainerClicked = () => {
     const timeout = setTimeout(() => {
       containerClicked ? setContainerClicked(false) : setContainerClicked(true);
-    }, 300);
+    }, 50);
 
     return () => clearTimeout(timeout);
   };
+
+  const handleContainerClickedSlow = () => {
+    const timeout = setTimeout(() => {
+      containerClicked ? setContainerClicked(false) : setContainerClicked(true);
+    }, 1050);
+
+    return () => clearTimeout(timeout);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (mouseTarget.current && !mouseTarget.current.contains(event.target)) {
+        const timer = setTimeout(() => {
+          handleContainerClicked();
+        }, 250);
+        return () => clearTimeout(timer);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  });
 
   useEffect(() => {
     setLocalSetter(getter);
@@ -30,7 +54,8 @@ const CountrySelect = ({ getter, setter, object }) => {
         {containerClicked && (
           <div
             className={classes.countiesContainer}
-            onMouseLeave={handleContainerClicked}
+            ref={mouseTarget}
+            onMouseLeave={handleContainerClickedSlow}
           >
             {object.map((value, index) => (
               <button

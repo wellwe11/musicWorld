@@ -64,6 +64,12 @@
   position: relative;
   color: white;
 
+  div {
+    button {
+      cursor: pointer;
+    }
+  }
+
   .countiesContainer {
     z-index: 20;
     margin-top: -5px;
