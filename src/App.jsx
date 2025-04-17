@@ -163,7 +163,9 @@ export default App;
  *
  * Make it so if you click enter on search-bar, "Upcoming Events" is automatically tabbed
  *
- * if you input country/city and later a number, my if's check for strings on numbers (because its inside of !Number() statement)
+ * clear-filter also clears input, but doesn't reset country/city
  *
- * if only date-from is selected, make it so it displays only 2 months in future events
+ * SVG zoom on search-bar gets white bars when scaling down website
+ *
+ * placeholder country and city need to start with big letter
  */

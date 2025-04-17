@@ -29,6 +29,7 @@
     align-items: center;
 
     background-color: white;
+    margin-left: 10px;
   }
 
   svg {
@@ -38,10 +39,22 @@
   .searchIcon path {
     fill: var(--buttonContainerTheme);
   }
+
+  .spacer {
+    margin: 3px;
+  }
+
+  .countryCityFilter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }
 
 .countrySelect {
-  width: 25px;
+  min-width: 25px;
   height: 25px;
 
   display: flex;
@@ -49,13 +62,13 @@
   align-items: center;
 
   position: relative;
-  margin-left: 5px;
   color: white;
 
   .countiesContainer {
     z-index: 20;
     margin-top: -5px;
-    margin-left: 30px;
+    margin-left: 35px;
+
     background-color: var(--buttonContainerTheme);
     display: flex;
     align-items: center;

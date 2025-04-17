@@ -135,16 +135,21 @@ const SearchInput = ({
       <div className={classes.searchIcon}>
         <SearchSVG />
       </div>
-      <CountrySelect
-        getter={country}
-        setter={setCountry}
-        object={Object.values(isoCountries)}
-      />
-      <CountrySelect
-        getter={city}
-        setter={setCity}
-        object={Object.keys(bigCities[country])}
-      />
+      <div className={classes.countryCityFilter}>
+        <CountrySelect
+          getter={country}
+          setter={setCountry}
+          object={Object.values(isoCountries)}
+        />
+        <div className={classes.spacer}>
+          <h3>|</h3>{" "}
+        </div>
+        <CountrySelect
+          getter={city}
+          setter={setCity}
+          object={Object.keys(bigCities[country])}
+        />
+      </div>
       <input
         className={classes.searchInput}
         placeholder={`Search for events in ${
