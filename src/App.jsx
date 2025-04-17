@@ -43,8 +43,6 @@ const fetchData = async (
     url += `&city=${city}`;
   }
 
-  console.log(url);
-
   try {
     const response = await fetch(url);
 
@@ -99,15 +97,7 @@ function App() {
     }
   );
 
-  useEffect(() => {
-    getEvents("", "", "", "", "", country, city);
-  }, []);
-
-  useEffect(() => {
-    setCity(Object.keys(bigCities[country])[0]);
-  }, [country]);
-
-  useEffect(() => {
+  const fetchEvents = () => {
     if (dateFrom || dateTill || genre || country || city) {
       getEvents("", "", dateFrom, dateTill, genre, country, city);
     }
@@ -115,7 +105,21 @@ function App() {
     if (!dateFrom && !dateTill && !genre && !country && city) {
       getEvents();
     }
-  }, [dateFrom, dateTill, genre, country, city]);
+  };
+
+  useEffect(() => {
+    if (name === "upcomingEvents") {
+      fetchEvents();
+    }
+  }, [name]);
+
+  useEffect(() => {
+    fetchEvents();
+  }, [dateFrom, dateTill, genre, country, city, name]);
+
+  useEffect(() => {
+    setCity(Object.keys(bigCities[country])[0]);
+  }, [country]);
 
   return (
     <div className={classes.appContainer}>
@@ -157,12 +161,8 @@ export default App;
  * -- there are buggs but currently theyre unknow.
  * -- !!Note them down once they are found!!
  *
- * Fix page button so you cant click into pages that dont exist
- *
  * Fix so that the container that has events scales!
  * -- currently, if a event is too big, it drops down unto footer
- *
- * Make it so if you click enter on search-bar, "Upcoming Events" is automatically tabbed
  *
  * clear-filter also clears input, but doesn't reset country/city
  *

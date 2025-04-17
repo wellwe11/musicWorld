@@ -9,6 +9,10 @@ const PageToView = ({ currentPage, setCurrentPage }) => {
   const [maxPageReached, setMaxPagedReached] = useState("");
   const amountOfPages = Math.round(events?.events?.length / 6);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [events]);
+
   const handleCurrentPage = (type) => {
     switch (type) {
       case "+":

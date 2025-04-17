@@ -7,6 +7,7 @@ import {
   musicGenres,
   bigCities,
 } from "./inputInformation.jsx";
+import { useNavigate } from "react-router-dom";
 
 const CountrySelect = ({ getter, setter, object }) => {
   const [containerClicked, setContainerClicked] = useState(false);
@@ -92,11 +93,16 @@ const SearchInput = ({
   city,
   setCity,
 }) => {
+  const navigate = useNavigate();
   const [input, setInput] = useState("");
   let placeholderIndex = Object.values(isoCountries).indexOf(country);
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
+  };
+
+  const handleNavigate = (link) => {
+    navigate(`/${link}/`);
   };
 
   const handleSubmit = (e) => {
@@ -156,7 +162,13 @@ const SearchInput = ({
   };
 
   return (
-    <form className={classes.searchInputContainer} onSubmit={handleSubmit}>
+    <form
+      className={classes.searchInputContainer}
+      onSubmit={(e) => {
+        handleNavigate("home/upcomingEvents");
+        handleSubmit(e);
+      }}
+    >
       <div className={classes.searchIcon}>
         <SearchSVG />
       </div>
