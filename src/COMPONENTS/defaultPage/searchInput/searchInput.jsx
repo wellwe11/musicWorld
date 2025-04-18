@@ -205,8 +205,10 @@ const SearchInput = ({
       <input
         className={classes.searchInput}
         placeholder={`Search for events in ${
-          Object.keys(isoCountries)[placeholderIndex]
-        } ${", " + city + "..."}`}
+          Object.keys(isoCountries)[placeholderIndex].charAt(0).toUpperCase() +
+          Object.keys(isoCountries)[placeholderIndex].slice(1) +
+          ", "
+        } ${city.charAt(0).toUpperCase() + city.slice(1) + "..."}`}
         onChange={handleInputChange}
         value={input}
       ></input>
