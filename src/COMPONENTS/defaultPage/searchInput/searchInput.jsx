@@ -140,6 +140,8 @@ const SearchInput = ({
       if (musicGenres[checkedInput]) {
         setGenre(musicGenres[checkedInput]);
       }
+
+      setInput("");
     }
 
     // clean out items to determine if the input was a date
