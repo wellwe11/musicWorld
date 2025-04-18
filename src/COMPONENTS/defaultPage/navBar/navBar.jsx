@@ -55,8 +55,6 @@ const ExtendedButtons = ({
       const date = new Date(`${localDateFrom}`);
       const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 3));
 
-      console.log(tillDate);
-
       const [tillYear, tillMonth, tillDay] = [
         tillDate.getFullYear(),
         tillDate.getMonth(),

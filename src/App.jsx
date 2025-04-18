@@ -44,6 +44,7 @@ const fetchData = async (
   }
 
   console.log(url);
+
   try {
     const response = await fetch(url);
 
@@ -53,7 +54,6 @@ const fetchData = async (
 
     const data = await response.json();
 
-    console.log(data);
     return data || [];
   } catch (error) {
     console.error("fetch error", error);
@@ -109,13 +109,6 @@ function App() {
   };
 
   useEffect(() => {
-    if (name === "upcomingEvents") {
-      fetchEvents();
-    }
-  }, [name]);
-
-  useEffect(() => {
-    console.log(dateFrom, dateTill, genre, country, city);
     fetchEvents();
   }, [dateFrom, dateTill, genre, country, city]);
 

@@ -125,7 +125,16 @@ const SearchInput = ({
       }
 
       if (bigCities[country][checkedInput]) {
-        setCity(bigCities[country][checkedInput]);
+        setCity(checkedInput);
+      } else if (
+        typeof input === "string" &&
+        !bigCities[country][checkedInput]
+      ) {
+        const countryMatch = Object.entries(bigCities)?.find(([, obj]) =>
+          Object?.keys(obj)?.includes(checkedInput.toLowerCase())
+        );
+        setCountry(countryMatch[0]);
+        setCity(checkedInput);
       }
 
       if (musicGenres[checkedInput]) {
