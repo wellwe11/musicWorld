@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import classes from "./searchInput.module.scss";
 import { SearchSVG } from "./svg.jsx";
 import {
@@ -100,6 +100,13 @@ const SearchInput = ({
   const [input, setInput] = useState("");
   let placeholderIndex = Object.values(isoCountries).indexOf(country);
 
+  // currently not needed, as component doesnt reaload unless countryMatch actually changes. But am keeping it here because I wanted to learn
+  const countryMatch = useMemo(() => {
+    return Object.entries(bigCities)?.find(([, obj]) =>
+      Object.keys(obj)?.includes(input.toString("").toLowerCase())
+    );
+  }, [bigCities, input]);
+
   const handleInputChange = (e) => {
     setInput(e.target.value);
   };
@@ -110,10 +117,9 @@ const SearchInput = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let checkedInput = input.toString("").toLowerCase();
 
     if (!Number(input) && input) {
-      let checkedInput = input.toString("").toLowerCase();
-
       if (regionsNotCountries.includes(checkedInput)) {
         console.log("id needed, no ISO avaliable");
       }
@@ -126,15 +132,11 @@ const SearchInput = ({
 
       if (bigCities[country][checkedInput]) {
         setCity(checkedInput);
-      } else if (
-        typeof input === "string" &&
-        !bigCities[country][checkedInput]
-      ) {
-        const countryMatch = Object.entries(bigCities)?.find(([, obj]) =>
-          Object?.keys(obj)?.includes(checkedInput.toLowerCase())
-        );
+      } else if (typeof input === "string" && countryMatch) {
         setCountry(countryMatch[0]);
         setCity(checkedInput);
+      } else {
+        console.log("check input");
       }
 
       if (musicGenres[checkedInput]) {
