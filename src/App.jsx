@@ -20,7 +20,8 @@ const fetchData = async (
   dateEnd,
   genre,
   country,
-  city
+  city,
+  artist
 ) => {
   const BASE_URL = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music`;
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
@@ -31,19 +32,32 @@ const fetchData = async (
     url += `&startDateTime=${dateStart}T00:00:00Z&endDateTime=${dateEnd}T23:59:59Z`;
   }
 
-  if (genre) {
-    url += `&genreId=${genre}`;
+  if (artist) {
+    url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0&attractionId=${artist}`;
+
+    if (country) {
+      url += `&countryCode=${country}`;
+    }
+
+    if (city) {
+      url += `&city=${city}`;
+    }
+    console.log(url);
   }
 
-  if (country) {
-    url += `&countryCode=${country}`;
-  }
+  if (!artist) {
+    if (genre) {
+      url += `&genreId=${genre}`;
+    }
 
-  if (city) {
-    url += `&city=${city}`;
-  }
+    if (country) {
+      url += `&countryCode=${country}`;
+    }
 
-  console.log(url);
+    if (city) {
+      url += `&city=${city}`;
+    }
+  }
 
   try {
     const response = await fetch(url);
@@ -70,6 +84,7 @@ function App() {
   const [genre, setGenre] = useState(null);
   const [country, setCountry] = useState("DE");
   const [city, setCity] = useState(Object.keys(bigCities[country])[0]);
+  const [artist, setArtist] = useState("");
 
   const namePage = {
     upcomingEvents: UpcomingEventsPage,
@@ -80,7 +95,7 @@ function App() {
   const PageToView = namePage[name];
 
   const getEvents = useCallback(
-    async (size, page, dateStart, dateEnd, genre, country, city) => {
+    async (size, page, dateStart, dateEnd, genre, country, city, artist) => {
       setLoading(true);
       const fetchedData = await fetchData(
         size,
@@ -89,7 +104,8 @@ function App() {
         dateEnd,
         genre,
         country,
-        city
+        city,
+        artist
       );
       if (fetchedData) {
         setEvents(fetchedData._embedded);
@@ -99,18 +115,17 @@ function App() {
   );
 
   const fetchEvents = () => {
-    if (dateFrom || dateTill || genre || country || city) {
-      getEvents("", "", dateFrom, dateTill, genre, country, city);
-    }
-
-    if (!dateFrom && !dateTill && !genre && !country && city) {
+    if (dateFrom || dateTill || genre || country || city || artist) {
+      getEvents("", "", dateFrom, dateTill, genre, country, city, artist);
+    } else {
       getEvents();
     }
   };
 
   useEffect(() => {
     fetchEvents();
-  }, [dateFrom, dateTill, genre, country, city]);
+    console.log(artist);
+  }, [dateFrom, dateTill, genre, country, city, artist]);
 
   useEffect(() => {
     setCity(Object.keys(bigCities[country])[0]);
@@ -130,6 +145,9 @@ function App() {
           setCountry={setCountry}
           city={city}
           setCity={setCity}
+          artist={artist}
+          setArtist={setArtist}
+          events={events}
         />
         <div className={classes.routesContainer}>
           {name && events ? (
@@ -159,9 +177,7 @@ export default App;
  * Fix so that the container that has events scales!
  * -- currently, if a event is too big, it drops down unto footer
  *
- * clear-filter also clears input, but doesn't reset country/city
- *
  * SVG zoom on search-bar gets white bars when scaling down website
  *
- * placeholder country and city need to start with big letter
+ * searching for artists will display said artist in location
  */

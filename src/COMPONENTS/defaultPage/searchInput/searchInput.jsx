@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import classes from "./searchInput.module.scss";
 import { SearchSVG } from "./svg.jsx";
 import {
@@ -95,6 +95,9 @@ const SearchInput = ({
   setCountry,
   city,
   setCity,
+  events,
+  artist,
+  setArtist,
 }) => {
   const navigate = useNavigate();
   const [input, setInput] = useState("");
@@ -106,6 +109,17 @@ const SearchInput = ({
       Object.keys(obj)?.includes(input.toString("").toLowerCase())
     );
   }, [bigCities, input]);
+
+  const artistNames = useCallback((name) => {
+    events?.events?.map((event) => {
+      event?._embedded?.attractions?.forEach((artist) => {
+        if (artist.name.includes(name)) {
+          console.log(artist);
+          setArtist(artist.id);
+        }
+      });
+    });
+  });
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
@@ -136,7 +150,7 @@ const SearchInput = ({
         setCountry(countryMatch[0]);
         setCity(checkedInput);
       } else {
-        console.log("check input");
+        artistNames(input);
       }
 
       if (musicGenres[checkedInput]) {

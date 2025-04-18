@@ -12,6 +12,7 @@ const ExtendedButtons = ({
   dateTill,
   genre,
   setGenre,
+  setArtist,
 }) => {
   const inputRefOne = useRef();
   const inputRefTwo = useRef();
@@ -45,6 +46,7 @@ const ExtendedButtons = ({
     setLocalDateTill(null);
     setLocalGenre(null);
     setGenre(null);
+    setArtist(null);
   };
 
   const handleDatedFetch = () => {
@@ -54,7 +56,6 @@ const ExtendedButtons = ({
     } else if (localDateFrom && !localDateTill) {
       const date = new Date(`${localDateFrom}`);
       const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 3));
-
       const [tillYear, tillMonth, tillDay] = [
         tillDate.getFullYear(),
         tillDate.getMonth(),
@@ -161,6 +162,9 @@ const NavBar = ({
   setCountry,
   city,
   setCity,
+  artist,
+  setArtist,
+  events,
 }) => {
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
@@ -199,6 +203,9 @@ const NavBar = ({
         setCountry={setCountry}
         city={city}
         setCity={setCity}
+        events={events}
+        artist={artist}
+        setArtist={setArtist}
       />
       <div
         className={`${classes.navBarButtons} ${
@@ -227,6 +234,7 @@ const NavBar = ({
             dateTill={dateTill}
             setGenre={setGenre}
             genre={genre}
+            setArtist={setArtist}
           />
         )}
       </div>
