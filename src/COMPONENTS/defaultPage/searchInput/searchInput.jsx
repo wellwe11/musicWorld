@@ -9,12 +9,20 @@ import {
 } from "./inputInformation.jsx";
 import { useNavigate } from "react-router-dom";
 
-const CountrySelect = ({ getter, setter, object }) => {
+const CountrySelect = ({ getter, setter, object, textValue }) => {
+  // hook for main-buttons to toggle on click
   const [containerClicked, setContainerClicked] = useState(false);
+
+  // a local variable that stores the names of countries and cities - needed because the API takse,
+  // i.e. DE instead of Germany, hence, using local storage to seperate the logic for displaying the whole country-name
   const [localSetter, setLocalSetter] = useState();
+
+  // ref to allow for a smoother close on the cities/countries which are displayed once you click the main-buttons
   const mouseTarget = useRef(null);
 
+  // display countries/cities
   const handleContainerClicked = (e) => {
+    // because enter on keybaord triggers div to be displayed, so need to check if it is a mouse-click instead
     if (e && e.nativeEvent.pointerType === "mouse") {
       const timeout = setTimeout(() => {
         containerClicked
@@ -26,6 +34,7 @@ const CountrySelect = ({ getter, setter, object }) => {
     }
   };
 
+  // Another timeout-event to distinguish between closing the container & mouseLeave the container
   const handleContainerClickedSlow = () => {
     const timeout = setTimeout(() => {
       containerClicked ? setContainerClicked(false) : setContainerClicked(true);
@@ -49,7 +58,16 @@ const CountrySelect = ({ getter, setter, object }) => {
   }, [containerClicked]);
 
   useEffect(() => {
-    setLocalSetter(getter);
+    let indexOfItem = object.indexOf(getter);
+
+    if (textValue) {
+      setLocalSetter(
+        textValue[indexOfItem].charAt(0).toUpperCase() +
+          textValue[indexOfItem].slice(1)
+      );
+    } else {
+      setLocalSetter(getter.charAt(0).toUpperCase() + getter.slice(1));
+    }
   }, [getter]);
 
   return (
@@ -65,20 +83,22 @@ const CountrySelect = ({ getter, setter, object }) => {
               <button
                 onClick={() => {
                   setter(value);
-                  setLocalSetter(value);
+                  // not sure if I need this below anymore
+                  // setLocalSetter(textValue ? textValue[index] : value);
                 }}
                 key={index}
               >
-                {value}
+                {textValue
+                  ? textValue[index].charAt(0).toUpperCase() +
+                    textValue[index].slice(1).toString("").replace(/_/g, " ")
+                  : value.charAt(0).toUpperCase() +
+                    value.slice(1).replace(/_/g, " ")}
               </button>
             ))}
           </div>
         )}
         {localSetter && localSetter.length > 1 ? (
-          <button>
-            {localSetter[0]}
-            {localSetter[1]}
-          </button>
+          <button>{localSetter.replace(/_/g, " ")}</button>
         ) : (
           <button>{localSetter}</button>
         )}
@@ -113,7 +133,7 @@ const SearchInput = ({
   const artistNames = useCallback((name) => {
     events?.events?.map((event) => {
       event?._embedded?.attractions?.forEach((artist) => {
-        if (artist.name.includes(name)) {
+        if (artist?.name?.toLowerCase().includes(name.toLowerCase())) {
           console.log(artist);
           setArtist(artist.id);
         }
@@ -142,14 +162,19 @@ const SearchInput = ({
         setCountry(isoCountries[checkedInput]);
         setInput("");
         setCity("");
+        setArtist("");
       }
 
       if (bigCities[country][checkedInput]) {
         setCity(checkedInput);
+        setArtist("");
       } else if (typeof input === "string" && countryMatch) {
         setCountry(countryMatch[0]);
         setCity(checkedInput);
+        setCity("");
+        setArtist("");
       } else {
+        console.log("checking artist", input);
         artistNames(input);
       }
 
@@ -201,11 +226,26 @@ const SearchInput = ({
       <div className={classes.searchIcon}>
         <SearchSVG />
       </div>
+      <input
+        className={classes.searchInput}
+        placeholder={`Search in ${
+          Object.keys(isoCountries)[placeholderIndex].charAt(0).toUpperCase() +
+          Object.keys(isoCountries)[placeholderIndex].slice(1) +
+          ", "
+        } ${
+          city.charAt(0).toUpperCase() +
+          city.slice(1).replace(/_/g, " ") +
+          "..."
+        }`}
+        onChange={handleInputChange}
+        value={input}
+      ></input>
       <div className={classes.countryCityFilter}>
         <CountrySelect
           getter={country}
           setter={setCountry}
           object={Object.values(isoCountries)}
+          textValue={Object.keys(isoCountries)}
         />
         <div className={classes.spacer}>
           <h3>|</h3>{" "}
@@ -216,16 +256,6 @@ const SearchInput = ({
           object={Object.keys(bigCities[country])}
         />
       </div>
-      <input
-        className={classes.searchInput}
-        placeholder={`Search for events in ${
-          Object.keys(isoCountries)[placeholderIndex].charAt(0).toUpperCase() +
-          Object.keys(isoCountries)[placeholderIndex].slice(1) +
-          ", "
-        } ${city.charAt(0).toUpperCase() + city.slice(1) + "..."}`}
-        onChange={handleInputChange}
-        value={input}
-      ></input>
     </form>
   );
 };

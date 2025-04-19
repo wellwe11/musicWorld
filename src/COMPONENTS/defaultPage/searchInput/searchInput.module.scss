@@ -10,11 +10,10 @@
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   .searchInput {
-    width: 85%;
-
+    flex: 1;
     border: none;
     outline: none;
     padding: 10px;
@@ -49,7 +48,7 @@
     justify-content: center;
     align-items: center;
     margin-left: 5px;
-    margin-right: 5px;
+    margin-right: 10px;
   }
 }
 
@@ -60,8 +59,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   position: relative;
+
   color: white;
 
   div {
@@ -69,28 +70,26 @@
       cursor: pointer;
     }
   }
+  z-index: 9999;
 
   .countiesContainer {
-    z-index: 20;
-    margin-top: -5px;
-    margin-left: 35px;
-
     background-color: var(--buttonContainerTheme);
     display: flex;
     align-items: center;
+    flex-direction: column;
 
-    max-height: 40px;
-    max-width: 644px;
-    width: 40vw;
+    max-height: 300px;
+    width: 250px;
     overflow: scroll;
-    position: absolute;
     z-index: 1;
 
+    position: absolute;
+    margin-top: 40px;
     button {
-      z-index: 15;
+      z-index: 9999;
       cursor: pointer;
       padding: 5px;
-      min-width: 10%;
+      width: 100%;
 
       transition: all 0.2s ease;
 

@@ -124,7 +124,6 @@ function App() {
 
   useEffect(() => {
     fetchEvents();
-    console.log(artist);
   }, [dateFrom, dateTill, genre, country, city, artist]);
 
   useEffect(() => {
@@ -169,15 +168,18 @@ export default App;
 // to read for tomorrow:
 
 /**
- *
- * Fix search-bar
- * -- there are buggs but currently theyre unknow.
- * -- !!Note them down once they are found!!
- *
  * Fix so that the container that has events scales!
  * -- currently, if a event is too big, it drops down unto footer
  *
  * SVG zoom on search-bar gets white bars when scaling down website
  *
- * searching for artists will display said artist in location
+ *
+ *
+ * !!!!
+ * LOOK AT THIS:
+ * https://allevents.in/leipzig/live-music#search
+ * TOMORROW:
+ * Place Country and City on RIGHT SIDE search bar.
+ * Display WHOLE country and city with option for a drop-down menu
+ * It looks less clean, but more readable
  */
