@@ -49,6 +49,7 @@
     align-items: center;
     margin-left: 5px;
     margin-right: 10px;
+    position: relative;
   }
 }
 
@@ -60,8 +61,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  position: relative;
 
   color: white;
 
@@ -78,13 +77,17 @@
     align-items: center;
     flex-direction: column;
 
+    border: 1px solid black;
+
     max-height: 300px;
     width: 250px;
+    right: 0;
     overflow: scroll;
     z-index: 1;
-
     position: absolute;
+
     margin-top: 40px;
+
     button {
       z-index: 9999;
       cursor: pointer;
