@@ -28,34 +28,19 @@ const CountrySelect = ({ getter, setter, object, textValue }) => {
         containerClicked
           ? setContainerClicked(false)
           : setContainerClicked(true);
-      }, 130);
+      }, 50);
 
       return () => clearTimeout(timeout);
     }
   };
 
-  // Another timeout-event to distinguish between closing the container & mouseLeave the container
-  const handleContainerClickedSlow = () => {
-    const timeout = setTimeout(() => {
-      containerClicked ? setContainerClicked(false) : setContainerClicked(true);
-    }, 1050);
-
-    return () => clearTimeout(timeout);
+  const handleContainerClickedInstant = () => {
+    setTimeout(() => {
+      return containerClicked
+        ? setContainerClicked(false)
+        : setContainerClicked(true);
+    }, 100);
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (mouseTarget.current && !mouseTarget.current.contains(event.target)) {
-        const timer = setTimeout(() => {
-          handleContainerClicked();
-        }, 250);
-        return () => clearTimeout(timer);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [containerClicked]);
 
   useEffect(() => {
     let indexOfItem = object.indexOf(getter);
@@ -70,6 +55,14 @@ const CountrySelect = ({ getter, setter, object, textValue }) => {
     }
   }, [getter]);
 
+  useEffect(() => {
+    if (containerClicked) {
+      window.addEventListener("mousedown", handleContainerClickedInstant);
+      return () =>
+        window.removeEventListener("mousedown", handleContainerClickedInstant);
+    }
+  }, [containerClicked]);
+
   return (
     <div className={classes.countrySelect}>
       <div onClick={(e) => handleContainerClicked(e)}>
@@ -77,7 +70,7 @@ const CountrySelect = ({ getter, setter, object, textValue }) => {
           <div
             className={classes.countiesContainer}
             ref={mouseTarget}
-            onMouseLeave={handleContainerClickedSlow}
+            onMouseLeave={handleContainerClicked}
           >
             {object.map((value, index) => (
               <button
@@ -228,15 +221,7 @@ const SearchInput = ({
       </div>
       <input
         className={classes.searchInput}
-        placeholder={`Search in ${
-          Object.keys(isoCountries)[placeholderIndex].charAt(0).toUpperCase() +
-          Object.keys(isoCountries)[placeholderIndex].slice(1) +
-          ", "
-        } ${
-          city.charAt(0).toUpperCase() +
-          city.slice(1).replace(/_/g, " ") +
-          "..."
-        }`}
+        placeholder={`Search for events...`}
         onChange={handleInputChange}
         value={input}
       ></input>

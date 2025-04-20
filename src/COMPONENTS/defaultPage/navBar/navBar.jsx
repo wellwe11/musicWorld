@@ -86,6 +86,13 @@ const ExtendedButtons = ({
     KnvZfZ7vAvt: "Metal",
   };
 
+  useEffect(() => {
+    if (genreClicked) {
+      window.addEventListener("mousedown", handleGenreClicked);
+      return () => window.removeEventListener("mousedown", handleGenreClicked);
+    }
+  }, [genreClicked]);
+
   return (
     <div className={classes.extendedButtons}>
       <div className={classes.extendedButtonsWrapper}>
@@ -120,6 +127,7 @@ const ExtendedButtons = ({
             }}
             min={localDateFrom || dateFrom || today}
             onChange={(e) => setLocalDateTill(e.target.value)}
+            onBlur={handleDateTillShowPicker}
           />
         </>
         <>
@@ -186,8 +194,8 @@ const NavBar = ({
   };
 
   const buttonsObject = {
-    home: "home",
-    "Upcoming events": "home/upcomingEvents",
+    Home: "home",
+    Events: "home/upcomingEvents",
     "About us": "home/aboutUs",
     Account: "home/account",
   };

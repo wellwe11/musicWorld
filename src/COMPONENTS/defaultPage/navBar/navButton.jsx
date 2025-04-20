@@ -1,10 +1,11 @@
 import classes from "./navArea.module.scss";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import React from "react";
 
 const NavButton = React.memo(({ children, onClick, externalClass }) => {
   const btnRef = useRef(null);
   const spanRef = useRef(null);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -30,7 +31,11 @@ const NavButton = React.memo(({ children, onClick, externalClass }) => {
   }, []);
 
   return (
-    <div className={classes.navButtonContainer}>
+    <div
+      className={classes.navButtonContainer}
+      onClick={() => setButtonClicked(true)}
+      onBlur={() => setButtonClicked(false)}
+    >
       <button ref={btnRef} onClick={onClick} className={externalClass}>
         <div className={classes.insideButtonWrapper}>{children}</div>
         <span className={classes.mouseDot} ref={spanRef} />

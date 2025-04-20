@@ -182,4 +182,6 @@ export default App;
  * Place Country and City on RIGHT SIDE search bar.
  * Display WHOLE country and city with option for a drop-down menu
  * It looks less clean, but more readable
+ *
+ * Fix so whenever ONE button is clicked (be it navButton or country/city, all others close)
  */
