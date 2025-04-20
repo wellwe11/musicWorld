@@ -7,7 +7,7 @@ import {
   musicGenres,
   bigCities,
 } from "./inputInformation.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CountrySelect = ({ getter, setter, object, textValue }) => {
   // hook for main-buttons to toggle on click
@@ -113,6 +113,8 @@ const SearchInput = ({
   setArtist,
 }) => {
   const navigate = useNavigate();
+  const { name } = useParams();
+
   const [input, setInput] = useState("");
   let placeholderIndex = Object.values(isoCountries).indexOf(country);
 
@@ -214,6 +216,7 @@ const SearchInput = ({
       className={classes.searchInputContainer}
       onSubmit={(e) => {
         handleSubmit(e);
+        handleNavigate("home/upcomingEvents");
       }}
     >
       <div className={classes.searchIcon}>
@@ -225,22 +228,24 @@ const SearchInput = ({
         onChange={handleInputChange}
         value={input}
       ></input>
-      <div className={classes.countryCityFilter}>
-        <CountrySelect
-          getter={country}
-          setter={setCountry}
-          object={Object.values(isoCountries)}
-          textValue={Object.keys(isoCountries)}
-        />
-        <div className={classes.spacer}>
-          <h3>|</h3>{" "}
+      {name === "upcomingEvents" && (
+        <div className={classes.countryCityFilter}>
+          <CountrySelect
+            getter={country}
+            setter={setCountry}
+            object={Object.values(isoCountries)}
+            textValue={Object.keys(isoCountries)}
+          />
+          <div className={classes.spacer}>
+            <h3>|</h3>{" "}
+          </div>
+          <CountrySelect
+            getter={city}
+            setter={setCity}
+            object={Object.keys(bigCities[country])}
+          />
         </div>
-        <CountrySelect
-          getter={city}
-          setter={setCity}
-          object={Object.keys(bigCities[country])}
-        />
-      </div>
+      )}
     </form>
   );
 };

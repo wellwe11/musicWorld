@@ -72,14 +72,13 @@
   z-index: 9999;
 
   .countiesContainer {
-    background-color: var(--buttonContainerTheme);
+    background-color: #30343c;
     display: flex;
     align-items: center;
     flex-direction: column;
 
-    border: 1px solid black;
+    max-height: 130px;
 
-    max-height: 300px;
     width: 250px;
     padding: 10px;
     right: 0;
@@ -87,8 +86,13 @@
     z-index: 1;
     position: absolute;
 
-    margin-top: 38px;
+    margin-top: 39px;
     margin-right: -10px;
+
+    border-bottom-right-radius: 15px;
+
+    border: 1px solid black;
+    border-top: none !important;
 
     button {
       z-index: 9999;
