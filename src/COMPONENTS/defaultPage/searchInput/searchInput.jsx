@@ -116,7 +116,7 @@ const SearchInput = ({
   const { name } = useParams();
 
   const [input, setInput] = useState("");
-  const [placeholderText, setPlaceHolderText] = useState("");
+  const [localPlaceholder, setLocalPlaceHolder] = useState("");
 
   // currently not needed, as component doesnt reaload unless countryMatch actually changes. But am keeping it here because I wanted to learn
   const countryMatch = useMemo(() => {
@@ -131,6 +131,7 @@ const SearchInput = ({
         if (artist?.name?.toLowerCase().includes(name.toLowerCase())) {
           console.log(artist);
           setArtist(artist.id);
+          setLocalPlaceHolder(artist.name);
         }
       });
     });
@@ -171,9 +172,12 @@ const SearchInput = ({
 
       if (musicGenres[checkedInput]) {
         setGenre(musicGenres[checkedInput]);
+        setArtist("");
       } else {
         console.log("checking artist", input);
+        setGenre("");
         artistNames(input);
+
         setInput("");
       }
 
@@ -224,16 +228,16 @@ const SearchInput = ({
       </div>
       <input
         className={classes.searchInput}
-        placeholder={placeholderText || "Search for events..."}
+        placeholder={localPlaceholder || "Search for events..."}
         onChange={handleInputChange}
         value={input}
       ></input>
-      {placeholderText.length > 0 && (
+      {localPlaceholder.length > 0 && (
         <button
-          onClick={(e) => {
-            setPlaceHolderText(input);
+          onMouseDown={() => {
             setInput("");
-            handleSubmit(e);
+            setArtist("");
+            setLocalPlaceHolder("");
           }}
         >
           X
