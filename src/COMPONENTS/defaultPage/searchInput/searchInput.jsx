@@ -116,7 +116,7 @@ const SearchInput = ({
   const { name } = useParams();
 
   const [input, setInput] = useState("");
-  let placeholderIndex = Object.values(isoCountries).indexOf(country);
+  const [placeholderText, setPlaceHolderText] = useState("");
 
   // currently not needed, as component doesnt reaload unless countryMatch actually changes. But am keeping it here because I wanted to learn
   const countryMatch = useMemo(() => {
@@ -156,7 +156,6 @@ const SearchInput = ({
       if (isoCountries[checkedInput]) {
         setCountry(isoCountries[checkedInput]);
         setInput("");
-        setCity("");
         setArtist("");
       }
 
@@ -168,13 +167,14 @@ const SearchInput = ({
         setCity(checkedInput);
         setCity("");
         setArtist("");
-      } else {
-        console.log("checking artist", input);
-        artistNames(input);
       }
 
       if (musicGenres[checkedInput]) {
         setGenre(musicGenres[checkedInput]);
+      } else {
+        console.log("checking artist", input);
+        artistNames(input);
+        setInput("");
       }
 
       setInput("");
@@ -224,10 +224,21 @@ const SearchInput = ({
       </div>
       <input
         className={classes.searchInput}
-        placeholder={`Search for events...`}
+        placeholder={placeholderText || "Search for events..."}
         onChange={handleInputChange}
         value={input}
       ></input>
+      {placeholderText.length > 0 && (
+        <button
+          onClick={(e) => {
+            setPlaceHolderText(input);
+            setInput("");
+            handleSubmit(e);
+          }}
+        >
+          X
+        </button>
+      )}
       {name === "upcomingEvents" && (
         <div className={classes.countryCityFilter}>
           <CountrySelect

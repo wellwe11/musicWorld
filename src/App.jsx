@@ -185,5 +185,5 @@ export default App;
  *
  *
  * fix so names with spaces also include capital letter
- *
+ * searching for genre currently doesnt work(?)
  */
