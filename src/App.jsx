@@ -184,4 +184,9 @@ export default App;
  * It looks less clean, but more readable
  *
  * Fix so whenever ONE button is clicked (be it navButton or country/city, all others close)
+ *
+ * fix so names with spaces also include capital letter
+ * country/city drop-down to have smooth corners
+ *
+ * search-filter button doesnt search anything right now
  */

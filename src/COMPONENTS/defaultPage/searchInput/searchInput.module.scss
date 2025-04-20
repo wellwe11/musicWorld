@@ -81,12 +81,14 @@
 
     max-height: 300px;
     width: 250px;
+    padding: 10px;
     right: 0;
     overflow: scroll;
     z-index: 1;
     position: absolute;
 
-    margin-top: 40px;
+    margin-top: 38px;
+    margin-right: -10px;
 
     button {
       z-index: 9999;

@@ -2,7 +2,7 @@ import classes from "./navArea.module.scss";
 import { useRef, useEffect, useState } from "react";
 import React from "react";
 
-const NavButton = React.memo(({ children, onClick, externalClass }) => {
+const NavButton = ({ children, onClick, externalClass }) => {
   const btnRef = useRef(null);
   const spanRef = useRef(null);
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -42,6 +42,6 @@ const NavButton = React.memo(({ children, onClick, externalClass }) => {
       </button>
     </div>
   );
-});
+};
 
 export default NavButton;

@@ -50,6 +50,7 @@ const ExtendedButtons = ({
   };
 
   const handleDatedFetch = () => {
+    console.log(localDateFrom, localDateTill);
     if (localDateFrom && localDateTill) {
       setDateFrom(localDateFrom);
       setDateTill(localDateTill);
@@ -66,6 +67,7 @@ const ExtendedButtons = ({
         tillMonth + 1
       }-${tillDay < 10 ? 0 : ""}${tillDay}`;
 
+      setDateFrom(localDateFrom);
       setDateTill(formattedTillDate);
     }
 
