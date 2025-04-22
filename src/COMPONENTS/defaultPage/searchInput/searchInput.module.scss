@@ -61,14 +61,14 @@
 
     cursor: pointer;
 
-    img {
-      height: 18px;
-      width: 18px;
-      filter: brightness(1) invert(0.5);
+    .inverted {
+      filter: brightness(0) invert(1) !important;
     }
 
-    img:hover {
-      filter: brightness(0) invert(1);
+    img {
+      height: 15px;
+      width: 15px;
+      filter: brightness(1) invert(0.5);
     }
   }
 }
@@ -84,9 +84,17 @@
 
   color: white;
 
-  div {
+  .optionsDropDownContainer {
     button {
       cursor: pointer;
+    }
+  }
+
+  .optionsDropDownContainer:hover {
+    .exitCity {
+      img {
+        filter: brightness(0) invert(1);
+      }
     }
   }
   z-index: 9999;

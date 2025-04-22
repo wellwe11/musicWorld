@@ -10,7 +10,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 
 import closeButton from "./close.png";
-import arrowDownButton from "./chevron.png";
+import arrowButton from "./sort-arrows-couple-pointing-up-and-down.png";
 
 const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
   // hook for main-buttons to toggle on click
@@ -69,7 +69,7 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
 
   return (
     <div className={classes.countrySelect}>
-      <div>
+      <div className={classes.countrySelectInnerWrapper}>
         {containerClicked && (
           <div
             className={classes.countiesContainer}
@@ -80,8 +80,6 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
               <button
                 onClick={() => {
                   setter(value);
-                  // not sure if I need this below anymore
-                  // setLocalSetter(textValue ? textValue[index] : value);
                 }}
                 key={index}
               >
@@ -96,6 +94,7 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
         )}
         {localSetter && localSetter.length > 1 ? (
           <div
+            className={classes.optionsDropDownContainer}
             style={{
               display: "flex",
             }}
@@ -111,6 +110,7 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
           </div>
         ) : (
           <div
+            className={classes.optionsDropDownContainer}
             style={{
               display: "flex",
             }}
@@ -123,7 +123,11 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
                 className={classes.exitCity}
                 onClick={handleContainerClicked}
               >
-                <img src={arrowDownButton} alt="" />
+                <img
+                  src={arrowButton}
+                  alt=""
+                  className={containerClicked ? classes.inverted : ""}
+                />
               </button>
             )}
           </div>
