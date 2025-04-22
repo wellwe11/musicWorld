@@ -9,7 +9,10 @@ import {
 } from "./inputInformation.jsx";
 import { useNavigate, useParams } from "react-router-dom";
 
-const CountrySelect = ({ getter, setter, object, textValue }) => {
+import closeButton from "./close.png";
+import arrowDownButton from "./chevron.png";
+
+const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
   // hook for main-buttons to toggle on click
   const [containerClicked, setContainerClicked] = useState(false);
 
@@ -61,11 +64,12 @@ const CountrySelect = ({ getter, setter, object, textValue }) => {
       return () =>
         window.removeEventListener("mousedown", handleContainerClickedInstant);
     }
+    console.log(containerClicked);
   }, [containerClicked]);
 
   return (
     <div className={classes.countrySelect}>
-      <div onClick={(e) => handleContainerClicked(e)}>
+      <div>
         {containerClicked && (
           <div
             className={classes.countiesContainer}
@@ -91,9 +95,38 @@ const CountrySelect = ({ getter, setter, object, textValue }) => {
           </div>
         )}
         {localSetter && localSetter.length > 1 ? (
-          <button>{localSetter.replace(/_/g, " ")}</button>
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <button onClick={handleContainerClicked}>
+              {localSetter.replace(/_/g, " ")}
+            </button>
+            {needsClose && (
+              <button className={classes.exitCity} onClick={() => setter("")}>
+                <img src={closeButton} alt="" />
+              </button>
+            )}
+          </div>
         ) : (
-          <button>{localSetter}</button>
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <button style={{ color: "gray" }} onClick={handleContainerClicked}>
+              Select city...
+            </button>
+            {needsClose && (
+              <button
+                className={classes.exitCity}
+                onClick={handleContainerClicked}
+              >
+                <img src={arrowDownButton} alt="" />
+              </button>
+            )}
+          </div>
         )}
       </div>
     </div>
@@ -114,6 +147,7 @@ const SearchInput = ({
 }) => {
   const navigate = useNavigate();
   const { name } = useParams();
+  const clickTargetRef = useRef(null);
 
   const [input, setInput] = useState("");
   const [localPlaceholder, setLocalPlaceHolder] = useState("");
@@ -124,6 +158,12 @@ const SearchInput = ({
       Object.keys(obj)?.includes(input.toString("").toLowerCase())
     );
   }, [bigCities, input]);
+
+  // const cityMatch = useMemo(() => {
+  //   return Object.entries(bigCities)?.find(([, obj]) =>
+  //   Object.keys(obj)?.includes(input.toString("").toLowerCase())
+  //   )
+  // })
 
   const artistNames = useCallback((name) => {
     events?.events?.map((event) => {
@@ -149,35 +189,42 @@ const SearchInput = ({
     e.preventDefault();
     let checkedInput = input.toString("").toLowerCase();
 
-    if (!Number(input) && input) {
+    // if user writes a string
+    if (typeof input === "string" && input) {
       if (regionsNotCountries.includes(checkedInput)) {
         console.log("id needed, no ISO avaliable");
       }
 
+      // if user writes country
       if (isoCountries[checkedInput]) {
         setCountry(isoCountries[checkedInput]);
         setInput("");
         setArtist("");
       }
 
-      if (bigCities[country][checkedInput]) {
-        setCity(checkedInput);
-        setArtist("");
-      } else if (typeof input === "string" && countryMatch) {
+      // if user writes city
+      console.log(countryMatch);
+      if (countryMatch && Object.keys(countryMatch[1]).includes(checkedInput)) {
         setCountry(countryMatch[0]);
         setCity(checkedInput);
+        setArtist("");
+
+        // if user writes
+      } else if (countryMatch && typeof input === "string" && countryMatch[0]) {
+        setCountry(countryMatch[0]);
         setCity("");
         setArtist("");
       }
 
+      // if users input matches a genre
       if (musicGenres[checkedInput]) {
         setGenre(musicGenres[checkedInput]);
         setArtist("");
       } else {
+        // looking for artists
         console.log("checking artist", input);
         setGenre("");
         artistNames(input);
-
         setInput("");
       }
 
@@ -232,7 +279,7 @@ const SearchInput = ({
         onChange={handleInputChange}
         value={input}
       ></input>
-      {localPlaceholder.length > 0 && (
+      {localPlaceholder.length > 0 && input.length < 1 && (
         <button
           onMouseDown={() => {
             setInput("");
@@ -258,6 +305,7 @@ const SearchInput = ({
             getter={city}
             setter={setCity}
             object={Object.keys(bigCities[country])}
+            needsClose={true}
           />
         </div>
       )}

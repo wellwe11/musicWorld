@@ -245,6 +245,7 @@ const NavBar = ({
             setGenre={setGenre}
             genre={genre}
             setArtist={setArtist}
+            setCity={setCity}
           />
         )}
       </div>

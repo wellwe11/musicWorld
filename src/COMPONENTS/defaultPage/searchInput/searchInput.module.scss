@@ -51,6 +51,26 @@
     margin-right: 10px;
     position: relative;
   }
+
+  .exitCity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 5px;
+
+    cursor: pointer;
+
+    img {
+      height: 18px;
+      width: 18px;
+      filter: brightness(1) invert(0.5);
+    }
+
+    img:hover {
+      filter: brightness(0) invert(1);
+    }
+  }
 }
 
 .countrySelect {

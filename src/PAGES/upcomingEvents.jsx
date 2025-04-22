@@ -57,7 +57,7 @@ const PageToView = ({ currentPage, setCurrentPage }) => {
   );
 };
 
-const UpcomingEventsPage = () => {
+const UpcomingEventsPage = ({}) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const [maxViewEvent, setMaxViewEVent] = useState(5);

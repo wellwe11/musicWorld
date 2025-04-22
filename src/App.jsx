@@ -26,7 +26,7 @@ const fetchData = async (
   const BASE_URL = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music`;
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
-  let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0`;
+  let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25`;
 
   if (dateStart && dateEnd) {
     url += `&startDateTime=${dateStart}T00:00:00Z&endDateTime=${dateEnd}T23:59:59Z`;
@@ -59,6 +59,8 @@ const fetchData = async (
     }
   }
 
+  console.log(url);
+
   try {
     const response = await fetch(url);
 
@@ -83,7 +85,8 @@ function App() {
   const [dateTill, setDateTill] = useState(null);
   const [genre, setGenre] = useState(null);
   const [country, setCountry] = useState("DE");
-  const [city, setCity] = useState(Object.keys(bigCities[country])[0]);
+  // const [city, setCity] = useState(Object.keys(bigCities[country])[0]);
+  const [city, setCity] = useState("");
   const [artist, setArtist] = useState("");
 
   const namePage = {
@@ -126,9 +129,9 @@ function App() {
     fetchEvents();
   }, [dateFrom, dateTill, genre, country, city, artist]);
 
-  useEffect(() => {
-    setCity(Object.keys(bigCities[country])[0]);
-  }, [country]);
+  // useEffect(() => {
+  //   setCity(Object.keys(bigCities[country])[0]);
+  // }, [country]);
 
   return (
     <div className={classes.appContainer}>
@@ -185,5 +188,5 @@ export default App;
  *
  *
  * fix so names with spaces also include capital letter
- * searching for genre currently doesnt work(?)
+ * currently next page click is lit if the events are less than 6 and you're on page 1
  */
