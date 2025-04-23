@@ -198,12 +198,12 @@ const SearchInput = ({
       // if user writes country
       if (isoCountries[checkedInput]) {
         setCountry(isoCountries[checkedInput]);
+        setCity("");
         setInput("");
         setArtist("");
       }
 
       // if user writes city
-      console.log(countryMatch);
       if (countryMatch && Object.keys(countryMatch[1]).includes(checkedInput)) {
         setCountry(countryMatch[0]);
         setCity(checkedInput);
@@ -211,6 +211,7 @@ const SearchInput = ({
 
         // if user writes
       } else if (countryMatch && typeof input === "string" && countryMatch[0]) {
+        console.log("setting country no city");
         setCountry(countryMatch[0]);
         setCity("");
         setArtist("");
