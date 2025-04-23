@@ -63,7 +63,7 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   );
 };
 
-const UpcomingEventsPage = ({ city, country }) => {
+const UpcomingEventsPage = ({ city }) => {
   const { events, loading } = useContext(EventContext);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -75,12 +75,13 @@ const UpcomingEventsPage = ({ city, country }) => {
 
   useEffect(() => {
     if (currentPage === 1) {
-      setMinViewEvent(1);
+      setMinViewEvent(0);
       setMaxViewEVent(5);
     }
 
     if (currentPage > 1) {
-      setMaxViewEVent(currentPage * 5);
+      // displays events relevant to current page
+      setMaxViewEVent(currentPage * 5 + currentPage - 1);
     }
   }, [currentPage]);
 

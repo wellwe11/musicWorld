@@ -10,6 +10,7 @@ import UpcomingEventsPage from "./PAGES/upcomingEvents";
 import NavBar from "./COMPONENTS/defaultPage/navBar/navBar";
 import Footer from "./COMPONENTS/defaultPage/footer/footer";
 import { bigCities } from "./COMPONENTS/defaultPage/searchInput/inputInformation";
+import HomePage from "./PAGES/homePage";
 
 export const EventContext = createContext();
 
@@ -26,7 +27,9 @@ const fetchData = async (
   const BASE_URL = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music`;
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
-  let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25`;
+  let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=200`;
+
+  console.log(url);
 
   if (dateStart && dateEnd) {
     url += `&startDateTime=${dateStart}T00:00:00Z&endDateTime=${dateEnd}T23:59:59Z`;
@@ -149,7 +152,7 @@ function App() {
             <PageToView city={city} country={country} />
           ) : (
             <>
-              <h1>welcome home</h1>
+              <HomePage />
             </>
           )}
         </div>
@@ -165,6 +168,7 @@ export default App;
 
 /**
  * todos:
+ *
  *
  *
  */
