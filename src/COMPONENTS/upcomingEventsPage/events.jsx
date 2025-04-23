@@ -57,7 +57,7 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
                     event?._embedded?.attractions?.[0]?.name || event?.name
                   }
                   date={event?.dates?.start?.localDate}
-                  image={findFittingImage(event?.images, "4_3", 300)}
+                  image={findFittingImage(event?.images, "4_3", 350)}
                   country={event?._embedded?.venues[0]?.country?.name}
                   city={event?._embedded?.venues[0]?.city?.name}
                   location={event?._embedded?.venues[0]?.address?.line1}
