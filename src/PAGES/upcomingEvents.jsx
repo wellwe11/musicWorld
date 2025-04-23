@@ -132,8 +132,6 @@ const UpcomingEventsPage = ({ city, country }) => {
     addEvents();
   }, [events]);
 
-  console.log(eventsArray);
-
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}

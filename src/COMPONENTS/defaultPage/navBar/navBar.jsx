@@ -20,6 +20,7 @@ const ExtendedButtons = ({
   const [localDateTill, setLocalDateTill] = useState();
   const [localGenre, setLocalGenre] = useState();
   const [genreClicked, setGenreClicked] = useState(false);
+  const [startSearch, setStartSearch] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -47,10 +48,11 @@ const ExtendedButtons = ({
     setLocalGenre(null);
     setGenre(null);
     setArtist(null);
+    setStartSearch(false);
   };
 
   const handleDatedFetch = () => {
-    console.log(localDateFrom, localDateTill);
+    setStartSearch(true);
     if (localDateFrom && localDateTill) {
       setDateFrom(localDateFrom);
       setDateTill(localDateTill);
@@ -99,7 +101,10 @@ const ExtendedButtons = ({
     <div className={classes.extendedButtons}>
       <div className={classes.extendedButtonsWrapper}>
         <>
-          <NavButton onClick={handleDateFromShowPicker}>
+          <NavButton
+            onClick={handleDateFromShowPicker}
+            externalClass={`${localDateFrom ? classes.buttonTarget : ""}`}
+          >
             {localDateFrom || dateFrom || "Date from"}
           </NavButton>
           <input
@@ -116,7 +121,10 @@ const ExtendedButtons = ({
           />
         </>
         <>
-          <NavButton onClick={handleDateTillShowPicker}>
+          <NavButton
+            onClick={handleDateTillShowPicker}
+            externalClass={`${localDateTill ? classes.buttonTarget : ""}`}
+          >
             {localDateTill || dateTill || "Date till"}
           </NavButton>
           <input
@@ -133,7 +141,12 @@ const ExtendedButtons = ({
           />
         </>
         <>
-          <NavButton onClick={handleGenreClicked}>
+          <NavButton
+            onClick={handleGenreClicked}
+            externalClass={`${
+              localGenre || genreClicked ? classes.buttonTarget : ""
+            }`}
+          >
             {musicGenres[localGenre] || musicGenres[genre] || "Genre"}
           </NavButton>
           {genreClicked && (
@@ -154,7 +167,12 @@ const ExtendedButtons = ({
             </div>
           )}
         </>
-        <NavButton onClick={handleDatedFetch}>Search filter</NavButton>
+        <NavButton
+          onClick={handleDatedFetch}
+          externalClass={`${startSearch ? classes.buttonTarget : ""}`}
+        >
+          Search filter
+        </NavButton>
         <NavButton onClick={handleClearFilter}>Clear filter</NavButton>
       </div>
     </div>
