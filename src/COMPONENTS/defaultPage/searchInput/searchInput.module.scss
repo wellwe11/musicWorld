@@ -87,6 +87,7 @@
   .optionsDropDownContainer {
     button {
       cursor: pointer;
+      text-transform: capitalize;
     }
 
     .optionsTarget {
@@ -128,6 +129,7 @@
     border-top: none !important;
 
     button {
+      text-transform: capitalize;
       z-index: 9999;
       cursor: pointer;
       padding: 5px;

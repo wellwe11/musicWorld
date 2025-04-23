@@ -164,12 +164,7 @@ export default App;
 // to read for tomorrow:
 
 /**
- * Fix so that the container that has events scales!
- * -- currently, if a event is too big, it drops down unto footer
- *
- * SVG zoom on search-bar gets white bars when scaling down website
+ * todos:
  *
  *
- *
- * fix so names with spaces also include capital letter
  */
