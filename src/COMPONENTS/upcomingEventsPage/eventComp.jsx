@@ -106,7 +106,7 @@ const Event = ({
       />
       <div className={classes.subInfo}>
         <div>
-          <h3>{title.length < 18 ? title : title.slice(0, 17) + "..."}</h3>
+          <h3>{title.length < 30 ? title : title.slice(0, 30) + "..."}</h3>
           <h4>{city}</h4>
           <h5>{location}</h5>
         </div>

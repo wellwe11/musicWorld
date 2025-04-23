@@ -142,7 +142,7 @@ const UpcomingEventsPage = ({ city, country }) => {
         <img src={squareStyleIcon} alt="" />
         </div> */}
       <div className={classes.pageEventsWrapper}>
-        <h1>
+        <h1 className={classes.locationTitle}>
           Viewing events in{" "}
           {city.charAt(0).toUpperCase() + city.slice(1) ||
             eventsArray?.[0]?._embedded?.venues?.[0]?.country?.name ||
