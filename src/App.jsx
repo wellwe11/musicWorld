@@ -88,6 +88,8 @@ function App() {
   // const [city, setCity] = useState(Object.keys(bigCities[country])[0]);
   const [city, setCity] = useState("");
   const [artist, setArtist] = useState("");
+  // a new array containing filtered events to avoid duplicates
+  const [eventsArray, setEventsArray] = useState([]);
 
   const namePage = {
     upcomingEvents: UpcomingEventsPage,
@@ -129,6 +131,50 @@ function App() {
     fetchEvents();
   }, [dateFrom, dateTill, genre, country, city, artist]);
 
+  // filters the events so it doesnt display a large amount of same events.
+  // in the coming days I will be storing their future dates as well, returning it to
+  // the object, and allowing it to be displayed such as "startDate - endDate"(endDate being the final day of the same "days")
+  // OR if possible, I will try to find final days of tour/event in the fetch
+  const addEvents = () => {
+    // local array to save component from reloading
+    const updatedArray = [];
+
+    // create a new set to store unique id's which is related to events. Same events store the same ID, thus avoiding many of the same events to be displayed on the page.
+    const idSet = new Set();
+
+    // events.events is the original fetch
+    events?.events?.forEach((event) => {
+      // add local variable for readable code
+      const idToNotMatch = event?._embedded?.attractions?.[0]?.id;
+      if (idToNotMatch && !idSet.has(idToNotMatch)) {
+        idSet.add(idToNotMatch);
+        updatedArray.push(event);
+      }
+    });
+
+    if (updatedArray.length > 0) {
+      // sort items by date
+      const sortedUpdatedArray = updatedArray.sort((a, b) => {
+        let numOne = a?.dates?.start?.localDate
+          .toString("")
+          .replaceAll("-", "");
+        let numTwo = b?.dates?.start?.localDate
+          .toString("")
+          .replaceAll("-", "");
+
+        return +numOne - +numTwo;
+      });
+
+      // finally push array to components local state
+      setEventsArray(sortedUpdatedArray);
+    }
+  };
+
+  // once events are fetched, filter the events
+  useEffect(() => {
+    addEvents();
+  }, [events]);
+
   return (
     <div className={classes.appContainer}>
       <EventContext.Provider value={{ events, loading }}>
@@ -148,12 +194,14 @@ function App() {
           events={events}
         />
         <div className={classes.routesContainer}>
-          {name && events ? (
-            <PageToView city={city} country={country} />
+          {name && eventsArray ? (
+            <PageToView
+              city={city}
+              country={country}
+              eventsArray={eventsArray}
+            />
           ) : (
-            <>
-              <HomePage events={events} />
-            </>
+            <>{/* <HomePage events={eventsArray} /> */}</>
           )}
         </div>
       </EventContext.Provider>
@@ -169,6 +217,7 @@ export default App;
 /**
  * todos:
  *
+ * need to filter images for home-page
  *
  *
  */
