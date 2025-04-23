@@ -129,10 +129,6 @@ function App() {
     fetchEvents();
   }, [dateFrom, dateTill, genre, country, city, artist]);
 
-  // useEffect(() => {
-  //   setCity(Object.keys(bigCities[country])[0]);
-  // }, [country]);
-
   return (
     <div className={classes.appContainer}>
       <EventContext.Provider value={{ events, loading }}>

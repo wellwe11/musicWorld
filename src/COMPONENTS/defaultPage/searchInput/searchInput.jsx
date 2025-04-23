@@ -115,8 +115,11 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
               display: "flex",
             }}
           >
-            <button style={{ color: "gray" }} onClick={handleContainerClicked}>
-              Select city...
+            <button
+              className={classes.optionsTarget}
+              onClick={handleContainerClicked}
+            >
+              Select city
             </button>
             {needsClose && (
               <button
@@ -151,10 +154,8 @@ const SearchInput = ({
 }) => {
   const navigate = useNavigate();
   const { name } = useParams();
-  const clickTargetRef = useRef(null);
 
   const [input, setInput] = useState("");
-  const [localPlaceholder, setLocalPlaceHolder] = useState("");
 
   // currently not needed, as component doesnt reaload unless countryMatch actually changes. But am keeping it here because I wanted to learn
   const countryMatch = useMemo(() => {
@@ -163,19 +164,12 @@ const SearchInput = ({
     );
   }, [bigCities, input]);
 
-  // const cityMatch = useMemo(() => {
-  //   return Object.entries(bigCities)?.find(([, obj]) =>
-  //   Object.keys(obj)?.includes(input.toString("").toLowerCase())
-  //   )
-  // })
-
   const artistNames = useCallback((name) => {
     events?.events?.map((event) => {
       event?._embedded?.attractions?.forEach((artist) => {
         if (artist?.name?.toLowerCase().includes(name.toLowerCase())) {
           console.log(artist);
           setArtist(artist.id);
-          setLocalPlaceHolder(artist.name);
         }
       });
     });
@@ -274,26 +268,15 @@ const SearchInput = ({
         handleNavigate("home/upcomingEvents");
       }}
     >
-      <div className={classes.searchIcon}>
+      <div className={classes.searchIcon} onClick={(e) => handleSubmit(e)}>
         <SearchSVG />
       </div>
       <input
         className={classes.searchInput}
-        placeholder={localPlaceholder || "Search for events..."}
+        placeholder={"Search for events..."}
         onChange={handleInputChange}
         value={input}
       ></input>
-      {localPlaceholder.length > 0 && input.length < 1 && (
-        <button
-          onMouseDown={() => {
-            setInput("");
-            setArtist("");
-            setLocalPlaceHolder("");
-          }}
-        >
-          X
-        </button>
-      )}
       {name === "upcomingEvents" && (
         <div className={classes.countryCityFilter}>
           <CountrySelect

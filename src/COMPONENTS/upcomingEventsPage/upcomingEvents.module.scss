@@ -92,7 +92,8 @@
   }
 
   .coverPhotoFaded {
-    opacity: 50%;
+    opacity: 80%;
+    filter: blur(2px);
   }
 
   .playPauseIcon {

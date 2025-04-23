@@ -96,9 +96,10 @@ const Event = ({
   setImageClicked,
   onClickLink,
 }) => {
+  console.log(title, title.length);
   return (
     <div className={classes.event}>
-      <h1>{title}</h1>
+      <h1>{title.length < 18 ? title : title.slice(0, 17) + "..."}</h1>
       <EventImage
         imageSrc={image.url}
         alt=""
