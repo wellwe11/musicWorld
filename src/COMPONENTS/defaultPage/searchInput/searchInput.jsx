@@ -72,7 +72,9 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
       <div className={classes.countrySelectInnerWrapper}>
         {containerClicked && (
           <div
-            className={classes.countiesContainer}
+            className={`${classes.countriesContainer} ${
+              containerClicked ? classes.containerClicked : ""
+            }`}
             ref={mouseTarget}
             onMouseLeave={handleContainerClicked}
           >
