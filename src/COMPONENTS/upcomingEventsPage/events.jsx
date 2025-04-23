@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Event from "./eventComp";
 
 import classes from "./upcomingEvents.module.scss";

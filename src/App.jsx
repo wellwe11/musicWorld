@@ -79,7 +79,7 @@ const fetchData = async (
   }
 };
 
-function App() {
+const App = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const { home, name, link } = useParams();
@@ -118,7 +118,8 @@ function App() {
         setEvents(fetchedData._embedded);
         setLoading(false);
       }
-    }
+    },
+    []
   );
 
   const fetchEvents = () => {
@@ -157,7 +158,7 @@ function App() {
           events={events}
         />
         <div className={classes.routesContainer}>
-          {name && eventsArray ? (
+          {name ? (
             <PageToView
               city={city}
               country={country}
@@ -171,7 +172,7 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;
 

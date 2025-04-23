@@ -29,6 +29,6 @@ export const addEvents = (array, setter) => {
     });
 
     // finally push array to components local state
-    setter(sortedUpdatedArray);
+    return setter(sortedUpdatedArray);
   }
 };

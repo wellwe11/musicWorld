@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "./upcomingEvents.module.scss";
 import TicketButton from "./ticketButton";
 
@@ -26,8 +26,6 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
       onLeave,
     };
   };
-
-  console.log(imageSrc);
 
   useEffect(() => {
     if (imageClicked) {
@@ -98,7 +96,6 @@ const Event = ({
   setImageClicked,
   onClickLink,
 }) => {
-  console.log(image);
   return (
     <div className={classes.event}>
       <EventImage
