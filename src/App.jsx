@@ -164,7 +164,7 @@ function App() {
               eventsArray={eventsArray}
             />
           ) : (
-            <>{/* <HomePage events={eventsArray} /> */}</>
+            <HomePage eventsArray={eventsArray} />
           )}
         </div>
       </EventContext.Provider>

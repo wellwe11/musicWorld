@@ -3,6 +3,7 @@ import Event from "./eventComp";
 
 import classes from "./upcomingEvents.module.scss";
 import { EventContext } from "../../App";
+import { findFittingImage } from "../../PAGES/functions/findFittingImage";
 
 const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
   // useState for loading (via the useContext(eventContext)). I need it for setTimeout
@@ -56,7 +57,7 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
                     event?._embedded?.attractions?.[0]?.name || event?.name
                   }
                   date={event?.dates?.start?.localDate}
-                  image={event?.images[0]}
+                  image={findFittingImage(event?.images, "4_3")}
                   country={event?._embedded?.venues[0]?.country?.name}
                   city={event?._embedded?.venues[0]?.city?.name}
                   location={event?._embedded?.venues[0]?.address?.line1}

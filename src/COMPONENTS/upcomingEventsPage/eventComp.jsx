@@ -27,6 +27,8 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
     };
   };
 
+  console.log(imageSrc);
+
   useEffect(() => {
     if (imageClicked) {
       const timer = setTimeout(() => {
@@ -96,10 +98,11 @@ const Event = ({
   setImageClicked,
   onClickLink,
 }) => {
+  console.log(image);
   return (
     <div className={classes.event}>
       <EventImage
-        imageSrc={image.url}
+        imageSrc={image}
         alt=""
         imageClicked={imageClicked}
         setImageClicked={setImageClicked}

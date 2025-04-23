@@ -64,7 +64,7 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
 };
 
 const UpcomingEventsPage = ({ city, eventsArray }) => {
-  const { events, loading } = useContext(EventContext);
+  const { loading } = useContext(EventContext);
   const [currentPage, setCurrentPage] = useState(1);
 
   const [maxViewEvent, setMaxViewEVent] = useState(5);

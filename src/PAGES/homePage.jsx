@@ -2,10 +2,10 @@ import HomePageComponent from "../COMPONENTS/homeComponents/homeComponent";
 
 import classes from "./defaultPage.module.scss";
 
-const HomePage = ({ events }) => {
+const HomePage = ({ eventsArray }) => {
   return (
     <div className={classes.homePage}>
-      <HomePageComponent events={events} />
+      <HomePageComponent eventsArray={eventsArray} />
     </div>
   );
 };

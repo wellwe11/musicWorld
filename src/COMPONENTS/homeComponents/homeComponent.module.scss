@@ -4,8 +4,20 @@
 
   background-color: black;
 
-  img {
-    width: 200px;
-    height: 200px;
+  .pictureSliderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 400px;
+
+    background-color: gray;
+
+    .pictureSliderImage {
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    }
   }
 }
