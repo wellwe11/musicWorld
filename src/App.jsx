@@ -42,7 +42,6 @@ const fetchData = async (
     if (city) {
       url += `&city=${city}`;
     }
-    console.log(url);
   }
 
   if (!artist) {
@@ -58,8 +57,6 @@ const fetchData = async (
       url += `&city=${city}`;
     }
   }
-
-  console.log(url);
 
   try {
     const response = await fetch(url);
@@ -149,7 +146,7 @@ function App() {
         />
         <div className={classes.routesContainer}>
           {name && events ? (
-            <PageToView />
+            <PageToView city={city} country={country} />
           ) : (
             <>
               <h1>welcome home</h1>
@@ -174,15 +171,5 @@ export default App;
  *
  *
  *
- * !!!!
- * LOOK AT THIS:
- * https://allevents.in/leipzig/live-music#search
- * TOMORROW:
- * Place Country and City on RIGHT SIDE search bar.
- * Display WHOLE country and city with option for a drop-down menu
- * It looks less clean, but more readable
- *
- *
  * fix so names with spaces also include capital letter
- * currently next page click is lit if the events are less than 6 and you're on page 1
  */

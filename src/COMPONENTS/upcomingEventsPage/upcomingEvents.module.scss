@@ -3,15 +3,13 @@
   align-items: flex-start;
   justify-content: flex-start;
   justify-self: center;
-  justify-content: center;
   flex-wrap: wrap;
-  width: 90%;
-  min-height: 916px;
+  max-height: 916px;
+  width: 100%;
 
   .eventContainer {
     display: flex;
-    justify-content: center;
-    width: 30%;
+    width: 33%;
     min-height: 400px;
 
     transition: all 0.2s ease;
@@ -35,7 +33,7 @@
 
   //   background-color: #b8b8ca;
 
-  h1 {
+  h4 {
     max-width: 328.8px;
     max-height: 48px;
   }

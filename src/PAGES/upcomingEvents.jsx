@@ -11,8 +11,6 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   const [maxPageReached, setMaxPagedReached] = useState("");
   const amountOfPages = Math.round(eventsArray?.length / 6);
 
-  console.log(eventsArray?.length, currentPage, amountOfPages, maxPageReached);
-
   useEffect(() => {
     setCurrentPage(1);
   }, [eventsArray]);
@@ -65,7 +63,7 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   );
 };
 
-const UpcomingEventsPage = ({}) => {
+const UpcomingEventsPage = ({ city, country }) => {
   const { events, loading } = useContext(EventContext);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -134,19 +132,29 @@ const UpcomingEventsPage = ({}) => {
     addEvents();
   }, [events]);
 
+  console.log(eventsArray);
+
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}
       {/* <div className={classes.displayTypeIconsContainer}>
         <img src={listStyleIcon} alt="" />
         <img src={squareStyleIcon} alt="" />
-      </div> */}
-      <Events
-        eventsArray={eventsArray}
-        loading={loading}
-        minViewEvent={minViewEvent}
-        maxViewEVent={maxViewEvent}
-      />
+        </div> */}
+      <div className={classes.pageEventsWrapper}>
+        <h1>
+          Viewing events in{" "}
+          {city.charAt(0).toUpperCase() + city.slice(1) ||
+            eventsArray?.[0]?._embedded?.venues?.[0]?.country?.name ||
+            "Loading location..."}
+        </h1>
+        <Events
+          eventsArray={eventsArray}
+          loading={loading}
+          minViewEvent={minViewEvent}
+          maxViewEVent={maxViewEvent}
+        />
+      </div>
       <PageToView
         eventsArray={eventsArray}
         currentPage={currentPage}

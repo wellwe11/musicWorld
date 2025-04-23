@@ -96,10 +96,8 @@ const Event = ({
   setImageClicked,
   onClickLink,
 }) => {
-  console.log(title, title.length);
   return (
     <div className={classes.event}>
-      <h1>{title.length < 18 ? title : title.slice(0, 17) + "..."}</h1>
       <EventImage
         imageSrc={image.url}
         alt=""
@@ -108,9 +106,8 @@ const Event = ({
       />
       <div className={classes.subInfo}>
         <div>
-          <h4>
-            {country} - {city}
-          </h4>
+          <h3>{title.length < 18 ? title : title.slice(0, 17) + "..."}</h3>
+          <h4>{city}</h4>
           <h5>{location}</h5>
         </div>
         <h3>{date}</h3>

@@ -3,7 +3,7 @@
 }
 
 .routesContainer {
-  min-height: 1000px;
+  max-height: 1000px;
   height: fit-content;
 }
 
@@ -12,7 +12,11 @@
   justify-content: center;
   align-items: center;
 
+  position: absolute;
+  bottom: 0;
+
   color: white;
+  height: 100px;
   button {
     font-size: 20px;
     font-weight: 600;
@@ -31,10 +35,23 @@
 }
 
 .UpcomingEventsPage {
+  position: relative;
   min-height: 1000px;
   height: fit-content;
 
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  .pageEventsWrapper {
+    width: 90%;
+  }
+
+  h1 {
+    margin-left: 30px;
+    color: white;
+  }
 
   .displayTypeIconsContainer {
     img {
