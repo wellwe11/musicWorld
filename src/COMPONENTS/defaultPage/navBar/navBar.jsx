@@ -69,6 +69,8 @@ const ExtendedButtons = ({
         tillMonth + 1
       }-${tillDay < 10 ? 0 : ""}${tillDay}`;
 
+      setLocalDateTill(formattedTillDate);
+
       setDateFrom(localDateFrom);
       setDateTill(formattedTillDate);
     }

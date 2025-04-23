@@ -152,7 +152,7 @@ function App() {
             <PageToView city={city} country={country} />
           ) : (
             <>
-              <HomePage />
+              <HomePage events={events} />
             </>
           )}
         </div>
