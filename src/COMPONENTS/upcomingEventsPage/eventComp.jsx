@@ -96,6 +96,16 @@ const Event = ({
   setImageClicked,
   onClickLink,
 }) => {
+  const updatedDate = new Date(date);
+  const dateDay = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "long",
+    day: "numeric",
+  }).format(updatedDate);
+  const year = new Date(date).getFullYear();
+
+  const todaysYear = new Date().getFullYear();
+
   return (
     <div className={classes.event}>
       <EventImage
@@ -105,12 +115,16 @@ const Event = ({
         setImageClicked={setImageClicked}
       />
       <div className={classes.subInfo}>
-        <div>
-          <h3>{title.length < 30 ? title : title.slice(0, 30) + "..."}</h3>
-          <h4>{city}</h4>
-          <h5>{location}</h5>
-        </div>
-        <h3>{date}</h3>
+        <h3 className={classes.title}>
+          {title.length < 30 ? title : title.slice(0, 30) + "..."}
+        </h3>
+        <h4 className={classes.location}>
+          {city} - {location}
+        </h4>
+        <br />
+        <h3 className={classes.date}>
+          {dateDay} {year !== todaysYear ? "- " + year : ""}
+        </h3>
         <TicketButton onClickLink={onClickLink} />
       </div>
     </div>

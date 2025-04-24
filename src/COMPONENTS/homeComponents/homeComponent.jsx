@@ -22,6 +22,8 @@ const EventsImagesWheel = ({ eventsArray }) => {
     console.log(e);
   };
 
+  console.log(eventsArray);
+
   return (
     <div className={classes.pictureSliderContainer}>
       {displayEvents &&
