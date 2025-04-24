@@ -1,4 +1,4 @@
-export const findFittingImage = (images, ratio = "3_2", wishedHeight = 200) => {
+export const findFittingImage = (images, ratio = "3_2", wishedHeight = 400) => {
   if (!Array.isArray(images)) return "";
 
   const image = images.find(

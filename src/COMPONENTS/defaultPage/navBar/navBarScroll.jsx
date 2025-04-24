@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 
-import classes from "./navArea.module.scss";
+import classes from "./navAreaScroll.module.scss";
 import NavButton from "./navButton";
 import NavTitle from "./navTitle";
 import React, { useEffect, useRef, useState } from "react";
@@ -182,7 +182,7 @@ const ExtendedButtons = ({
   );
 };
 
-const NavBar = ({
+const NavBarScroll = ({
   setDateFrom,
   setDateTill,
   dateFrom,
@@ -224,8 +224,7 @@ const NavBar = ({
   };
 
   return (
-    <div className={`${classes.navBarContainer}`}>
-      <NavTitle />
+    <div className={`${classes.navBarContainerScroll}`}>
       <SearchInput
         setDateFrom={setDateFrom}
         setDateTill={setDateTill}
@@ -274,4 +273,4 @@ const NavBar = ({
   );
 };
 
-export default NavBar;
+export default NavBarScroll;

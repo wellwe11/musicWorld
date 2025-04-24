@@ -13,6 +13,7 @@ import { bigCities } from "./COMPONENTS/defaultPage/searchInput/inputInformation
 import HomePage from "./PAGES/homePage";
 
 import { addEvents } from "./PAGES/functions/eventsFilter";
+import NavBarScroll from "./COMPONENTS/defaultPage/navBar/navBarScroll";
 
 export const EventContext = createContext();
 
@@ -157,6 +158,23 @@ const App = () => {
           setArtist={setArtist}
           events={events}
         />
+
+        <NavBarScroll
+          setDateFrom={setDateFrom}
+          setDateTill={setDateTill}
+          dateFrom={dateFrom}
+          dateTill={dateTill}
+          genre={genre}
+          setGenre={setGenre}
+          country={country}
+          setCountry={setCountry}
+          city={city}
+          setCity={setCity}
+          artist={artist}
+          setArtist={setArtist}
+          events={events}
+        />
+
         <div className={classes.routesContainer}>
           {name ? (
             <PageToView

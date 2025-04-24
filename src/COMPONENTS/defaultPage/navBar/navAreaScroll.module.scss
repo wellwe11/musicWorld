@@ -1,0 +1,230 @@
+.navBarContainerScroll {
+  min-width: 100vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: fixed;
+
+  z-index: 9999;
+  top: 0;
+
+  .navBarButtons {
+    margin-top: 5px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    min-width: fit-content;
+    height: fit-content;
+    padding: 10px;
+    width: 50%;
+
+    background-color: var(--buttonContainerTheme);
+
+    transition: all 0.1s ease-out;
+
+    .navBarButtonsWrapper {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: flex-start;
+
+      height: 60px;
+      min-width: 100%;
+
+      z-index: 1;
+    }
+  }
+}
+
+.navButtonContainer {
+  height: 100%;
+
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 100%;
+    height: 80%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+
+    border-radius: 30px;
+
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease;
+    overflow: hidden;
+    background-color: #545e78b9;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  }
+
+  .buttonTarget {
+    background-color: #666770c9 !important;
+
+    .insideButtonWrapper {
+      background-color: #23242dc9 !important;
+    }
+
+    .mouseDot {
+      background-color: rgba(172, 173, 196, 0.627);
+      opacity: 40%;
+    }
+  }
+
+  .insideButtonWrapper {
+    transition: all 0.2s ease;
+    height: 94%;
+    width: 98%;
+    background-color: #3d3d4a;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: none;
+
+    border-radius: 30px;
+
+    z-index: 1;
+  }
+
+  button:hover .mouseDot {
+    display: block;
+  }
+
+  .mouseDot {
+    display: none;
+    position: absolute;
+    border-radius: 50%;
+
+    background-color: rgba(145, 152, 190, 0.627);
+    opacity: 50%;
+
+    -webkit-mask-image: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 1) 10%,
+      rgba(0, 0, 0, 0) 80%
+    );
+    mask-image: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 1) 10%,
+      rgba(0, 0, 0, 0) 80%
+    );
+
+    width: 250%;
+    height: 250%;
+
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+
+    transition: transform 0.4s, border 0.4s;
+    pointer-events: none;
+  }
+}
+
+.extendedButtons {
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  background-color: var(--buttonContainerTheme);
+
+  border-end-end-radius: 30px;
+  border-end-start-radius: 30px;
+  animation: fadeIn 0.2s ease;
+
+  .extendedButtonsWrapper {
+    width: 94%;
+    min-height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navButtonContainer {
+    height: 30px;
+  }
+
+  button {
+    max-width: 90%;
+    height: 100%;
+  }
+
+  .insideButtonWrapper {
+    height: 90%;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      margin-top: -50px;
+    }
+
+    to {
+      opacity: 1;
+      margin-top: 0px;
+    }
+  }
+
+  .genreContainer {
+    width: 0px;
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    position: absolute;
+
+    z-index: 1;
+
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: var(--buttonContainerTheme);
+      min-width: 30vw;
+      height: 50px;
+      min-height: fit-content;
+
+      color: white;
+
+      margin-top: 40px;
+
+      border-radius: 15px;
+
+      padding: 10px;
+
+      button {
+        min-width: fit-content !important;
+        min-height: fit-content !important;
+
+        width: 10%;
+
+        padding: 10px;
+
+        transition: all 0.2s ease;
+        border-radius: 15px;
+
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #3d3d4a;
+      }
+    }
+  }
+}

@@ -119,7 +119,7 @@ const Event = ({
           {title.length < 30 ? title : title.slice(0, 30) + "..."}
         </h3>
         <h4 className={classes.location}>
-          {city} - {location}
+          {city} {location ? "- " + location : ""}
         </h4>
         <br />
         <h3 className={classes.date}>
