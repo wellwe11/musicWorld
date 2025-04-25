@@ -1,19 +1,32 @@
 .navBarContainerScroll {
   min-width: 100vw;
 
+  height: fit-content;
+
+  background-color: var(--buttonContainerTheme);
+
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 
   position: fixed;
 
   z-index: 9999;
   top: 0;
 
+  form {
+    border-bottom: 1px solid rgba(84, 94, 120, 0.7254901961);
+  }
+
+  input {
+    border: 1px solid rgba(84, 94, 120, 0.7254901961) !important;
+    border-radius: 15px !important;
+
+    padding: 7px !important;
+
+    margin-left: 5px;
+  }
+
   .navBarButtons {
-    margin-top: 5px;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -26,18 +39,34 @@
 
     background-color: var(--buttonContainerTheme);
 
-    transition: all 0.1s ease-out;
-
     .navBarButtonsWrapper {
       display: flex;
       justify-content: space-evenly;
-      align-items: flex-start;
+      align-items: center;
 
       height: 60px;
       min-width: 100%;
 
       z-index: 1;
+
+      .navBarScrollMainButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: white;
+
+        height: 40px;
+
+        width: 120px;
+
+        cursor: pointer;
+      }
     }
+  }
+
+  .buttonHomeActive {
+    border-bottom: 1px solid rgba(84, 94, 120, 0.7254901961);
   }
 }
 
@@ -134,34 +163,43 @@
 }
 
 .extendedButtons {
-  width: 100%;
+  width: 50%;
   min-height: 50px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: absolute;
+  right: 0;
+  margin-top: 130px;
 
   background-color: var(--buttonContainerTheme);
+  border-bottom: 1px solid rgba(84, 94, 120, 0.7254901961);
+  border-left: 1px solid rgba(84, 94, 120, 0.7254901961);
 
-  border-end-end-radius: 30px;
-  border-end-start-radius: 30px;
   animation: fadeIn 0.2s ease;
 
+  border-end-start-radius: 30px;
+
   .extendedButtonsWrapper {
-    width: 94%;
+    width: 85%;
     min-height: 100% !important;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-  }
 
-  .navButtonContainer {
-    height: 30px;
+    input {
+      max-width: 0px !important;
+      max-height: 0px !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
   }
 
   button {
     max-width: 90%;
-    height: 100%;
+    height: 30px;
   }
 
   .insideButtonWrapper {
@@ -171,12 +209,12 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      margin-top: -50px;
+      margin-top: -0px;
     }
 
     to {
       opacity: 1;
-      margin-top: 0px;
+      margin-top: 130px;
     }
   }
 

@@ -239,7 +239,7 @@ const NavBarScroll = ({
       />
       <div
         className={`${classes.navBarButtons} ${
-          !activeButton > 0 ? classes.buttonActive : ""
+          activeButton === 0 ? classes.buttonHomeActive : ""
         }`}
       >
         <div className={classes.navBarButtonsWrapper}>

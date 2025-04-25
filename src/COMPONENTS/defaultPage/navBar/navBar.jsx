@@ -197,7 +197,7 @@ const NavBar = ({
   setArtist,
   events,
 }) => {
-  const [activeButton, setActiveButton] = useState(null);
+  const [activeButton, setActiveButton] = useState(0);
   const navigate = useNavigate();
   const { home, name } = useParams();
 
@@ -210,7 +210,7 @@ const NavBar = ({
         setActiveButton(0);
       }
     }
-  }, []);
+  });
 
   const handleNavigate = (link) => {
     navigate(`/${link}/`);

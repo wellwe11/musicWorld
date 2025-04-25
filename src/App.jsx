@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useState, createContext, useCallback } from "react";
+import { useEffect, useState, createContext, useCallback, useRef } from "react";
 
 import classes from "../src/PAGES/defaultPage.module.scss";
 
@@ -94,6 +94,9 @@ const App = () => {
   // a new array containing filtered events to avoid duplicates
   const [eventsArray, setEventsArray] = useState([]);
 
+  const titleRef = useRef();
+  const [displayFixedNavBar, setDisplayFixedNavBar] = useState(false);
+
   const namePage = {
     upcomingEvents: UpcomingEventsPage,
     aboutUs: AboutUsPage,
@@ -140,40 +143,65 @@ const App = () => {
     addEvents(events?.events, setEventsArray);
   }, [events]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) setDisplayFixedNavBar(true);
+          if (entry.isIntersecting) setDisplayFixedNavBar(false);
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    const target = titleRef.current;
+
+    if (target) observer.observe(target);
+
+    return () => {
+      if (target) observer.unobserve(target);
+    };
+  }, []);
+
   return (
     <div className={classes.appContainer}>
       <EventContext.Provider value={{ events, loading }}>
-        <NavBar
-          setDateFrom={setDateFrom}
-          setDateTill={setDateTill}
-          dateFrom={dateFrom}
-          dateTill={dateTill}
-          genre={genre}
-          setGenre={setGenre}
-          country={country}
-          setCountry={setCountry}
-          city={city}
-          setCity={setCity}
-          artist={artist}
-          setArtist={setArtist}
-          events={events}
-        />
-
-        <NavBarScroll
-          setDateFrom={setDateFrom}
-          setDateTill={setDateTill}
-          dateFrom={dateFrom}
-          dateTill={dateTill}
-          genre={genre}
-          setGenre={setGenre}
-          country={country}
-          setCountry={setCountry}
-          city={city}
-          setCity={setCity}
-          artist={artist}
-          setArtist={setArtist}
-          events={events}
-        />
+        <div ref={titleRef}>
+          <NavBar
+            setDateFrom={setDateFrom}
+            setDateTill={setDateTill}
+            dateFrom={dateFrom}
+            dateTill={dateTill}
+            genre={genre}
+            setGenre={setGenre}
+            country={country}
+            setCountry={setCountry}
+            city={city}
+            setCity={setCity}
+            artist={artist}
+            setArtist={setArtist}
+            events={events}
+          />
+        </div>
+        {displayFixedNavBar && !name && (
+          <NavBarScroll
+            setDateFrom={setDateFrom}
+            setDateTill={setDateTill}
+            dateFrom={dateFrom}
+            dateTill={dateTill}
+            genre={genre}
+            setGenre={setGenre}
+            country={country}
+            setCountry={setCountry}
+            city={city}
+            setCity={setCity}
+            artist={artist}
+            setArtist={setArtist}
+            events={events}
+          />
+        )}
 
         <div className={classes.routesContainer}>
           {name ? (
