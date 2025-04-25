@@ -1,12 +1,12 @@
 .homePageComponentContainer {
-  height: 100vh;
+  min-height: 100vh;
 
   overflow: hidden;
 
   .pictureSliderContainer {
     display: flex;
     align-items: center;
-    height: 400px;
+    min-height: 800px;
 
     scroll-behavior: smooth;
     overflow: scroll;
@@ -15,11 +15,42 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
 
+    position: relative;
+
     .pictureSliderImage {
+      width: 100%;
+      display: flex;
+      justify-content: center;
       img {
-        padding: 20px;
-        height: 400px;
+        display: 0;
+        height: 500px;
+
+        object-fit: scale-down;
+      }
+
+      .displayedImage {
+        display: 1 !important;
       }
     }
   }
+}
+
+.bandTextContainer {
+  width: 500px;
+  height: 100px;
+
+  font-size: 14px;
+
+  color: gainsboro;
+
+  span {
+    transition: all 1s ease;
+    font-size: 15px;
+    font-weight: 600;
+  }
+}
+
+.thickText {
+  transition: all 1s ease;
+  color: white;
 }

@@ -3,8 +3,6 @@
 
   height: fit-content;
 
-  background-color: var(--buttonContainerTheme);
-
   display: flex;
   justify-content: center;
 
@@ -12,9 +10,13 @@
 
   z-index: 9999;
   top: 0;
+  background-color: #2629300c;
 
   form {
+    border-radius: 0px !important;
     border-bottom: 1px solid rgba(84, 94, 120, 0.7254901961);
+
+    background-color: #262930fa;
   }
 
   input {
@@ -22,6 +24,8 @@
     border-radius: 15px !important;
 
     padding: 7px !important;
+
+    background-color: var(--buttonContainerTheme);
 
     margin-left: 5px;
   }
@@ -36,8 +40,7 @@
     height: fit-content;
     padding: 10px;
     width: 50%;
-
-    background-color: var(--buttonContainerTheme);
+    background-color: #262930fa;
 
     .navBarButtonsWrapper {
       display: flex;
