@@ -1,4 +1,9 @@
+:root {
+  --homePageWidth: 1200px;
+}
+
 .homePageComponentContainer {
+  margin-top: 100px;
   min-height: 100vh;
 
   overflow: hidden;
@@ -24,7 +29,7 @@
 
       img {
         display: 0;
-        width: 1200px;
+        width: var(--homePageWidth);
 
         object-fit: scale-down;
       }
@@ -45,7 +50,7 @@
 }
 
 .bandTextContainer {
-  width: 1200px;
+  width: var(--homePageWidth);
   height: fit-content;
   padding: 20px;
   position: absolute;
@@ -75,4 +80,53 @@
 .thickText {
   transition: all 1s ease;
   color: white;
+}
+
+.popularArtistsContainer {
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-top: 30px solid white;
+  border-bottom: 100px solid white;
+
+  .popularArtistsWrapper {
+    overflow: scroll;
+    width: var(--homePageWidth);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    justify-self: center;
+  }
+}
+
+.artistWrapper {
+  min-width: 150px;
+  margin-right: 15px;
+  height: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: relative;
+
+  background-color: orange;
+
+  .imageContainer {
+    position: absolute;
+    top: 0;
+    background-color: white;
+
+    height: 75%;
+
+    border-radius: 30px;
+  }
+
+  .artistTitle {
+    position: absolute;
+    bottom: 0;
+  }
 }

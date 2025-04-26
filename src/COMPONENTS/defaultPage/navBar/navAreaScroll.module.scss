@@ -1,5 +1,6 @@
 .navBarContainerScroll {
-  min-width: 100vw;
+  width: 100vw;
+  background-color: #262930fa !important;
 
   height: fit-content;
 
@@ -10,13 +11,13 @@
 
   z-index: 9999;
   top: 0;
-  background-color: #2629300c;
+  border-bottom: 1px solid rgba(84, 94, 120, 0.7254901961);
 
   form {
     border-radius: 0px !important;
-    border-bottom: 1px solid rgba(84, 94, 120, 0.7254901961);
 
-    background-color: #262930fa;
+    width: calc(var(--homePageWidth) / 2);
+    background-color: rgba(255, 255, 255, 0);
   }
 
   input {
@@ -25,7 +26,7 @@
 
     padding: 7px !important;
 
-    background-color: var(--buttonContainerTheme);
+    background-color: var(--buttonContainerTheme) !important;
 
     margin-left: 5px;
   }
@@ -39,8 +40,7 @@
     min-width: fit-content;
     height: fit-content;
     padding: 10px;
-    width: 50%;
-    background-color: #262930fa;
+    width: calc(var(--homePageWidth) / 2);
 
     .navBarButtonsWrapper {
       display: flex;
@@ -69,7 +69,6 @@
   }
 
   .buttonHomeActive {
-    border-bottom: 1px solid rgba(84, 94, 120, 0.7254901961);
   }
 }
 

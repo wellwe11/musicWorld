@@ -75,9 +75,46 @@ const EventsImagesWheel = ({ eventsArray }) => {
   );
 };
 
+const ArtistProfile = () => {
+  return (
+    <div className={classes.artistWrapper}>
+      <div className={classes.imageContainer}>Image of artist</div>
+      <div className={classes.artistTitle}>
+        <h4>Name of artist</h4>
+      </div>
+    </div>
+  );
+};
+
+const PopularArtistsNear = () => {
+  return (
+    <div className={classes.popularArtistsContainer}>
+      <h3>{"Artists near you..."}</h3>
+
+      <div className={classes.popularArtistsWrapper}>
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+        <ArtistProfile />
+      </div>
+    </div>
+  );
+};
+
 const HomePageComponent = ({ eventsArray }) => {
   return (
     <div className={classes.homePageComponentContainer}>
+      <PopularArtistsNear />
       <EventsImagesWheel eventsArray={eventsArray} />
     </div>
   );
