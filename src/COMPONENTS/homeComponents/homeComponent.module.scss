@@ -6,7 +6,6 @@
   .pictureSliderContainer {
     display: flex;
     align-items: center;
-    min-height: 800px;
 
     scroll-behavior: smooth;
     overflow: scroll;
@@ -21,9 +20,11 @@
       width: 100%;
       display: flex;
       justify-content: center;
+      align-content: center;
+
       img {
         display: 0;
-        height: 500px;
+        width: 1200px;
 
         object-fit: scale-down;
       }
@@ -33,20 +34,41 @@
       }
     }
   }
+
+  .imageContainer {
+    max-height: 500px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .bandTextContainer {
-  width: 500px;
-  height: 100px;
+  width: 1200px;
+  height: fit-content;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
 
-  font-size: 14px;
+  font-size: 19px;
 
   color: gainsboro;
+  font-weight: lighter;
+  background-color: #13161cf0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    width: 90%;
+  }
 
   span {
     transition: all 1s ease;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: normal;
   }
 }
 

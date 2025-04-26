@@ -14,7 +14,7 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
 
   const texts = {
     textOne: (
-      <>
+      <p>
         Feel the rhythm ignite as{" "}
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {bandName}
@@ -28,10 +28,10 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
           {date}
         </span>
         —where music becomes more than sound.
-      </>
+      </p>
     ),
     textTwo: (
-      <>
+      <p>
         Join{" "}
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {bandName}
@@ -46,10 +46,10 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
         </span>
         , they'll guide you through a journey of sound, stories, and powerful
         melodies that stay with you.
-      </>
+      </p>
     ),
     textThree: (
-      <>
+      <p>
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {bandName}
         </span>{" "}
@@ -62,10 +62,10 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
           {date}
         </span>{" "}
         and witness a show that moves the body and the spirit.
-      </>
+      </p>
     ),
     textFour: (
-      <>
+      <p>
         Step into the world of{" "}
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {genre}
@@ -79,10 +79,10 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
           {date}
         </span>{" "}
         and feel the music like never before.
-      </>
+      </p>
     ),
     textFive: (
-      <>
+      <p>
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {bandName}
         </span>{" "}
@@ -96,10 +96,10 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
         </span>
         , let yourself get lost in their sound—a pulse of passion, grit, and
         musical fire.
-      </>
+      </p>
     ),
     textSix: (
-      <>
+      <p>
         On{" "}
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {date}
@@ -114,7 +114,7 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
         </span>{" "}
         at its most alive. It's more than a concert—it's a connection, a
         movement, and a celebration of sound.
-      </>
+      </p>
     ),
   };
 

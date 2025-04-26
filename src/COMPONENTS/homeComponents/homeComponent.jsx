@@ -10,7 +10,7 @@ const EventsImagesWheel = ({ eventsArray }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDisplayedImage((prev) => (prev < 6 ? prev + 1 : 0));
+      setDisplayedImage((prev) => (prev < 5 ? prev + 1 : 0));
     }, 12500);
 
     return () => clearTimeout(timer);
@@ -37,6 +37,14 @@ const EventsImagesWheel = ({ eventsArray }) => {
     console.log(e);
   };
 
+  const displayedImageAdd = () => {
+    setDisplayedImage((prev) => (prev < 5 ? prev + 1 : 0));
+  };
+
+  const displayedImageMinus = () => {
+    setDisplayedImage((prev) => (prev > 0 ? prev - 1 : 5));
+  };
+
   return (
     <div className={classes.pictureSliderContainer}>
       {displayEvents &&
@@ -50,10 +58,16 @@ const EventsImagesWheel = ({ eventsArray }) => {
                   index === displayedImage ? classes.displayedImage : ""
                 }`}
               >
-                <div onClick={() => logStuff(event)}>
+                <button onClick={displayedImageMinus}>Prev</button>
+                <div
+                  className={classes.imageContainer}
+                  onClick={() => logStuff(event)}
+                >
                   <img src={event?.[0]?.url} alt="" />
+
                   <BandText data={eventsArray[index]} index={index} />
                 </div>
+                <button onClick={displayedImageAdd}>Next</button>
               </div>
             )
         )}
