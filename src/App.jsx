@@ -17,7 +17,7 @@ import NavBarScroll from "./COMPONENTS/defaultPage/navBar/navBarScroll";
 
 export const EventContext = createContext();
 
-const fetchData = async (
+const fetchDataTicketMaster = async (
   size,
   page,
   dateStart,
@@ -80,6 +80,8 @@ const fetchData = async (
   }
 };
 
+const fetchDataSpotify = async () => {};
+
 const App = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -108,7 +110,7 @@ const App = () => {
   const getEvents = useCallback(
     async (size, page, dateStart, dateEnd, genre, country, city, artist) => {
       setLoading(true);
-      const fetchedData = await fetchData(
+      const fetchedData = await fetchDataTicketMaster(
         size,
         page,
         dateStart,
