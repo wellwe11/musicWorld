@@ -4,6 +4,9 @@ import { findFittingImage } from "../../PAGES/functions/findFittingImage";
 import BandText from "./pictureSliderTexts";
 
 import buttonClickArrow from "./images/arrow-right.png";
+import buttonClickPlus from "./images/plus.png";
+import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
+import NavButton from "../defaultPage/navBar/navButton";
 
 const EventsImagesWheel = ({ eventsArray }) => {
   const [displayEvents, setDisplayEvents] = useState([]);
@@ -84,6 +87,40 @@ const EventsImagesWheel = ({ eventsArray }) => {
   );
 };
 
+const InterestedButton = () => {
+  const [isInterested, setIsInterested] = useState(false);
+
+  const changeIsInterested = () =>
+    isInterested ? setIsInterested(false) : setIsInterested(true);
+
+  return (
+    <div
+      className={classes.interestedButtonContainer}
+      onClick={changeIsInterested}
+    >
+      {!isInterested ? (
+        <NavButton externalClass={classes.interestedButtonNotInterested}>
+          Interested
+          <img
+            className={classes.interestedPlus}
+            src={buttonClickPlus}
+            alt=""
+          />
+        </NavButton>
+      ) : (
+        <NavButton externalClass={classes.interestedButtonInterested}>
+          Interested
+          <img
+            className={classes.interestedPlus}
+            src={buttonClickClose}
+            alt=""
+          />
+        </NavButton>
+      )}
+    </div>
+  );
+};
+
 const ArtistProfile = ({ data }) => {
   console.log(data);
 
@@ -97,25 +134,28 @@ const ArtistProfile = ({ data }) => {
   );
   return (
     <div className={classes.artistWrapper}>
-      artist && (
-      <div className={classes.imageContainer}>
-        <img src={artist?.images[0]?.url} alt="" />
-      </div>
-      <div className={classes.artistTitle}>
-        <h4>{artist?.name}</h4>
-      </div>
-      )
+      {artist && (
+        <>
+          <div className={classes.imageContainer}>
+            <img src={artist?.images[0]?.url} alt="" />
+            <div className={classes.artistTitle}>
+              <h4>{artist?.name}</h4>
+            </div>
+          </div>
+          <InterestedButton />
+        </>
+      )}
     </div>
   );
 };
 
-const ArrowButton = ({ side, clickFn }) => {
+const ArrowButton = ({ clickDirection, clickFn }) => {
   return (
     <button className={classes.arrowButton} onClick={clickFn}>
       <img
         src={buttonClickArrow}
         alt=""
-        style={{ transform: side === "left" ? "rotate(180deg)" : "" }}
+        style={{ transform: clickDirection === "left" ? "rotate(180deg)" : "" }}
       />
     </button>
   );
@@ -144,7 +184,7 @@ const PopularArtistsNear = ({ data }) => {
     <div className={classes.popularArtistsContainer}>
       <h2 className={classes.artistsNearTitle}>{"Artists near you..."}</h2>
       <div className={classes.arrayAndButtons}>
-        <ArrowButton side={"left"} clickFn={() => scroller("left")} />
+        <ArrowButton clickDirection={"left"} clickFn={() => scroller("left")} />
         <div className={classes.popularArtistsWrapper} ref={scrollRef}>
           {[...Array(15)].map((_, index) => (
             <div key={index} className={classes.artistProfileMapContainer}>
@@ -152,7 +192,10 @@ const PopularArtistsNear = ({ data }) => {
             </div>
           ))}
         </div>
-        <ArrowButton side={"right"} clickFn={() => scroller("right")} />
+        <ArrowButton
+          clickDirection={"right"}
+          clickFn={() => scroller("right")}
+        />
       </div>
     </div>
   );
