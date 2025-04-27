@@ -87,9 +87,7 @@ const EventsImagesWheel = ({ eventsArray }) => {
   );
 };
 
-const InterestedButton = () => {
-  const [isInterested, setIsInterested] = useState(false);
-
+const InterestedButton = ({ isInterested, setIsInterested }) => {
   const changeIsInterested = () =>
     isInterested ? setIsInterested(false) : setIsInterested(true);
 
@@ -121,17 +119,22 @@ const InterestedButton = () => {
   );
 };
 
-const ArtistProfile = ({ data }) => {
-  console.log(data);
+const ArtistProfile = ({ data, interestedArtists, setInterestedArtists }) => {
+  const [isInterested, setIsInterested] = useState(null);
+
+  useEffect(() => {
+    console.log(data?.name);
+    if (isInterested) setInterestedArtists((artists) => [...artists, data]);
+
+    if (!isInterested && interestedArtists?.length > 0) {
+      setInterestedArtists((artists) =>
+        artists.filter((artist) => artist !== data)
+      );
+    }
+  }, [isInterested]);
 
   const artist = data?._embedded?.attractions?.[0];
 
-  console.log(
-    artist?.externalLinks?.facebook?.[0]?.url.replace(
-      "https://www.facebook.com/",
-      ""
-    )
-  );
   return (
     <div className={classes.artistWrapper}>
       {artist && (
@@ -142,7 +145,10 @@ const ArtistProfile = ({ data }) => {
               <h4>{artist?.name}</h4>
             </div>
           </div>
-          <InterestedButton />
+          <InterestedButton
+            isInterested={isInterested}
+            setIsInterested={setIsInterested}
+          />
         </>
       )}
     </div>
@@ -161,7 +167,11 @@ const ArrowButton = ({ clickDirection, clickFn }) => {
   );
 };
 
-const PopularArtistsNear = ({ data }) => {
+const PopularArtistsNear = ({
+  data,
+  interestedArtists,
+  setInterestedArtists,
+}) => {
   const scrollRef = useRef();
 
   const scroller = (direction) => {
@@ -188,7 +198,11 @@ const PopularArtistsNear = ({ data }) => {
         <div className={classes.popularArtistsWrapper} ref={scrollRef}>
           {[...Array(15)].map((_, index) => (
             <div key={index} className={classes.artistProfileMapContainer}>
-              <ArtistProfile data={data[index]} />
+              <ArtistProfile
+                interestedArtists={interestedArtists}
+                setInterestedArtists={setInterestedArtists}
+                data={data[index]}
+              />
             </div>
           ))}
         </div>
@@ -204,12 +218,23 @@ const PopularArtistsNear = ({ data }) => {
 const HomePageComponent = ({ eventsArray }) => {
   const isLoggedIn = false;
 
-  const favoritedArtists = [];
+  const [interestedArtists, setInterestedArtists] = useState([]);
+
+  useEffect(() => {
+    console.log(interestedArtists);
+  }, [interestedArtists]);
+
   return (
     <div className={classes.homePageComponentContainer}>
-      <PopularArtistsNear data={eventsArray} />
+      <PopularArtistsNear
+        interestedArtists={interestedArtists}
+        setInterestedArtists={setInterestedArtists}
+        data={eventsArray}
+      />
       <EventsImagesWheel eventsArray={eventsArray} />
-      {isLoggedIn && <PopularArtistsNear data={favoritedArtists} />}
+      {interestedArtists.length > 0 && (
+        <PopularArtistsNear data={interestedArtists} />
+      )}
     </div>
   );
 };
