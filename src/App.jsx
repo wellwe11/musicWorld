@@ -229,7 +229,13 @@ export default App;
 /**
  * todos:
  *
- * need to filter images for home-page
+ * navbar search filter needs to be pressed once you search
+ * if you search for artist on home-page:
+ * direct to artists info-page instead (which I will design)
+ * Instead of the current, directing it to a city and their upcoming events
+ *
+ * also, do so if you go to home-page so that it always fetches for a country
+ * --currently, if you search an artist, it will only display that artist on the home-page
  *
  *
  */

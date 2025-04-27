@@ -123,15 +123,29 @@ const ArtistProfile = ({ data, interestedArtists, setInterestedArtists }) => {
   const [isInterested, setIsInterested] = useState(null);
 
   useEffect(() => {
-    console.log(data?.name);
-    if (isInterested) setInterestedArtists((artists) => [...artists, data]);
+    if (isInterested && !interestedArtists?.some((e) => e === data)) {
+      console.log("1");
+      setInterestedArtists((artists) => [...artists, data]);
+    }
 
-    if (!isInterested && interestedArtists?.length > 0) {
+    if (isInterested === false && interestedArtists?.length > 0) {
+      console.log("2");
       setInterestedArtists((artists) =>
         artists.filter((artist) => artist !== data)
       );
     }
   }, [isInterested]);
+
+  useEffect(() => {
+    // sets true on-load if exists in array
+    if (interestedArtists?.some((e) => e === data)) {
+      setIsInterested(true);
+    }
+
+    if (!interestedArtists?.some((e) => e === data)) {
+      setIsInterested(false);
+    }
+  }, [interestedArtists]);
 
   const artist = data?._embedded?.attractions?.[0];
 
@@ -173,6 +187,7 @@ const PopularArtistsNear = ({
   setInterestedArtists,
 }) => {
   const scrollRef = useRef();
+  const [canLoadContent, setCanLoadContent] = useState(false);
 
   const scroller = (direction) => {
     if (direction === "right") {
@@ -190,34 +205,46 @@ const PopularArtistsNear = ({
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCanLoadContent(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className={classes.popularArtistsContainer}>
       <h2 className={classes.artistsNearTitle}>{"Artists near you..."}</h2>
-      <div className={classes.arrayAndButtons}>
-        <ArrowButton clickDirection={"left"} clickFn={() => scroller("left")} />
-        <div className={classes.popularArtistsWrapper} ref={scrollRef}>
-          {[...Array(15)].map((_, index) => (
-            <div key={index} className={classes.artistProfileMapContainer}>
-              <ArtistProfile
-                interestedArtists={interestedArtists}
-                setInterestedArtists={setInterestedArtists}
-                data={data[index]}
-              />
-            </div>
-          ))}
+      {canLoadContent && (
+        <div className={classes.arrayAndButtons}>
+          <ArrowButton
+            clickDirection={"left"}
+            clickFn={() => scroller("left")}
+          />
+          <div className={classes.popularArtistsWrapper} ref={scrollRef}>
+            {[...Array(15)].map((_, index) => (
+              <div key={index} className={classes.artistProfileMapContainer}>
+                <ArtistProfile
+                  interestedArtists={interestedArtists}
+                  setInterestedArtists={setInterestedArtists}
+                  data={data[index]}
+                />
+              </div>
+            ))}
+          </div>
+          <ArrowButton
+            clickDirection={"right"}
+            clickFn={() => scroller("right")}
+          />
         </div>
-        <ArrowButton
-          clickDirection={"right"}
-          clickFn={() => scroller("right")}
-        />
-      </div>
+      )}
     </div>
   );
 };
 
 const HomePageComponent = ({ eventsArray }) => {
-  const isLoggedIn = false;
-
+  let isLoggedIn = false;
   const [interestedArtists, setInterestedArtists] = useState([]);
 
   useEffect(() => {
@@ -233,7 +260,11 @@ const HomePageComponent = ({ eventsArray }) => {
       />
       <EventsImagesWheel eventsArray={eventsArray} />
       {interestedArtists.length > 0 && (
-        <PopularArtistsNear data={interestedArtists} />
+        <PopularArtistsNear
+          data={interestedArtists}
+          interestedArtists={interestedArtists}
+          setInterestedArtists={setInterestedArtists}
+        />
       )}
     </div>
   );
