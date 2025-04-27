@@ -16,7 +16,7 @@ const EventsImagesWheel = ({ eventsArray }) => {
     if (!isHovering) {
       const timer = setTimeout(() => {
         setDisplayedImage((prev) => (prev < 5 ? prev + 1 : 0));
-      }, 500);
+      }, 12500);
       return () => clearTimeout(timer);
     }
   }, [displayedImage, isHovering]);
@@ -88,12 +88,23 @@ const ArtistProfile = ({ data }) => {
   console.log(data);
 
   const artist = data?._embedded?.attractions?.[0];
+
+  console.log(
+    artist?.externalLinks?.facebook?.[0]?.url.replace(
+      "https://www.facebook.com/",
+      ""
+    )
+  );
   return (
     <div className={classes.artistWrapper}>
-      <div className={classes.imageContainer}>Image of artist</div>
+      artist && (
+      <div className={classes.imageContainer}>
+        <img src={artist?.images[0]?.url} alt="" />
+      </div>
       <div className={classes.artistTitle}>
         <h4>{artist?.name}</h4>
       </div>
+      )
     </div>
   );
 };

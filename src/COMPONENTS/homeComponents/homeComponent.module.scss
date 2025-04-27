@@ -123,8 +123,8 @@
 }
 
 .artistWrapper {
-  width: 150px;
-  height: 120px;
+  width: 170px;
+  height: 130px;
 
   display: flex;
   flex-direction: column;
@@ -137,9 +137,19 @@
     top: 0;
     background-color: white;
 
-    height: 65%;
+    height: 75%;
 
-    border-radius: 30px;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    object-fit: cover;
+
+    img {
+      height: 120px;
+      width: 150px;
+    }
   }
 
   .artistTitle {
