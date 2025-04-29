@@ -121,7 +121,6 @@ const App = () => {
         artist
       );
       if (fetchedData) {
-        console.log(fetchedData);
         setEvents(fetchedData._embedded);
         setLoading(false);
       }
@@ -242,9 +241,7 @@ export default App;
 
 /**
  * todos:
- *
- * if you search for artist:
- * direct to artists info-page instead (which I will design)
+ * design artist-page
  *
  * if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * --currently, nothing is updated and you view the same things you searched prior to your un-found search

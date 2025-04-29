@@ -104,7 +104,7 @@ const ExtendedButtons = ({
   }, [genreClicked]);
 
   useEffect(() => {
-    if (dateFrom || dateTill || genre || artist) {
+    if (dateFrom || dateTill || genre) {
       setStartSearch(true);
     }
 
@@ -234,6 +234,10 @@ const NavBar = ({
       if (name === "artistPage") {
         setActiveButton(0);
       }
+
+      if (name === "upcomingEvents") {
+        setArtist("");
+      }
     }
   });
 
@@ -247,8 +251,6 @@ const NavBar = ({
     "About us": "home/aboutUs",
     Account: "home/account",
   };
-
-  console.log(name);
 
   return (
     <div className={`${classes.navBarContainer}`}>
