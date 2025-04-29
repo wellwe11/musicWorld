@@ -6,6 +6,7 @@ import classes from "../src/PAGES/defaultPage.module.scss";
 import AccountPage from "./PAGES/account";
 import AboutUsPage from "./PAGES/aboutUs";
 import UpcomingEventsPage from "./PAGES/upcomingEvents";
+import ArtistPage from "./PAGES/artistPage";
 
 import NavBar from "./COMPONENTS/defaultPage/navBar/navBar";
 import Footer from "./COMPONENTS/defaultPage/footer/footer";
@@ -32,14 +33,12 @@ const fetchDataTicketMaster = async (
 
   let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=200`;
 
-  console.log(url);
-
   if (dateStart && dateEnd) {
     url += `&startDateTime=${dateStart}T00:00:00Z&endDateTime=${dateEnd}T23:59:59Z`;
   }
 
   if (artist) {
-    url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0&attractionId=${artist}`;
+    url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0&keyword=${artist}`;
 
     if (country) {
       url += `&countryCode=${country}`;
@@ -83,9 +82,9 @@ const fetchDataTicketMaster = async (
 const fetchDataSpotify = async () => {};
 
 const App = () => {
+  const { home, name, link } = useParams();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { home, name, link } = useParams();
   const [dateFrom, setDateFrom] = useState(null);
   const [dateTill, setDateTill] = useState(null);
   const [genre, setGenre] = useState(null);
@@ -103,6 +102,7 @@ const App = () => {
     upcomingEvents: UpcomingEventsPage,
     aboutUs: AboutUsPage,
     account: AccountPage,
+    artistPage: ArtistPage,
   };
 
   const PageToView = namePage[name];
@@ -121,6 +121,7 @@ const App = () => {
         artist
       );
       if (fetchedData) {
+        console.log(fetchedData);
         setEvents(fetchedData._embedded);
         setLoading(false);
       }
@@ -167,6 +168,17 @@ const App = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!name) {
+      setDateFrom("");
+      setDateTill("");
+      setGenre("");
+      setCity("");
+      setArtist("");
+      fetchEvents();
+    }
+  }, [name]);
+
   return (
     <div className={classes.appContainer}>
       <EventContext.Provider value={{ events, loading }}>
@@ -206,7 +218,9 @@ const App = () => {
         )}
 
         <div className={classes.routesContainer}>
-          {name ? (
+          {name === "artistPage" && link ? (
+            <ArtistPage artistEvents={events} />
+          ) : name && !link ? (
             <PageToView
               city={city}
               country={country}
@@ -229,13 +243,9 @@ export default App;
 /**
  * todos:
  *
- * navbar search filter needs to be pressed once you search
- * if you search for artist on home-page:
+ * if you search for artist:
  * direct to artists info-page instead (which I will design)
- * Instead of the current, directing it to a city and their upcoming events
  *
- * also, do so if you go to home-page so that it always fetches for a country
- * --currently, if you search an artist, it will only display that artist on the home-page
- *
- *
+ * if no genre/artist/event in (city/country)/date etc is found, display a page that says so
+ * --currently, nothing is updated and you view the same things you searched prior to your un-found search
  */

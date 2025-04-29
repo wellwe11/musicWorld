@@ -14,6 +14,7 @@ const ExtendedButtons = ({
   genre,
   setGenre,
   setArtist,
+  artist,
 }) => {
   const inputRefOne = useRef();
   const inputRefTwo = useRef();
@@ -53,11 +54,12 @@ const ExtendedButtons = ({
   };
 
   const handleDatedFetch = () => {
-    setStartSearch(true);
     if (localDateFrom && localDateTill) {
+      setStartSearch(true);
       setDateFrom(localDateFrom);
       setDateTill(localDateTill);
     } else if (localDateFrom && !localDateTill) {
+      setStartSearch(true);
       const date = new Date(`${localDateFrom}`);
       const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 3));
       const [tillYear, tillMonth, tillDay] = [
@@ -77,6 +79,7 @@ const ExtendedButtons = ({
     }
 
     if (localGenre) {
+      setStartSearch(true);
       setGenre(localGenre);
     }
   };
@@ -99,6 +102,24 @@ const ExtendedButtons = ({
       return () => window.removeEventListener("mousedown", handleGenreClicked);
     }
   }, [genreClicked]);
+
+  useEffect(() => {
+    if (dateFrom || dateTill || genre || artist) {
+      setStartSearch(true);
+    }
+
+    if (genre) {
+      setLocalGenre(genre);
+    }
+
+    if (dateFrom) {
+      setLocalDateFrom(dateFrom);
+    }
+
+    if (dateTill) {
+      setLocalDateTill(dateTill);
+    }
+  }, [dateFrom, dateTill, genre, artist]);
 
   return (
     <div className={classes.extendedButtons}>
@@ -266,7 +287,9 @@ const NavBar = ({
             setGenre={setGenre}
             genre={genre}
             setArtist={setArtist}
+            artist={artist}
             setCity={setCity}
+            city={city}
           />
         )}
       </div>

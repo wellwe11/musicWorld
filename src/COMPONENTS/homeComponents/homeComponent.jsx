@@ -253,12 +253,6 @@ const HomePageComponent = ({ eventsArray }) => {
 
   return (
     <div className={classes.homePageComponentContainer}>
-      <PopularArtistsNear
-        interestedArtists={interestedArtists}
-        setInterestedArtists={setInterestedArtists}
-        data={eventsArray}
-      />
-      <EventsImagesWheel eventsArray={eventsArray} />
       {interestedArtists.length > 0 && (
         <PopularArtistsNear
           data={interestedArtists}
@@ -266,6 +260,12 @@ const HomePageComponent = ({ eventsArray }) => {
           setInterestedArtists={setInterestedArtists}
         />
       )}
+      <EventsImagesWheel eventsArray={eventsArray} />
+      <PopularArtistsNear
+        interestedArtists={interestedArtists}
+        setInterestedArtists={setInterestedArtists}
+        data={eventsArray}
+      />
     </div>
   );
 };

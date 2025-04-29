@@ -166,12 +166,19 @@ const SearchInput = ({
     );
   }, [bigCities, input]);
 
+  // currently dont need this
+  // previously I would look THROUGH a previous fetch to see if it contains any artists
+  // now I simply make a new fetch for specific artist
+  // will keep if I need it anyway
   const artistNames = useCallback((name) => {
     events?.events?.map((event) => {
       event?._embedded?.attractions?.forEach((artist) => {
         if (artist?.name?.toLowerCase().includes(name.toLowerCase())) {
           console.log(artist);
           setArtist(artist.id);
+          handleNavigate(`home/artistPage/id=${artist.id}`);
+        } else {
+          console.log("artist not found:", name);
         }
       });
     });
@@ -196,37 +203,65 @@ const SearchInput = ({
       }
 
       // if user writes country
-      if (isoCountries[checkedInput]) {
-        setCountry(isoCountries[checkedInput]);
+      if (
+        isoCountries[checkedInput] &&
+        !country === isoCountries[checkedInput]
+      ) {
         setCity("");
         setInput("");
-        setArtist("");
+        return setCountry(isoCountries[checkedInput]);
+      }
+
+      if (country === isoCountries[checkedInput]) {
+        return console.log(
+          "you're searching for a country which is already searched for"
+        );
       }
 
       // if user writes city
       if (countryMatch && Object.keys(countryMatch[1]).includes(checkedInput)) {
         setCountry(countryMatch[0]);
         setCity(checkedInput);
+        // navigates to events to display events in city
         setArtist("");
+        return handleNavigate("home/upcomingEvents");
 
-        // if user writes
+        // if user writes country but no ISO countries were initially found
       } else if (countryMatch && typeof input === "string" && countryMatch[0]) {
         console.log("setting country no city");
-        setCountry(countryMatch[0]);
         setCity("");
         setArtist("");
+        return setCountry(countryMatch[0]);
       }
 
       // if users input matches a genre
       if (musicGenres[checkedInput]) {
         setGenre(musicGenres[checkedInput]);
         setArtist("");
+
+        // display genre-events on eventpage
+        return handleNavigate("home/upcomingEvents");
       } else {
         // looking for artists
-        console.log("checking artist", input);
+        console.log("checking artist", checkedInput);
+
+        let artistName = checkedInput.replace(/ /g, "+");
+        setArtist(artistName);
+        handleNavigate(`home/artistPage/id=${artistName}`);
+
+        // artistNames(input);
+
+        // reset genre becasue search is more specified
         setGenre("");
-        artistNames(input);
         setInput("");
+
+        // redirect to artistPage =>
+        // on artist-page: display basic info about artist
+        // then also display IF artist is playing in city/on date etc
+        // if not, simply state it is not
+
+        // if no artist is found =>
+        // display "found no artist named 'checkedInput' :("
       }
 
       setInput("");
@@ -268,7 +303,6 @@ const SearchInput = ({
       className={classes.searchInputContainer}
       onSubmit={(e) => {
         handleSubmit(e);
-        handleNavigate("home/upcomingEvents");
       }}
     >
       <div className={classes.searchIcon} onClick={(e) => handleSubmit(e)}>
