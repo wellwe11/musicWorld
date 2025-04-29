@@ -79,8 +79,6 @@ const fetchDataTicketMaster = async (
   }
 };
 
-const fetchDataSpotify = async () => {};
-
 const App = () => {
   const { home, name, link } = useParams();
   const [events, setEvents] = useState([]);
@@ -176,6 +174,8 @@ const App = () => {
       setArtist("");
       fetchEvents();
     }
+
+    console.log(artist);
   }, [name]);
 
   return (
