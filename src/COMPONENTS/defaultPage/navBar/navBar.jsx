@@ -230,6 +230,10 @@ const NavBar = ({
       if (!name) {
         setActiveButton(0);
       }
+
+      if (name === "artistPage") {
+        setActiveButton(0);
+      }
     }
   });
 
@@ -243,6 +247,8 @@ const NavBar = ({
     "About us": "home/aboutUs",
     Account: "home/account",
   };
+
+  console.log(name);
 
   return (
     <div className={`${classes.navBarContainer}`}>
@@ -261,7 +267,7 @@ const NavBar = ({
       />
       <div
         className={`${classes.navBarButtons} ${
-          !activeButton > 0 ? classes.buttonActive : ""
+          activeButton > 0 ? classes.buttonActive : ""
         }`}
       >
         <div className={classes.navBarButtonsWrapper}>
@@ -278,7 +284,7 @@ const NavBar = ({
             </NavButton>
           ))}
         </div>
-        {name === "upcomingEvents" && (
+        {(name === "upcomingEvents" || name === "artistPage") && (
           <ExtendedButtons
             setDateFrom={setDateFrom}
             setDateTill={setDateTill}

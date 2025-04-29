@@ -198,17 +198,17 @@ const SearchInput = ({
 
     // if user writes a string
     if (typeof input === "string" && input) {
+      setInput("");
+
       if (regionsNotCountries.includes(checkedInput)) {
         console.log("id needed, no ISO avaliable");
       }
 
+      console.log(checkedInput);
+      console.log(isoCountries[checkedInput]);
       // if user writes country
-      if (
-        isoCountries[checkedInput] &&
-        !country === isoCountries[checkedInput]
-      ) {
+      if (isoCountries[checkedInput]) {
         setCity("");
-        setInput("");
         return setCountry(isoCountries[checkedInput]);
       }
 
@@ -221,16 +221,25 @@ const SearchInput = ({
       // if user writes city
       if (countryMatch && Object.keys(countryMatch[1]).includes(checkedInput)) {
         setCountry(countryMatch[0]);
-        setCity(checkedInput);
         // navigates to events to display events in city
-        setArtist("");
-        return handleNavigate("home/upcomingEvents");
+        setCity(checkedInput);
+
+        if (name !== "artistPage") {
+          setArtist("");
+          return handleNavigate("home/upcomingEvents");
+        }
+
+        return;
 
         // if user writes country but no ISO countries were initially found
       } else if (countryMatch && typeof input === "string" && countryMatch[0]) {
         console.log("setting country no city");
         setCity("");
-        setArtist("");
+
+        if (name !== "artistPage") {
+          setArtist("");
+        }
+
         return setCountry(countryMatch[0]);
       }
 
@@ -253,7 +262,6 @@ const SearchInput = ({
 
         // reset genre becasue search is more specified
         setGenre("");
-        setInput("");
 
         // redirect to artistPage =>
         // on artist-page: display basic info about artist
@@ -263,8 +271,6 @@ const SearchInput = ({
         // if no artist is found =>
         // display "found no artist named 'checkedInput' :("
       }
-
-      setInput("");
     }
 
     // clean out items to determine if the input was a date
