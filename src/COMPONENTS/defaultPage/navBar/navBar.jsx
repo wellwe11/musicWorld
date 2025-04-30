@@ -23,7 +23,7 @@ const ExtendedButtons = ({
   const [localGenre, setLocalGenre] = useState();
   const [genreClicked, setGenreClicked] = useState(false);
   const [startSearch, setStartSearch] = useState(false);
-
+  const { home, name } = useParams();
   const today = new Date().toISOString().split("T")[0];
 
   const handleDateFromShowPicker = () => {
@@ -165,14 +165,16 @@ const ExtendedButtons = ({
           />
         </>
         <>
-          <NavButton
-            onClick={handleGenreClicked}
-            externalClass={`${
-              localGenre || genreClicked ? classes.buttonTarget : ""
-            }`}
-          >
-            {musicGenres[localGenre] || musicGenres[genre] || "Genre"}
-          </NavButton>
+          {name === "upcomingEvents" && (
+            <NavButton
+              onClick={handleGenreClicked}
+              externalClass={`${
+                localGenre || genreClicked ? classes.buttonTarget : ""
+              }`}
+            >
+              {musicGenres[localGenre] || musicGenres[genre] || "Genre"}
+            </NavButton>
+          )}
           {genreClicked && (
             <div className={classes.genreContainer}>
               <ul onMouseLeave={handleGenreClicked}>

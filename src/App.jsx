@@ -182,7 +182,7 @@ const App = () => {
             events={events}
           />
         </div>
-        {displayFixedNavBar && !name && (
+        {displayFixedNavBar && (!name || name === "artistPage") && (
           <NavBarScroll
             setDateFrom={setDateFrom}
             setDateTill={setDateTill}
@@ -260,5 +260,9 @@ export default App;
  * if a band has numbers inside of it, prevent the input-field to look for dates (currently sets NaN/NaN/NaN)
  *
  * currently recieve error if you clear filter on artist-page
+ *
+ * need to remove genre button from artist page
+ *
+ * add interest button to artist-page
  *
  */

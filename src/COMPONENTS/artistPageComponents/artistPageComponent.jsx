@@ -125,6 +125,7 @@ const ArtistEvents = ({
   const [unfilteredEvents, setUnfilteredEvents] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // seperate fetch to display all upcoming events from artist
   const getEvents = useCallback(async (artist) => {
     setLoading(true);
     const fetchedData = await fetchDataTicketMaster(
@@ -148,14 +149,32 @@ const ArtistEvents = ({
   }, [artist]);
 
   useEffect(() => {
-    console.log(unfilteredEvents);
+    console.log(events);
   }, [unfilteredEvents]);
+
+  // events are the ones that are located in current selected country
+  // give events matching these a unique appearance to help user see them
 
   return (
     <div className={classes.artistEventsContainer}>
       <div>
-        {unfilteredEvents?.events?.map((event) => (
-          <div className={classes.eventWrapper}>
+        <h2>
+          Events in {events?.events?.[0]?._embedded?.venues?.[0]?.country?.name}
+        </h2>
+        {events?.events?.map((event, index) => (
+          <div className={classes.eventWrapper} key={index}>
+            <h4>{event?.name}</h4>
+            <h5>{event?.dates?.start?.localDate}</h5>
+            <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
+            <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
+          </div>
+        ))}
+      </div>
+
+      <div>
+        <h2>Rest of events</h2>
+        {unfilteredEvents?.events?.map((event, index) => (
+          <div className={classes.eventWrapper} key={index}>
             <h4>{event?.name}</h4>
             <h5>{event?.dates?.start?.localDate}</h5>
             <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
