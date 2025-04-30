@@ -267,5 +267,4 @@ export default App;
  *
  * style the arrows (left/right) for big image on home-page
  *
- * stop rerendering of all components when you write in input
  */

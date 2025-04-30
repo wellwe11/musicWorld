@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ArtistPageComponent from "../COMPONENTS/artistPageComponents/artistPageComponent";
 
 const ArtistPage = ({
