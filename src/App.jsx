@@ -241,6 +241,9 @@ export default App;
  * if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * --currently, nothing is updated and you view the same things you searched prior to your un-found search
  *
+ * * add dots to home-pages big images to show which current image is displayed
+ * * style the arrows (left/right) for big image on home-page
+ *
  * Make so country and city is visible on search bar on home-page & artist-page as well
  * make so changing city on home-page takes you to event-page
  *
@@ -248,20 +251,16 @@ export default App;
  *
  * add logo to navbar when u scroll
  *
- * add loading svg animation to top middle of events-page
+ * add loading svg animations
+ * -- to home-page
+ * -- to event-page
+ * -- to artist-page
  *
- * add dots to home-pages big images to show which current image is displayed
  *
  * current-page buttons (left right on events-page) isnt working correclty right now. They are white when they shouldn't be and gray when they shouldn't be
  * --and display too many pages sometimes
  *
- * style the arrows (left/right) for big image on home-page
- *
  * if a band has numbers inside of it, prevent the input-field to look for dates (currently sets NaN/NaN/NaN)
- *
- * currently recieve error if you clear filter on artist-page
- *
- * need to remove genre button from artist page
  *
  * add interest button to artist-page
  *
