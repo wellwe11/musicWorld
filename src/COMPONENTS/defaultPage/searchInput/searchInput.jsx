@@ -322,25 +322,27 @@ const SearchInput = ({
         placeholder={"Search for events..."}
         onKeyDown={handleInputChange}
       ></input>
-      {name === "upcomingEvents" && (
-        <div className={classes.countryCityFilter}>
-          <CountrySelect
-            getter={country}
-            setter={setCountry}
-            object={Object.values(isoCountries)}
-            textValue={Object.keys(isoCountries)}
-          />
-          <div className={classes.spacer}>
-            <h3>|</h3>{" "}
-          </div>
-          <CountrySelect
-            getter={city}
-            setter={setCity}
-            object={Object.keys(bigCities[country])}
-            needsClose={true}
-          />
-        </div>
-      )}
+      <div className={classes.countryCityFilter}>
+        <CountrySelect
+          getter={country}
+          setter={setCountry}
+          object={Object.values(isoCountries)}
+          textValue={Object.keys(isoCountries)}
+        />
+        {name === "upcomingEvents" && (
+          <>
+            <div className={classes.spacer}>
+              <h3>|</h3>
+            </div>
+            <CountrySelect
+              getter={city}
+              setter={setCity}
+              object={Object.keys(bigCities[country])}
+              needsClose={true}
+            />
+          </>
+        )}
+      </div>
     </form>
   );
 };

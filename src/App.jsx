@@ -267,4 +267,6 @@ export default App;
  *
  * style the arrows (left/right) for big image on home-page
  *
+ * if a band has numbers inside of it, prevent the input-field to look for dates (currently sets NaN/NaN/NaN)
+ *
  */

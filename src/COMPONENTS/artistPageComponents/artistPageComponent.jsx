@@ -23,20 +23,18 @@ import { isoCountries } from "../defaultPage/searchInput/inputInformation";
 //     []
 //   );
 
-const useFetchData = (bandName) => {
+const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   const [data, setData] = useState([]);
+  const [secondaryData, setSecondaryData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const base_URL = `https://api.discogs.com/database/search?`;
-  const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
 
   useEffect(() => {
     if (bandName) {
       let isMounted = true;
-      const url = `${base_URL}q=${encodeURIComponent(
+      const url = `${base_URL}${encodeURIComponent(
         bandName
-      )}&type=artist&token=${DISCOGS_API_KEY}`;
+      )}${specifiedSearchWithAPI}`;
 
       const fetchData = async () => {
         setLoading(true);
@@ -48,8 +46,16 @@ const useFetchData = (bandName) => {
           }
 
           const result = await response.json();
+
+          setSecondaryData(result.results[0]);
+          const firstArtist = result.results[0];
+          const artistBio = await fetch(
+            `https://api.discogs.com/artists/${firstArtist.id}`
+          );
+          const detailedData = await artistBio.json();
+
           if (isMounted) {
-            setData(result);
+            setData(detailedData);
             setLoading(false);
           }
         } catch (error) {
@@ -68,7 +74,7 @@ const useFetchData = (bandName) => {
     }
   }, [bandName]);
 
-  return { data, loading, error };
+  return { data, secondaryData, loading, error };
 };
 
 const ArtistName = ({}) => {
@@ -87,30 +93,21 @@ const ArtistPageComponent = ({
   setCountry,
   artist,
 }) => {
-  const [localArtist, setLocalArtist] = useState(null);
-  const [localCountry, setLocalCountry] = useState(null);
-  useEffect(() => {
-    // array, null, null, DE, billie+eilish
+  console.log(artist);
 
-    const countryName = Object.keys(isoCountries).find(
-      (key) => isoCountries[key] === country
-    );
-    const fixedCountryName =
-      countryName.charAt(0).toUpperCase() + countryName.slice(1);
-
-    setLocalCountry(fixedCountryName);
-
-    const artistName = artist.replace(/\+/g, " ");
-    setLocalArtist(artistName);
-  }, [artistEvents, dateFrom, dateTill, city, country, artist]);
-  const { data, loading, error } = useFetchData(localArtist);
-  console.log(data?.results?.[0]);
+  const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
+  const { data, secondaryData, loading, error } = useFetchData(
+    "https://api.discogs.com/database/search?q=",
+    artist.replace(/\+/g, " "),
+    `&type=artist&token=${DISCOGS_API_KEY}`
+  );
+  console.log(data, secondaryData);
 
   return (
     <div className={classes.artistPage}>
       <div className={classes.artistName}>
-        <h1>{localArtist}</h1>
-        <h3>{localCountry}</h3>
+        <h1>{data?.name}</h1>
+        <img src={secondaryData?.cover_image} alt="" />
       </div>
     </div>
   );
