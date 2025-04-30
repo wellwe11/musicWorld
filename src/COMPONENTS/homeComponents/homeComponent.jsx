@@ -24,10 +24,6 @@ const EventsImagesWheel = ({ eventsArray }) => {
     }
   }, [displayedImage, isHovering]);
 
-  useEffect(() => {
-    console.log(displayedImage);
-  }, [displayedImage]);
-
   const amountOfEventsDisplay = useMemo(() => {
     return eventsArray.map((event, index) => {
       const eventsImages = event?.images.filter(
@@ -124,12 +120,10 @@ const ArtistProfile = ({ data, interestedArtists, setInterestedArtists }) => {
 
   useEffect(() => {
     if (isInterested && !interestedArtists?.some((e) => e === data)) {
-      console.log("1");
       setInterestedArtists((artists) => [...artists, data]);
     }
 
     if (isInterested === false && interestedArtists?.length > 0) {
-      console.log("2");
       setInterestedArtists((artists) =>
         artists.filter((artist) => artist !== data)
       );
@@ -191,14 +185,12 @@ const PopularArtistsNear = ({
 
   const scroller = (direction) => {
     if (direction === "right") {
-      console.log(direction);
       scrollRef.current.scrollBy({
         left: 500,
       });
     }
 
     if (direction === "left") {
-      console.log(direction);
       scrollRef.current.scrollBy({
         left: -500,
       });
@@ -246,10 +238,6 @@ const PopularArtistsNear = ({
 const HomePageComponent = ({ eventsArray }) => {
   let isLoggedIn = false;
   const [interestedArtists, setInterestedArtists] = useState([]);
-
-  useEffect(() => {
-    console.log(interestedArtists);
-  }, [interestedArtists]);
 
   return (
     <div className={classes.homePageComponentContainer}>

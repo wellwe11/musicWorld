@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import ArtistPageComponent from "../COMPONENTS/artistPageComponents/artistPageComponent";
 
 const ArtistPage = ({
   artistEvents,
@@ -10,14 +11,21 @@ const ArtistPage = ({
   setCity,
   country,
   setCountry,
+  artist,
 }) => {
-  useEffect(() => {
-    console.log(artistEvents);
-  }, [artistEvents]);
   return (
-    <div>
-      <h1>Artist name</h1>
-    </div>
+    <ArtistPageComponent
+      artistEvents={artistEvents}
+      dateFrom={dateFrom}
+      setDateFrom={setDateFrom}
+      dateTill={dateTill}
+      setDateTill={setDateTill}
+      city={city}
+      setCity={setCity}
+      country={country}
+      setCountry={setCountry}
+      artist={artist}
+    />
   );
 };
 

@@ -40,10 +40,6 @@ const fetchDataTicketMaster = async (
   if (artist) {
     url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0&keyword=${artist}`;
 
-    if (country) {
-      url += `&countryCode=${country}`;
-    }
-
     if (city) {
       url += `&city=${city}`;
     }
@@ -174,8 +170,6 @@ const App = () => {
       setArtist("");
       fetchEvents();
     }
-
-    console.log(artist);
   }, [name]);
 
   return (
@@ -218,7 +212,18 @@ const App = () => {
 
         <div className={classes.routesContainer}>
           {name === "artistPage" && link ? (
-            <ArtistPage artistEvents={events} />
+            <ArtistPage
+              artistEvents={events}
+              dateFrom={dateFrom}
+              setDateFrom={setDateFrom}
+              dateTill={dateTill}
+              setDateTill={setDateTill}
+              city={city}
+              setCity={setCity}
+              country={country}
+              setCountry={setCountry}
+              artist={artist}
+            />
           ) : name && !link ? (
             <PageToView
               city={city}
@@ -245,4 +250,22 @@ export default App;
  *
  * if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * --currently, nothing is updated and you view the same things you searched prior to your un-found search
+ *
+ * Make so country and city is visible on search bar on home-page & artist-page as well
+ * make so changing city on home-page takes you to event-page
+ *
+ * make so arrows on home-page for favorite artists etc are only visible if there are more than visible events (needs to work for when you scale make the site smaller as well)
+ *
+ * add logo to navbar when u scroll
+ *
+ * add loading svg animation to top middle of events-page
+ *
+ * add dots to home-pages big images to show which current image is displayed
+ *
+ * current-page buttons (left right on events-page) isnt working correclty right now. They are white when they shouldn't be and gray when they shouldn't be
+ * --and display too many pages sometimes
+ *
+ * style the arrows (left/right) for big image on home-page
+ *
+ * stop rerendering of all components when you write in input
  */

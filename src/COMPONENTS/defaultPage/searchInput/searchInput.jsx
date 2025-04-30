@@ -159,7 +159,6 @@ const SearchInput = ({
 
   const [input, setInput] = useState("");
 
-  // currently not needed, as component doesnt reaload unless countryMatch actually changes. But am keeping it here because I wanted to learn
   const countryMatch = useMemo(() => {
     return Object.entries(bigCities)?.find(([, obj]) =>
       Object.keys(obj)?.includes(input.toString("").toLowerCase())
@@ -185,7 +184,11 @@ const SearchInput = ({
   });
 
   const handleInputChange = (e) => {
-    setInput(e.target.value);
+    if (e.key === "Enter") {
+      console.log(e.target.value);
+      setInput(e.target.value);
+      e.target.value = "";
+    }
   };
 
   const handleNavigate = (link) => {
@@ -317,8 +320,7 @@ const SearchInput = ({
       <input
         className={classes.searchInput}
         placeholder={"Search for events..."}
-        onChange={handleInputChange}
-        value={input}
+        onKeyDown={handleInputChange}
       ></input>
       {name === "upcomingEvents" && (
         <div className={classes.countryCityFilter}>
