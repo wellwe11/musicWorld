@@ -18,7 +18,7 @@ import NavBarScroll from "./COMPONENTS/defaultPage/navBar/navBarScroll";
 
 export const EventContext = createContext();
 
-const fetchDataTicketMaster = async (
+export const fetchDataTicketMaster = async (
   size,
   page,
   dateStart,
@@ -38,25 +38,15 @@ const fetchDataTicketMaster = async (
   }
 
   if (artist) {
-    url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=25&page=0&keyword=${artist}`;
-
-    if (city) {
-      url += `&city=${city}`;
-    }
+    url += `&keyword=${artist}`;
   }
 
-  if (!artist) {
-    if (genre) {
-      url += `&genreId=${genre}`;
-    }
+  if (country) {
+    url += `&countryCode=${country}`;
+  }
 
-    if (country) {
-      url += `&countryCode=${country}`;
-    }
-
-    if (city) {
-      url += `&city=${city}`;
-    }
+  if (city) {
+    url += `&city=${city}`;
   }
 
   try {
@@ -268,5 +258,7 @@ export default App;
  * style the arrows (left/right) for big image on home-page
  *
  * if a band has numbers inside of it, prevent the input-field to look for dates (currently sets NaN/NaN/NaN)
+ *
+ * currently recieve error if you clear filter on artist-page
  *
  */

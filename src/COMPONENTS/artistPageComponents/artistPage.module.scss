@@ -1,0 +1,45 @@
+.artistPage {
+  display: flex;
+}
+
+.artistProfile {
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  justify-self: flex-end;
+
+  .profileContainer {
+    max-width: 400px;
+
+    .titleContainer {
+    }
+
+    .imageContainer {
+      img {
+        height: 400px;
+        width: 400px;
+
+        object-fit: cover;
+      }
+    }
+
+    .bioInfoContainer {
+      display: flex;
+      flex-direction: column;
+
+      h4 {
+        margin-top: 10px;
+      }
+
+      .linkButtonsContainer {
+        display: flex;
+        margin-top: 10px;
+
+        button {
+        }
+      }
+    }
+  }
+}

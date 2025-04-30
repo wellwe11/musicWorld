@@ -43,13 +43,13 @@ const ExtendedButtons = ({
   };
 
   const handleClearFilter = () => {
-    setDateFrom(null);
-    setDateTill(null);
-    setLocalDateFrom(null);
-    setLocalDateTill(null);
-    setLocalGenre(null);
-    setGenre(null);
-    setArtist(null);
+    setDateFrom("");
+    setDateTill("");
+    setLocalDateFrom("");
+    setLocalDateTill("");
+    setLocalGenre("");
+    setGenre("");
+    setArtist("");
     setStartSearch(false);
   };
 
