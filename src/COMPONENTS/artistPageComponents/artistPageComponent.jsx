@@ -12,6 +12,7 @@ import instagramIcon from "./media/instagram.png";
 import twitterIcon from "./media/twitter.png";
 import soundcloudIcon from "./media/soundcloud.png";
 import youtubeIcon from "./media/youtube.png";
+import { useNavigate } from "react-router-dom";
 
 const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   const [data, setData] = useState([]);
@@ -247,12 +248,25 @@ const ArtistEvents = ({ events, artist }) => {
 };
 
 const ArtistPageComponent = ({ artistEvents, artist }) => {
+  const navigate = useNavigate();
+
   const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
   const { data, secondaryData, loading, error } = useFetchData(
     "https://api.discogs.com/database/search?q=",
     artist.replace(/\+/g, " "),
     `&type=artist&token=${DISCOGS_API_KEY}`
   );
+
+  const handleNavigate = (link) => {
+    navigate(`/${link}/`);
+  };
+
+  useEffect(() => {
+    if (!artist) {
+      console.log("no artist active");
+      handleNavigate("./home");
+    }
+  }, [artist]);
 
   return (
     <div className={classes.artistPage}>
