@@ -288,7 +288,7 @@ const NavBar = ({
             </NavButton>
           ))}
         </div>
-        {(name === "upcomingEvents" || name === "artistPage") && (
+        {name === "upcomingEvents" && (
           <ExtendedButtons
             setDateFrom={setDateFrom}
             setDateTill={setDateTill}

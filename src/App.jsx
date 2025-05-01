@@ -264,4 +264,6 @@ export default App;
  *
  * add interest button to artist-page
  *
+ * refractor handleSubmit function inside searchInput to make it work quicker (currently triggers warning for taking too long)
+ *
  */

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import classes from "./artistPage.module.scss";
 import { isoCountries } from "../defaultPage/searchInput/inputInformation";
 import { fetchDataTicketMaster } from "../../App";
+import NavButton from "../defaultPage/navBar/navButton";
 
 const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   const [data, setData] = useState([]);
@@ -113,14 +114,7 @@ const ArtistProfile = ({ data, secondaryData }) => {
   );
 };
 
-const ArtistEvents = ({
-  events,
-  city,
-  country,
-  dateFrom,
-  dateTill,
-  artist,
-}) => {
+const ArtistEvents = ({ events, artist }) => {
   const [localEvents, setLocalEvents] = useState(null);
   const [unfilteredEvents, setUnfilteredEvents] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -152,33 +146,51 @@ const ArtistEvents = ({
     console.log(events);
   }, [unfilteredEvents]);
 
-  // events are the ones that are located in current selected country
-  // give events matching these a unique appearance to help user see them
+  console.log(events);
 
   return (
     <div className={classes.artistEventsContainer}>
-      <div>
-        <h2>
-          Events in {events?.events?.[0]?._embedded?.venues?.[0]?.country?.name}
-        </h2>
-        {events?.events?.map((event, index) => (
-          <div className={classes.eventWrapper} key={index}>
-            <h4>{event?.name}</h4>
-            <h5>{event?.dates?.start?.localDate}</h5>
-            <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
-            <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
-          </div>
-        ))}
-      </div>
+      {events && (
+        <div className={classes.eventSectionContainer}>
+          <h2>
+            Events in{" "}
+            {events?.events?.[0]?._embedded?.venues?.[0]?.country?.name}
+          </h2>
+          {events?.events?.map((event, index) => (
+            <div className={classes.eventWrapper} key={index}>
+              <div className={classes.eventTitle}>
+                <h4>{event?.name}</h4>
+              </div>
+              <div className={classes.eventSubInfo}>
+                <h5>{event?.dates?.start?.localDate}</h5>
+                <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
+                <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
 
-      <div>
-        <h2>Rest of events</h2>
+                <NavButton onClick={() => window.open(event?.url)}>
+                  Ticket
+                </NavButton>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className={classes.eventSectionContainer}>
+        <h2>All events</h2>
         {unfilteredEvents?.events?.map((event, index) => (
           <div className={classes.eventWrapper} key={index}>
-            <h4>{event?.name}</h4>
-            <h5>{event?.dates?.start?.localDate}</h5>
-            <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
-            <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
+            <div className={classes.eventTitle}>
+              <h4>{event?.name}</h4>
+            </div>
+            <div className={classes.eventSubInfo}>
+              <h5>{event?.dates?.start?.localDate}</h5>
+              <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
+              <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
+
+              <NavButton onClick={() => window.open(event?.url)}>
+                Ticket
+              </NavButton>
+            </div>
           </div>
         ))}
       </div>
@@ -186,18 +198,7 @@ const ArtistEvents = ({
   );
 };
 
-const ArtistPageComponent = ({
-  artistEvents,
-  dateFrom,
-  setDateFrom,
-  dateTill,
-  setDateTill,
-  city,
-  setCity,
-  country,
-  setCountry,
-  artist,
-}) => {
+const ArtistPageComponent = ({ artistEvents, artist }) => {
   const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
   const { data, secondaryData, loading, error } = useFetchData(
     "https://api.discogs.com/database/search?q=",

@@ -1,5 +1,7 @@
 .artistPage {
   display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
 }
 
 .artistProfile {
@@ -40,6 +42,39 @@
         button {
         }
       }
+    }
+  }
+}
+
+.artistEventsContainer {
+  max-width: 800px;
+
+  .eventSectionContainer {
+    display: flex;
+    flex-direction: column;
+    min-width: 100%;
+  }
+  .eventWrapper {
+    padding: 10px;
+    margin-bottom: 15px;
+
+    min-height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: orange;
+    border: 1px solid black;
+
+    .eventTitle {
+      flex: 1;
+    }
+
+    .eventSubInfo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 50%;
     }
   }
 }
