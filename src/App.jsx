@@ -262,7 +262,7 @@ export default App;
  *
  * if a band has numbers inside of it, prevent the input-field to look for dates (currently sets NaN/NaN/NaN)
  *
- * add interest button to artist-page
+ * create intersted-object on App.jsx. You can add to it and remove from all pages that has interested-button (artist page, (will add to upcomingEvents), home-page)
  *
  * refractor handleSubmit function inside searchInput to make it work quicker (currently triggers warning for taking too long)
  *
