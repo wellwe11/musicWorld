@@ -35,9 +35,12 @@
       }
 
       .interestedPlus {
-        max-height: 20px !important;
-        max-width: 20px !important;
-        margin-left: 10px;
+        width: 15px;
+        height: 15px;
+
+        margin-left: 15px;
+
+        filter: invert(0.7);
       }
     }
     .titleContainer {
