@@ -7,6 +7,12 @@ import NavButton from "../defaultPage/navBar/navButton";
 import buttonClickPlus from "../homeComponents/images/plus.png";
 import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
 
+import facebookIcon from "./media/facebook.png";
+import instagramIcon from "./media/instagram.png";
+import twitterIcon from "./media/twitter.png";
+import soundcloudIcon from "./media/soundcloud.png";
+import youtubeIcon from "./media/youtube.png";
+
 const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   const [data, setData] = useState([]);
   const [secondaryData, setSecondaryData] = useState([]);
@@ -61,6 +67,19 @@ const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   return { data, secondaryData, loading, error };
 };
 
+// use to match social-media links to correct links. They're un-ordered in the fetch, so you need a dynamic fetch, rather than directly accessing the object containing the links
+const findUrl = (urls, keyword) => {
+  if (urls) {
+    const matchingUrl = urls.find((url) => url.includes(keyword));
+
+    if (matchingUrl) {
+      return matchingUrl;
+    } else {
+      return console.log("No matching social media-link");
+    }
+  }
+};
+
 const ArtistProfile = ({ data, secondaryData }) => {
   const [artistName, setArtistName] = useState();
   const [imageSource, setImageSource] = useState();
@@ -78,11 +97,11 @@ const ArtistProfile = ({ data, secondaryData }) => {
     setBioInfo({
       realName: data?.realname,
       info: data?.profile,
-      instagram: data?.urls?.[1],
-      facebook: data?.urls?.[2],
-      twitter: data?.urls?.[6],
-      soundcloud: data?.urls?.[3],
-      youtube: data?.urls?.[8],
+      instagram: findUrl(data?.urls, "instagram"),
+      facebook: findUrl(data?.urls, "facebook"),
+      twitter: findUrl(data?.urls, "twitter"),
+      soundcloud: findUrl(data?.urls, "soundcloud"),
+      youtube: findUrl(data?.urls, "youtube"),
     });
   }, [data, secondaryData]);
 
@@ -122,21 +141,23 @@ const ArtistProfile = ({ data, secondaryData }) => {
                 </NavButton>
               )}
             </div>
-            <button onClick={() => window.open(bioInfo.instagram)}>
-              Instagram
-            </button>
-            <button onClick={() => window.open(bioInfo.facebook)}>
-              Facebook
-            </button>
-            <button onClick={() => window.open(bioInfo.twitter)}>
-              Twitter
-            </button>
-            <button onClick={() => window.open(bioInfo.soundcloud)}>
-              SoundCloud
-            </button>
-            <button onClick={() => window.open(bioInfo.youtube)}>
-              YouTube
-            </button>
+            <div className={classes.linkButtonContainer}>
+              <button onClick={() => window.open(bioInfo.instagram)}>
+                <img src={instagramIcon} alt="" />
+              </button>
+              <button onClick={() => window.open(bioInfo.facebook)}>
+                <img src={facebookIcon} alt="" />
+              </button>
+              <button onClick={() => window.open(bioInfo.twitter)}>
+                <img src={twitterIcon} alt="" />
+              </button>
+              <button onClick={() => window.open(bioInfo.soundcloud)}>
+                <img src={soundcloudIcon} alt="" />
+              </button>
+              <button onClick={() => window.open(bioInfo.youtube)}>
+                <img src={youtubeIcon} alt="" />
+              </button>
+            </div>
           </div>
         </div>
         <div className={classes.bioInfoContainer}>
@@ -175,12 +196,6 @@ const ArtistEvents = ({ events, artist }) => {
   useEffect(() => {
     getEvents(artist);
   }, [artist]);
-
-  useEffect(() => {
-    console.log(events);
-  }, [unfilteredEvents]);
-
-  console.log(unfilteredEvents);
 
   return (
     <div className={classes.artistEventsContainer}>

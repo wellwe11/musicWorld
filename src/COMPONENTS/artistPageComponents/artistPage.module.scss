@@ -2,11 +2,11 @@
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
+  margin-top: 100px;
+  color: white;
 }
 
 .artistProfile {
-  color: white;
-
   display: flex;
   justify-content: center;
   align-content: center;
@@ -16,14 +16,18 @@
     max-width: 400px;
 
     .interestedButtonContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       .interestedButtonNotInterested {
-        height: 40px !important;
-        min-width: 130px !important;
+        height: 40px;
+        min-width: 155px;
       }
 
       .interestedButtonInterested {
-        height: 40px !important;
-        min-width: 130px !important;
+        height: 40px;
+        min-width: 155px;
+        background-color: rgb(137, 151, 228) !important;
       }
 
       .interestedPlus {
@@ -44,9 +48,11 @@
       }
       .linkButtonsContainer {
         display: flex;
-        margin-top: -30px;
+        justify-content: space-between;
+        align-items: center;
 
         button {
+          cursor: pointer;
         }
       }
     }
@@ -59,6 +65,21 @@
       h4 {
         margin-top: 10px;
       }
+    }
+  }
+
+  .linkButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      max-width: 25px;
+      max-height: 25px;
+
+      margin: 5px;
+
+      filter: invert(1);
     }
   }
 }
