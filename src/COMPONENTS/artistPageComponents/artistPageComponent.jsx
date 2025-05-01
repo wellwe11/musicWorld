@@ -4,6 +4,9 @@ import { isoCountries } from "../defaultPage/searchInput/inputInformation";
 import { fetchDataTicketMaster } from "../../App";
 import NavButton from "../defaultPage/navBar/navButton";
 
+import buttonClickPlus from "../homeComponents/images/plus.png";
+import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
+
 const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   const [data, setData] = useState([]);
   const [secondaryData, setSecondaryData] = useState([]);
@@ -61,6 +64,10 @@ const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
 const ArtistProfile = ({ data, secondaryData }) => {
   const [artistName, setArtistName] = useState();
   const [imageSource, setImageSource] = useState();
+  const [isInterested, setIsInterested] = useState(null);
+
+  const changeIsInterested = () =>
+    isInterested ? setIsInterested(false) : setIsInterested(true);
 
   const [bioInfo, setBioInfo] = useState({});
 
@@ -85,13 +92,36 @@ const ArtistProfile = ({ data, secondaryData }) => {
         <div className={classes.titleContainer}>
           <h2>{artistName}</h2>
         </div>
+
         <div className={classes.imageContainer}>
           <img src={imageSource} alt="" />
-        </div>
-        <div className={classes.bioInfoContainer}>
-          <h3>{bioInfo.realName}</h3>
-          <h4>{bioInfo.info}</h4>
           <div className={classes.linkButtonsContainer}>
+            <div
+              className={classes.interestedButtonContainer}
+              onClick={changeIsInterested}
+            >
+              {!isInterested ? (
+                <NavButton
+                  externalClass={classes.interestedButtonNotInterested}
+                >
+                  Interested
+                  <img
+                    className={classes.interestedPlus}
+                    src={buttonClickPlus}
+                    alt=""
+                  />
+                </NavButton>
+              ) : (
+                <NavButton externalClass={classes.interestedButtonInterested}>
+                  Interested
+                  <img
+                    className={classes.interestedPlus}
+                    src={buttonClickClose}
+                    alt=""
+                  />
+                </NavButton>
+              )}
+            </div>
             <button onClick={() => window.open(bioInfo.instagram)}>
               Instagram
             </button>
@@ -108,6 +138,10 @@ const ArtistProfile = ({ data, secondaryData }) => {
               YouTube
             </button>
           </div>
+        </div>
+        <div className={classes.bioInfoContainer}>
+          <h3>{bioInfo.realName}</h3>
+          <h4>{bioInfo.info}</h4>
         </div>
       </div>
     </div>
@@ -146,7 +180,7 @@ const ArtistEvents = ({ events, artist }) => {
     console.log(events);
   }, [unfilteredEvents]);
 
-  console.log(events);
+  console.log(unfilteredEvents);
 
   return (
     <div className={classes.artistEventsContainer}>
@@ -165,7 +199,6 @@ const ArtistEvents = ({ events, artist }) => {
                 <h5>{event?.dates?.start?.localDate}</h5>
                 <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
                 <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
-
                 <NavButton onClick={() => window.open(event?.url)}>
                   Ticket
                 </NavButton>

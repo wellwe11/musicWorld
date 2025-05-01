@@ -1,5 +1,5 @@
 export const isoCountries = {
-  "united states of america": "US",
+  USA: "US",
   andorra: "AD",
   anguilla: "AI",
   argentina: "AR",
