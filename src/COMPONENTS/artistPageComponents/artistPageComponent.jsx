@@ -117,22 +117,23 @@ const ArtistProfile = ({
 
   useEffect(() => {
     console.log(interestedArtists, artistObject);
+
+    // if isInterested clicked and isn't in the interestedArtistsArray
     if (
       isInterested &&
       !interestedArtists?.some(
         (e) => e?._embedded?.attractions?.[0]?.id === artistId
       )
     ) {
-      console.log("1");
-      setInterestedArtists((artists) => [
+      return setInterestedArtists((artists) => [
         ...artists,
         artistObject?._embedded?.events?.[0]?._embedded?.attractions?.[0],
       ]);
     }
 
+    // filter away artists that have false
     if (isInterested === false && interestedArtists?.length > 0) {
-      console.log("2");
-      setInterestedArtists((artists) =>
+      return setInterestedArtists((artists) =>
         artists.filter(
           (artist) => artist?._embedded?.attractions?.[0]?.id !== artistId
         )
@@ -147,8 +148,7 @@ const ArtistProfile = ({
         (e) => e?._embedded?.attractions?.[0]?.id === artistId
       )
     ) {
-      console.log("3");
-      setIsInterested(true);
+      return setIsInterested(true);
     }
 
     // if (
@@ -156,7 +156,6 @@ const ArtistProfile = ({
     //     (e) => e?._embedded?.attractions?.[0]?.id === artistId
     //   )
     // ) {
-    //   console.log("4");
     //   setIsInterested(false);
     // }
   }, [interestedArtists]);

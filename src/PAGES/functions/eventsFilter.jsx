@@ -11,11 +11,13 @@ export const addEvents = (array, setter) => {
 
   // events.events is the original fetch
   array?.forEach((event) => {
-    // add local variable for readable code
-    const idToNotMatch = event?._embedded?.attractions?.[0]?.id;
-    if (idToNotMatch && !idSet.has(idToNotMatch)) {
-      idSet.add(idToNotMatch);
-      updatedArray.push(event);
+    if (event?.classifications?.[0]?.segment?.name === "Music") {
+      // add local variable for readable code
+      const idToNotMatch = event?._embedded?.attractions?.[0]?.id;
+      if (idToNotMatch && !idSet.has(idToNotMatch)) {
+        idSet.add(idToNotMatch);
+        updatedArray.push(event);
+      }
     }
   });
 

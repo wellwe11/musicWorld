@@ -33,24 +33,34 @@ export const fetchDataTicketMaster = async (
 
   let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=200`;
 
-  if (dateStart && dateEnd) {
-    url += `&startDateTime=${dateStart}T00:00:00Z&endDateTime=${dateEnd}T23:59:59Z`;
-  }
-
   if (artist) {
     url += `&keyword=${artist}`;
+
+    if (country) {
+      url += `&countryCode=${country}`;
+    }
   }
 
-  if (genre) {
-    url += `&genreId=${genre}`;
-  }
+  if (!artist) {
+    if (dateStart) {
+      url += `&startDateTime=${dateStart}T00:00:00Z`;
+    }
 
-  if (country) {
-    url += `&countryCode=${country}`;
-  }
+    if (dateEnd) {
+      url += `&endDateTime=${dateEnd}T23:59:59Z`;
+    }
 
-  if (city) {
-    url += `&city=${city}`;
+    if (genre) {
+      url += `&genreId=${genre}`;
+    }
+
+    if (country) {
+      url += `&countryCode=${country}`;
+    }
+
+    if (city) {
+      url += `&city=${city}`;
+    }
   }
 
   console.log(url);
@@ -148,17 +158,17 @@ const App = () => {
       setDateTill("");
       setGenre("");
       setCity("");
-      fetchEvents();
       setArtist("");
     }
-  }, [name]);
+  }, [name, home]);
 
   //
   useEffect(() => {
     console.log(dateFrom, dateTill, genre, country, city, artist);
     if (dateFrom || dateTill || genre || city) {
-      fetchEvents();
       handleNavigate("./home/upcomingEvents");
+
+      fetchEvents();
     }
     if (country) {
       fetchEvents();
