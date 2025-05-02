@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import classes from "./artistPage.module.scss";
 import { isoCountries } from "../defaultPage/searchInput/inputInformation";
 import { fetchDataTicketMaster } from "../../App";
@@ -321,7 +321,7 @@ const ArtistPageComponent = ({
       const onlyArtistEvents = displayOnlyArtistsEvents(fetchedData);
       setUnfilteredEvents(onlyArtistEvents);
       if (localLoading) {
-        setArtistObject(fetchedData);
+        return setArtistObject(fetchedData);
       }
     }
   };

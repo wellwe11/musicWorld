@@ -25,12 +25,15 @@ const EventsImagesWheel = ({ eventsArray }) => {
   }, [displayedImage, isHovering]);
 
   const amountOfEventsDisplay = useMemo(() => {
-    return eventsArray.map((event, index) => {
-      const eventsImages = event?.images.filter(
-        (image) => image.ratio === "16_9" && image.height > 1000
+    if (!eventsArray || eventsArray.length <= 6) return [];
+
+    return eventsArray
+      .slice(0, 8)
+      .map((event) =>
+        event?.images.filter(
+          (image) => image.ratio === "16_9" && image.height > 1000
+        )
       );
-      return eventsImages;
-    });
   }, [eventsArray]);
 
   // re-renders the home-component once
@@ -51,6 +54,8 @@ const EventsImagesWheel = ({ eventsArray }) => {
   const displayedImageMinus = () => {
     setDisplayedImage((prev) => (prev > 0 ? prev - 1 : 5));
   };
+
+  console.log(displayEvents);
 
   return (
     <div
