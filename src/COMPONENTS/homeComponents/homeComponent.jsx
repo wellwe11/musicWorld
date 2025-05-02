@@ -164,24 +164,6 @@ const ArtistProfile = ({
     }
   }, []);
 
-  // const getEvents = useCallback(async (artist) => {
-  //   const fetchedData = await fetchDataTicketMaster(
-  //     "",
-  //     "",
-  //     "",
-  //     "",
-  //     "",
-  //     "",
-  //     "",
-  //     artist
-  //   );
-  //   if (fetchedData) {
-  //     setFetchedArtist(fetchedData);
-  //   }
-  // }, []);
-
-  console.log(interestedArtists);
-
   return (
     <div className={classes.artistWrapper}>
       {artistData && (

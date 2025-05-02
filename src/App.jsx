@@ -172,7 +172,7 @@ const App = () => {
       fetchEvents();
     }
 
-    if (name === "upcomingEvents") {
+    if (name === "upcomingEvents" || !name) {
       setArtist(null);
     }
   }, [name]);
@@ -224,6 +224,7 @@ const App = () => {
             <ArtistPage
               artistEvents={events}
               artist={artist}
+              eventsArray={eventsArray}
               interestedArtists={interestedArtists}
               setInterestedArtists={setInterestedArtists}
             />

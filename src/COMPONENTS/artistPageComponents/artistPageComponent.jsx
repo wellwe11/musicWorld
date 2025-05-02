@@ -94,14 +94,14 @@ const ArtistProfile = ({
 
   const [bioInfo, setBioInfo] = useState({});
 
-  console.log(
-    "artistObject:",
-    artistObject,
-    "data:",
-    data,
-    "secondaryData:",
-    secondaryData
-  );
+  // console.log(
+  //   "artistObject:",
+  //   artistObject,
+  //   "data:",
+  //   data,
+  //   "secondaryData:",
+  //   secondaryData
+  // );
 
   useEffect(() => {
     setArtistName(data?.name);
@@ -123,7 +123,10 @@ const ArtistProfile = ({
 
   useEffect(() => {
     if (isInterested && !interestedArtists?.some((e) => e === artistObject)) {
-      setInterestedArtists((artists) => [...artists, artistObject]);
+      setInterestedArtists((artists) => [
+        ...artists,
+        artistObject?.embedded?.events?.[0]?._embedded,
+      ]);
     }
 
     if (isInterested === false && interestedArtists?.length > 0) {
@@ -237,7 +240,7 @@ const ArtistEvents = ({ events, unfilteredEvents, loading }) => {
 
       <div className={classes.eventSectionContainer}>
         <h2>All events</h2>
-        {unfilteredEvents?.events?.map((event, index) => (
+        {unfilteredEvents?.map((event, index) => (
           <div className={classes.eventWrapper} key={index}>
             <div className={classes.eventTitle}>
               <h4>{event?.name}</h4>
@@ -263,6 +266,7 @@ const ArtistPageComponent = ({
   artist,
   interestedArtists,
   setInterestedArtists,
+  eventsArray,
 }) => {
   const navigate = useNavigate();
   const [localLoading, setLocalLoading] = useState(true);
@@ -288,7 +292,7 @@ const ArtistPageComponent = ({
   }, [artist]);
 
   // seperate fetch to display all upcoming events from artist
-  const getEvents = useCallback(async (artist) => {
+  const getEvents = async (artist) => {
     setLocalLoading(true);
     const fetchedData = await fetchDataTicketMaster(
       "",
@@ -301,18 +305,32 @@ const ArtistPageComponent = ({
       artist
     );
     if (fetchedData) {
-      setUnfilteredEvents(fetchedData._embedded);
+      const onlyArtistEvents = displayOnlyArtistsEvents(fetchedData);
+      if (onlyArtistEvents) {
+        console.log(onlyArtistEvents);
+        setUnfilteredEvents(onlyArtistEvents);
+      }
       setArtistObject(fetchedData);
-      console.log(fetchedData);
       setLocalLoading(false);
     }
-  }, []);
+  };
+
+  // filters out any events related to artist, but isn't done by the artist (many events are either misq. events or fan-made)
+  const displayOnlyArtistsEvents = (fetchedData) => {
+    console.log(data?.name, fetchedData);
+    let fixedEvents = fetchedData?._embedded?.events?.filter(
+      (ev) => data?.name === ev?._embedded?.attractions?.[0]?.name
+    );
+
+    console.log(fixedEvents);
+    return fixedEvents;
+  };
 
   useEffect(() => {
     if (artist) {
       getEvents(artist);
     }
-  }, [artist]);
+  }, [data]);
 
   return (
     <div className={classes.artistPage}>
