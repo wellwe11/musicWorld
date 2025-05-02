@@ -64,7 +64,6 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
       return () =>
         window.removeEventListener("mousedown", handleContainerClickedInstant);
     }
-    console.log(containerClicked);
   }, [containerClicked]);
 
   return (

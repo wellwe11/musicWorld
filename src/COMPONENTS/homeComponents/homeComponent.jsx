@@ -1,13 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import classes from "./homeComponent.module.scss";
-import { findFittingImage } from "../../PAGES/functions/findFittingImage";
 import BandText from "./pictureSliderTexts";
 
 import buttonClickArrow from "./images/arrow-right.png";
 import buttonClickPlus from "./images/plus.png";
 import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
 import NavButton from "../defaultPage/navBar/navButton";
-import { useFetchData } from "../artistPageComponents/artistPageComponent";
+import { fetchDataTicketMaster } from "../../App";
 
 const EventsImagesWheel = ({ eventsArray }) => {
   const [displayEvents, setDisplayEvents] = useState([]);
@@ -120,47 +119,72 @@ const InterestedButton = ({ isInterested, setIsInterested }) => {
   );
 };
 
-const ArtistProfile = ({ data, interestedArtists, setInterestedArtists }) => {
-  const [isInterested, setIsInterested] = useState(
-    interestedArtists?.includes(data)
-  );
+const ArtistProfile = ({
+  artistData,
+  interestedArtists,
+  setInterestedArtists,
+}) => {
+  const [isInterested, setIsInterested] = useState(null);
+  const artist = artistData?._embedded?.attractions?.[0];
+  const [fetchedArtist, setFetchedArtist] = useState(null);
 
   useEffect(() => {
-    if (isInterested && !interestedArtists?.some((e) => e?.id === data?.id)) {
-      setInterestedArtists((artists) => [...artists, data]);
-    }
+    if (artistData) {
+      if (
+        isInterested &&
+        !interestedArtists?.some((e) => e?.id === artistData?.id)
+      ) {
+        setInterestedArtists((artists) => [...artists, artistData]);
+      }
 
-    if (isInterested === false && interestedArtists?.length > 0) {
-      setInterestedArtists((artists) =>
-        artists.filter((artist) => artist !== data)
-      );
+      if (isInterested === false && interestedArtists?.length > 0) {
+        setInterestedArtists((artists) =>
+          artists.filter((artist) => artist !== artistData)
+        );
+      }
     }
   }, [isInterested]);
 
   useEffect(() => {
     // sets true on-load if exists in array
-    if (interestedArtists?.some((e) => e?.d === data?.id)) {
+    if (interestedArtists?.some((e) => e?.id === artistData?.id)) {
       setIsInterested(true);
     }
 
-    if (!interestedArtists?.some((e) => e?.id === data?.id)) {
+    if (!interestedArtists?.some((e) => e?.id === artistData?.id)) {
       setIsInterested(false);
     }
   }, [interestedArtists]);
 
   useEffect(() => {
-    if (data) {
-      if (interestedArtists?.some((e) => e?.id === data?.id)) {
+    if (artistData) {
+      if (interestedArtists?.some((e) => e?.id === artistData?.id)) {
         setIsInterested(true);
       }
     }
   }, []);
 
-  const artist = data?._embedded?.attractions?.[0];
+  // const getEvents = useCallback(async (artist) => {
+  //   const fetchedData = await fetchDataTicketMaster(
+  //     "",
+  //     "",
+  //     "",
+  //     "",
+  //     "",
+  //     "",
+  //     "",
+  //     artist
+  //   );
+  //   if (fetchedData) {
+  //     setFetchedArtist(fetchedData);
+  //   }
+  // }, []);
+
+  console.log(interestedArtists);
 
   return (
     <div className={classes.artistWrapper}>
-      {artist && (
+      {artistData && (
         <>
           <div className={classes.imageContainer}>
             <img src={artist?.images[0]?.url} alt="" />
@@ -191,7 +215,7 @@ const ArrowButton = ({ clickDirection, clickFn }) => {
 };
 
 const PopularArtistsNear = ({
-  data,
+  artistData,
   interestedArtists,
   setInterestedArtists,
   title,
@@ -236,7 +260,7 @@ const PopularArtistsNear = ({
                 <ArtistProfile
                   interestedArtists={interestedArtists}
                   setInterestedArtists={setInterestedArtists}
-                  data={data[index]}
+                  artistData={artistData[index]}
                 />
               </div>
             ))}
@@ -262,14 +286,14 @@ const HomePageComponent = ({
     <div className={classes.homePageComponentContainer}>
       <EventsImagesWheel eventsArray={eventsArray} />
       <PopularArtistsNear
-        data={eventsArray}
+        artistData={eventsArray}
         interestedArtists={interestedArtists}
         setInterestedArtists={setInterestedArtists}
         title={"Artists near you..."}
       />
       {interestedArtists.length > 0 && (
         <PopularArtistsNear
-          data={interestedArtists}
+          artistData={interestedArtists}
           interestedArtists={interestedArtists}
           setInterestedArtists={setInterestedArtists}
           title={"Following artists"}

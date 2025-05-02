@@ -41,6 +41,10 @@ export const fetchDataTicketMaster = async (
     url += `&keyword=${artist}`;
   }
 
+  if (genre) {
+    url += `&genreId=${genre}`;
+  }
+
   if (country) {
     url += `&countryCode=${country}`;
   }
@@ -48,6 +52,8 @@ export const fetchDataTicketMaster = async (
   if (city) {
     url += `&city=${city}`;
   }
+
+  console.log(url);
 
   try {
     const response = await fetch(url);

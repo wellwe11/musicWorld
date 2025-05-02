@@ -94,6 +94,15 @@ const ArtistProfile = ({
 
   const [bioInfo, setBioInfo] = useState({});
 
+  console.log(
+    "artistObject:",
+    artistObject,
+    "data:",
+    data,
+    "secondaryData:",
+    secondaryData
+  );
+
   useEffect(() => {
     setArtistName(data?.name);
     setImageSource(secondaryData?.cover_image);
@@ -294,6 +303,7 @@ const ArtistPageComponent = ({
     if (fetchedData) {
       setUnfilteredEvents(fetchedData._embedded);
       setArtistObject(fetchedData);
+      console.log(fetchedData);
       setLocalLoading(false);
     }
   }, []);
