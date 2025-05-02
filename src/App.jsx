@@ -305,4 +305,7 @@ export default App;
  *
  *
  * Fix so that the page doesnt refresh so many times
+ *
+ *
+ * Currently, if you select date till, it wont allow for a search..?
  */

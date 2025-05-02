@@ -87,6 +87,7 @@ const ArtistProfile = ({
   secondaryData,
   interestedArtists,
   setInterestedArtists,
+  unfilteredEvents,
 }) => {
   const [artistName, setArtistName] = useState();
   const [imageSource, setImageSource] = useState();
@@ -112,53 +113,36 @@ const ArtistProfile = ({
   const changeIsInterested = () =>
     isInterested ? setIsInterested(false) : setIsInterested(true);
 
-  const artistId =
-    artistObject?._embedded?.events?.[0]?._embedded?.attractions?.[0]?.id;
+  const artist = unfilteredEvents?.[0]?._embedded?.attractions?.[0];
+  console.log(artist, interestedArtists, isInterested);
 
   useEffect(() => {
-    console.log(interestedArtists, artistObject);
-
     // if isInterested clicked and isn't in the interestedArtistsArray
-    if (
-      isInterested &&
-      !interestedArtists?.some(
-        (e) => e?._embedded?.attractions?.[0]?.id === artistId
-      )
-    ) {
-      return setInterestedArtists((artists) => [
-        ...artists,
-        artistObject?._embedded?.events?.[0]?._embedded?.attractions?.[0],
-      ]);
+    if (isInterested && !interestedArtists?.some((e) => e.id === artist?.id)) {
+      console.log("1");
+      return setInterestedArtists((artists) => [...artists, artist]);
     }
 
     // filter away artists that have false
     if (isInterested === false && interestedArtists?.length > 0) {
+      console.log("2");
       return setInterestedArtists((artists) =>
-        artists.filter(
-          (artist) => artist?._embedded?.attractions?.[0]?.id !== artistId
-        )
+        artists.filter((e) => e?.id !== artist?.id)
       );
     }
   }, [isInterested]);
 
   useEffect(() => {
+    if (!interestedArtists?.some((e) => e?.id === artist?.id)) {
+      console.log("3");
+      setIsInterested(false);
+    }
     // sets true on-load if exists in array
-    if (
-      interestedArtists?.some(
-        (e) => e?._embedded?.attractions?.[0]?.id === artistId
-      )
-    ) {
+    if (interestedArtists?.some((e) => e?.id === artist?.id)) {
+      console.log("4");
       return setIsInterested(true);
     }
-
-    // if (
-    //   !interestedArtists?.some(
-    //     (e) => e?._embedded?.attractions?.[0]?.id === artistId
-    //   )
-    // ) {
-    //   setIsInterested(false);
-    // }
-  }, [interestedArtists]);
+  }, [artist]);
 
   return (
     <div className={classes.artistProfile}>
@@ -357,6 +341,7 @@ const ArtistPageComponent = ({
         secondaryData={secondaryData}
         interestedArtists={interestedArtists}
         setInterestedArtists={setInterestedArtists}
+        unfilteredEvents={unfilteredEvents}
       />
     </div>
   );

@@ -55,8 +55,6 @@ const EventsImagesWheel = ({ eventsArray }) => {
     setDisplayedImage((prev) => (prev > 0 ? prev - 1 : 5));
   };
 
-  console.log(displayEvents);
-
   return (
     <div
       className={classes.pictureSliderContainer}
