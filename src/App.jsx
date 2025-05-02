@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, createContext, useCallback, useRef } from "react";
 
 import classes from "../src/PAGES/defaultPage.module.scss";
@@ -75,9 +75,9 @@ const App = () => {
   const { home, name, link } = useParams();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [dateFrom, setDateFrom] = useState(null);
-  const [dateTill, setDateTill] = useState(null);
-  const [genre, setGenre] = useState(null);
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTill, setDateTill] = useState("");
+  const [genre, setGenre] = useState("");
   const [country, setCountry] = useState("DE");
   // const [city, setCity] = useState(Object.keys(bigCities[country])[0]);
   const [city, setCity] = useState("");
@@ -97,6 +97,12 @@ const App = () => {
   };
 
   const PageToView = namePage[name];
+
+  const navigate = useNavigate();
+
+  const handleNavigate = (link) => {
+    navigate(`/${link}/`);
+  };
 
   const getEvents = useCallback(
     async (size, page, dateStart, dateEnd, genre, country, city, artist) => {
@@ -121,14 +127,44 @@ const App = () => {
 
   const fetchEvents = () => {
     if (dateFrom || dateTill || genre || country || city || artist) {
-      getEvents("", "", dateFrom, dateTill, genre, country, city, artist);
+      return getEvents(
+        "",
+        "",
+        dateFrom,
+        dateTill,
+        genre,
+        country,
+        city,
+        artist
+      );
     } else {
-      getEvents();
+      return getEvents();
     }
   };
 
   useEffect(() => {
-    if (events) {
+    if (!name) {
+      setDateFrom("");
+      setDateTill("");
+      setGenre("");
+      setCity("");
+      fetchEvents();
+      setArtist("");
+    }
+  }, [name]);
+
+  //
+  useEffect(() => {
+    console.log(dateFrom, dateTill, genre, country, city, artist);
+    if (dateFrom || dateTill || genre || city) {
+      fetchEvents();
+      handleNavigate("./home/upcomingEvents");
+    }
+    if (country) {
+      fetchEvents();
+    }
+
+    if (artist) {
       fetchEvents();
     }
   }, [dateFrom, dateTill, genre, country, city, artist]);
@@ -136,7 +172,7 @@ const App = () => {
   // once events are fetched, filter the events
   useEffect(() => {
     if (events) {
-      addEvents(events?.events, setEventsArray);
+      return addEvents(events?.events, setEventsArray);
     }
   }, [events]);
 
@@ -161,25 +197,6 @@ const App = () => {
       if (target) observer.unobserve(target);
     };
   }, []);
-
-  useEffect(() => {
-    if (!name) {
-      setDateFrom("");
-      setDateTill("");
-      setGenre("");
-      setCity("");
-      setArtist("");
-      fetchEvents();
-    }
-
-    if (name === "upcomingEvents" || !name) {
-      setArtist(null);
-    }
-  }, [name]);
-
-  useEffect(() => {
-    console.log(interestedArtists);
-  }, [interestedArtists]);
 
   return (
     <div className={classes.appContainer}>

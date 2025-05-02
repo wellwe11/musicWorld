@@ -94,15 +94,6 @@ const ArtistProfile = ({
 
   const [bioInfo, setBioInfo] = useState({});
 
-  // console.log(
-  //   "artistObject:",
-  //   artistObject,
-  //   "data:",
-  //   data,
-  //   "secondaryData:",
-  //   secondaryData
-  // );
-
   useEffect(() => {
     setArtistName(data?.name);
     setImageSource(secondaryData?.cover_image);
@@ -121,30 +112,53 @@ const ArtistProfile = ({
   const changeIsInterested = () =>
     isInterested ? setIsInterested(false) : setIsInterested(true);
 
+  const artistId =
+    artistObject?._embedded?.events?.[0]?._embedded?.attractions?.[0]?.id;
+
   useEffect(() => {
-    if (isInterested && !interestedArtists?.some((e) => e === artistObject)) {
+    console.log(interestedArtists, artistObject);
+    if (
+      isInterested &&
+      !interestedArtists?.some(
+        (e) => e?._embedded?.attractions?.[0]?.id === artistId
+      )
+    ) {
+      console.log("1");
       setInterestedArtists((artists) => [
         ...artists,
-        artistObject?.embedded?.events?.[0]?._embedded,
+        artistObject?._embedded?.events?.[0]?._embedded?.attractions?.[0],
       ]);
     }
 
     if (isInterested === false && interestedArtists?.length > 0) {
+      console.log("2");
       setInterestedArtists((artists) =>
-        artists.filter((artist) => artist !== artistObject)
+        artists.filter(
+          (artist) => artist?._embedded?.attractions?.[0]?.id !== artistId
+        )
       );
     }
   }, [isInterested]);
 
   useEffect(() => {
     // sets true on-load if exists in array
-    if (interestedArtists?.some((e) => e === artistObject)) {
+    if (
+      interestedArtists?.some(
+        (e) => e?._embedded?.attractions?.[0]?.id === artistId
+      )
+    ) {
+      console.log("3");
       setIsInterested(true);
     }
 
-    if (!interestedArtists?.some((e) => e === artistObject)) {
-      setIsInterested(false);
-    }
+    // if (
+    //   !interestedArtists?.some(
+    //     (e) => e?._embedded?.attractions?.[0]?.id === artistId
+    //   )
+    // ) {
+    //   console.log("4");
+    //   setIsInterested(false);
+    // }
   }, [interestedArtists]);
 
   return (
@@ -306,23 +320,22 @@ const ArtistPageComponent = ({
     );
     if (fetchedData) {
       const onlyArtistEvents = displayOnlyArtistsEvents(fetchedData);
-      if (onlyArtistEvents) {
-        console.log(onlyArtistEvents);
-        setUnfilteredEvents(onlyArtistEvents);
+      setUnfilteredEvents(onlyArtistEvents);
+      if (localLoading) {
+        setArtistObject(fetchedData);
       }
-      setArtistObject(fetchedData);
-      setLocalLoading(false);
     }
   };
 
   // filters out any events related to artist, but isn't done by the artist (many events are either misq. events or fan-made)
   const displayOnlyArtistsEvents = (fetchedData) => {
-    console.log(data?.name, fetchedData);
     let fixedEvents = fetchedData?._embedded?.events?.filter(
       (ev) => data?.name === ev?._embedded?.attractions?.[0]?.name
     );
 
-    console.log(fixedEvents);
+    if (fixedEvents) {
+      setLocalLoading(false);
+    }
     return fixedEvents;
   };
 
