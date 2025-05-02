@@ -33,6 +33,7 @@ const EventsImagesWheel = ({ eventsArray }) => {
     });
   }, [eventsArray]);
 
+  // re-renders the home-component once
   useEffect(() => {
     setDisplayEvents(amountOfEventsDisplay);
   }, [eventsArray]);

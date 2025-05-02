@@ -236,16 +236,12 @@ export default App;
 
 /**
  * todos:
- * design artist-page
  *
  * if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * --currently, nothing is updated and you view the same things you searched prior to your un-found search
  *
  * * add dots to home-pages big images to show which current image is displayed
  * * style the arrows (left/right) for big image on home-page
- *
- * Make so country and city is visible on search bar on home-page & artist-page as well
- * make so changing city on home-page takes you to event-page
  *
  * make so arrows on home-page for favorite artists etc are only visible if there are more than visible events (needs to work for when you scale make the site smaller as well)
  *
@@ -266,4 +262,6 @@ export default App;
  *
  * refractor handleSubmit function inside searchInput to make it work quicker (currently triggers warning for taking too long)
  *
+ *
+ * Fix so that the page doesnt refresh so many times
  */
