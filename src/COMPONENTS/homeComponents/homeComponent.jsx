@@ -7,6 +7,7 @@ import buttonClickArrow from "./images/arrow-right.png";
 import buttonClickPlus from "./images/plus.png";
 import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
 import NavButton from "../defaultPage/navBar/navButton";
+import { useFetchData } from "../artistPageComponents/artistPageComponent";
 
 const EventsImagesWheel = ({ eventsArray }) => {
   const [displayEvents, setDisplayEvents] = useState([]);
@@ -35,7 +36,9 @@ const EventsImagesWheel = ({ eventsArray }) => {
 
   // re-renders the home-component once
   useEffect(() => {
-    setDisplayEvents(amountOfEventsDisplay);
+    if (amountOfEventsDisplay) {
+      setDisplayEvents(amountOfEventsDisplay);
+    }
   }, [eventsArray]);
 
   const logStuff = (e) => {
@@ -85,29 +88,30 @@ const EventsImagesWheel = ({ eventsArray }) => {
 };
 
 const InterestedButton = ({ isInterested, setIsInterested }) => {
-  const changeIsInterested = () =>
-    isInterested ? setIsInterested(false) : setIsInterested(true);
+  const changeIsInterested = () => {
+    return isInterested ? setIsInterested(false) : setIsInterested(true);
+  };
 
   return (
     <div
       className={classes.interestedButtonContainer}
       onClick={changeIsInterested}
     >
-      {!isInterested ? (
-        <NavButton externalClass={classes.interestedButtonNotInterested}>
-          Interested
-          <img
-            className={classes.interestedPlus}
-            src={buttonClickPlus}
-            alt=""
-          />
-        </NavButton>
-      ) : (
+      {isInterested === true ? (
         <NavButton externalClass={classes.interestedButtonInterested}>
           Interested
           <img
             className={classes.interestedPlus}
             src={buttonClickClose}
+            alt=""
+          />
+        </NavButton>
+      ) : (
+        <NavButton externalClass={classes.interestedButtonNotInterested}>
+          Interested
+          <img
+            className={classes.interestedPlus}
+            src={buttonClickPlus}
             alt=""
           />
         </NavButton>
@@ -117,10 +121,12 @@ const InterestedButton = ({ isInterested, setIsInterested }) => {
 };
 
 const ArtistProfile = ({ data, interestedArtists, setInterestedArtists }) => {
-  const [isInterested, setIsInterested] = useState(null);
+  const [isInterested, setIsInterested] = useState(
+    interestedArtists?.includes(data)
+  );
 
   useEffect(() => {
-    if (isInterested && !interestedArtists?.some((e) => e === data)) {
+    if (isInterested && !interestedArtists?.some((e) => e?.id === data?.id)) {
       setInterestedArtists((artists) => [...artists, data]);
     }
 
@@ -133,14 +139,22 @@ const ArtistProfile = ({ data, interestedArtists, setInterestedArtists }) => {
 
   useEffect(() => {
     // sets true on-load if exists in array
-    if (interestedArtists?.some((e) => e === data)) {
+    if (interestedArtists?.some((e) => e?.d === data?.id)) {
       setIsInterested(true);
     }
 
-    if (!interestedArtists?.some((e) => e === data)) {
+    if (!interestedArtists?.some((e) => e?.id === data?.id)) {
       setIsInterested(false);
     }
   }, [interestedArtists]);
+
+  useEffect(() => {
+    if (data) {
+      if (interestedArtists?.some((e) => e?.id === data?.id)) {
+        setIsInterested(true);
+      }
+    }
+  }, []);
 
   const artist = data?._embedded?.attractions?.[0];
 
@@ -180,6 +194,7 @@ const PopularArtistsNear = ({
   data,
   interestedArtists,
   setInterestedArtists,
+  title,
 }) => {
   const scrollRef = useRef();
   const [canLoadContent, setCanLoadContent] = useState(false);
@@ -208,7 +223,7 @@ const PopularArtistsNear = ({
 
   return (
     <div className={classes.popularArtistsContainer}>
-      <h2 className={classes.artistsNearTitle}>{"Artists near you..."}</h2>
+      <h2 className={classes.artistsNearTitle}>{title}</h2>
       {canLoadContent && (
         <div className={classes.arrayAndButtons}>
           <ArrowButton
@@ -236,23 +251,28 @@ const PopularArtistsNear = ({
   );
 };
 
-const HomePageComponent = ({ eventsArray }) => {
+const HomePageComponent = ({
+  eventsArray,
+  interestedArtists,
+  setInterestedArtists,
+}) => {
   let isLoggedIn = false;
-  const [interestedArtists, setInterestedArtists] = useState([]);
 
   return (
     <div className={classes.homePageComponentContainer}>
       <EventsImagesWheel eventsArray={eventsArray} />
       <PopularArtistsNear
+        data={eventsArray}
         interestedArtists={interestedArtists}
         setInterestedArtists={setInterestedArtists}
-        data={eventsArray}
+        title={"Artists near you..."}
       />
       {interestedArtists.length > 0 && (
         <PopularArtistsNear
           data={interestedArtists}
           interestedArtists={interestedArtists}
           setInterestedArtists={setInterestedArtists}
+          title={"Following artists"}
         />
       )}
     </div>

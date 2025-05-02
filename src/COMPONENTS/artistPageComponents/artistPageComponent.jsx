@@ -14,7 +14,7 @@ import soundcloudIcon from "./media/soundcloud.png";
 import youtubeIcon from "./media/youtube.png";
 import { useNavigate } from "react-router-dom";
 
-const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
+export const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   const [data, setData] = useState([]);
   const [secondaryData, setSecondaryData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -81,13 +81,16 @@ const findUrl = (urls, keyword) => {
   }
 };
 
-const ArtistProfile = ({ data, secondaryData }) => {
+const ArtistProfile = ({
+  artistObject,
+  data,
+  secondaryData,
+  interestedArtists,
+  setInterestedArtists,
+}) => {
   const [artistName, setArtistName] = useState();
   const [imageSource, setImageSource] = useState();
   const [isInterested, setIsInterested] = useState(null);
-
-  const changeIsInterested = () =>
-    isInterested ? setIsInterested(false) : setIsInterested(true);
 
   const [bioInfo, setBioInfo] = useState({});
 
@@ -105,6 +108,32 @@ const ArtistProfile = ({ data, secondaryData }) => {
       youtube: findUrl(data?.urls, "youtube"),
     });
   }, [data, secondaryData]);
+
+  const changeIsInterested = () =>
+    isInterested ? setIsInterested(false) : setIsInterested(true);
+
+  useEffect(() => {
+    if (isInterested && !interestedArtists?.some((e) => e === artistObject)) {
+      setInterestedArtists((artists) => [...artists, artistObject]);
+    }
+
+    if (isInterested === false && interestedArtists?.length > 0) {
+      setInterestedArtists((artists) =>
+        artists.filter((artist) => artist !== artistObject)
+      );
+    }
+  }, [isInterested]);
+
+  useEffect(() => {
+    // sets true on-load if exists in array
+    if (interestedArtists?.some((e) => e === artistObject)) {
+      setIsInterested(true);
+    }
+
+    if (!interestedArtists?.some((e) => e === artistObject)) {
+      setIsInterested(false);
+    }
+  }, [interestedArtists]);
 
   return (
     <div className={classes.artistProfile}>
@@ -170,34 +199,7 @@ const ArtistProfile = ({ data, secondaryData }) => {
   );
 };
 
-const ArtistEvents = ({ events, artist }) => {
-  const [localEvents, setLocalEvents] = useState(null);
-  const [unfilteredEvents, setUnfilteredEvents] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  // seperate fetch to display all upcoming events from artist
-  const getEvents = useCallback(async (artist) => {
-    setLoading(true);
-    const fetchedData = await fetchDataTicketMaster(
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      artist
-    );
-    if (fetchedData) {
-      setUnfilteredEvents(fetchedData._embedded);
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    getEvents(artist);
-  }, [artist]);
-
+const ArtistEvents = ({ events, unfilteredEvents, loading }) => {
   return (
     <div className={classes.artistEventsContainer}>
       {events && (
@@ -247,8 +249,16 @@ const ArtistEvents = ({ events, artist }) => {
   );
 };
 
-const ArtistPageComponent = ({ artistEvents, artist }) => {
+const ArtistPageComponent = ({
+  artistEvents,
+  artist,
+  interestedArtists,
+  setInterestedArtists,
+}) => {
   const navigate = useNavigate();
+  const [localLoading, setLocalLoading] = useState(true);
+  const [unfilteredEvents, setUnfilteredEvents] = useState(null);
+  const [artistObject, setArtistObject] = useState(null);
 
   const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
   const { data, secondaryData, loading, error } = useFetchData(
@@ -268,10 +278,46 @@ const ArtistPageComponent = ({ artistEvents, artist }) => {
     }
   }, [artist]);
 
+  // seperate fetch to display all upcoming events from artist
+  const getEvents = useCallback(async (artist) => {
+    setLocalLoading(true);
+    const fetchedData = await fetchDataTicketMaster(
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      artist
+    );
+    if (fetchedData) {
+      setUnfilteredEvents(fetchedData._embedded);
+      setArtistObject(fetchedData);
+      setLocalLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (artist) {
+      getEvents(artist);
+    }
+  }, [artist]);
+
   return (
     <div className={classes.artistPage}>
-      <ArtistEvents events={artistEvents} artist={artist} />
-      <ArtistProfile data={data} secondaryData={secondaryData} />
+      <ArtistEvents
+        events={artistEvents}
+        artist={artist}
+        unfilteredEvents={unfilteredEvents}
+      />
+      <ArtistProfile
+        artistObject={artistObject}
+        data={data}
+        secondaryData={secondaryData}
+        interestedArtists={interestedArtists}
+        setInterestedArtists={setInterestedArtists}
+      />
     </div>
   );
 };

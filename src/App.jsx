@@ -78,6 +78,7 @@ const App = () => {
   const [artist, setArtist] = useState("");
   // a new array containing filtered events to avoid duplicates
   const [eventsArray, setEventsArray] = useState([]);
+  const [interestedArtists, setInterestedArtists] = useState([]);
 
   const titleRef = useRef();
   const [displayFixedNavBar, setDisplayFixedNavBar] = useState(false);
@@ -121,12 +122,16 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetchEvents();
+    if (events) {
+      fetchEvents();
+    }
   }, [dateFrom, dateTill, genre, country, city, artist]);
 
   // once events are fetched, filter the events
   useEffect(() => {
-    addEvents(events?.events, setEventsArray);
+    if (events) {
+      addEvents(events?.events, setEventsArray);
+    }
   }, [events]);
 
   useEffect(() => {
@@ -160,7 +165,15 @@ const App = () => {
       setArtist("");
       fetchEvents();
     }
+
+    if (name === "upcomingEvents") {
+      setArtist(null);
+    }
   }, [name]);
+
+  useEffect(() => {
+    console.log(interestedArtists);
+  }, [interestedArtists]);
 
   return (
     <div className={classes.appContainer}>
@@ -204,15 +217,9 @@ const App = () => {
           {name === "artistPage" && link ? (
             <ArtistPage
               artistEvents={events}
-              dateFrom={dateFrom}
-              setDateFrom={setDateFrom}
-              dateTill={dateTill}
-              setDateTill={setDateTill}
-              city={city}
-              setCity={setCity}
-              country={country}
-              setCountry={setCountry}
               artist={artist}
+              interestedArtists={interestedArtists}
+              setInterestedArtists={setInterestedArtists}
             />
           ) : name && !link ? (
             <PageToView
@@ -221,7 +228,11 @@ const App = () => {
               eventsArray={eventsArray}
             />
           ) : (
-            <HomePage eventsArray={eventsArray} />
+            <HomePage
+              eventsArray={eventsArray}
+              interestedArtists={interestedArtists}
+              setInterestedArtists={setInterestedArtists}
+            />
           )}
         </div>
       </EventContext.Provider>
@@ -256,11 +267,7 @@ export default App;
  * current-page buttons (left right on events-page) isnt working correclty right now. They are white when they shouldn't be and gray when they shouldn't be
  * --and display too many pages sometimes
  *
- * if a band has numbers inside of it, prevent the input-field to look for dates (currently sets NaN/NaN/NaN)
- *
  * create intersted-object on App.jsx. You can add to it and remove from all pages that has interested-button (artist page, (will add to upcomingEvents), home-page)
- *
- * refractor handleSubmit function inside searchInput to make it work quicker (currently triggers warning for taking too long)
  *
  *
  * Fix so that the page doesnt refresh so many times

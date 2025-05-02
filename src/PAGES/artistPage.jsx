@@ -3,28 +3,16 @@ import ArtistPageComponent from "../COMPONENTS/artistPageComponents/artistPageCo
 
 const ArtistPage = ({
   artistEvents,
-  dateFrom,
-  setDateFrom,
-  dateTill,
-  setDateTill,
-  city,
-  setCity,
-  country,
-  setCountry,
   artist,
+  interestedArtists,
+  setInterestedArtists,
 }) => {
   return (
     <ArtistPageComponent
       artistEvents={artistEvents}
-      dateFrom={dateFrom}
-      setDateFrom={setDateFrom}
-      dateTill={dateTill}
-      setDateTill={setDateTill}
-      city={city}
-      setCity={setCity}
-      country={country}
-      setCountry={setCountry}
       artist={artist}
+      interestedArtists={interestedArtists}
+      setInterestedArtists={setInterestedArtists}
     />
   );
 };

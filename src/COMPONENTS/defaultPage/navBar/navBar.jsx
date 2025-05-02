@@ -237,10 +237,6 @@ const NavBar = ({
     if (name === "artistPage") {
       setActiveButton(null);
     }
-
-    if (name === "upcomingEvents") {
-      setArtist(null);
-    }
   }, [name]);
 
   const handleNavigate = (link) => {
