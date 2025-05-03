@@ -308,4 +308,8 @@ export default App;
  *
  *
  * Currently, if you select date till, it wont allow for a search..?
+ *
+ *
+ * Fix so you cant add to following-list on artist-page if everything isnt loaded (causes the object to be pushed as undefined.)
+ * --also create a fallback for when object is undefined
  */

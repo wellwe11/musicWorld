@@ -126,25 +126,24 @@ const ArtistProfile = ({
   artistData,
   interestedArtists,
   setInterestedArtists,
+  type,
 }) => {
   const [isInterested, setIsInterested] = useState(null);
   const artist = artistData?._embedded?.attractions?.[0];
-  const [fetchedArtist, setFetchedArtist] = useState(null);
 
   useEffect(() => {
-    if (artistData) {
+    if (artist) {
       if (
         isInterested &&
-        !interestedArtists?.some((e) => e?.id === artistData?.id)
+        !interestedArtists?.some((e) => e?.id === artist?.id)
       ) {
-        setInterestedArtists((artists) => [...artists, artistData]);
+        setInterestedArtists((artists) => [...artists, artist]);
       }
-
-      if (isInterested === false && interestedArtists?.length > 0) {
-        setInterestedArtists((artists) =>
-          artists.filter((artist) => artist !== artistData)
-        );
-      }
+    }
+    if (isInterested === false && interestedArtists?.length > 0) {
+      setInterestedArtists((artists) =>
+        artists.filter((a) => a?.id !== artistData?.id)
+      );
     }
   }, [isInterested]);
 
@@ -154,16 +153,14 @@ const ArtistProfile = ({
       setIsInterested(true);
     }
 
-    if (!interestedArtists?.some((e) => e?.id === artistData?.id)) {
-      setIsInterested(false);
-    }
+    // if (!interestedArtists?.some((e) => e?.id === artist?.id)) {
+    //   setIsInterested(false);
+    // }
   }, [interestedArtists]);
 
   useEffect(() => {
-    if (artistData) {
-      if (interestedArtists?.some((e) => e?.id === artistData?.id)) {
-        setIsInterested(true);
-      }
+    if (interestedArtists?.some((e) => e?.id === artistData?.id)) {
+      setIsInterested(true);
     }
   }, []);
 
@@ -171,16 +168,33 @@ const ArtistProfile = ({
     <div className={classes.artistWrapper}>
       {artistData && (
         <>
-          <div className={classes.imageContainer}>
-            <img src={artist?.images[0]?.url} alt="" />
-            <div className={classes.artistTitle}>
-              <h4>{artist?.name}</h4>
-            </div>
-          </div>
-          <InterestedButton
-            isInterested={isInterested}
-            setIsInterested={setIsInterested}
-          />
+          {type === "normal" ? (
+            <>
+              <div className={classes.imageContainer}>
+                <img src={artist?.images[0]?.url} alt="" />
+                <div className={classes.artistTitle}>
+                  <h4>{artist?.name}</h4>
+                </div>
+              </div>
+              <InterestedButton
+                isInterested={isInterested}
+                setIsInterested={setIsInterested}
+              />
+            </>
+          ) : (
+            <>
+              <div className={classes.imageContainer}>
+                <img src={artistData?.images[0]?.url} alt="" />
+                <div className={classes.artistTitle}>
+                  <h4>{artistData?.name}</h4>
+                </div>
+              </div>
+              <InterestedButton
+                isInterested={isInterested}
+                setIsInterested={setIsInterested}
+              />
+            </>
+          )}
         </>
       )}
     </div>
@@ -267,6 +281,8 @@ const HomePageComponent = ({
 }) => {
   let isLoggedIn = false;
 
+  console.log(interestedArtists);
+
   return (
     <div className={classes.homePageComponentContainer}>
       <EventsImagesWheel eventsArray={eventsArray} />
@@ -275,6 +291,7 @@ const HomePageComponent = ({
         interestedArtists={interestedArtists}
         setInterestedArtists={setInterestedArtists}
         title={"Artists near you..."}
+        type={"normal"}
       />
       {interestedArtists.length > 0 && (
         <PopularArtistsNear
@@ -282,6 +299,7 @@ const HomePageComponent = ({
           interestedArtists={interestedArtists}
           setInterestedArtists={setInterestedArtists}
           title={"Following artists"}
+          type={"following"}
         />
       )}
     </div>
