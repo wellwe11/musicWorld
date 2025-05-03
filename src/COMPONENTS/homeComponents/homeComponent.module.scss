@@ -122,6 +122,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      .artistWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }
@@ -156,6 +162,7 @@
     .artistTitle {
       padding: 10px;
       color: white;
+      min-height: 50px;
     }
   }
 }

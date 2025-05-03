@@ -129,37 +129,41 @@ const ArtistProfile = ({
   type,
 }) => {
   const [isInterested, setIsInterested] = useState(null);
-  const artist = artistData?._embedded?.attractions?.[0];
+  let artist;
+
+  if (type === "near") {
+    artist = artistData?._embedded?.attractions?.[0];
+  }
+
+  if (type === "following") {
+    artist = artistData;
+  }
 
   useEffect(() => {
-    if (artist) {
-      if (
-        isInterested &&
-        !interestedArtists?.some((e) => e?.id === artist?.id)
-      ) {
-        setInterestedArtists((artists) => [...artists, artist]);
-      }
+    if (isInterested && !interestedArtists?.some((e) => e?.id === artist?.id)) {
+      setInterestedArtists((artists) => [...artists, artist]);
     }
+
     if (isInterested === false && interestedArtists?.length > 0) {
       setInterestedArtists((artists) =>
-        artists.filter((a) => a?.id !== artistData?.id)
+        artists.filter((a) => a?.id !== artist?.id)
       );
     }
   }, [isInterested]);
 
   useEffect(() => {
     // sets true on-load if exists in array
-    if (interestedArtists?.some((e) => e?.id === artistData?.id)) {
+    if (interestedArtists?.some((e) => e?.id === artist?.id)) {
       setIsInterested(true);
     }
 
-    // if (!interestedArtists?.some((e) => e?.id === artist?.id)) {
-    //   setIsInterested(false);
-    // }
+    if (!interestedArtists?.some((e) => e?.id === artist?.id)) {
+      setIsInterested(false);
+    }
   }, [interestedArtists]);
 
   useEffect(() => {
-    if (interestedArtists?.some((e) => e?.id === artistData?.id)) {
+    if (interestedArtists?.some((e) => e?.id === artist?.id)) {
       setIsInterested(true);
     }
   }, []);
@@ -168,33 +172,18 @@ const ArtistProfile = ({
     <div className={classes.artistWrapper}>
       {artistData && (
         <>
-          {type === "normal" ? (
-            <>
-              <div className={classes.imageContainer}>
-                <img src={artist?.images[0]?.url} alt="" />
-                <div className={classes.artistTitle}>
-                  <h4>{artist?.name}</h4>
-                </div>
+          <>
+            <div className={classes.imageContainer}>
+              <img src={artist?.images[0]?.url} alt="" />
+              <div className={classes.artistTitle}>
+                <h4>{artist?.name}</h4>
               </div>
-              <InterestedButton
-                isInterested={isInterested}
-                setIsInterested={setIsInterested}
-              />
-            </>
-          ) : (
-            <>
-              <div className={classes.imageContainer}>
-                <img src={artistData?.images[0]?.url} alt="" />
-                <div className={classes.artistTitle}>
-                  <h4>{artistData?.name}</h4>
-                </div>
-              </div>
-              <InterestedButton
-                isInterested={isInterested}
-                setIsInterested={setIsInterested}
-              />
-            </>
-          )}
+            </div>
+            <InterestedButton
+              isInterested={isInterested}
+              setIsInterested={setIsInterested}
+            />
+          </>
         </>
       )}
     </div>
@@ -218,6 +207,7 @@ const PopularArtistsNear = ({
   interestedArtists,
   setInterestedArtists,
   title,
+  type,
 }) => {
   const scrollRef = useRef();
   const [canLoadContent, setCanLoadContent] = useState(false);
@@ -260,6 +250,7 @@ const PopularArtistsNear = ({
                   interestedArtists={interestedArtists}
                   setInterestedArtists={setInterestedArtists}
                   artistData={artistData[index]}
+                  type={type}
                 />
               </div>
             ))}
@@ -279,9 +270,8 @@ const HomePageComponent = ({
   interestedArtists,
   setInterestedArtists,
 }) => {
-  let isLoggedIn = false;
-
   console.log(interestedArtists);
+  let isLoggedIn = false;
 
   return (
     <div className={classes.homePageComponentContainer}>
@@ -291,7 +281,7 @@ const HomePageComponent = ({
         interestedArtists={interestedArtists}
         setInterestedArtists={setInterestedArtists}
         title={"Artists near you..."}
-        type={"normal"}
+        type={"near"}
       />
       {interestedArtists.length > 0 && (
         <PopularArtistsNear
