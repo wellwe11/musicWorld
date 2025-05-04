@@ -43,7 +43,7 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
   return (
     <div className={classes.events}>
       {displayEvents ? (
-        eventsArray.map(
+        eventsArray?.map(
           (event, index) =>
             index >= minViewEvent &&
             index <= maxViewEVent && (
@@ -54,17 +54,18 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
               >
                 <Event
                   title={
-                    event?._embedded?.attractions?.[0]?.name || event?.name
+                    event?.artist?._embedded?.attractions?.[0]?.name ||
+                    event?.artist?.name
                   }
-                  date={event?.dates?.start?.localDate}
-                  image={findFittingImage(event?.images, "4_3", 400)}
-                  country={event?._embedded?.venues[0]?.country?.name}
-                  city={event?._embedded?.venues[0]?.city?.name}
-                  location={event?._embedded?.venues[0]?.address?.line1}
+                  date={event?.event?.dates?.start?.localDate}
+                  image={findFittingImage(event?.artist?.images, "4_3", 400)}
+                  country={event?.event?._embedded?.venues[0]?.country?.name}
+                  city={event?.event?._embedded?.venues[0]?.city?.name}
+                  location={event?.event?._embedded?.venues[0]?.address?.line1}
                   imageClicked={clickedEvent === index ? imageClicked : ""}
                   setImageClicked={setImageClicked}
                   onClickLink={
-                    event?._embedded?.attractions?.[0]?.url || event?.url
+                    event?.event?._embedded?.attractions?.[0]?.url || event?.url
                   }
                 />
               </div>

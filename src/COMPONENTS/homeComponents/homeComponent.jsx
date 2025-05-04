@@ -30,7 +30,7 @@ const EventsImagesWheel = ({ eventsArray }) => {
     return eventsArray
       .slice(0, 8)
       .map((event) =>
-        event?.images.filter(
+        event?.artist.images.filter(
           (image) => image.ratio === "16_9" && image.height > 1000
         )
       );
@@ -79,7 +79,7 @@ const EventsImagesWheel = ({ eventsArray }) => {
                 >
                   <img src={event?.[0]?.url} alt="" />
 
-                  <BandText data={eventsArray[index]} index={index} />
+                  <BandText data={eventsArray[index].event} index={index} />
                 </div>
                 <button onClick={displayedImageAdd}>Next</button>
               </div>
@@ -132,7 +132,7 @@ const ArtistProfile = ({
   let artist;
 
   if (type === "near") {
-    artist = artistData?._embedded?.attractions?.[0];
+    artist = artistData.artist;
   }
 
   if (type === "following") {
@@ -272,7 +272,6 @@ const HomePageComponent = ({
   interestedArtists,
   setInterestedArtists,
 }) => {
-  console.log(interestedArtists);
   let isLoggedIn = false;
 
   return (

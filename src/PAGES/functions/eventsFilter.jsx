@@ -7,25 +7,43 @@ export const addEvents = (array, setter) => {
   const updatedArray = [];
 
   // create a new set to store unique id's which is related to events. Same events store the same ID, thus avoiding many of the same events to be displayed on the page.
-  const idSet = new Set();
+  const artistsArray = [];
 
+  let canPush = false;
   // events.events is the original fetch
   array?.forEach((event) => {
     if (event?.classifications?.[0]?.segment?.name === "Music") {
-      // add local variable for readable code
-      const idToNotMatch = event?._embedded?.attractions?.[0]?.id;
-      if (idToNotMatch && !idSet.has(idToNotMatch)) {
-        idSet.add(idToNotMatch);
-        updatedArray.push(event);
-      }
+      event?._embedded?.attractions.forEach((artist) => {
+        if (artist?.classifications?.[0]?.segment?.name === "Music") {
+          console.log(artist);
+          // local variable for readable code
+          const idToNotMatch = artist.id;
+          if (
+            idToNotMatch &&
+            !artistsArray.some((a) => a.artist.id === idToNotMatch)
+          ) {
+            artistsArray.push({ artist: artist, event: event });
+          }
+        }
+      });
     }
+    canPush = true;
   });
 
+  if (canPush) {
+    updatedArray.push(artistsArray);
+  }
+
   if (updatedArray.length > 0) {
+    console.log("will sort by time", updatedArray);
     // sort items by date
-    const sortedUpdatedArray = updatedArray.sort((a, b) => {
-      let numOne = a?.dates?.start?.localDate.toString("").replaceAll("-", "");
-      let numTwo = b?.dates?.start?.localDate.toString("").replaceAll("-", "");
+    const sortedUpdatedArray = updatedArray[0].sort((a, b) => {
+      let numOne = a?.event?.dates?.start?.localDate
+        .toString("")
+        .replaceAll("-", "");
+      let numTwo = b?.event?.dates?.start?.localDate
+        .toString("")
+        .replaceAll("-", "");
 
       return +numOne - +numTwo;
     });

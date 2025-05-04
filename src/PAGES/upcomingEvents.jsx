@@ -82,17 +82,16 @@ const UpcomingEventsPage = ({
   const [events, setEvents] = useState([]);
 
   const findArtistsNear = () => {
-    console.log(interestedArtists);
+    console.log(interestedArtists, eventsArray);
     const localArray = [];
 
     eventsArray?.filter((event) => {
-      const artistsObject = event._embedded.attractions;
+      const artistsObject = event.artist;
 
-      artistsObject.forEach((a) => {
-        if (interestedArtists.some((b) => a.id === b.id)) {
-          localArray.push(a);
-        }
-      });
+      if (interestedArtists.some((b) => artistsObject.id === b.id)) {
+        console.log(event);
+        localArray.push(artistsObject);
+      }
     });
 
     console.log(localArray);
@@ -101,7 +100,7 @@ const UpcomingEventsPage = ({
 
   useEffect(() => {
     // if to protect from odd renders after searching for artist
-    if (eventsArray.length > 1) {
+    if (eventsArray?.length > 1) {
       findArtistsNear();
     }
   }, [eventsArray]);
