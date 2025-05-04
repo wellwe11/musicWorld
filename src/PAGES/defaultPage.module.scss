@@ -43,7 +43,7 @@
   align-items: center;
 
   .pageEventsWrapper {
-    width: var(--homePageWidth);
+    width: calc(var(--homePageWidth) + 40px);
   }
 
   .locationTitle {

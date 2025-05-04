@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Events from "../COMPONENTS/upcomingEventsPage/events";
 import classes from "./defaultPage.module.scss";
 
@@ -81,6 +81,10 @@ const UpcomingEventsPage = ({
 
   const [events, setEvents] = useState([]);
 
+  const followingArtistsContainerRef = useRef();
+
+  console.log(followingArtistsContainerRef.current);
+
   const findArtistsNear = () => {
     console.log(interestedArtists, eventsArray);
     const localArray = [];
@@ -121,8 +125,6 @@ const UpcomingEventsPage = ({
     setMinViewEvent(maxViewEvent - 11);
   }, [maxViewEvent]);
 
-  console.log(eventsArray);
-
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}
@@ -130,8 +132,8 @@ const UpcomingEventsPage = ({
         <img src={listStyleIcon} alt="" />
         <img src={squareStyleIcon} alt="" />
         </div> */}
-      {events && (
-        <div>
+      {events.length > 0 && (
+        <div ref={followingArtistsContainerRef}>
           <h1>Following artists close to you</h1>
           <PopularArtistsNear
             artistData={events}

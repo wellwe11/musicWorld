@@ -105,7 +105,6 @@
     width: var(--homePageWidth);
     display: flex;
     align-items: center;
-    justify-content: space-between;
 
     justify-self: center;
 
@@ -199,6 +198,7 @@
 }
 
 .arrowButton {
+  visibility: hidden;
   cursor: pointer;
   filter: invert(0.7);
 
@@ -219,4 +219,8 @@
 
 .arrowButton:hover {
   filter: invert(1);
+}
+
+.arrayAndButtons:hover .arrowButton {
+  visibility: visible;
 }
