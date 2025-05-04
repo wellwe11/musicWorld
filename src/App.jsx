@@ -160,6 +160,10 @@ const App = () => {
       setCity("");
       setArtist("");
     }
+
+    if (name !== "artistPage") {
+      setArtist("");
+    }
   }, [name, home]);
 
   //
@@ -260,6 +264,8 @@ const App = () => {
               city={city}
               country={country}
               eventsArray={eventsArray}
+              interestedArtists={interestedArtists}
+              setInterestedArtists={setInterestedArtists}
             />
           ) : (
             <HomePage
@@ -312,4 +318,7 @@ export default App;
  *
  * Fix so you cant add to following-list on artist-page if everything isnt loaded (causes the object to be pushed as undefined.)
  * --also create a fallback for when object is undefined
+ *
+ *
+ *  display more events on event-page per page. Currently 6, Im thinking 12 per page
  */

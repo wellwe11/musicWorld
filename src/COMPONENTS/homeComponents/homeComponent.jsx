@@ -202,7 +202,7 @@ const ArrowButton = ({ clickDirection, clickFn }) => {
   );
 };
 
-const PopularArtistsNear = ({
+export const PopularArtistsNear = ({
   artistData,
   interestedArtists,
   setInterestedArtists,
@@ -244,16 +244,18 @@ const PopularArtistsNear = ({
             clickFn={() => scroller("left")}
           />
           <div className={classes.popularArtistsWrapper} ref={scrollRef}>
-            {[...Array(15)].map((_, index) => (
-              <div key={index} className={classes.artistProfileMapContainer}>
-                <ArtistProfile
-                  interestedArtists={interestedArtists}
-                  setInterestedArtists={setInterestedArtists}
-                  artistData={artistData[index]}
-                  type={type}
-                />
-              </div>
-            ))}
+            {artistData
+              .slice(0, artistData.length > 15 ? 15 : artistData.length)
+              .map((_, index) => (
+                <div key={index} className={classes.artistProfileMapContainer}>
+                  <ArtistProfile
+                    interestedArtists={interestedArtists}
+                    setInterestedArtists={setInterestedArtists}
+                    artistData={artistData[index]}
+                    type={type}
+                  />
+                </div>
+              ))}
           </div>
           <ArrowButton
             clickDirection={"right"}

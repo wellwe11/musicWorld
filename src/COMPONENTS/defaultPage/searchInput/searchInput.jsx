@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import classes from "./searchInput.module.scss";
 import { SearchSVG } from "./svg.jsx";
 import {
@@ -149,20 +149,12 @@ const SearchInput = ({
   setCountry,
   city,
   setCity,
-  events,
-  artist,
   setArtist,
 }) => {
   const navigate = useNavigate();
   const { name } = useParams();
 
   const [input, setInput] = useState("");
-
-  const countryMatch = useMemo(() => {
-    return Object.entries(bigCities)?.find(([, obj]) =>
-      Object.keys(obj)?.includes(input.toString("").toLowerCase())
-    );
-  }, [bigCities, input]);
 
   const handleInputChange = (e) => {
     if (e.key === "Enter") {
@@ -171,6 +163,11 @@ const SearchInput = ({
       e.target.value = "";
     }
   };
+
+  const countryMatch = () =>
+    Object.entries(bigCities)?.find(([, obj]) =>
+      Object.keys(obj)?.includes(input.toString("").toLowerCase())
+    );
 
   const handleNavigate = (link) => {
     navigate(`/${link}/`);
@@ -182,7 +179,7 @@ const SearchInput = ({
 
     // pre-define values to help faster rendering since the handleSubmit is so big
     let countryCodeFound = isoCountries[checkedInput];
-    let countryMatchFound = countryMatch;
+    let countryMatchFound = countryMatch();
     let musicGenreFound = musicGenres[checkedInput];
 
     // clean out items to determine if the input was a date
@@ -247,7 +244,6 @@ const SearchInput = ({
         // navigates to events to display events in city
         setCity(checkedInput);
 
-        // keeping for future use -
         //-- need to help filter events in city on arist-page
         if (name !== "artistPage") {
           console.log("name !== artistPage");
@@ -332,7 +328,7 @@ const SearchInput = ({
           <CountrySelect
             getter={city}
             setter={setCity}
-            object={Object.keys(bigCities[country])}
+            object={Object.keys(bigCities[country] || {})}
             needsClose={true}
           />
         </>
