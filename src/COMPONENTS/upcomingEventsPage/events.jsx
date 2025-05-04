@@ -29,8 +29,6 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
   // displays loading before the fetches are finalized. Loading is stored in the same component
   // such as the fetch. Loading is then turned true or false depending on the return of the JSON
   useEffect(() => {
-    console.log(loading, "loading...");
-
     if (!loading) {
       const timer = setTimeout(() => {
         setDisplayEvents(true);
@@ -38,7 +36,7 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
 
       return () => clearTimeout(timer);
     }
-  });
+  }, []);
 
   return (
     <div className={classes.events}>

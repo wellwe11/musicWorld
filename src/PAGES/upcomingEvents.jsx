@@ -81,12 +81,7 @@ const UpcomingEventsPage = ({
 
   const [events, setEvents] = useState([]);
 
-  const followingArtistsContainerRef = useRef();
-
-  console.log(followingArtistsContainerRef.current);
-
   const findArtistsNear = () => {
-    console.log(interestedArtists, eventsArray);
     const localArray = [];
 
     eventsArray?.filter((event) => {
@@ -133,7 +128,7 @@ const UpcomingEventsPage = ({
         <img src={squareStyleIcon} alt="" />
         </div> */}
       {events.length > 0 && (
-        <div ref={followingArtistsContainerRef}>
+        <div>
           <h1>Following artists close to you</h1>
           <PopularArtistsNear
             artistData={events}

@@ -2,8 +2,6 @@
   min-height: 100vh;
   margin-top: 100px;
 
-  overflow: hidden;
-
   .pictureSliderContainer {
     display: flex;
     align-items: center;
@@ -29,6 +27,7 @@
         display: 0;
         width: var(--homePageWidth);
 
+        align-items: center;
         object-fit: scale-down;
       }
 

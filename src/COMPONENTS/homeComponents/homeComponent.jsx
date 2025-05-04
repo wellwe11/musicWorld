@@ -212,6 +212,22 @@ export const PopularArtistsNear = ({
   const scrollRef = useRef();
   const [canLoadContent, setCanLoadContent] = useState(false);
 
+  const followingArtistsContainerRef = useRef(null);
+  const [artistContainerWidth, setArtistContainerWidth] = useState(null);
+  const [showScrollButtons, setShowScrollButtons] = useState(true);
+
+  const trackSizeAndDisplayButtons = () => {
+    if (artistData) {
+      if (artistData.length >= artistContainerWidth) {
+        setShowScrollButtons(true);
+      }
+
+      if (artistData.length <= artistContainerWidth) {
+        setShowScrollButtons(false);
+      }
+    }
+  };
+
   const scroller = (direction) => {
     if (direction === "right") {
       scrollRef.current.scrollBy({
@@ -231,36 +247,64 @@ export const PopularArtistsNear = ({
       setCanLoadContent(true);
     }, 2000);
 
-    return () => clearTimeout(timer);
+    const trackSize = () => {
+      if (followingArtistsContainerRef.current) {
+        let targetWidth = followingArtistsContainerRef.current.offsetWidth;
+        setArtistContainerWidth(targetWidth / 200);
+      }
+    };
+
+    const loadTimer = setTimeout(trackSize, 2100);
+
+    window.addEventListener("resize", trackSize);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(loadTimer);
+      window.removeEventListener("resize", trackSize);
+    };
   }, []);
+
+  useEffect(() => {
+    trackSizeAndDisplayButtons();
+  }, [artistContainerWidth, artistData]);
 
   return (
     <div className={classes.popularArtistsContainer}>
       <h2 className={classes.artistsNearTitle}>{title}</h2>
       {canLoadContent && (
         <div className={classes.arrayAndButtons}>
-          <ArrowButton
-            clickDirection={"left"}
-            clickFn={() => scroller("left")}
-          />
-          <div className={classes.popularArtistsWrapper} ref={scrollRef}>
-            {artistData
-              .slice(0, artistData.length > 15 ? 15 : artistData.length)
-              .map((_, index) => (
-                <div key={index} className={classes.artistProfileMapContainer}>
-                  <ArtistProfile
-                    interestedArtists={interestedArtists}
-                    setInterestedArtists={setInterestedArtists}
-                    artistData={artistData[index]}
-                    type={type}
-                  />
-                </div>
-              ))}
+          {showScrollButtons && (
+            <ArrowButton
+              clickDirection={"left"}
+              clickFn={() => scroller("left")}
+            />
+          )}
+          <div ref={followingArtistsContainerRef}>
+            <div className={classes.popularArtistsWrapper} ref={scrollRef}>
+              {artistData
+                .slice(0, artistData.length > 15 ? 15 : artistData.length)
+                .map((_, index) => (
+                  <div
+                    key={index}
+                    className={classes.artistProfileMapContainer}
+                  >
+                    <ArtistProfile
+                      interestedArtists={interestedArtists}
+                      setInterestedArtists={setInterestedArtists}
+                      artistData={artistData[index]}
+                      type={type}
+                    />
+                  </div>
+                ))}
+            </div>
           </div>
-          <ArrowButton
-            clickDirection={"right"}
-            clickFn={() => scroller("right")}
-          />
+          {showScrollButtons && (
+            <ArrowButton
+              clickDirection={"right"}
+              clickFn={() => scroller("right")}
+            />
+          )}
         </div>
       )}
     </div>
