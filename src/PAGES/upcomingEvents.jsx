@@ -121,6 +121,8 @@ const UpcomingEventsPage = ({
     setMinViewEvent(maxViewEvent - 11);
   }, [maxViewEvent]);
 
+  console.log(eventsArray);
+
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}
@@ -144,7 +146,7 @@ const UpcomingEventsPage = ({
         <h1 className={classes.locationTitle}>
           Viewing events in{" "}
           {city.charAt(0).toUpperCase() + city.slice(1) ||
-            eventsArray?.[0]?._embedded?.venues?.[0]?.country?.name ||
+            eventsArray?.[0]?.event?._embedded?.venues?.[0]?.country?.name ||
             "Loading location..."}
         </h1>
         <Events
