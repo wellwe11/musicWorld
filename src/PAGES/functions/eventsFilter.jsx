@@ -13,9 +13,8 @@ export const addEvents = (array, setter) => {
   // events.events is the original fetch
   array?.forEach((event) => {
     if (event?.classifications?.[0]?.segment?.name === "Music") {
-      event?._embedded?.attractions.forEach((artist) => {
+      event?._embedded?.attractions?.forEach((artist) => {
         if (artist?.classifications?.[0]?.segment?.name === "Music") {
-          console.log(artist);
           // local variable for readable code
           const idToNotMatch = artist.id;
           if (

@@ -186,6 +186,7 @@ const App = () => {
   // once events are fetched, filter the events
   useEffect(() => {
     if (events) {
+      console.log(events);
       return addEvents(events?.events, setEventsArray);
     }
   }, [events]);
