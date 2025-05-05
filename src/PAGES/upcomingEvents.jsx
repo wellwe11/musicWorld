@@ -102,7 +102,7 @@ const UpcomingEventsPage = ({
     if (eventsArray?.length > 1) {
       findArtistsNear();
     }
-  }, [eventsArray]);
+  }, [eventsArray, interestedArtists]);
 
   useEffect(() => {
     if (currentPage === 1) {
@@ -129,7 +129,6 @@ const UpcomingEventsPage = ({
         </div> */}
       {events.length > 0 && (
         <div>
-          <h1>Following artists close to you</h1>
           <PopularArtistsNear
             artistData={events}
             interestedArtists={interestedArtists}

@@ -13,6 +13,7 @@ import twitterIcon from "./media/twitter.png";
 import soundcloudIcon from "./media/soundcloud.png";
 import youtubeIcon from "./media/youtube.png";
 import { useNavigate } from "react-router-dom";
+import LoadingSvg from "./media/loadingSvg";
 
 export const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   const [data, setData] = useState([]);
@@ -269,6 +270,7 @@ const ArtistPageComponent = ({
   const [localLoading, setLocalLoading] = useState(true);
   const [unfilteredEvents, setUnfilteredEvents] = useState(null);
   const [artistObject, setArtistObject] = useState(null);
+  const [displayPage, setDisplayPage] = useState(false);
 
   const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
   const { data, secondaryData, loading, error } = useFetchData(
@@ -328,21 +330,38 @@ const ArtistPageComponent = ({
     }
   }, [data]);
 
+  useEffect(() => {
+    setDisplayPage(false);
+    const timer = setTimeout(() => {
+      setDisplayPage(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [artist]);
+
   return (
     <div className={classes.artistPage}>
-      <ArtistEvents
-        events={artistEvents}
-        artist={artist}
-        unfilteredEvents={unfilteredEvents}
-      />
-      <ArtistProfile
-        artistObject={artistObject}
-        data={data}
-        secondaryData={secondaryData}
-        interestedArtists={interestedArtists}
-        setInterestedArtists={setInterestedArtists}
-        unfilteredEvents={unfilteredEvents}
-      />
+      {displayPage ? (
+        <>
+          <ArtistEvents
+            events={artistEvents}
+            artist={artist}
+            unfilteredEvents={unfilteredEvents}
+          />
+          <ArtistProfile
+            artistObject={artistObject}
+            data={data}
+            secondaryData={secondaryData}
+            interestedArtists={interestedArtists}
+            setInterestedArtists={setInterestedArtists}
+            unfilteredEvents={unfilteredEvents}
+          />
+        </>
+      ) : (
+        <>
+          <LoadingSvg />
+        </>
+      )}
     </div>
   );
 };

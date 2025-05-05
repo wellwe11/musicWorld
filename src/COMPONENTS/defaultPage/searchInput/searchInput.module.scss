@@ -145,3 +145,15 @@
     }
   }
 }
+
+.loadingSvgContainer {
+  margin-right: 5px;
+  svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 15px !important;
+    height: 15px !important;
+  }
+}

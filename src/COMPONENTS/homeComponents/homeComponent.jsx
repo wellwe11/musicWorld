@@ -61,30 +61,58 @@ const EventsImagesWheel = ({ eventsArray }) => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {displayEvents &&
-        displayEvents.map(
-          (event, index) =>
-            index < 6 &&
-            index === displayedImage && (
-              <div
-                key={index}
-                className={`${classes.pictureSliderImage} ${
-                  index === displayedImage ? classes.displayedImage : ""
-                }`}
-              >
-                <button onClick={displayedImageMinus}>Prev</button>
+      {displayEvents && (
+        <>
+          {displayEvents.map(
+            (event, index) =>
+              index < 6 &&
+              index === displayedImage && (
                 <div
-                  className={classes.imageContainer}
-                  onClick={() => logStuff(event)}
+                  key={index}
+                  className={`${classes.pictureSliderImage} ${
+                    index === displayedImage ? classes.displayedImage : ""
+                  }`}
                 >
-                  <img src={event?.[0]?.url} alt="" />
+                  <div
+                    className={classes.imageContainer}
+                    onClick={() => logStuff(event)}
+                  >
+                    <button
+                      className={classes.pictureSliderButton}
+                      onClick={displayedImageMinus}
+                    >
+                      <img src={buttonClickArrow} alt="" />
+                    </button>
 
-                  <BandText data={eventsArray[index].event} index={index} />
+                    <img
+                      className={classes.visibleImage}
+                      src={event?.[0]?.url}
+                      alt=""
+                    />
+
+                    <BandText data={eventsArray[index].event} index={index} />
+                    <button
+                      className={classes.pictureSliderButton}
+                      onClick={displayedImageAdd}
+                    >
+                      <img src={buttonClickArrow} alt="" />
+                    </button>
+                  </div>
                 </div>
-                <button onClick={displayedImageAdd}>Next</button>
-              </div>
-            )
-        )}
+              )
+          )}
+          <div className={classes.activeImageButtons}>
+            {[...Array(6)].map((_, index) => (
+              <button
+                className={`${classes.buttonDot} ${
+                  index === displayedImage ? classes.isFocused : ""
+                }`}
+                onClick={() => setDisplayedImage(index)}
+              ></button>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
@@ -274,12 +302,17 @@ export const PopularArtistsNear = ({
       <h2 className={classes.artistsNearTitle}>{title}</h2>
       {canLoadContent && (
         <div className={classes.arrayAndButtons}>
-          {showScrollButtons && (
+          <div
+            className={`${
+              showScrollButtons ? classes.opacityOn : classes.opacityOff
+            }`}
+          >
             <ArrowButton
               clickDirection={"left"}
               clickFn={() => scroller("left")}
             />
-          )}
+          </div>
+
           <div ref={followingArtistsContainerRef}>
             <div className={classes.popularArtistsWrapper} ref={scrollRef}>
               {artistData
@@ -299,12 +332,16 @@ export const PopularArtistsNear = ({
                 ))}
             </div>
           </div>
-          {showScrollButtons && (
+          <div
+            className={`${
+              showScrollButtons ? classes.opacityOn : classes.opacityOff
+            }`}
+          >
             <ArrowButton
               clickDirection={"right"}
               clickFn={() => scroller("right")}
             />
-          )}
+          </div>
         </div>
       )}
     </div>

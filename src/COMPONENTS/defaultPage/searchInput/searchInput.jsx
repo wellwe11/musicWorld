@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import closeButton from "./close.png";
 import arrowButton from "./sort-arrows-couple-pointing-up-and-down.png";
+import LoadingSvg from "../../artistPageComponents/media/loadingSvg.jsx";
 
 const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
   // hook for main-buttons to toggle on click
@@ -154,6 +155,8 @@ const SearchInput = ({
   const navigate = useNavigate();
   const { name } = useParams();
 
+  const [displayLoadingIcon, setDisplayLoadingIcon] = useState(false);
+
   const [input, setInput] = useState("");
 
   const handleInputChange = (e) => {
@@ -173,6 +176,27 @@ const SearchInput = ({
     navigate(`/${link}/`);
   };
 
+  const clearLoadingIcon = () => {
+    const loadingBoolean = (value) => {
+      if (value) {
+        setDisplayLoadingIcon(true);
+        setTimeout(() => {
+          return setDisplayLoadingIcon(false);
+        }, 1250);
+      } else {
+        return setDisplayLoadingIcon(false);
+      }
+    };
+
+    if (name === "upcomingEvents") {
+      loadingBoolean(true);
+      console.log("true");
+    } else {
+      loadingBoolean(false);
+      console.log("false");
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let checkedInput = input.toString("").toLowerCase();
@@ -185,8 +209,7 @@ const SearchInput = ({
     // clean out items to determine if the input was a date
     let cleanedInput = input.replace(/[^a-zA-Z0-9]/g, "");
 
-    console.log(cleanedInput);
-
+    clearLoadingIcon();
     if (cleanedInput && Number(cleanedInput)) {
       const date = new Date(`${input}`);
       const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 3));
@@ -230,7 +253,7 @@ const SearchInput = ({
       }
 
       if (country === countryCodeFound) {
-        return console.log(
+        console.log(
           "you're searching for a country which is already searched for"
         );
       }
@@ -278,23 +301,25 @@ const SearchInput = ({
         // display genre-events on eventpage
         return handleNavigate("home/upcomingEvents");
       } else {
-        let artistName = checkedInput.replace(/ /g, "+");
-        setArtist(artistName);
-        handleNavigate(`home/artistPage/id=${artistName}`);
-        setCity("");
+        if (!countryCodeFound) {
+          let artistName = checkedInput.replace(/ /g, "+");
+          setArtist(artistName);
+          handleNavigate(`home/artistPage/id=${artistName}`);
+          setCity("");
 
-        // artistNames(input);
+          // artistNames(input);
 
-        // reset genre becasue search is more specified
-        setGenre("");
+          // reset genre becasue search is more specified
+          return setGenre("");
 
-        // redirect to artistPage =>
-        // on artist-page: display basic info about artist
-        // then also display IF artist is playing in city/on date etc
-        // if not, simply state it is not
+          // redirect to artistPage =>
+          // on artist-page: display basic info about artist
+          // then also display IF artist is playing in city/on date etc
+          // if not, simply state it is not
 
-        // if no artist is found =>
-        // display "found no artist named 'checkedInput' :("
+          // if no artist is found =>
+          // display "found no artist named 'checkedInput' :("
+        }
       }
     }
   };
@@ -314,6 +339,11 @@ const SearchInput = ({
         placeholder={"Search for events..."}
         onKeyDown={handleInputChange}
       ></input>
+      {displayLoadingIcon && (name === "upcomingEvents" || !name) && (
+        <div className={classes.loadingSvgContainer}>
+          <LoadingSvg />
+        </div>
+      )}
       <div className={classes.countryCityFilter}>
         <CountrySelect
           getter={country}

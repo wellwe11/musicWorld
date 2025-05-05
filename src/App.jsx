@@ -166,7 +166,6 @@ const App = () => {
     }
   }, [name, home]);
 
-  //
   useEffect(() => {
     console.log(dateFrom, dateTill, genre, country, city, artist);
     if (dateFrom || dateTill || genre || city) {
@@ -292,11 +291,6 @@ export default App;
  * if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * --currently, nothing is updated and you view the same things you searched prior to your un-found search
  *
- * * add dots to home-pages big images to show which current image is displayed
- * * style the arrows (left/right) for big image on home-page
- *
- * make so arrows on home-page for favorite artists etc are only visible if there are more than visible events (needs to work for when you scale make the site smaller as well)
- *
  * add logo to navbar when u scroll
  *
  * add loading svg animations
@@ -321,5 +315,6 @@ export default App;
  * --also create a fallback for when object is undefined
  *
  *
- *  display more events on event-page per page. Currently 6, Im thinking 12 per page
+ * when dates are inputed, and you search for an artist, it doesnt search for the artist
+ *
  */

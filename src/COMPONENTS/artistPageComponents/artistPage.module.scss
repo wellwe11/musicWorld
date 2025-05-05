@@ -8,6 +8,8 @@
   max-width: var(--homePageWidth);
 
   justify-self: center;
+
+  min-height: 600px;
 }
 
 .artistProfile {
@@ -128,5 +130,14 @@
         max-width: 30%;
       }
     }
+  }
+}
+
+.svgLoading {
+  svg {
+    height: 80px;
+    width: 80px;
+
+    filter: invert(1);
   }
 }

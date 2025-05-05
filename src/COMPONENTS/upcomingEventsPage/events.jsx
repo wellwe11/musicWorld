@@ -4,6 +4,7 @@ import Event from "./eventComp";
 import classes from "./upcomingEvents.module.scss";
 import { EventContext } from "../../App";
 import { findFittingImage } from "../../PAGES/functions/findFittingImage";
+import LoadingSvg from "../artistPageComponents/media/loadingSvg";
 
 const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
   // useState for loading (via the useContext(eventContext)). I need it for setTimeout
@@ -36,7 +37,7 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
 
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [loading]);
 
   return (
     <div className={classes.events}>
@@ -70,7 +71,9 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
             )
         )
       ) : (
-        <h1>Loading</h1>
+        <div className={classes.loadingSvgContainer}>
+          <LoadingSvg />
+        </div>
       )}
     </div>
   );
