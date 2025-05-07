@@ -143,8 +143,11 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
 };
 
 const SearchInput = ({
+  dateFrom,
   setDateFrom,
+  dateTill,
   setDateTill,
+  genre,
   setGenre,
   country,
   setCountry,
@@ -197,6 +200,10 @@ const SearchInput = ({
     }
   };
 
+  useEffect(() => {
+    clearLoadingIcon();
+  }, [dateFrom, dateTill, genre, country, city]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let checkedInput = input.toString("").toLowerCase();
@@ -209,7 +216,6 @@ const SearchInput = ({
     // clean out items to determine if the input was a date
     let cleanedInput = input.replace(/[^a-zA-Z0-9]/g, "");
 
-    clearLoadingIcon();
     if (cleanedInput && Number(cleanedInput)) {
       const date = new Date(`${input}`);
       const tillDate = new Date(new Date(date).setMonth(date.getMonth() + 3));

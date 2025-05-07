@@ -326,29 +326,35 @@
   visibility: visible;
 }
 
-.countryImageWrapper {
-  height: 250px;
-  overflow: hidden;
+.countryImageContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  position: relative;
-
-  z-index: 1;
-
-  .countryImage {
-    width: var(--homePageWidth);
-    object-fit: scale-down;
+  .countryImageWrapper {
+    height: 250px;
+    overflow: hidden;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    margin-bottom: 200px;
-  }
+    position: relative;
 
-  .countryTitle {
-    color: gray;
-    position: absolute;
+    z-index: 1;
+    width: var(--homePageWidth);
+
+    .countryImage {
+      object-fit: cover;
+      display: flex;
+
+      margin-bottom: 200px;
+    }
+
+    .countryTitle {
+      color: gray;
+      position: absolute;
+    }
   }
 }
 
@@ -360,6 +366,7 @@
   justify-self: center;
   position: relative;
 
+  overflow: scroll;
   .dateWrapper {
     display: flex;
     flex-direction: column;
@@ -385,16 +392,5 @@
 
   .displayedImageNumber {
     color: rgb(155, 155, 155);
-  }
-
-  .artistImageContainer {
-    width: 20px;
-    height: 20px;
-    .artistImage {
-      img {
-        width: 20px;
-        height: 20px;
-      }
-    }
   }
 }

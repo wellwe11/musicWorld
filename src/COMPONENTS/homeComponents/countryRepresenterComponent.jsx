@@ -73,27 +73,24 @@ const MonthsContainer = ({
   }, []);
 
   return (
-    <div>
-      {canLoad && (
-        <div className={classes.datesContainer}>
-          {dailyMonths.map((day, index) => (
-            <div
-              className={`${classes.dateWrapper} ${
-                day.dayNr === todayDate
-                  ? classes.todayHighLight
-                  : index === todayDate + displayedImage &&
-                    day.dayNr !== todayDate
-                  ? classes.displayedImageNumber
-                  : ""
-              }`}
-              onClick={() => handleDisplayedImage(index)}
-            >
-              <h4>{day.day}</h4>
-              <h4>{day.dayNr}</h4>
-            </div>
-          ))}
-        </div>
-      )}
+    <div className={classes.datesContainer}>
+      {canLoad &&
+        dailyMonths.map((day, index) => (
+          <div
+            className={`${classes.dateWrapper} ${
+              day.dayNr === todayDate
+                ? classes.todayHighLight
+                : index === todayDate + displayedImage &&
+                  day.dayNr !== todayDate
+                ? classes.displayedImageNumber
+                : ""
+            }`}
+            onClick={() => handleDisplayedImage(index)}
+          >
+            <h4>{day.day}</h4>
+            <h4>{day.dayNr}</h4>
+          </div>
+        ))}
     </div>
   );
 };

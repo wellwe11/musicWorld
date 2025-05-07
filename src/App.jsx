@@ -291,10 +291,10 @@ export default App;
  * todos:
  *
  *
+ * On home-page: it displays images based on number, not by date.
+ * -- wed 7 wont display event for wed. 7th, it will display whatever order it is in the array
+ * -- so if you click the date, it might display events before shown artist on front-page because it might not actually have that date
  *
- * First to-dos:
- * Fix api fetch for generic photo which represents the current country
- * --unplash api / pexels api
  *
  * give Each "block" on home-page a delay to "appear", making them appear like a wave.
  * First component 0.5s, second 0.75s, third 1s and so on.

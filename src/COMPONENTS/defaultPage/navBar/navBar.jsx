@@ -254,8 +254,11 @@ const NavBar = ({
     <div className={`${classes.navBarContainer}`}>
       <NavTitle />
       <SearchInput
+        dateFrom={dateFrom}
         setDateFrom={setDateFrom}
+        dateTill={dateTill}
         setDateTill={setDateTill}
+        genre={genre}
         setGenre={setGenre}
         country={country}
         setCountry={setCountry}
