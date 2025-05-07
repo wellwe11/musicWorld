@@ -7,13 +7,16 @@ import buttonClickPlus from "./images/plus.png";
 import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
 import NavButton from "../defaultPage/navBar/navButton";
 import { fetchDataTicketMaster } from "../../App";
+import CountryImageContainer from "./countryRepresenterComponent";
 
-const EventsImagesWheel = ({ eventsArray }) => {
+const EventsImagesWheel = ({
+  eventsArray,
+  displayedImage,
+  setDisplayedImage,
+}) => {
   const [displayEvents, setDisplayEvents] = useState([]);
 
   const [isHovering, setIsHovering] = useState(false);
-
-  const [displayedImage, setDisplayedImage] = useState(0);
 
   useEffect(() => {
     if (!isHovering) {
@@ -352,12 +355,27 @@ const HomePageComponent = ({
   eventsArray,
   interestedArtists,
   setInterestedArtists,
+  country,
+  setDateFrom,
 }) => {
   let isLoggedIn = false;
 
+  const [displayedImage, setDisplayedImage] = useState(0);
+
   return (
     <div className={classes.homePageComponentContainer}>
-      <EventsImagesWheel eventsArray={eventsArray} />
+      <CountryImageContainer
+        country={country}
+        eventsArray={eventsArray}
+        displayedImage={displayedImage}
+        setDisplayedImage={setDisplayedImage}
+        setDateFrom={setDateFrom}
+      />
+      <EventsImagesWheel
+        eventsArray={eventsArray}
+        displayedImage={displayedImage}
+        setDisplayedImage={setDisplayedImage}
+      />
       <PopularArtistsNear
         artistData={eventsArray}
         interestedArtists={interestedArtists}

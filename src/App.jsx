@@ -272,6 +272,8 @@ const App = () => {
               eventsArray={eventsArray}
               interestedArtists={interestedArtists}
               setInterestedArtists={setInterestedArtists}
+              country={country}
+              setDateFrom={setDateFrom}
             />
           )}
         </div>
@@ -288,6 +290,15 @@ export default App;
 /**
  * todos:
  *
+ *
+ *
+ * First to-dos:
+ * Fix api fetch for generic photo which represents the current country
+ * --unplash api / pexels api
+ *
+ * give Each "block" on home-page a delay to "appear", making them appear like a wave.
+ * First component 0.5s, second 0.75s, third 1s and so on.
+ *
  * if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * --currently, nothing is updated and you view the same things you searched prior to your un-found search
  *
@@ -295,26 +306,16 @@ export default App;
  *
  * add loading svg animations
  * -- to home-page
- * -- to event-page
- * -- to artist-page
  *
  *
  * current-page buttons (left right on events-page) isnt working correclty right now. They are white when they shouldn't be and gray when they shouldn't be
  * --and display too many pages sometimes
  *
- * create intersted-object on App.jsx. You can add to it and remove from all pages that has interested-button (artist page, (will add to upcomingEvents), home-page)
- *
  *
  * Fix so that the page doesnt refresh so many times
  *
  *
- * Currently, if you select date till, it wont allow for a search..?
- *
- *
  * Fix so you cant add to following-list on artist-page if everything isnt loaded (causes the object to be pushed as undefined.)
  * --also create a fallback for when object is undefined
- *
- *
- * when dates are inputed, and you search for an artist, it doesnt search for the artist
  *
  */

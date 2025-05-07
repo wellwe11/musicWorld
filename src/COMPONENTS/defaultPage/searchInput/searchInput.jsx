@@ -235,6 +235,7 @@ const SearchInput = ({
 
       setDateFrom(formattedDate);
       setDateTill(formattedTillDate);
+      console.log(formattedDate);
       return handleNavigate("home/upcomingEvents");
     }
 
@@ -309,6 +310,8 @@ const SearchInput = ({
 
           // artistNames(input);
 
+          setDateTill("");
+          setDateFrom("");
           // reset genre becasue search is more specified
           return setGenre("");
 

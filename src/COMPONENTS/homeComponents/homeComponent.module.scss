@@ -1,6 +1,6 @@
 .homePageComponentContainer {
   min-height: 100vh;
-  margin-top: 100px;
+  margin-top: 50px;
 
   .pictureSliderContainer {
     display: flex;
@@ -38,10 +38,11 @@
         display: 0;
         width: var(--homePageWidth);
 
-        object-fit: scale-down;
+        object-fit: cover;
 
         animation: displayImage 0.6s forwards;
         transition: all 0.6s ease-out;
+        height: 100%;
       }
 
       .displayedImage {
@@ -170,9 +171,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  border-top: 30px solid var(--mainThemeColor);
-  border-bottom: 100px solid var(--mainThemeColor);
+  justify-content: center;
 
   color: white;
 
@@ -325,4 +324,75 @@
 
 .arrayAndButtons:hover .arrowButton {
   visibility: visible;
+}
+
+.countryImageWrapper {
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  z-index: 1;
+
+  .countryImage {
+    width: var(--homePageWidth);
+    object-fit: scale-down;
+    display: flex;
+
+    margin-bottom: 200px;
+  }
+
+  .countryTitle {
+    color: gray;
+    position: absolute;
+  }
+}
+
+.datesContainer {
+  display: flex;
+  width: var(--homePageWidth);
+  justify-content: space-between;
+  align-items: flex-start;
+  justify-self: center;
+  position: relative;
+
+  .dateWrapper {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    cursor: pointer;
+
+    border-radius: 5px;
+
+    min-width: 30px;
+  }
+
+  .dateWrapper:hover {
+    position: relative;
+    background-color: var(--buttonContainerTheme);
+  }
+
+  .todayHighLight {
+    color: white;
+  }
+
+  .displayedImageNumber {
+    color: rgb(155, 155, 155);
+  }
+
+  .artistImageContainer {
+    width: 20px;
+    height: 20px;
+    .artistImage {
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
 }
