@@ -7,6 +7,7 @@ import { EventContext, fetchDataTicketMaster } from "../App";
 import squareStyleIcon from "./window-of-four-rounded-squares.png";
 import listStyleIcon from "./list-text.png";
 import { PopularArtistsNear } from "../COMPONENTS/homeComponents/homeComponent";
+import LoadingSvg from "../COMPONENTS/artistPageComponents/media/loadingSvg";
 
 const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   const [maxPageReached, setMaxPagedReached] = useState("");
@@ -127,36 +128,45 @@ const UpcomingEventsPage = ({
         <img src={listStyleIcon} alt="" />
         <img src={squareStyleIcon} alt="" />
         </div> */}
-      {events.length > 0 && (
-        <div>
-          <PopularArtistsNear
-            artistData={events}
-            interestedArtists={interestedArtists}
-            setInterestedArtists={setInterestedArtists}
-            title={"Following artists"}
-            type={"following"}
+      {eventsArray?.length > 0 ? (
+        <>
+          {events.length > 0 && (
+            <div>
+              <PopularArtistsNear
+                artistData={events}
+                interestedArtists={interestedArtists}
+                setInterestedArtists={setInterestedArtists}
+                title={"Following artists"}
+                type={"following"}
+              />
+            </div>
+          )}
+          <div className={classes.pageEventsWrapper}>
+            <h1 className={classes.locationTitle}>
+              Viewing events in{" "}
+              {city.charAt(0).toUpperCase() + city.slice(1) ||
+                eventsArray?.[0]?.event?._embedded?.venues?.[0]?.country
+                  ?.name ||
+                "Loading location..."}
+            </h1>
+            <Events
+              eventsArray={eventsArray}
+              loading={loading}
+              minViewEvent={minViewEvent}
+              maxViewEVent={maxViewEvent}
+            />
+          </div>
+          <PageToView
+            eventsArray={eventsArray}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
           />
+        </>
+      ) : (
+        <div className={classes.loadingSvgContainer}>
+          <LoadingSvg />
         </div>
       )}
-      <div className={classes.pageEventsWrapper}>
-        <h1 className={classes.locationTitle}>
-          Viewing events in{" "}
-          {city.charAt(0).toUpperCase() + city.slice(1) ||
-            eventsArray?.[0]?.event?._embedded?.venues?.[0]?.country?.name ||
-            "Loading location..."}
-        </h1>
-        <Events
-          eventsArray={eventsArray}
-          loading={loading}
-          minViewEvent={minViewEvent}
-          maxViewEVent={maxViewEvent}
-        />
-      </div>
-      <PageToView
-        eventsArray={eventsArray}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
     </div>
   );
 };

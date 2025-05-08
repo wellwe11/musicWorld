@@ -15,7 +15,7 @@
   --mainThemeColor: #13161c;
   --mainThemeTwo: #13161c;
   --buttonContainerTheme: #262930;
-  --homePageWidth: 75vw;
+  --homePageWidth: min(75vw, 1200px);
 }
 
 /* Reset margin and padding */

@@ -1,31 +1,11 @@
 import { useEffect, useState } from "react";
-import { createClient } from "pexels";
-import {
-  bigCities,
-  isoCountries,
-} from "../defaultPage/searchInput/inputInformation";
+import { isoCountries } from "../defaultPage/searchInput/inputInformation";
 import classes from "./homeComponent.module.scss";
 
-const PexelsApiFetch = (country) => {
-  const PEXELS_API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
-  const client = createClient(PEXELS_API_KEY);
-  const [imageUrl, setImageUrl] = useState(null);
+import pexelsImageOne from "./images/pexels_imageOne.jpg";
+import pexelsImage from "./images/pexels_imageFour.webp";
 
-  useEffect(() => {
-    client.photos.search({ query: country, per_page: 1 }).then((photo) => {
-      setImageUrl(photo?.photos[0].src.landscape);
-    });
-  }, [country]);
-
-  return { imageUrl };
-};
-
-const MonthsContainer = ({
-  eventsArray,
-  displayedImage,
-  setDisplayedImage,
-  setDateFrom,
-}) => {
+const MonthsContainer = ({ displayedImage, setDateFrom }) => {
   const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
   const today = new Date();
 
@@ -60,10 +40,10 @@ const MonthsContainer = ({
   };
 
   const handleDisplayedImage = (n) => {
-    console.log(n);
+    const nClicked = n + 1;
     setDateFrom(
       `${todayYear}-${todayMonth > 9 ? todayMonth : "0" + todayMonth}-${
-        n > 9 ? n : "0" + n
+        nClicked > 9 ? nClicked : "0" + nClicked
       }`
     );
   };
@@ -80,7 +60,7 @@ const MonthsContainer = ({
             className={`${classes.dateWrapper} ${
               day.dayNr === todayDate
                 ? classes.todayHighLight
-                : index === todayDate + displayedImage &&
+                : index === todayDate + displayedImage - 1 &&
                   day.dayNr !== todayDate
                 ? classes.displayedImageNumber
                 : ""
@@ -110,12 +90,10 @@ const CountryImageContainer = ({
   const fixedCountryName =
     countryName.charAt(0).toUpperCase() + countryName.slice(1);
 
-  const { imageUrl } = PexelsApiFetch(countryName + " capital cityscape");
-
   return (
     <div className={classes.countryImageContainer}>
       <div className={classes.countryImageWrapper}>
-        <img className={classes.countryImage} src={imageUrl} alt="" />
+        <img className={classes.countryImage} src={pexelsImage} alt="" />
         <h1 className={classes.countryTitle}>{fixedCountryName}</h1>
       </div>
       <MonthsContainer

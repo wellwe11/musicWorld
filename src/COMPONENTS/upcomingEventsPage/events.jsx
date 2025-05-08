@@ -41,7 +41,7 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
 
   return (
     <div className={classes.events}>
-      {displayEvents ? (
+      {displayEvents &&
         eventsArray?.map(
           (event, index) =>
             index >= minViewEvent &&
@@ -69,12 +69,7 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
                 />
               </div>
             )
-        )
-      ) : (
-        <div className={classes.loadingSvgContainer}>
-          <LoadingSvg />
-        </div>
-      )}
+        )}
     </div>
   );
 };

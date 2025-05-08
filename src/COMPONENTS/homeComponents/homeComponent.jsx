@@ -17,6 +17,7 @@ const EventsImagesWheel = ({
   const [displayEvents, setDisplayEvents] = useState([]);
 
   const [isHovering, setIsHovering] = useState(false);
+  const [oneEventPerDay, setOneEventPerDay] = useState([]);
 
   useEffect(() => {
     if (!isHovering) {
@@ -27,17 +28,40 @@ const EventsImagesWheel = ({
     }
   }, [displayedImage, isHovering]);
 
-  const amountOfEventsDisplay = useMemo(() => {
-    if (!eventsArray || eventsArray.length <= 6) return [];
+  const filterEventsPerDay = () => {
+    const localArr = [];
 
-    return eventsArray
+    for (let i = 0; i < eventsArray?.length; i++) {
+      const iDate = eventsArray[i]?.event.dates.start.localDate;
+
+      if (!localArr.some((a) => a.date === iDate)) {
+        localArr.push({
+          date: iDate,
+          event: eventsArray[i]?.event,
+        });
+      }
+    }
+
+    setOneEventPerDay(localArr);
+  };
+
+  useEffect(() => {
+    if (eventsArray) {
+      filterEventsPerDay();
+    }
+  }, [eventsArray]);
+
+  const amountOfEventsDisplay = useMemo(() => {
+    if (!oneEventPerDay || oneEventPerDay.length <= 6) return [];
+
+    return oneEventPerDay
       .slice(0, 8)
       .map((event) =>
-        event?.artist.images.filter(
+        event?.event.images.filter(
           (image) => image.ratio === "16_9" && image.height > 1000
         )
       );
-  }, [eventsArray]);
+  }, [oneEventPerDay]);
 
   // re-renders the home-component once
   useEffect(() => {
@@ -93,7 +117,10 @@ const EventsImagesWheel = ({
                       alt=""
                     />
 
-                    <BandText data={eventsArray[index].event} index={index} />
+                    <BandText
+                      data={oneEventPerDay[index].event}
+                      index={index}
+                    />
                     <button
                       className={classes.pictureSliderButton}
                       onClick={displayedImageAdd}
@@ -241,7 +268,6 @@ export const PopularArtistsNear = ({
   type,
 }) => {
   const scrollRef = useRef();
-  const [canLoadContent, setCanLoadContent] = useState(false);
 
   const followingArtistsContainerRef = useRef(null);
   const [artistContainerWidth, setArtistContainerWidth] = useState(null);
@@ -274,10 +300,6 @@ export const PopularArtistsNear = ({
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCanLoadContent(true);
-    }, 2000);
-
     const trackSize = () => {
       if (followingArtistsContainerRef.current) {
         let targetWidth = followingArtistsContainerRef.current.offsetWidth;
@@ -290,7 +312,6 @@ export const PopularArtistsNear = ({
     window.addEventListener("resize", trackSize);
 
     return () => {
-      clearTimeout(timer);
       clearTimeout(loadTimer);
       window.removeEventListener("resize", trackSize);
     };
@@ -303,50 +324,46 @@ export const PopularArtistsNear = ({
   return (
     <div className={classes.popularArtistsContainer}>
       <h2 className={classes.artistsNearTitle}>{title}</h2>
-      {canLoadContent && (
-        <div className={classes.arrayAndButtons}>
-          <div
-            className={`${
-              showScrollButtons ? classes.opacityOn : classes.opacityOff
-            }`}
-          >
-            <ArrowButton
-              clickDirection={"left"}
-              clickFn={() => scroller("left")}
-            />
-          </div>
 
-          <div ref={followingArtistsContainerRef}>
-            <div className={classes.popularArtistsWrapper} ref={scrollRef}>
-              {artistData
-                .slice(0, artistData.length > 15 ? 15 : artistData.length)
-                .map((_, index) => (
-                  <div
-                    key={index}
-                    className={classes.artistProfileMapContainer}
-                  >
-                    <ArtistProfile
-                      interestedArtists={interestedArtists}
-                      setInterestedArtists={setInterestedArtists}
-                      artistData={artistData[index]}
-                      type={type}
-                    />
-                  </div>
-                ))}
-            </div>
-          </div>
-          <div
-            className={`${
-              showScrollButtons ? classes.opacityOn : classes.opacityOff
-            }`}
-          >
-            <ArrowButton
-              clickDirection={"right"}
-              clickFn={() => scroller("right")}
-            />
+      <div className={classes.arrayAndButtons}>
+        <div
+          className={`${
+            showScrollButtons ? classes.opacityOn : classes.opacityOff
+          }`}
+        >
+          <ArrowButton
+            clickDirection={"left"}
+            clickFn={() => scroller("left")}
+          />
+        </div>
+
+        <div ref={followingArtistsContainerRef}>
+          <div className={classes.popularArtistsWrapper} ref={scrollRef}>
+            {artistData
+              .slice(0, artistData.length > 15 ? 15 : artistData.length)
+              .map((_, index) => (
+                <div key={index} className={classes.artistProfileMapContainer}>
+                  <ArtistProfile
+                    interestedArtists={interestedArtists}
+                    setInterestedArtists={setInterestedArtists}
+                    artistData={artistData[index]}
+                    type={type}
+                  />
+                </div>
+              ))}
           </div>
         </div>
-      )}
+        <div
+          className={`${
+            showScrollButtons ? classes.opacityOn : classes.opacityOff
+          }`}
+        >
+          <ArrowButton
+            clickDirection={"right"}
+            clickFn={() => scroller("right")}
+          />
+        </div>
+      </div>
     </div>
   );
 };
@@ -362,35 +379,65 @@ const HomePageComponent = ({
 
   const [displayedImage, setDisplayedImage] = useState(0);
 
+  const [loadElements, setLoadElements] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (loadElements < 4) {
+        setLoadElements((prev) => prev + 1);
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [loadElements]);
+
   return (
     <div className={classes.homePageComponentContainer}>
-      <CountryImageContainer
-        country={country}
-        eventsArray={eventsArray}
-        displayedImage={displayedImage}
-        setDisplayedImage={setDisplayedImage}
-        setDateFrom={setDateFrom}
-      />
-      <EventsImagesWheel
-        eventsArray={eventsArray}
-        displayedImage={displayedImage}
-        setDisplayedImage={setDisplayedImage}
-      />
-      <PopularArtistsNear
-        artistData={eventsArray}
-        interestedArtists={interestedArtists}
-        setInterestedArtists={setInterestedArtists}
-        title={"Artists near you..."}
-        type={"near"}
-      />
-      {interestedArtists.length > 0 && (
+      <div
+        className={loadElements > 0 ? classes.onLoadShow : classes.onLoadHidden}
+      >
+        <CountryImageContainer
+          country={country}
+          eventsArray={eventsArray}
+          displayedImage={displayedImage}
+          setDisplayedImage={setDisplayedImage}
+          setDateFrom={setDateFrom}
+        />
+      </div>
+
+      <div
+        className={loadElements > 1 ? classes.onLoadShow : classes.onLoadHidden}
+      >
+        <EventsImagesWheel
+          eventsArray={eventsArray}
+          displayedImage={displayedImage}
+          setDisplayedImage={setDisplayedImage}
+        />
+      </div>
+      <div
+        className={loadElements > 2 ? classes.onLoadShow : classes.onLoadHidden}
+      >
         <PopularArtistsNear
-          artistData={interestedArtists}
+          artistData={eventsArray}
           interestedArtists={interestedArtists}
           setInterestedArtists={setInterestedArtists}
-          title={"Following artists"}
-          type={"following"}
+          title={"Artists close to you"}
+          type={"near"}
         />
+      </div>
+      {interestedArtists.length > 0 && (
+        <div
+          className={
+            loadElements > 3 ? classes.onLoadShow : classes.onLoadHidden
+          }
+        >
+          <PopularArtistsNear
+            artistData={interestedArtists}
+            interestedArtists={interestedArtists}
+            setInterestedArtists={setInterestedArtists}
+            title={"Following artists"}
+            type={"following"}
+          />
+        </div>
       )}
     </div>
   );
