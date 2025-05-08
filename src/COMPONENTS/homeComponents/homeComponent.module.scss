@@ -41,7 +41,7 @@
         object-fit: cover;
 
         animation: displayImage 0.6s forwards;
-        transition: all 0.6s ease-out;
+        transition: blur 0.6s ease-out;
         height: 100%;
       }
 
@@ -332,7 +332,6 @@
   justify-content: center;
   align-items: center;
   .countryImageWrapper {
-    height: 200px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -343,11 +342,14 @@
 
     z-index: 1;
     width: var(--homePageWidth);
+    min-height: 50px;
+    max-height: 200px;
 
     .countryImage {
-      object-fit: scale-down;
+      object-fit: cover;
       display: flex;
-      margin-bottom: -320px;
+
+      margin-bottom: -30%;
 
       width: var(--homePageWidth);
     }

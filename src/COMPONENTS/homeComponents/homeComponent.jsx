@@ -68,7 +68,7 @@ const EventsImagesWheel = ({
     if (amountOfEventsDisplay) {
       setDisplayEvents(amountOfEventsDisplay);
     }
-  }, [eventsArray]);
+  }, [oneEventPerDay]);
 
   const logStuff = (e) => {
     console.log(e);
@@ -88,61 +88,56 @@ const EventsImagesWheel = ({
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {displayEvents && (
-        <>
-          {displayEvents.map(
-            (event, index) =>
-              index < 6 &&
-              index === displayedImage && (
-                <div
-                  key={index}
-                  className={`${classes.pictureSliderImage} ${
-                    index === displayedImage ? classes.displayedImage : ""
-                  }`}
-                >
-                  <div
-                    className={classes.imageContainer}
-                    onClick={() => logStuff(event)}
-                  >
-                    <button
-                      className={classes.pictureSliderButton}
-                      onClick={displayedImageMinus}
-                    >
-                      <img src={buttonClickArrow} alt="" />
-                    </button>
-
-                    <img
-                      className={classes.visibleImage}
-                      src={event?.[0]?.url}
-                      alt=""
-                    />
-
-                    <BandText
-                      data={oneEventPerDay[index].event}
-                      index={index}
-                    />
-                    <button
-                      className={classes.pictureSliderButton}
-                      onClick={displayedImageAdd}
-                    >
-                      <img src={buttonClickArrow} alt="" />
-                    </button>
-                  </div>
-                </div>
-              )
-          )}
-          <div className={classes.activeImageButtons}>
-            {[...Array(6)].map((_, index) => (
-              <button
-                className={`${classes.buttonDot} ${
-                  index === displayedImage ? classes.isFocused : ""
+      <>
+        {displayEvents.map(
+          (event, index) =>
+            index < 6 &&
+            index === displayedImage && (
+              <div
+                key={index}
+                className={`${classes.pictureSliderImage} ${
+                  index === displayedImage ? classes.displayedImage : ""
                 }`}
-                onClick={() => setDisplayedImage(index)}
-              ></button>
-            ))}
-          </div>
-        </>
-      )}
+              >
+                <div
+                  className={classes.imageContainer}
+                  onClick={() => logStuff(event)}
+                >
+                  <button
+                    className={classes.pictureSliderButton}
+                    onClick={displayedImageMinus}
+                  >
+                    <img src={buttonClickArrow} alt="" />
+                  </button>
+
+                  <img
+                    className={classes.visibleImage}
+                    src={event?.[0]?.url}
+                    alt=""
+                  />
+
+                  <BandText data={oneEventPerDay[index].event} index={index} />
+                  <button
+                    className={classes.pictureSliderButton}
+                    onClick={displayedImageAdd}
+                  >
+                    <img src={buttonClickArrow} alt="" />
+                  </button>
+                </div>
+              </div>
+            )
+        )}
+        <div className={classes.activeImageButtons}>
+          {[...Array(6)].map((_, index) => (
+            <button
+              className={`${classes.buttonDot} ${
+                index === displayedImage ? classes.isFocused : ""
+              }`}
+              onClick={() => setDisplayedImage(index)}
+            ></button>
+          ))}
+        </div>
+      </>
     </div>
   );
 };

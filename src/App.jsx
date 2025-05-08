@@ -290,12 +290,6 @@ export default App;
 /**
  * todos:
  *
- *
- * On home-page: it displays images based on number, not by date.
- * -- wed 7 wont display event for wed. 7th, it will display whatever order it is in the array
- * -- so if you click the date, it might display events before shown artist on front-page because it might not actually have that date
- *
- *
  * give Each "block" on home-page a delay to "appear", making them appear like a wave.
  * First component 0.5s, second 0.75s, third 1s and so on.
  *
@@ -321,5 +315,4 @@ export default App;
  *
  * Fix a "<<" for event-page to go back to start of events
  *
- * text for home-page image-wheel is using events[0].info instead of artist[0].info, so event with billie eilish but a picture of someone else will cause the text to anyway be about billie eilish
  */
