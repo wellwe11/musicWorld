@@ -55,6 +55,7 @@ const Footer = () => {
     <footer className={classes.footer}>
       <div className={classes.footerContainer}>
         <FooterInformation />
+        <div className={classes.seperatorLine}></div>
         <FooterInformationTwo />
       </div>
     </footer>

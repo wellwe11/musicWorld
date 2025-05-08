@@ -15,6 +15,7 @@ import HomePage from "./PAGES/homePage";
 
 import { addEvents } from "./PAGES/functions/eventsFilter";
 import NavBarScroll from "./COMPONENTS/defaultPage/navBar/navBarScroll";
+import LoadingSvg from "./COMPONENTS/artistPageComponents/media/loadingSvg";
 
 export const EventContext = createContext();
 
@@ -249,34 +250,40 @@ const App = () => {
             events={events}
           />
         )}
-
-        <div className={classes.routesContainer}>
-          {name === "artistPage" && link ? (
-            <ArtistPage
-              artistEvents={events}
-              artist={artist}
-              eventsArray={eventsArray}
-              interestedArtists={interestedArtists}
-              setInterestedArtists={setInterestedArtists}
-            />
-          ) : name && !link ? (
-            <PageToView
-              city={city}
-              country={country}
-              eventsArray={eventsArray}
-              interestedArtists={interestedArtists}
-              setInterestedArtists={setInterestedArtists}
-            />
-          ) : (
-            <HomePage
-              eventsArray={eventsArray}
-              interestedArtists={interestedArtists}
-              setInterestedArtists={setInterestedArtists}
-              country={country}
-              setDateFrom={setDateFrom}
-            />
-          )}
-        </div>
+        {eventsArray ? (
+          <>
+            <div className={classes.routesContainer}>
+              {name === "artistPage" && link ? (
+                <ArtistPage
+                  artistEvents={events}
+                  artist={artist}
+                  eventsArray={eventsArray}
+                  interestedArtists={interestedArtists}
+                  setInterestedArtists={setInterestedArtists}
+                />
+              ) : name && !link ? (
+                <PageToView
+                  city={city}
+                  country={country}
+                  dateFrom={dateFrom}
+                  eventsArray={eventsArray}
+                  interestedArtists={interestedArtists}
+                  setInterestedArtists={setInterestedArtists}
+                />
+              ) : (
+                <HomePage
+                  eventsArray={eventsArray}
+                  interestedArtists={interestedArtists}
+                  setInterestedArtists={setInterestedArtists}
+                  country={country}
+                  setDateFrom={setDateFrom}
+                />
+              )}
+            </div>
+          </>
+        ) : (
+          <LoadingSvg />
+        )}
       </EventContext.Provider>
       <Footer />
     </div>
@@ -290,20 +297,13 @@ export default App;
 /**
  * todos:
  *
- * give Each "block" on home-page a delay to "appear", making them appear like a wave.
- * First component 0.5s, second 0.75s, third 1s and so on.
- *
- * if no genre/artist/event in (city/country)/date etc is found, display a page that says so
- * --currently, nothing is updated and you view the same things you searched prior to your un-found search
- *
- * add logo to navbar when u scroll
- *
  * add loading svg animations
  * -- to home-page
  *
  *
  * current-page buttons (left right on events-page) isnt working correclty right now. They are white when they shouldn't be and gray when they shouldn't be
  * --and display too many pages sometimes
+ * * Fix a "<<" for event-page to go back to start of events
  *
  *
  * Fix so that the page doesnt refresh so many times
@@ -311,8 +311,13 @@ export default App;
  *
  * Fix so you cant add to following-list on artist-page if everything isnt loaded (causes the object to be pushed as undefined.)
  * --also create a fallback for when object is undefined
+
  *
- *
- * Fix a "<<" for event-page to go back to start of events
- *
+ */
+
+/**
+ * Pages to create:
+ * -- EVENT/ARTIST NOT FOUND PAGE --
+ * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so
+ * ---currently, nothing is updated and you view the same things you searched prior to your un-found search
  */

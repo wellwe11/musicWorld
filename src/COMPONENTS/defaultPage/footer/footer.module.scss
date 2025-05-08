@@ -1,25 +1,38 @@
 .footer {
+  background-color: var(--buttonContainerTheme);
   .footerContainer {
-    background-color: var(--buttonContainerTheme);
+    width: var(--homePageWidth);
+    justify-self: center;
     color: white;
 
     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     min-height: 250px;
     padding: 10px;
+  }
+
+  .seperatorLine {
+    background-color: white;
+    width: 1px;
+    height: 210px;
+
+    justify-self: center;
+    align-self: center;
   }
 }
 
 .footerButtonsContainer {
-  width: 50%;
+  width: 40%;
+  height: 70%;
+  align-self: center;
   display: flex;
-  justify-content: space-evenly;
-  border-right: 1px solid white;
-  margin: 30px;
+  justify-content: space-between;
+  // border-right: 1px solid white;
 
   .footerButtonsWrapper {
     display: flex;
     flex-direction: column;
-    padding: 5px;
   }
 
   h4 {
@@ -38,10 +51,15 @@
 .footerInformationTwo {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
 
-  padding: 50px;
+  justify-content: center;
+
+  justify-self: center;
+  align-self: center;
+
+  height: 60%;
+  width: 40%;
+
   .headerContainer {
   }
 
@@ -53,5 +71,9 @@
   .pContainer p:nth-child(2) {
     margin-left: 10px;
     margin-right: 10px;
+  }
+
+  h3,
+  p {
   }
 }

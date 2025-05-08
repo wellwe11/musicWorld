@@ -115,18 +115,15 @@ const ArtistProfile = ({
     isInterested ? setIsInterested(false) : setIsInterested(true);
 
   const artist = unfilteredEvents?.[0]?._embedded?.attractions?.[0];
-  console.log(artist, interestedArtists, isInterested);
 
   useEffect(() => {
     // if isInterested clicked and isn't in the interestedArtistsArray
     if (isInterested && !interestedArtists?.some((e) => e.id === artist?.id)) {
-      console.log("1");
       return setInterestedArtists((artists) => [...artists, artist]);
     }
 
     // filter away artists that have false
     if (isInterested === false && interestedArtists?.length > 0) {
-      console.log("2");
       return setInterestedArtists((artists) =>
         artists.filter((e) => e?.id !== artist?.id)
       );
@@ -135,12 +132,10 @@ const ArtistProfile = ({
 
   useEffect(() => {
     if (!interestedArtists?.some((e) => e?.id === artist?.id)) {
-      console.log("3");
       setIsInterested(false);
     }
     // sets true on-load if exists in array
     if (interestedArtists?.some((e) => e?.id === artist?.id)) {
-      console.log("4");
       return setIsInterested(true);
     }
   }, [artist]);
@@ -332,12 +327,14 @@ const ArtistPageComponent = ({
 
   useEffect(() => {
     setDisplayPage(false);
-    const timer = setTimeout(() => {
-      setDisplayPage(true);
-    }, 3000);
+    if (!localLoading) {
+      const timer = setTimeout(() => {
+        setDisplayPage(true);
+      }, 2500);
 
-    return () => clearTimeout(timer);
-  }, [artist]);
+      return () => clearTimeout(timer);
+    }
+  }, [artist, localLoading]);
 
   return (
     <div className={classes.artistPage}>

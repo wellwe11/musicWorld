@@ -1,3 +1,4 @@
+import LoadingSvg from "../COMPONENTS/artistPageComponents/media/loadingSvg";
 import HomePageComponent from "../COMPONENTS/homeComponents/homeComponent";
 
 import classes from "./defaultPage.module.scss";

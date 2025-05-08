@@ -6,6 +6,8 @@ import NavTitle from "./navTitle";
 import React, { useEffect, useRef, useState } from "react";
 import SearchInput from "../searchInput/searchInput";
 
+import logoImage from "./images/logoImage.png";
+
 const ExtendedButtons = ({
   setDateFrom,
   setDateTill,
@@ -225,6 +227,7 @@ const NavBarScroll = ({
 
   return (
     <div className={`${classes.navBarContainerScroll}`}>
+      <img className={classes.logoScroll} src={logoImage} alt="" />
       <SearchInput
         setDateFrom={setDateFrom}
         setDateTill={setDateTill}

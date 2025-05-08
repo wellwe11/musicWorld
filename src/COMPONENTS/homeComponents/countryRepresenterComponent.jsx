@@ -94,7 +94,6 @@ const CountryImageContainer = ({
     <div className={classes.countryImageContainer}>
       <div className={classes.countryImageWrapper}>
         <img className={classes.countryImage} src={pexelsImage} alt="" />
-        <h1 className={classes.countryTitle}>{fixedCountryName}</h1>
       </div>
       <MonthsContainer
         eventsArray={eventsArray}

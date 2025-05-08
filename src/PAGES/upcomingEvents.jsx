@@ -13,6 +13,8 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   const [maxPageReached, setMaxPagedReached] = useState("");
   const amountOfPages = Math.round(eventsArray?.length / 12);
 
+  console.log(eventsArray, eventsArray.length, eventsArray.length / 12);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [eventsArray]);
@@ -20,7 +22,7 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   const handleCurrentPage = (type) => {
     switch (type) {
       case "+":
-        if (currentPage <= amountOfPages)
+        if (currentPage < amountOfPages)
           setCurrentPage((prevPage) => prevPage + 1);
         break;
       case "-":
@@ -32,7 +34,7 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   };
 
   useEffect(() => {
-    if (currentPage === amountOfPages + 1) setMaxPagedReached("+");
+    if (currentPage === amountOfPages) setMaxPagedReached("+");
 
     if (currentPage === 1) setMaxPagedReached("-");
 
@@ -41,9 +43,21 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
 
   const next = ">";
   const previous = "<";
+  const skipToFirst = "<<";
 
   return (
     <div className={classes.pageToView}>
+      <button
+        onClick={() => setCurrentPage(1)}
+        style={{
+          color: currentPage === 1 ? "gray" : "",
+          position: "absolute",
+          left: "0",
+          marginLeft: "-25px",
+        }}
+      >
+        {skipToFirst}
+      </button>
       <button
         onClick={() => handleCurrentPage("-")}
         style={{
@@ -70,6 +84,7 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
 const UpcomingEventsPage = ({
   city,
   country,
+  dateFrom,
   eventsArray,
   interestedArtists,
   setInterestedArtists,
@@ -80,6 +95,10 @@ const UpcomingEventsPage = ({
   const [maxViewEvent, setMaxViewEVent] = useState(11);
   const [minViewEvent, setMinViewEvent] = useState(0);
 
+  const [eventsThisDate, setEventsThisDate] = useState([]);
+  const [eventsThisDateName, setEventsThisDateName] = useState("");
+  const [eventsNotToday, setEventsNotToday] = useState([]);
+
   const [events, setEvents] = useState([]);
 
   const findArtistsNear = () => {
@@ -89,12 +108,10 @@ const UpcomingEventsPage = ({
       const artistsObject = event.artist;
 
       if (interestedArtists.some((b) => artistsObject.id === b.id)) {
-        console.log(event);
         localArray.push(artistsObject);
       }
     });
 
-    console.log(localArray);
     return setEvents(localArray);
   };
 
@@ -121,6 +138,52 @@ const UpcomingEventsPage = ({
     setMinViewEvent(maxViewEvent - 11);
   }, [maxViewEvent]);
 
+  const findEventsToday = () => {
+    let date;
+
+    if (!dateFrom) {
+      date = new Date();
+    }
+
+    if (dateFrom) {
+      date = new Date(dateFrom);
+      const formattedDate = date.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+      });
+      setEventsThisDateName(formattedDate);
+    }
+
+    const formattedDate = date.toISOString().split("T")[0];
+
+    const filterForToday = eventsArray?.filter(
+      (event) => formattedDate === event.event.dates.start.localDate
+    );
+
+    setEventsThisDate(filterForToday);
+  };
+
+  const filterAwayEventsTodayFromNormalEvents = () => {
+    const filterNormalEvents = eventsArray?.filter(
+      (event) => !eventsThisDate.some((e) => e === event)
+    );
+
+    setEventsNotToday(filterNormalEvents);
+  };
+
+  useEffect(() => {
+    if (eventsArray) {
+      findEventsToday();
+    }
+  }, [eventsArray]);
+
+  useEffect(() => {
+    if (eventsThisDate) {
+      filterAwayEventsTodayFromNormalEvents();
+    }
+  }, [eventsThisDate]);
+
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}
@@ -128,9 +191,9 @@ const UpcomingEventsPage = ({
         <img src={listStyleIcon} alt="" />
         <img src={squareStyleIcon} alt="" />
         </div> */}
-      {eventsArray?.length > 0 ? (
+      {eventsThisDate?.length > 0 && eventsNotToday.length > 0 ? (
         <>
-          {events.length > 0 && (
+          {events.length > 0 && currentPage === 1 && (
             <div>
               <PopularArtistsNear
                 artistData={events}
@@ -141,6 +204,22 @@ const UpcomingEventsPage = ({
               />
             </div>
           )}
+          <div className={classes.eventsToday}>
+            {eventsThisDate.length > 0 && currentPage === 1 && (
+              <div className={classes.pageEventsWrapper}>
+                <h1 className={classes.locationTitle}>
+                  {dateFrom ? "Events " + eventsThisDateName : "Events today"}
+                </h1>
+                <Events
+                  eventsArray={eventsThisDate}
+                  loading={loading}
+                  minViewEvent={0}
+                  maxViewEVent={eventsThisDate.length}
+                />
+              </div>
+            )}
+          </div>
+
           <div className={classes.pageEventsWrapper}>
             <h1 className={classes.locationTitle}>
               Viewing events in{" "}
@@ -150,7 +229,7 @@ const UpcomingEventsPage = ({
                 "Loading location..."}
             </h1>
             <Events
-              eventsArray={eventsArray}
+              eventsArray={eventsNotToday}
               loading={loading}
               minViewEvent={minViewEvent}
               maxViewEVent={maxViewEvent}

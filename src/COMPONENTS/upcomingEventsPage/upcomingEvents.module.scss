@@ -4,16 +4,17 @@
   justify-content: flex-start;
   justify-self: flex-start;
   flex-wrap: wrap;
-  width: 100%;
 
-  min-height: 850px;
+  min-width: 100%;
+  min-height: 400px;
   transition: all 0.2s ease;
 
   .eventContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 33%;
+    min-width: 33%;
+    max-width: 33%;
     min-height: 400px;
 
     transition: all 0.2s ease;

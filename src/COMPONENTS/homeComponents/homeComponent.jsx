@@ -83,62 +83,72 @@ const EventsImagesWheel = ({
   };
 
   return (
-    <div
-      className={classes.pictureSliderContainer}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-    >
-      <>
-        {displayEvents.map(
-          (event, index) =>
-            index < 6 &&
-            index === displayedImage && (
-              <div
-                key={index}
-                className={`${classes.pictureSliderImage} ${
-                  index === displayedImage ? classes.displayedImage : ""
-                }`}
-              >
+    <>
+      {displayEvents && (
+        <div
+          className={classes.pictureSliderContainer}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        >
+          {displayEvents.map((event, index) => {
+            if (index < 6 && index === displayedImage) {
+              return (
                 <div
-                  className={classes.imageContainer}
-                  onClick={() => logStuff(event)}
+                  key={index}
+                  className={`${classes.pictureSliderImage} ${
+                    index === displayedImage ? classes.displayedImage : ""
+                  }`}
                 >
-                  <button
-                    className={classes.pictureSliderButton}
-                    onClick={displayedImageMinus}
+                  <div
+                    className={classes.imageContainer}
+                    onClick={() => logStuff(event)}
                   >
-                    <img src={buttonClickArrow} alt="" />
-                  </button>
+                    <button
+                      className={classes.pictureSliderButton}
+                      onClick={displayedImageMinus}
+                    >
+                      <img src={buttonClickArrow} alt="" />
+                    </button>
 
-                  <img
-                    className={classes.visibleImage}
-                    src={event?.[0]?.url}
-                    alt=""
-                  />
+                    <img
+                      className={classes.visibleImage}
+                      src={event?.[0]?.url}
+                      alt=""
+                    />
 
-                  <BandText data={oneEventPerDay[index].event} index={index} />
-                  <button
-                    className={classes.pictureSliderButton}
-                    onClick={displayedImageAdd}
-                  >
-                    <img src={buttonClickArrow} alt="" />
-                  </button>
+                    <BandText
+                      data={oneEventPerDay[index].event}
+                      index={index}
+                    />
+
+                    <button
+                      className={classes.pictureSliderButton}
+                      onClick={displayedImageAdd}
+                    >
+                      <img src={buttonClickArrow} alt="" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )
-        )}
-        <div className={classes.activeImageButtons}>
-          {[...Array(6)].map((_, index) => (
-            <button
-              className={`${classes.buttonDot} ${
-                index === displayedImage ? classes.isFocused : ""
-              }`}
-              onClick={() => setDisplayedImage(index)}
-            ></button>
-          ))}
+              );
+            } else {
+              return null;
+            }
+          })}
+
+          <div className={classes.activeImageButtons}>
+            {[...Array(6)].map((_, index) => (
+              <button
+                key={index}
+                className={`${classes.buttonDot} ${
+                  index === displayedImage ? classes.isFocused : ""
+                }`}
+                onClick={() => setDisplayedImage(index)}
+              />
+            ))}
+          </div>
         </div>
-      </>
-    </div>
+      )}
+    </>
   );
 };
 
