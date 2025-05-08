@@ -66,6 +66,7 @@ const MonthsContainer = ({ displayedImage, setDateFrom }) => {
                 : ""
             }`}
             onClick={() => handleDisplayedImage(index)}
+            key={`${day} ${index}`}
           >
             <h4>{day.day}</h4>
             <h4>{day.dayNr}</h4>

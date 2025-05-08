@@ -302,13 +302,8 @@ export default App;
  * Fix so that the page doesnt refresh so many times
  *
  *
- * Fix so you cant add to following-list on artist-page if everything isnt loaded (causes the object to be pushed as undefined.)
- * --also create a fallback for when object is undefined
-
  *
- */
-
-/**
+ *
  * Pages to create:
  * -- EVENT/ARTIST NOT FOUND PAGE --
  * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so

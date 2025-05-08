@@ -199,7 +199,7 @@ const UpcomingEventsPage = ({
                 artistData={events}
                 interestedArtists={interestedArtists}
                 setInterestedArtists={setInterestedArtists}
-                title={"Following artists"}
+                title={"Following upcoming artists..."}
                 type={"following"}
               />
             </div>
