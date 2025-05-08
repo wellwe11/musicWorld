@@ -299,13 +299,6 @@ export default App;
  *
  * add loading svg animations
  * -- to home-page
- *
- *
- * current-page buttons (left right on events-page) isnt working correclty right now. They are white when they shouldn't be and gray when they shouldn't be
- * --and display too many pages sometimes
- * * Fix a "<<" for event-page to go back to start of events
- *
- *
  * Fix so that the page doesnt refresh so many times
  *
  *

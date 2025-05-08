@@ -152,15 +152,11 @@ const EventsImagesWheel = ({
   );
 };
 
-const InterestedButton = ({ isInterested, setIsInterested }) => {
-  const changeIsInterested = () => {
-    return isInterested ? setIsInterested(false) : setIsInterested(true);
-  };
-
+const InterestedButton = ({ isInterested, handleIsInterested }) => {
   return (
     <div
       className={classes.interestedButtonContainer}
-      onClick={changeIsInterested}
+      onClick={handleIsInterested}
     >
       {isInterested === true ? (
         <NavButton externalClass={classes.interestedButtonInterested}>
@@ -191,7 +187,7 @@ const ArtistProfile = ({
   setInterestedArtists,
   type,
 }) => {
-  const [isInterested, setIsInterested] = useState(null);
+  const [isInterested, setIsInterested] = useState(false);
   let artist;
 
   if (type === "near") {
@@ -202,17 +198,21 @@ const ArtistProfile = ({
     artist = artistData;
   }
 
-  useEffect(() => {
-    if (isInterested && !interestedArtists?.some((e) => e?.id === artist?.id)) {
-      setInterestedArtists((artists) => [...artists, artist]);
-    }
+  const handleAddToInterested = () => {
+    const newInterested = !isInterested;
+    setIsInterested(newInterested);
 
-    if (isInterested === false && interestedArtists?.length > 0) {
+    if (
+      newInterested &&
+      !interestedArtists?.some((e) => e?.id === artist?.id)
+    ) {
+      setInterestedArtists((artists) => [...artists, artist]);
+    } else if (!newInterested && interestedArtists?.length > 0) {
       setInterestedArtists((artists) =>
-        artists.filter((a) => a?.id !== artist?.id)
+        artists.filter((a) => a && a?.id !== artist?.id)
       );
     }
-  }, [isInterested]);
+  };
 
   useEffect(() => {
     // sets true on-load if exists in array
@@ -244,7 +244,7 @@ const ArtistProfile = ({
             </div>
             <InterestedButton
               isInterested={isInterested}
-              setIsInterested={setIsInterested}
+              handleIsInterested={handleAddToInterested}
             />
           </>
         </>
@@ -346,8 +346,11 @@ export const PopularArtistsNear = ({
           <div className={classes.popularArtistsWrapper} ref={scrollRef}>
             {artistData
               .slice(0, artistData.length > 15 ? 15 : artistData.length)
-              .map((_, index) => (
-                <div key={index} className={classes.artistProfileMapContainer}>
+              .map((artistObj, index) => (
+                <div
+                  key={artistObj?.artist?.id || artistObj?.id}
+                  className={classes.artistProfileMapContainer}
+                >
                   <ArtistProfile
                     interestedArtists={interestedArtists}
                     setInterestedArtists={setInterestedArtists}

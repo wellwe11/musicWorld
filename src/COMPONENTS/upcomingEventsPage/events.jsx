@@ -6,7 +6,14 @@ import { EventContext } from "../../App";
 import { findFittingImage } from "../../PAGES/functions/findFittingImage";
 import LoadingSvg from "../artistPageComponents/media/loadingSvg";
 
-const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
+const Events = ({
+  eventsArray,
+  loading,
+  maxViewEVent,
+  minViewEvent,
+  interestedArtists,
+  setInterestedArtists,
+}) => {
   // useState for loading (via the useContext(eventContext)). I need it for setTimeout
   const [displayEvents, setDisplayEvents] = useState(false);
 
@@ -66,6 +73,9 @@ const Events = ({ eventsArray, loading, maxViewEVent, minViewEvent }) => {
                   onClickLink={
                     event?.event?._embedded?.attractions?.[0]?.url || event?.url
                   }
+                  interestedArtists={interestedArtists}
+                  setInterestedArtists={setInterestedArtists}
+                  artist={event?.artist}
                 />
               </div>
             )

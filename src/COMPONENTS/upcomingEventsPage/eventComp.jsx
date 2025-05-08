@@ -5,6 +5,23 @@ import TicketButton from "./ticketButton";
 import playIcon from "./playIcons/play-button.png";
 import pauseIcon from "./playIcons/pause-button.png";
 
+import starIcon from "./playIcons/star.png";
+
+const AddToFollowingButton = ({ isFav }) => {
+  return (
+    <div className={classes.favoriteButton}>
+      <button className={classes.starButton}>
+        {isFav === true && (
+          <img className={classes.starIconFaved} src={starIcon} alt="" />
+        )}
+        {isFav === false && (
+          <img className={classes.starIcon} src={starIcon} alt="" />
+        )}
+      </button>
+    </div>
+  );
+};
+
 const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
   const [imageHover, setImageHover] = useState(false);
 
@@ -95,6 +112,9 @@ const Event = ({
   imageClicked,
   setImageClicked,
   onClickLink,
+  interestedArtists,
+  setInterestedArtists,
+  artist,
 }) => {
   const updatedDate = new Date(date);
   const dateDay = new Intl.DateTimeFormat("en-US", {
@@ -106,6 +126,29 @@ const Event = ({
 
   const todaysYear = new Date().getFullYear();
 
+  const [isFav, setIsFav] = useState(false);
+
+  const handleIsFav = () => {
+    const newFavStatus = !isFav;
+    setIsFav(newFavStatus);
+
+    if (newFavStatus && !interestedArtists?.includes(artist)) {
+      console.log(1);
+      setInterestedArtists((prevArtists) => [...prevArtists, artist]);
+    } else if (!newFavStatus && interestedArtists?.includes(artist)) {
+      console.log(2);
+      setInterestedArtists((artists) => artists.filter((a) => a !== artist));
+    }
+  };
+
+  useEffect(() => {
+    if (interestedArtists?.includes(artist)) {
+      setIsFav(true);
+    } else {
+      setIsFav(false);
+    }
+  }, [interestedArtists]);
+
   return (
     <div className={classes.event}>
       <EventImage
@@ -115,9 +158,14 @@ const Event = ({
         setImageClicked={setImageClicked}
       />
       <div className={classes.subInfo}>
-        <h3 className={classes.title}>
-          {title.length < 30 ? title : title.slice(0, 30) + "..."}
-        </h3>
+        <div className={classes.titleAndAddToFavs}>
+          <h3 className={classes.title}>
+            {title.length < 30 ? title : title.slice(0, 30) + "..."}
+          </h3>
+          <div onClick={handleIsFav}>
+            <AddToFollowingButton isFav={isFav} />
+          </div>
+        </div>
         <h4 className={classes.location}>
           {city} {location ? "- " + location : ""}
         </h4>

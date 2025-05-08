@@ -13,8 +13,6 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   const [maxPageReached, setMaxPagedReached] = useState("");
   const amountOfPages = Math.round(eventsArray?.length / 12);
 
-  console.log(eventsArray, eventsArray.length, eventsArray.length / 12);
-
   useEffect(() => {
     setCurrentPage(1);
   }, [eventsArray]);
@@ -184,6 +182,8 @@ const UpcomingEventsPage = ({
     }
   }, [eventsThisDate]);
 
+  console.log(events);
+
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}
@@ -215,6 +215,8 @@ const UpcomingEventsPage = ({
                   loading={loading}
                   minViewEvent={0}
                   maxViewEVent={eventsThisDate.length}
+                  interestedArtists={interestedArtists}
+                  setInterestedArtists={setInterestedArtists}
                 />
               </div>
             )}
@@ -233,6 +235,8 @@ const UpcomingEventsPage = ({
               loading={loading}
               minViewEvent={minViewEvent}
               maxViewEVent={maxViewEvent}
+              interestedArtists={interestedArtists}
+              setInterestedArtists={setInterestedArtists}
             />
           </div>
           <PageToView
