@@ -176,10 +176,10 @@
   color: white;
 
   min-height: 380px;
+  width: var(--homePageWidth);
 
   .artistsNearTitle {
     align-self: flex-start;
-    margin-left: 100px;
     margin-bottom: 10px;
   }
 
@@ -417,4 +417,168 @@
   opacity: 1;
   margin-right: 0px;
   transition: all 0.4s ease;
+}
+
+.musicImportContentContainer {
+  width: var(--homePageWidth);
+  height: 250px;
+
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--mainThemeColor);
+  background-image: url("./images/wordcloud_image.png");
+  background-size: 1400px auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.musicExploreWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: calc(var(--homePageWidth) - 200px);
+  min-height: 120px;
+  padding: 10px;
+  background-color: #262930e7;
+  backdrop-filter: blur(5px);
+
+  border-radius: 15px;
+
+  .iconsContainer {
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .musicIconButton {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-content: center;
+
+      .musicIcon {
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin: 7px;
+      }
+
+      .musicImage {
+        transition: all 0.2s ease;
+        padding: 13px;
+        width: 50px;
+        filter: invert(1);
+      }
+
+      .musicImage:hover {
+        padding: 10px;
+      }
+
+      .musicIcon:hover {
+        margin: 7px;
+      }
+    }
+  }
+
+  .importAndExploreText {
+    color: white;
+
+    span {
+      font-weight: bold;
+      color: white;
+      transition: all 1s ease;
+    }
+
+    .spanActive {
+    }
+  }
+}
+
+.findAppSectionContainer {
+  width: var(--homePageWidth);
+
+  height: 400px;
+
+  background-color: var(--buttonContainerTheme);
+
+  display: flex;
+  justify-self: center;
+  align-items: center;
+
+  margin-bottom: 50px;
+  margin-top: 50px;
+
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+  .phoneContainer {
+    position: relative;
+
+    .phoneImage {
+      height: 300px;
+    }
+
+    .insidePhone {
+      position: absolute;
+      top: 0;
+      margin-left: 42px;
+      margin-top: 27px;
+
+      background-color: var(--mainThemeColor);
+      width: 115px;
+      height: 246px;
+
+      border-radius: 15px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .contentContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        height: 100px;
+
+        .downloadText {
+          text-align: center;
+          color: white;
+        }
+
+        .logoContainer {
+          cursor: pointer;
+          transition: all 0.2s ease;
+          background-color: black;
+
+          height: 45px;
+          width: 45px;
+
+          display: flex;
+          justify-content: center;
+          align-content: center;
+
+          border-radius: 15px;
+
+          .logoImage {
+            transition: all 0.2s ease;
+            height: 45px;
+            width: 45px;
+          }
+        }
+        .logoContainer:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
 }

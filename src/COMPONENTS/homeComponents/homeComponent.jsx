@@ -7,17 +7,21 @@ import buttonClickPlus from "./images/plus.png";
 import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
 import NavButton from "../defaultPage/navBar/navButton";
 import { fetchDataTicketMaster } from "../../App";
+
 import CountryImageContainer from "./countryRepresenterComponent";
+import MusicImportSection from "./muiscImportSection";
+import FindAppSection from "./downloadAppSection";
 
 const EventsImagesWheel = ({
   eventsArray,
   displayedImage,
   setDisplayedImage,
+  oneEventPerDay,
+  setOneEventPerDay,
 }) => {
   const [displayEvents, setDisplayEvents] = useState([]);
 
   const [isHovering, setIsHovering] = useState(false);
-  const [oneEventPerDay, setOneEventPerDay] = useState([]);
 
   useEffect(() => {
     if (!isHovering) {
@@ -33,11 +37,13 @@ const EventsImagesWheel = ({
 
     for (let i = 0; i < eventsArray?.length; i++) {
       const iDate = eventsArray[i]?.event.dates.start.localDate;
+      const iDay = new Date(iDate).getDate();
 
       if (!localArr.some((a) => a.date === iDate)) {
         localArr.push({
           date: iDate,
           event: eventsArray[i]?.event,
+          day: iDay,
         });
       }
     }
@@ -90,8 +96,8 @@ const EventsImagesWheel = ({
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          {displayEvents.map((event, index) => {
-            if (index < 6 && index === displayedImage) {
+          {displayEvents.slice(0, 6).map((event, index) => {
+            if (index === displayedImage) {
               return (
                 <div
                   key={index}
@@ -389,6 +395,8 @@ const HomePageComponent = ({
 
   const [loadElements, setLoadElements] = useState(0);
 
+  const [oneEventPerDay, setOneEventPerDay] = useState([]);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       if (loadElements < 4) {
@@ -405,7 +413,7 @@ const HomePageComponent = ({
       >
         <CountryImageContainer
           country={country}
-          eventsArray={eventsArray}
+          eventsArray={oneEventPerDay.slice(0, 6)}
           displayedImage={displayedImage}
           setDisplayedImage={setDisplayedImage}
           setDateFrom={setDateFrom}
@@ -419,6 +427,8 @@ const HomePageComponent = ({
           eventsArray={eventsArray}
           displayedImage={displayedImage}
           setDisplayedImage={setDisplayedImage}
+          oneEventPerDay={oneEventPerDay}
+          setOneEventPerDay={setOneEventPerDay}
         />
       </div>
       <div
@@ -447,6 +457,8 @@ const HomePageComponent = ({
           />
         </div>
       )}
+      <MusicImportSection />
+      <FindAppSection />
     </div>
   );
 };

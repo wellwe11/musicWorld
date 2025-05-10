@@ -5,7 +5,7 @@ import classes from "./homeComponent.module.scss";
 import pexelsImageOne from "./images/pexels_imageOne.jpg";
 import pexelsImage from "./images/pexels_imageFour.webp";
 
-const MonthsContainer = ({ displayedImage, setDateFrom }) => {
+const MonthsContainer = ({ eventsArray, displayedImage, setDateFrom }) => {
   const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
   const today = new Date();
 
@@ -16,6 +16,7 @@ const MonthsContainer = ({ displayedImage, setDateFrom }) => {
   const amountOfDays = daysInMonth(todayYear, todayMonth, todayMonth);
   const [dailyMonths, setDailyMonths] = useState([]);
   const [canLoad, setCanLoad] = useState(false);
+  const [matchingDays, setMatchingDays] = useState([]);
 
   const getMOnthlyDays = () => {
     const localArray = [];
@@ -52,6 +53,14 @@ const MonthsContainer = ({ displayedImage, setDateFrom }) => {
     getMOnthlyDays();
   }, []);
 
+  useEffect(() => {
+    const matchingDaysLocal = dailyMonths.filter((dm) =>
+      eventsArray.some((eD) => dm.dayNr === eD.day)
+    );
+
+    setMatchingDays(matchingDaysLocal);
+  }, [dailyMonths, eventsArray]);
+
   return (
     <div className={classes.datesContainer}>
       {canLoad &&
@@ -60,8 +69,10 @@ const MonthsContainer = ({ displayedImage, setDateFrom }) => {
             className={`${classes.dateWrapper} ${
               day.dayNr === todayDate
                 ? classes.todayHighLight
-                : index === todayDate + displayedImage - 1 &&
-                  day.dayNr !== todayDate
+                : matchingDays.some(
+                    (d, indexTwo) =>
+                      d.dayNr === day.dayNr && indexTwo === displayedImage
+                  )
                 ? classes.displayedImageNumber
                 : ""
             }`}
