@@ -16,7 +16,6 @@ const MonthsContainer = ({ eventsArray, displayedImage, setDateFrom }) => {
   const amountOfDays = daysInMonth(todayYear, todayMonth, todayMonth);
   const [dailyMonths, setDailyMonths] = useState([]);
   const [canLoad, setCanLoad] = useState(false);
-  const [matchingDays, setMatchingDays] = useState([]);
 
   const getMOnthlyDays = () => {
     const localArray = [];
@@ -53,14 +52,6 @@ const MonthsContainer = ({ eventsArray, displayedImage, setDateFrom }) => {
     getMOnthlyDays();
   }, []);
 
-  useEffect(() => {
-    const matchingDaysLocal = dailyMonths.filter((dm) =>
-      eventsArray.some((eD) => dm.dayNr === eD.day)
-    );
-
-    setMatchingDays(matchingDaysLocal);
-  }, [dailyMonths, eventsArray]);
-
   return (
     <div className={classes.datesContainer}>
       {canLoad &&
@@ -69,9 +60,9 @@ const MonthsContainer = ({ eventsArray, displayedImage, setDateFrom }) => {
             className={`${classes.dateWrapper} ${
               day.dayNr === todayDate
                 ? classes.todayHighLight
-                : matchingDays.some(
+                : eventsArray.some(
                     (d, indexTwo) =>
-                      d.dayNr === day.dayNr && indexTwo === displayedImage
+                      d.day === day.dayNr && indexTwo === displayedImage
                   )
                 ? classes.displayedImageNumber
                 : ""
