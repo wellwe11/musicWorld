@@ -420,8 +420,8 @@
 }
 
 .musicImportContentContainer {
-  width: calc(var(--homePageWidth) + 70px);
-  height: 350px;
+  width: calc(var(--homePageWidth) + 30px);
+  height: 300px;
 
   justify-self: center;
   display: flex;
@@ -435,7 +435,7 @@
   background-repeat: no-repeat;
   overflow: hidden;
 
-  box-shadow: inset 0 0 30px 70px #13161c;
+  box-shadow: inset 0 0 10px 30px #13161c;
 }
 
 .musicExploreWrapper {
