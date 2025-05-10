@@ -15,7 +15,7 @@ const MediaSwitcher = () => {
       activeMediaImage === imageCount - 1
         ? setActiveMediaImage(0)
         : setActiveMediaImage((prevNr) => prevNr + 1);
-    }, 4000);
+    }, 4500);
 
     return () => clearTimeout(timer);
   }, [activeMediaImage]);
@@ -62,7 +62,6 @@ const MediaSwitcher = () => {
           style={{
             color: Object.values(mediaImagesWithText)[activeMediaImage].color,
           }}
-          className={classes.spanActive}
         >
           {Object.values(mediaImagesWithText)[activeMediaImage].name}
         </span>
