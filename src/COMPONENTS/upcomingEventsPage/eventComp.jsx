@@ -68,31 +68,34 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
       onMouseEnter={() => handleImageHover().onHover()}
       onMouseLeave={() => handleImageHover().onLeave()}
     >
-      <svg height="130" width="130">
-        {imageClicked ? (
-          <circle
-            className={classes.circle}
-            cx="65"
-            cy="65"
-            r="55"
-            stroke="#ffffff"
-            strokeWidth="12"
-            fill="none"
-          />
-        ) : (
-          ""
-        )}
-      </svg>
-      <div className={classes.logo}></div>
-      {imageHover &&
-        (imageClicked ? (
+      <div className={classes.playButtonContainer}>
+        <svg height="130" width="130">
+          {imageClicked ? (
+            <circle
+              className={classes.circle}
+              cx="65"
+              cy="65"
+              r="55"
+              stroke="#ffffff"
+              strokeWidth="12"
+              fill="none"
+            />
+          ) : (
+            ""
+          )}
+        </svg>
+
+        <div className={classes.logo}></div>
+        {imageHover &&
+          (imageClicked ? (
+            <img className={classes.playPauseIcon} src={pauseIcon} alt="" />
+          ) : (
+            <img className={classes.playPauseIcon} src={playIcon} alt="" />
+          ))}
+        {imageClicked && (
           <img className={classes.playPauseIcon} src={pauseIcon} alt="" />
-        ) : (
-          <img className={classes.playPauseIcon} src={playIcon} alt="" />
-        ))}
-      {imageClicked && (
-        <img className={classes.playPauseIcon} src={pauseIcon} alt="" />
-      )}
+        )}
+      </div>
       <img
         className={`${classes.coverPhoto} ${
           imageHover || imageClicked ? classes.coverPhotoFaded : ""

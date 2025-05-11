@@ -198,40 +198,49 @@
     opacity: 50%;
   }
 
-  svg,
-  .logo {
-    z-index: 1;
+  .playButtonContainer {
+    margin-top: -100px;
     position: absolute;
-    top: 50%;
-    left: 50%;
 
-    transform: translate(-50%, -50%);
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  .logo {
-    width: 140px;
-    height: 140px;
-    border-radius: 100px;
-    opacity: 0;
-    animation: fadeIn 0.75s linear forwards;
-    animation-delay: 1s;
-  }
+    svg,
+    .logo {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
 
-  .circle {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: stroke 15s ease-out forwards;
-  }
-
-  @keyframes stroke {
-    to {
-      stroke-dashoffset: 0;
+      transform: translate(-50%, -50%);
     }
-  }
 
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
+    .logo {
+      width: 140px;
+      height: 140px;
+      border-radius: 100px;
+      opacity: 0;
+      animation: fadeIn 0.75s linear forwards;
+      animation-delay: 1s;
+    }
+
+    .circle {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: stroke 15s ease-out forwards;
+    }
+
+    @keyframes stroke {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
   }
 }
