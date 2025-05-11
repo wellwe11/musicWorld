@@ -485,14 +485,14 @@
       }
 
       .musicImage {
-        transition: all 0.2s ease;
-        padding: 13px;
-        width: 50px;
+        transition: all 0.4s ease;
+        padding: 7px;
+        width: 60px;
         filter: invert(1);
       }
 
       .musicImage:hover {
-        padding: 10px;
+        padding: 5px;
       }
 
       .musicIcon:hover {
