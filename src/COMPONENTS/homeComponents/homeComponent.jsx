@@ -354,7 +354,10 @@ export const PopularArtistsNear = React.memo(function PopularArtistsNear({
           />
         </div>
 
-        <div ref={followingArtistsContainerRef}>
+        <div
+          ref={followingArtistsContainerRef}
+          style={{ scrollBehavior: "smooth" }}
+        >
           <div className={classes.popularArtistsWrapper} ref={scrollRef}>
             {artistData
               .slice(0, artistData.length > 15 ? 15 : artistData.length)
