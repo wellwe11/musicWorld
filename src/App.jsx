@@ -220,6 +220,8 @@ const App = () => {
 
   return (
     <div className={classes.appContainer}>
+      {/* <div ref={titleRef} className={classes.titleRefContainer}>
+        </div> */}
       <NavBar
         setDateFrom={setDateFrom}
         setDateTill={setDateTill}
@@ -235,7 +237,6 @@ const App = () => {
         setArtist={setArtist}
         events={events}
       />
-
       {/* {displayFixedNavBar && (
         <NavBarScroll
           setDateFrom={setDateFrom}
