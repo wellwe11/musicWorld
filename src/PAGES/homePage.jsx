@@ -1,16 +1,17 @@
+import React from "react";
 import LoadingSvg from "../COMPONENTS/artistPageComponents/media/loadingSvg";
 import HomePageComponent from "../COMPONENTS/homeComponents/homeComponent";
 
 import classes from "./defaultPage.module.scss";
 
-const HomePage = ({
+const HomePage = React.memo(function HomePage({
   eventsArray,
   interestedArtists,
   setInterestedArtists,
   country,
   setDateFrom,
   loading,
-}) => {
+}) {
   return (
     <div className={classes.homePage}>
       <HomePageComponent
@@ -22,6 +23,6 @@ const HomePage = ({
       />
     </div>
   );
-};
+});
 
 export default HomePage;

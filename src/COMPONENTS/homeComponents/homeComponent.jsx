@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import classes from "./homeComponent.module.scss";
 import BandText from "./pictureSliderTexts";
 

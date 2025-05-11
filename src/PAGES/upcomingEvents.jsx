@@ -1,4 +1,10 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Events from "../COMPONENTS/upcomingEventsPage/events";
 import classes from "./defaultPage.module.scss";
 
@@ -79,7 +85,7 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   );
 };
 
-const UpcomingEventsPage = ({
+const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
   city,
   country,
   dateFrom,
@@ -87,7 +93,7 @@ const UpcomingEventsPage = ({
   interestedArtists,
   setInterestedArtists,
   loading,
-}) => {
+}) {
   // const { loading } = useContext(EventContext);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -259,6 +265,6 @@ const UpcomingEventsPage = ({
       )}
     </div>
   );
-};
+});
 
 export default UpcomingEventsPage;
