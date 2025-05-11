@@ -54,7 +54,7 @@ const Events = ({
                   dateEnd={
                     event?.otherEvents?.length > 0 ? event?.otherEvents : ""
                   }
-                  image={findFittingImage(event?.artist?.images, "4_3", 500)}
+                  image={findFittingImage(event?.artist?.images, "16_9", 500)}
                   country={event?.event?._embedded?.venues[0]?.country?.name}
                   city={event?.event?._embedded?.venues[0]?.city?.name}
                   location={event?.event?._embedded?.venues[0]?.address?.line1}
