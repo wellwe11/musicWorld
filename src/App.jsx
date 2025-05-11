@@ -172,13 +172,12 @@ const App = () => {
   useEffect(() => {
     console.log(dateFrom, dateTill, genre, country, city, artist);
     if (dateFrom || dateTill || genre || city) {
-      console.log(1);
       handleNavigate("./home/upcomingEvents");
 
       fetchEvents();
     }
     if (country) {
-      console.log(2);
+      setCity("");
       fetchEvents();
     }
 
