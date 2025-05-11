@@ -237,7 +237,7 @@ const App = () => {
           events={events}
         />
       </div>
-      {displayFixedNavBar && (
+      {/* {displayFixedNavBar && (
         <NavBarScroll
           setDateFrom={setDateFrom}
           setDateTill={setDateTill}
@@ -253,7 +253,7 @@ const App = () => {
           setArtist={setArtist}
           events={events}
         />
-      )}
+      )} */}
       {eventsArray ? (
         <>
           <div className={classes.routesContainer}>
