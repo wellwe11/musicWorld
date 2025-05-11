@@ -492,11 +492,11 @@
       }
 
       .musicImage:hover {
-        width: 65px;
+        transform: scale(1.1);
       }
 
       .musicIcon:hover {
-        margin: 4.5px;
+        transform: scale(1);
       }
     }
   }
