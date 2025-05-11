@@ -251,6 +251,7 @@ const SearchInput = ({
 
       if (regionsNotCountries.includes(checkedInput)) {
         console.log("id needed, no ISO avaliable");
+        setCity("");
       }
 
       // if user writes country

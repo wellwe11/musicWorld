@@ -177,7 +177,6 @@ const App = () => {
       fetchEvents();
     }
     if (country) {
-      setCity("");
       fetchEvents();
     }
 
