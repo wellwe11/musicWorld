@@ -83,3 +83,9 @@ h6 {
   margin: 0;
   font-weight: normal;
 }
+
+html,
+body {
+  overflow: overlay; /* if supported */
+  overflow: auto; /* fallback */
+}
