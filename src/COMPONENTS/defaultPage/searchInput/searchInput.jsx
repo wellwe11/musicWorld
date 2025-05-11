@@ -13,7 +13,14 @@ import closeButton from "./close.png";
 import arrowButton from "./sort-arrows-couple-pointing-up-and-down.png";
 import LoadingSvg from "../../artistPageComponents/media/loadingSvg.jsx";
 
-const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
+const CountrySelect = ({
+  getter,
+  setter,
+  object,
+  textValue,
+  needsClose,
+  reset,
+}) => {
   // hook for main-buttons to toggle on click
   const [containerClicked, setContainerClicked] = useState(false);
 
@@ -56,6 +63,10 @@ const CountrySelect = ({ getter, setter, object, textValue, needsClose }) => {
       );
     } else {
       setLocalSetter(getter.charAt(0).toUpperCase() + getter.slice(1));
+    }
+
+    if (reset) {
+      reset("");
     }
   }, [getter]);
 
@@ -360,6 +371,7 @@ const SearchInput = ({
           setter={setCountry}
           object={Object.values(isoCountries)}
           textValue={Object.keys(isoCountries)}
+          reset={setCity}
         />
         <>
           <div className={classes.spacer}>
