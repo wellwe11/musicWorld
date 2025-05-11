@@ -105,11 +105,9 @@
 
   .insideButtonWrapper {
     transition: all 0.2s ease;
-    min-width: 96%;
-    min-height: 92%;
 
-    max-width: 96%;
-    max-height: 92%;
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
     background-color: #3d3d4a;
     position: absolute;
     left: 50%;
@@ -212,8 +210,8 @@
 
       color: white;
 
-      width: 96% !important;
-      height: 88% !important;
+      width: calc(100% - 5px);
+      height: calc(100% - 5px);
 
       align-self: center;
       justify-self: center;
