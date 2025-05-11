@@ -109,9 +109,8 @@
 
   .insideButtonWrapper {
     transition: all 0.2s ease;
-
-    width: 95%;
-    height: 90%;
+    width: clamp(93%, 95%, 97%);
+    height: clamp(83%, 85%, 88%);
     background-color: #3d3d4a;
 
     display: flex;

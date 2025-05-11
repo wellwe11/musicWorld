@@ -131,7 +131,7 @@ const ExtendedButtons = ({
           >
             {localDateFrom || dateFrom || "Date from"}
           </NavButton>
-          {/* <input
+          <input
             type="date"
             ref={inputRefOne}
             style={{
@@ -142,7 +142,7 @@ const ExtendedButtons = ({
             min={today}
             max={localDateTill || dateFrom || ""}
             onChange={(e) => setLocalDateFrom(e.target.value)}
-          /> */}
+          />
         </>
         <>
           <NavButton
@@ -151,7 +151,7 @@ const ExtendedButtons = ({
           >
             {localDateTill || dateTill || "Date till"}
           </NavButton>
-          {/* <input
+          <input
             type="date"
             ref={inputRefTwo}
             style={{
@@ -162,7 +162,7 @@ const ExtendedButtons = ({
             min={localDateFrom || dateFrom || today}
             onChange={(e) => setLocalDateTill(e.target.value)}
             onBlur={handleDateTillShowPicker}
-          /> */}
+          />
         </>
         <>
           {name === "upcomingEvents" && (
