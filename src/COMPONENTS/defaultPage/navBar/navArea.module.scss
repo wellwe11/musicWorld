@@ -205,6 +205,9 @@
       justify-content: center;
       align-items: center;
 
+      width: clamp(94%, 97%, 140px) !important;
+      height: clamp(88%, 93%, 35px) !important;
+
       text-align: center;
 
       color: white;
