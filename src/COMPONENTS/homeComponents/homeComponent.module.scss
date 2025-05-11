@@ -178,6 +178,8 @@
   min-height: 380px;
   width: var(--homePageWidth);
 
+  scroll-behavior: smooth;
+
   .artistsNearTitle {
     align-self: flex-start;
     margin-bottom: 10px;
