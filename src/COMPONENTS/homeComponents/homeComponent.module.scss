@@ -424,6 +424,10 @@
   opacity: 1;
   margin-right: 0px;
   transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .musicImportContentContainer {
