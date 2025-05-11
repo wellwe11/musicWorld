@@ -209,8 +209,8 @@
 
       color: white;
 
-      width: calc(100% - 5px);
-      height: calc(100% - 5px);
+      width: clamp(93%, 95%, 97%);
+      height: clamp(83%, 85%, 88%);
 
       align-self: center;
       justify-self: center;
