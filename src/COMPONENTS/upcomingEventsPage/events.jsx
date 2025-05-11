@@ -21,12 +21,6 @@ const Events = ({
   // useState for loading (via the useContext(eventContext)). I need it for setTimeout
   const [displayEvents, setDisplayEvents] = useState(false);
 
-  // events are the displayed events. Loading is turned false if the fetch is successful
-
-  // create an array that looks for same artists and if the
-  // same band is "beside" itself on several days, just merge the
-  // dates instead so that they dont take too much space
-
   // displays loading before the fetches are finalized. Loading is stored in the same component
   // such as the fetch. Loading is then turned true or false depending on the return of the JSON
   useEffect(() => {
@@ -38,8 +32,6 @@ const Events = ({
       return () => clearTimeout(timer);
     }
   }, [loading]);
-
-  console.log(clickedEvent, imageClicked);
 
   return (
     <div className={classes.events}>

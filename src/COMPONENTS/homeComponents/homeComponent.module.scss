@@ -375,6 +375,9 @@
   color: rgb(88, 88, 88);
 
   overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
   .dateWrapper {
     display: flex;
     flex-direction: column;
@@ -403,6 +406,10 @@
   .displayedImageNumber {
     color: rgb(155, 155, 155);
   }
+}
+
+.datesContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .onLoadHidden {

@@ -5,7 +5,12 @@ import classes from "./homeComponent.module.scss";
 import pexelsImageOne from "./images/pexels_imageOne.jpg";
 import pexelsImage from "./images/pexels_imageFour.webp";
 
-const MonthsContainer = ({ eventsArray, displayedImage, setDateFrom }) => {
+const MonthsContainer = ({
+  eventsArray,
+  displayedImage,
+  setDateFrom,
+  setDateTill,
+}) => {
   const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
   const today = new Date();
 
@@ -46,6 +51,12 @@ const MonthsContainer = ({ eventsArray, displayedImage, setDateFrom }) => {
         nClicked > 9 ? nClicked : "0" + nClicked
       }`
     );
+
+    // setDateTill(
+    //   `${todayYear}-${todayMonth > 9 ? todayMonth : "0" + todayMonth + 2}-${
+    //     nClicked > 9 ? nClicked : "0" + nClicked
+    //   }`
+    // );
   };
 
   useEffect(() => {
@@ -84,6 +95,7 @@ const CountryImageContainer = ({
   displayedImage,
   setDisplayedImage,
   setDateFrom,
+  setDateTill,
 }) => {
   const countryMatch = () =>
     Object.entries(isoCountries)?.find((obj) =>
@@ -103,6 +115,7 @@ const CountryImageContainer = ({
         displayedImage={displayedImage}
         setDisplayedImage={setDisplayedImage}
         setDateFrom={setDateFrom}
+        setDateTill={setDateTill}
       />
     </div>
   );

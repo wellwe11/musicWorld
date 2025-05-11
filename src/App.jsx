@@ -282,6 +282,7 @@ const App = () => {
                 setInterestedArtists={setInterestedArtists}
                 country={country}
                 setDateFrom={setDateFrom}
+                setDateTill={setDateTill}
               />
             )}
           </div>
@@ -313,7 +314,8 @@ export default App;
  * Design app-section on homePage
  *
  *
- *
+ * Remove loading from dropdown menu (fixed) so it doesnt appear everytime it drops down
+ * fix artist-page bio-info so it applies stylers and such correctly
  *
  * Pages to create:
  * -- EVENT/ARTIST NOT FOUND PAGE --

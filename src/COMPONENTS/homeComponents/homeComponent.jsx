@@ -394,6 +394,7 @@ const HomePageComponent = ({
   setInterestedArtists,
   country,
   setDateFrom,
+  setDateTill,
 }) => {
   let isLoggedIn = false;
 
@@ -423,6 +424,7 @@ const HomePageComponent = ({
           displayedImage={displayedImage}
           setDisplayedImage={setDisplayedImage}
           setDateFrom={setDateFrom}
+          setDateTill={setDateTill}
         />
       </div>
 
