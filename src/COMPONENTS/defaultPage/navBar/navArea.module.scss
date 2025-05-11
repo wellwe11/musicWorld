@@ -190,6 +190,10 @@
       min-width: 90%;
       max-width: 90%;
       height: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -197,10 +201,11 @@
   }
 
   .insideButtonWrapper {
-    max-height: 95%;
-    max-width: 98%;
-    min-width: 90%;
-    min-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 94% !important;
+    width: 98% !important;
   }
 
   @keyframes fadeIn {
