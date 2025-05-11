@@ -10,7 +10,6 @@ const HomePage = React.memo(function HomePage({
   setInterestedArtists,
   country,
   setDateFrom,
-  loading,
 }) {
   return (
     <div className={classes.homePage}>

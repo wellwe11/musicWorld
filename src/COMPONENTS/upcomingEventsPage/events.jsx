@@ -13,22 +13,15 @@ const Events = ({
   minViewEvent,
   interestedArtists,
   setInterestedArtists,
+  clickedEvent,
+  setClickedEvent,
+  imageClicked,
+  setImageClicked,
 }) => {
   // useState for loading (via the useContext(eventContext)). I need it for setTimeout
   const [displayEvents, setDisplayEvents] = useState(false);
 
   // events are the displayed events. Loading is turned false if the fetch is successful
-
-  // this is a state used inside of each event which is passed as a prop.
-  // It forces a single-play option. Otherwise, if a user wants to click several
-  // events to hear music, it'll play them all at the same time.
-  // Having this state in parent, you avoid this as it can only be true
-  // for one child
-  const [imageClicked, setImageClicked] = useState(false);
-
-  // a local state to track which event has clicked it's play button. Helps avoid all children
-  // click play once you interact with an element
-  const [clickedEvent, setClickedEvent] = useState(null);
 
   // create an array that looks for same artists and if the
   // same band is "beside" itself on several days, just merge the
@@ -46,6 +39,8 @@ const Events = ({
     }
   }, [loading]);
 
+  console.log(clickedEvent, imageClicked);
+
   return (
     <div className={classes.events}>
       {displayEvents &&
@@ -56,7 +51,7 @@ const Events = ({
               <div
                 key={index}
                 className={classes.eventContainer}
-                onClick={() => setClickedEvent(index)}
+                onClick={() => setClickedEvent(event.artist.id)}
               >
                 <Event
                   title={
@@ -71,7 +66,11 @@ const Events = ({
                   country={event?.event?._embedded?.venues[0]?.country?.name}
                   city={event?.event?._embedded?.venues[0]?.city?.name}
                   location={event?.event?._embedded?.venues[0]?.address?.line1}
-                  imageClicked={clickedEvent === index ? imageClicked : ""}
+                  clickedEvent={clickedEvent}
+                  setClickedEvent={setClickedEvent}
+                  imageClicked={
+                    clickedEvent === event.artist.id ? imageClicked : ""
+                  }
                   setImageClicked={setImageClicked}
                   onClickLink={
                     event?.event?._embedded?.attractions?.[0]?.url || event?.url

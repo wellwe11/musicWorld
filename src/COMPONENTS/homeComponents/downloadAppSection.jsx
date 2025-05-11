@@ -6,8 +6,9 @@ import phoneImage from "./images/phoneImage.png";
 import worldCloudImage from "./images/wordcloud_image.png";
 
 import logoImage from "../defaultPage/navBar/images/logoImage.png";
+import React from "react";
 
-const FindAppSection = () => {
+const FindAppSection = React.memo(function FindAppSection() {
   return (
     <div className={classes.findAppSectionContainer}>
       <div className={classes.phoneContainer}>
@@ -23,6 +24,6 @@ const FindAppSection = () => {
       </div>
     </div>
   );
-};
+});
 
 export default FindAppSection;

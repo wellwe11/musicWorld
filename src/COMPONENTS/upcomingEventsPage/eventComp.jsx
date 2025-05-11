@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./upcomingEvents.module.scss";
 import TicketButton from "./ticketButton";
 
@@ -104,7 +104,7 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
   );
 };
 
-const Event = ({
+const Event = React.memo(function Event({
   title,
   date,
   dateEnd,
@@ -112,13 +112,15 @@ const Event = ({
   country,
   city,
   location,
-  imageClicked,
-  setImageClicked,
   onClickLink,
   interestedArtists,
   setInterestedArtists,
   artist,
-}) => {
+  clickedEvent,
+  setClickedEvent,
+  imageClicked,
+  setImageClicked,
+}) {
   const [showMoreDates, setShowMoreDates] = useState(false);
   const [isFav, setIsFav] = useState(false);
   const createDate = (d) => {
@@ -172,8 +174,10 @@ const Event = ({
       <EventImage
         imageSrc={image}
         alt=""
-        imageClicked={imageClicked}
+        clickedEvent={clickedEvent}
+        setClickedEvent={setClickedEvent}
         setImageClicked={setImageClicked}
+        imageClicked={imageClicked}
       />
       <div className={classes.subInfo}>
         <div className={classes.titleAndAddToFavs}>
@@ -226,6 +230,6 @@ const Event = ({
       </div>
     </div>
   );
-};
+});
 
 export default Event;

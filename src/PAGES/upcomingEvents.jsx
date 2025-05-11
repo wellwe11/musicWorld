@@ -104,6 +104,17 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
   const [eventsThisDateName, setEventsThisDateName] = useState("");
   const [eventsNotToday, setEventsNotToday] = useState([]);
 
+  // a local state to track which event has clicked it's play button. Helps avoid all children
+  // click play once you interact with an element
+  const [clickedEvent, setClickedEvent] = useState(null);
+
+  // this is a state used inside of each event which is passed as a prop.
+  // It forces a single-play option. Otherwise, if a user wants to click several
+  // events to hear music, it'll play them all at the same time.
+  // Having this state in parent, you avoid this as it can only be true
+  // for one child
+  const [imageClicked, setImageClicked] = useState(false);
+
   const [events, setEvents] = useState([]);
 
   const findArtistsNear = () => {
@@ -225,6 +236,10 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
                     maxViewEVent={eventsThisDate.length}
                     interestedArtists={interestedArtists}
                     setInterestedArtists={setInterestedArtists}
+                    clickedEvent={clickedEvent}
+                    setClickedEvent={setClickedEvent}
+                    imageClicked={imageClicked}
+                    setImageClicked={setImageClicked}
                   />
                 ) : (
                   <div className={classes.loadingSvgContainer}>
@@ -250,6 +265,10 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
               maxViewEVent={maxViewEvent}
               interestedArtists={interestedArtists}
               setInterestedArtists={setInterestedArtists}
+              clickedEvent={clickedEvent}
+              setClickedEvent={setClickedEvent}
+              imageClicked={imageClicked}
+              setImageClicked={setImageClicked}
             />
           </div>
           <PageToView

@@ -277,13 +277,13 @@ const ArrowButton = ({ clickDirection, clickFn }) => {
   );
 };
 
-export const PopularArtistsNear = ({
+export const PopularArtistsNear = React.memo(function PopularArtistsNear({
   artistData,
   interestedArtists,
   setInterestedArtists,
   title,
   type,
-}) => {
+}) {
   const scrollRef = useRef();
 
   const followingArtistsContainerRef = useRef(null);
@@ -386,7 +386,7 @@ export const PopularArtistsNear = ({
       </div>
     </div>
   );
-};
+});
 
 const HomePageComponent = ({
   eventsArray,

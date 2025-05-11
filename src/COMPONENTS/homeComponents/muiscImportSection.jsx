@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./homeComponent.module.scss";
 
 import spotifyButton from "../artistPageComponents/media/spotify.png";
@@ -70,7 +70,7 @@ const MediaSwitcher = () => {
   );
 };
 
-const MusicImportSection = () => {
+const MusicImportSection = React.memo(function MusicImportSection() {
   return (
     <div className={classes.musicImportContentContainer}>
       <div className={classes.musicImportContentWrapper}>
@@ -78,6 +78,6 @@ const MusicImportSection = () => {
       </div>
     </div>
   );
-};
+});
 
 export default MusicImportSection;
