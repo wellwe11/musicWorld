@@ -89,3 +89,9 @@ body {
   overflow: overlay; /* if supported */
   overflow: auto; /* fallback */
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
