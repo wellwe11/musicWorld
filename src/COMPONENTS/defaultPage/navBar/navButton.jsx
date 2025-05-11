@@ -37,9 +37,7 @@ const NavButton = ({ children, onClick, externalClass }) => {
       onBlur={() => setButtonClicked(false)}
     >
       <button ref={btnRef} onClick={onClick} className={externalClass}>
-        <div className={classes.insideButtonWrapper}>
-          <p>{children}</p>
-        </div>
+        <div className={classes.insideButtonWrapper}>{children}</div>
         <span className={classes.mouseDot} ref={spanRef} />
       </button>
     </div>
