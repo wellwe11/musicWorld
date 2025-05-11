@@ -16,6 +16,8 @@
   --mainThemeTwo: #13161c;
   --buttonContainerTheme: #262930;
   --homePageWidth: min(75vw, 1200px);
+
+  display: grid;
 }
 
 /* Reset margin and padding */
