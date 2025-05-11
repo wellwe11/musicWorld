@@ -158,12 +158,14 @@ const Event = ({
   };
 
   useEffect(() => {
-    if (interestedArtists?.some((a) => a.id.includes(artist.id))) {
-      setIsFav(true);
-    } else {
-      setIsFav(false);
+    if (interestedArtists || date) {
+      if (interestedArtists?.some((a) => a.id.includes(artist.id))) {
+        setIsFav(true);
+      } else {
+        setIsFav(false);
+      }
     }
-  }, [interestedArtists]);
+  }, [interestedArtists, date]);
 
   return (
     <div className={classes.event}>
