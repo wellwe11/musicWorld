@@ -86,8 +86,9 @@ const UpcomingEventsPage = ({
   eventsArray,
   interestedArtists,
   setInterestedArtists,
+  loading,
 }) => {
-  const { loading } = useContext(EventContext);
+  // const { loading } = useContext(EventContext);
   const [currentPage, setCurrentPage] = useState(1);
 
   const [maxViewEvent, setMaxViewEVent] = useState(11);
@@ -191,7 +192,7 @@ const UpcomingEventsPage = ({
         <img src={listStyleIcon} alt="" />
         <img src={squareStyleIcon} alt="" />
         </div> */}
-      {eventsThisDate?.length > 0 && eventsNotToday.length > 0 ? (
+      {events && eventsNotToday.length > 0 ? (
         <>
           {events.length > 0 && currentPage === 1 && (
             <div>
@@ -210,14 +211,20 @@ const UpcomingEventsPage = ({
                 <h1 className={classes.locationTitle}>
                   {dateFrom ? "Events " + eventsThisDateName : "Events today"}
                 </h1>
-                <Events
-                  eventsArray={eventsThisDate}
-                  loading={loading}
-                  minViewEvent={0}
-                  maxViewEVent={eventsThisDate.length}
-                  interestedArtists={interestedArtists}
-                  setInterestedArtists={setInterestedArtists}
-                />
+                {eventsThisDate && eventsThisDate.length > 0 ? (
+                  <Events
+                    eventsArray={eventsThisDate}
+                    loading={loading}
+                    minViewEvent={0}
+                    maxViewEVent={eventsThisDate.length}
+                    interestedArtists={interestedArtists}
+                    setInterestedArtists={setInterestedArtists}
+                  />
+                ) : (
+                  <div className={classes.loadingSvgContainer}>
+                    <LoadingSvg />
+                  </div>
+                )}
               </div>
             )}
           </div>

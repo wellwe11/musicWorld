@@ -64,6 +64,9 @@ const Events = ({
                     event?.artist?.name
                   }
                   date={event?.event?.dates?.start?.localDate}
+                  dateEnd={
+                    event?.otherEvents?.length > 0 ? event?.otherEvents : ""
+                  }
                   image={findFittingImage(event?.artist?.images, "4_3", 400)}
                   country={event?.event?._embedded?.venues[0]?.country?.name}
                   city={event?.event?._embedded?.venues[0]?.city?.name}

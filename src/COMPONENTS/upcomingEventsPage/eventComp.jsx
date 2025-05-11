@@ -7,6 +7,8 @@ import pauseIcon from "./playIcons/pause-button.png";
 
 import starIcon from "./playIcons/star.png";
 
+import arrowDownIcon from "../defaultPage/searchInput/arrow_Down.png";
+
 const AddToFollowingButton = ({ isFav }) => {
   return (
     <div className={classes.favoriteButton}>
@@ -105,6 +107,7 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
 const Event = ({
   title,
   date,
+  dateEnd,
   image,
   country,
   city,
@@ -116,33 +119,46 @@ const Event = ({
   setInterestedArtists,
   artist,
 }) => {
-  const updatedDate = new Date(date);
-  const dateDay = new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
-    month: "long",
-    day: "numeric",
-  }).format(updatedDate);
-  const year = new Date(date).getFullYear();
-
-  const todaysYear = new Date().getFullYear();
-
+  const [showMoreDates, setShowMoreDates] = useState(false);
   const [isFav, setIsFav] = useState(false);
+  const createDate = (d) => {
+    if (d) {
+      const updatedDate = new Date(d);
+
+      const dateDay = new Intl.DateTimeFormat("en-US", {
+        weekday: "short",
+        month: "long",
+        day: "numeric",
+      }).format(updatedDate);
+
+      const year = new Date(d).getFullYear();
+      const todaysYear = new Date().getFullYear();
+
+      return { dateDay, year, todaysYear };
+    }
+  };
+
+  const startDate = createDate(date);
 
   const handleIsFav = () => {
     const newFavStatus = !isFav;
     setIsFav(newFavStatus);
 
     if (newFavStatus && !interestedArtists?.includes(artist)) {
-      console.log(1);
       setInterestedArtists((prevArtists) => [...prevArtists, artist]);
-    } else if (!newFavStatus && interestedArtists?.includes(artist)) {
-      console.log(2);
-      setInterestedArtists((artists) => artists.filter((a) => a !== artist));
+    } else if (
+      !newFavStatus &&
+      interestedArtists?.some((a) => a.id.includes(artist.id))
+    ) {
+      console.log("asd");
+      setInterestedArtists((artists) =>
+        artists.filter((a) => a.id !== artist.id)
+      );
     }
   };
 
   useEffect(() => {
-    if (interestedArtists?.includes(artist)) {
+    if (interestedArtists?.some((a) => a.id.includes(artist.id))) {
       setIsFav(true);
     } else {
       setIsFav(false);
@@ -166,13 +182,44 @@ const Event = ({
             <AddToFollowingButton isFav={isFav} />
           </div>
         </div>
+
         <h4 className={classes.location}>
           {city} {location ? "- " + location : ""}
         </h4>
         <br />
         <h3 className={classes.date}>
-          {dateDay} {year !== todaysYear ? "- " + year : ""}
+          {startDate.dateDay}{" "}
+          {startDate.year !== startDate.todaysYear ? "- " + startDate.year : ""}{" "}
+          <br />
         </h3>
+        <h5
+          className={classes.moreDatesText}
+          onMouseEnter={() => setShowMoreDates(true)}
+          onMouseLeave={() => setShowMoreDates(false)}
+        >
+          {dateEnd
+            ? `${dateEnd.length} other event${
+                dateEnd.length > 1 ? "s" : ""
+              } in ${country}`
+            : ""}
+          {dateEnd && (
+            <img className={classes.moreDatesIcon} src={arrowDownIcon} alt="" />
+          )}
+        </h5>
+        {dateEnd && showMoreDates && (
+          <div
+            className={classes.moreDates}
+            onMouseEnter={() => setShowMoreDates(true)}
+            onMouseLeave={() => setShowMoreDates(false)}
+          >
+            {dateEnd?.map((date) => (
+              <h5 className={classes.moreDatesText}>
+                {createDate(date.event.dates.start.localDate).dateDay} -{" "}
+                {date.event._embedded.venues[0].city.name}
+              </h5>
+            ))}
+          </div>
+        )}
         <TicketButton onClickLink={onClickLink} />
       </div>
     </div>

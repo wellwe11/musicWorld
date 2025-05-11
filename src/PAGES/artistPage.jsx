@@ -6,6 +6,7 @@ const ArtistPage = ({
   artist,
   interestedArtists,
   setInterestedArtists,
+  loading,
 }) => {
   return (
     <ArtistPageComponent

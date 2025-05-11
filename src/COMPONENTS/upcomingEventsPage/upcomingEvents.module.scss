@@ -6,7 +6,7 @@
   flex-wrap: wrap;
 
   min-width: 100%;
-  min-height: 20px;
+  min-height: 300px;
   transition: all 0.2s ease;
 
   .eventContainer {
@@ -61,6 +61,8 @@
     flex-direction: column;
     justify-content: space-between;
 
+    position: relative;
+
     .titleAndAddToFavs {
       display: flex;
       justify-content: space-between;
@@ -80,6 +82,60 @@
       color: rgb(236, 236, 236);
       font-size: 16px;
       font-weight: 500;
+      z-index: 1111;
+    }
+
+    .moreDatesText {
+      color: rgb(186, 186, 186);
+      font-size: 14px;
+
+      position: relative;
+
+      .moreDatesIcon {
+        height: 15px;
+        width: 15px;
+
+        filter: invert(0.8);
+
+        position: absolute;
+        margin-top: 4px;
+        margin-left: 5px;
+      }
+    }
+
+    .moreDatesText:hover {
+      color: white;
+
+      .moreDatesIcon {
+        filter: invert(1);
+      }
+    }
+
+    .moreDatesText,
+    .moreDates {
+      cursor: pointer;
+    }
+
+    .moreDates {
+      position: absolute;
+      background-color: #3d3d4a;
+      border: 1px solid #575768;
+
+      border-radius: 5px;
+      margin-top: 117px;
+      max-height: 80px;
+      min-width: 200px;
+      overflow: scroll;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      padding: 2px;
+
+      .location {
+        padding: 5px;
+      }
     }
   }
 }

@@ -171,7 +171,7 @@
 }
 
 .extendedButtons {
-  width: 50%;
+  width: 100%;
   min-height: 50px;
 
   display: flex;
@@ -183,14 +183,13 @@
 
   background-color: var(--buttonContainerTheme);
   border-bottom: 1px solid rgba(84, 94, 120, 0.7254901961);
-  border-left: 1px solid rgba(84, 94, 120, 0.7254901961);
 
   animation: fadeIn 0.2s ease;
 
-  border-end-start-radius: 30px;
+  background-color: #262930fa !important;
 
   .extendedButtonsWrapper {
-    width: 85%;
+    width: 50%;
     min-height: 100% !important;
     display: flex;
     justify-content: space-evenly;

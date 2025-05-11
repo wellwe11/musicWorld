@@ -21,7 +21,19 @@ export const addEvents = (array, setter) => {
             idToNotMatch &&
             !artistsArray.some((a) => a.artist.id === idToNotMatch)
           ) {
-            artistsArray.push({ artist: artist, event: event });
+            artistsArray.push({
+              artist: artist,
+              event: event,
+              otherEvents: [],
+            });
+          } else {
+            const artistObj = artistsArray?.find(
+              (obj) => obj?.artist.name === artist?.name
+            );
+
+            if (artistObj) {
+              artistObj.otherEvents.push({ event });
+            }
           }
         }
       });

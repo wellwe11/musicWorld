@@ -12,7 +12,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --mainThemeColor: #13161c;
+  --mainThemeColor: var(--mainThemeColor);
   --mainThemeTwo: #13161c;
   --buttonContainerTheme: #262930;
   --homePageWidth: min(75vw, 1200px);

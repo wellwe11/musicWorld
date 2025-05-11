@@ -1,5 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, createContext, useCallback, useRef } from "react";
+import {} from "react-scan";
 
 import classes from "../src/PAGES/defaultPage.module.scss";
 
@@ -171,15 +172,18 @@ const App = () => {
   useEffect(() => {
     console.log(dateFrom, dateTill, genre, country, city, artist);
     if (dateFrom || dateTill || genre || city) {
+      console.log(1);
       handleNavigate("./home/upcomingEvents");
 
       fetchEvents();
     }
     if (country) {
+      console.log(2);
       fetchEvents();
     }
 
     if (artist) {
+      console.log(3);
       fetchEvents();
     }
   }, [dateFrom, dateTill, genre, country, city, artist]);
@@ -216,76 +220,76 @@ const App = () => {
 
   return (
     <div className={classes.appContainer}>
-      <EventContext.Provider value={{ events, loading }}>
-        <div ref={titleRef}>
-          <NavBar
-            setDateFrom={setDateFrom}
-            setDateTill={setDateTill}
-            dateFrom={dateFrom}
-            dateTill={dateTill}
-            genre={genre}
-            setGenre={setGenre}
-            country={country}
-            setCountry={setCountry}
-            city={city}
-            setCity={setCity}
-            artist={artist}
-            setArtist={setArtist}
-            events={events}
-          />
-        </div>
-        {displayFixedNavBar && (!name || name === "artistPage") && (
-          <NavBarScroll
-            setDateFrom={setDateFrom}
-            setDateTill={setDateTill}
-            dateFrom={dateFrom}
-            dateTill={dateTill}
-            genre={genre}
-            setGenre={setGenre}
-            country={country}
-            setCountry={setCountry}
-            city={city}
-            setCity={setCity}
-            artist={artist}
-            setArtist={setArtist}
-            events={events}
-          />
-        )}
-        {eventsArray ? (
-          <>
-            <div className={classes.routesContainer}>
-              {name === "artistPage" && link ? (
-                <ArtistPage
-                  artistEvents={events}
-                  artist={artist}
-                  eventsArray={eventsArray}
-                  interestedArtists={interestedArtists}
-                  setInterestedArtists={setInterestedArtists}
-                />
-              ) : name && !link ? (
-                <PageToView
-                  city={city}
-                  country={country}
-                  dateFrom={dateFrom}
-                  eventsArray={eventsArray}
-                  interestedArtists={interestedArtists}
-                  setInterestedArtists={setInterestedArtists}
-                />
-              ) : (
-                <HomePage
-                  eventsArray={eventsArray}
-                  interestedArtists={interestedArtists}
-                  setInterestedArtists={setInterestedArtists}
-                  country={country}
-                  setDateFrom={setDateFrom}
-                />
-              )}
-            </div>
-          </>
-        ) : (
-          <LoadingSvg />
-        )}
-      </EventContext.Provider>
+      <div ref={titleRef}>
+        <NavBar
+          setDateFrom={setDateFrom}
+          setDateTill={setDateTill}
+          dateFrom={dateFrom}
+          dateTill={dateTill}
+          genre={genre}
+          setGenre={setGenre}
+          country={country}
+          setCountry={setCountry}
+          city={city}
+          setCity={setCity}
+          artist={artist}
+          setArtist={setArtist}
+          events={events}
+        />
+      </div>
+      {displayFixedNavBar && (
+        <NavBarScroll
+          setDateFrom={setDateFrom}
+          setDateTill={setDateTill}
+          dateFrom={dateFrom}
+          dateTill={dateTill}
+          genre={genre}
+          setGenre={setGenre}
+          country={country}
+          setCountry={setCountry}
+          city={city}
+          setCity={setCity}
+          artist={artist}
+          setArtist={setArtist}
+          events={events}
+        />
+      )}
+      {eventsArray ? (
+        <>
+          <div className={classes.routesContainer}>
+            {name === "artistPage" && link ? (
+              <ArtistPage
+                artistEvents={events}
+                artist={artist}
+                eventsArray={eventsArray}
+                interestedArtists={interestedArtists}
+                setInterestedArtists={setInterestedArtists}
+              />
+            ) : name && !link ? (
+              <PageToView
+                city={city}
+                country={country}
+                dateFrom={dateFrom}
+                eventsArray={eventsArray}
+                interestedArtists={interestedArtists}
+                setInterestedArtists={setInterestedArtists}
+                loading={loading}
+              />
+            ) : (
+              <HomePage
+                eventsArray={eventsArray}
+                interestedArtists={interestedArtists}
+                setInterestedArtists={setInterestedArtists}
+                country={country}
+                setDateFrom={setDateFrom}
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <LoadingSvg />
+      )}
+
       <Footer />
     </div>
   );
@@ -301,6 +305,12 @@ export default App;
  * add loading svg animations
  * -- to home-page
  * Fix so that the page doesnt refresh so many times
+ *
+ * Add dates to "Artists near you" on homepage
+ * * Add dates to "Following artists" on homepage
+ * * Add dates to "Artists near you" on upcomingEvents
+ *
+ * Design app-section on homePage
  *
  *
  *

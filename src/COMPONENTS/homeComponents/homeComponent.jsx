@@ -399,7 +399,7 @@ const HomePageComponent = ({
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (loadElements < 4) {
+      if (loadElements < 5) {
         setLoadElements((prev) => prev + 1);
       }
     }, 500);
@@ -434,13 +434,15 @@ const HomePageComponent = ({
       <div
         className={loadElements > 2 ? classes.onLoadShow : classes.onLoadHidden}
       >
-        <PopularArtistsNear
-          artistData={eventsArray}
-          interestedArtists={interestedArtists}
-          setInterestedArtists={setInterestedArtists}
-          title={"Artists close to you"}
-          type={"near"}
-        />
+        <div>
+          <PopularArtistsNear
+            artistData={eventsArray}
+            interestedArtists={interestedArtists}
+            setInterestedArtists={setInterestedArtists}
+            title={"Artists close to you"}
+            type={"near"}
+          />
+        </div>
       </div>
       {interestedArtists.length > 0 && (
         <div
@@ -457,8 +459,12 @@ const HomePageComponent = ({
           />
         </div>
       )}
-      <MusicImportSection />
-      <FindAppSection />
+      <div
+        className={loadElements > 4 ? classes.onLoadShow : classes.onLoadHidden}
+      >
+        <MusicImportSection />
+        <FindAppSection />
+      </div>
     </div>
   );
 };

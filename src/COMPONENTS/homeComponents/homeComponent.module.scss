@@ -504,6 +504,12 @@
   width: var(--homePageWidth);
 
   height: 400px;
+  border-top: 25px solid #13161c9f;
+  box-shadow: inset 0px 25px 0px 0px #13161c6a;
+
+  backdrop-filter: blur(5px);
+  // background-color: #26293036;
+  // margin-top: -50px;
 
   background-color: var(--buttonContainerTheme);
 
@@ -511,11 +517,7 @@
   justify-self: center;
   align-items: center;
 
-  margin-bottom: 50px;
-  margin-top: 50px;
-
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-bottom: 1px solid #13161c6a;
 
   .phoneContainer {
     position: relative;
