@@ -431,7 +431,7 @@
 }
 
 .musicImportContentContainer {
-  width: calc(var(--homePageWidth) + 30px);
+  width: var(--homePageWidth);
   height: 300px;
 
   justify-self: center;
