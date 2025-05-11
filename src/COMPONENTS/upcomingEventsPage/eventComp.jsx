@@ -193,39 +193,47 @@ const Event = React.memo(function Event({
           {city} {location ? "- " + location : ""}
         </h4>
         <br />
-        <h3 className={classes.date}>
-          {startDate.dateDay}{" "}
-          {startDate.year !== startDate.todaysYear ? "- " + startDate.year : ""}{" "}
-          <br />
-        </h3>
-        <h5
-          className={classes.moreDatesText}
-          onMouseEnter={() => setShowMoreDates(true)}
-          onMouseLeave={() => setShowMoreDates(false)}
-        >
-          {dateEnd
-            ? `${dateEnd.length} other event${
-                dateEnd.length > 1 ? "s" : ""
-              } in ${country}`
-            : ""}
-          {dateEnd && (
-            <img className={classes.moreDatesIcon} src={arrowDownIcon} alt="" />
-          )}
-        </h5>
-        {dateEnd && showMoreDates && (
-          <div
-            className={classes.moreDates}
+        <div>
+          <h3 className={classes.date}>
+            {startDate.dateDay}{" "}
+            {startDate.year !== startDate.todaysYear
+              ? "- " + startDate.year
+              : ""}{" "}
+            <br />
+          </h3>
+          <h5
+            className={classes.moreDatesText}
             onMouseEnter={() => setShowMoreDates(true)}
             onMouseLeave={() => setShowMoreDates(false)}
           >
-            {dateEnd?.map((date) => (
-              <h5 className={classes.moreDatesText}>
-                {createDate(date.event.dates.start.localDate).dateDay} -{" "}
-                {date.event._embedded.venues[0].city.name}
-              </h5>
-            ))}
-          </div>
-        )}
+            {dateEnd
+              ? `${dateEnd.length} other event${
+                  dateEnd.length > 1 ? "s" : ""
+                } in ${country}`
+              : ""}
+            {dateEnd && (
+              <img
+                className={classes.moreDatesIcon}
+                src={arrowDownIcon}
+                alt=""
+              />
+            )}
+          </h5>
+          {dateEnd && showMoreDates && (
+            <div
+              className={classes.moreDates}
+              onMouseEnter={() => setShowMoreDates(true)}
+              onMouseLeave={() => setShowMoreDates(false)}
+            >
+              {dateEnd?.map((date) => (
+                <h5 className={classes.moreDatesText}>
+                  {createDate(date.event.dates.start.localDate).dateDay} -{" "}
+                  {date.event._embedded.venues[0].city.name}
+                </h5>
+              ))}
+            </div>
+          )}
+        </div>
         <TicketButton onClickLink={onClickLink} />
       </div>
     </div>
