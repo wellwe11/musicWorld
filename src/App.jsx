@@ -220,23 +220,22 @@ const App = () => {
 
   return (
     <div className={classes.appContainer}>
-      <div ref={titleRef}>
-        <NavBar
-          setDateFrom={setDateFrom}
-          setDateTill={setDateTill}
-          dateFrom={dateFrom}
-          dateTill={dateTill}
-          genre={genre}
-          setGenre={setGenre}
-          country={country}
-          setCountry={setCountry}
-          city={city}
-          setCity={setCity}
-          artist={artist}
-          setArtist={setArtist}
-          events={events}
-        />
-      </div>
+      <NavBar
+        setDateFrom={setDateFrom}
+        setDateTill={setDateTill}
+        dateFrom={dateFrom}
+        dateTill={dateTill}
+        genre={genre}
+        setGenre={setGenre}
+        country={country}
+        setCountry={setCountry}
+        city={city}
+        setCity={setCity}
+        artist={artist}
+        setArtist={setArtist}
+        events={events}
+      />
+
       {/* {displayFixedNavBar && (
         <NavBarScroll
           setDateFrom={setDateFrom}
