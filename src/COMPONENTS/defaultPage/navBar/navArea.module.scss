@@ -82,6 +82,10 @@
 
     border-radius: 30px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     cursor: pointer;
     position: relative;
     transition: background-color 0.2s ease;
@@ -109,10 +113,6 @@
     width: calc(100% - 5px);
     height: calc(100% - 5px);
     background-color: #3d3d4a;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
 
     display: flex;
     justify-content: center;
