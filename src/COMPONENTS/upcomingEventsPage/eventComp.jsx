@@ -192,7 +192,7 @@ const Event = React.memo(function Event({
         <h4 className={classes.location}>
           {city} {location ? "- " + location : ""}
         </h4>
-        <br />
+
         <div>
           <h3 className={classes.date}>
             {startDate.dateDay}{" "}
@@ -201,7 +201,7 @@ const Event = React.memo(function Event({
               : ""}{" "}
             <br />
           </h3>
-          <h5
+          <h4
             className={classes.moreDatesText}
             onMouseEnter={() => setShowMoreDates(true)}
             onMouseLeave={() => setShowMoreDates(false)}
@@ -218,7 +218,7 @@ const Event = React.memo(function Event({
                 alt=""
               />
             )}
-          </h5>
+          </h4>
           {dateEnd && showMoreDates && (
             <div
               className={classes.moreDates}
