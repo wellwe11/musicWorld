@@ -313,6 +313,7 @@ export default App;
  *
  * Design app-section on homePage
  *
+ * Fix navbuttons border -- on bigger screen isnt central (probably make it grid instead of aligning self)
  *
  * Remove loading from dropdown menu (fixed) so it doesnt appear everytime it drops down
  * fix artist-page bio-info so it applies stylers and such correctly
