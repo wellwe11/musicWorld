@@ -148,7 +148,7 @@
 }
 
 .event:hover {
-  min-width: 101%;
+  transform: scale(1.01);
 }
 
 .eventImage {
@@ -177,7 +177,6 @@
   }
 
   .coverPhotoFaded {
-    opacity: 80%;
     filter: blur(2px);
   }
 
@@ -195,7 +194,7 @@
   }
 
   .playPauseIcon:hover .coverPhoto {
-    opacity: 50%;
+    // opacity: 50%;
   }
 
   .playButtonContainer {
