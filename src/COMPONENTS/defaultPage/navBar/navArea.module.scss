@@ -182,21 +182,25 @@
 
   .navButtonContainer {
     height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      min-width: 90%;
+      max-width: 90%;
+      height: 100%;
     }
   }
 
   button {
-    max-width: 90%;
-    height: 100%;
   }
 
   .insideButtonWrapper {
-    height: 90%;
+    max-height: 95%;
+    max-width: 98%;
+    min-width: 90%;
+    min-height: 90%;
   }
 
   @keyframes fadeIn {
