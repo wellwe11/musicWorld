@@ -252,7 +252,7 @@
     img {
       object-fit: cover;
 
-      min-height: 200px;
+      min-height: 240px;
       width: 100%;
     }
   }
@@ -260,12 +260,12 @@
   .artistTitle {
     position: absolute;
     bottom: 0;
+
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 
-    padding: 10px;
     color: white;
 
     background-color: #3d3d4a73;
@@ -273,22 +273,20 @@
 
     width: 100%;
     min-height: 50px;
-    height: 70px;
+    height: 90px;
 
     .interestedButtonContainer {
       display: flex;
       justify-content: center;
       align-items: center;
 
-      margin-bottom: 10px;
-
       .interestedButtonNotInterested {
-        height: 30px;
+        height: 40px;
         min-width: 120px;
       }
 
       .interestedButtonInterested {
-        height: 30px;
+        height: 35px;
         min-width: 120px;
 
         background-color: rgb(137, 151, 228) !important;

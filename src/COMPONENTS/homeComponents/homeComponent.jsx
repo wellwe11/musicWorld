@@ -250,7 +250,7 @@ const ArtistProfile = ({
           <img src={artist?.images[0]?.url} alt="" />
         </div>
         <div className={classes.artistTitle}>
-          <h5>{artist?.name}</h5>
+          <h>{artist?.name}</h>
           <InterestedButton
             isInterested={isInterested}
             handleIsInterested={handleAddToInterested}
