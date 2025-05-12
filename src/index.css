@@ -17,7 +17,7 @@
   /*Generic themes for the website*/
   --topThemeColor: var(--mainThemeTwo);
   --mainThemeColor: var(--mainThemeTwo);
-  --mainThemeTwo: rgb(24, 24, 24);
+  --mainThemeTwo: rgb(18, 18, 18);
   --buttonContainerTheme: #2c2c2c;
 
   /* navbar colors*/
