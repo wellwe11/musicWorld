@@ -39,8 +39,8 @@
 
     .navBarButtons {
       margin-top: 5px;
-      border-bottom-left-radius: var(--filterContainerRadius);
-      border-bottom-right-radius: var(--filterContainerRadius);
+      border-bottom-left-radius: var(--buttonContainerRadius);
+      border-bottom-right-radius: var(--buttonContainerRadius);
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
@@ -84,7 +84,7 @@
 
     color: var(--buttonTextColor);
 
-    border-radius: var(--buttonContainerRadius);
+    border-radius: var(--buttonRadius);
 
     display: flex;
     justify-content: center;
@@ -123,7 +123,7 @@
     justify-content: center;
     align-items: center;
 
-    border-radius: (var(--buttonContainerRadius));
+    border-radius: var(--buttonRadius);
 
     z-index: 1;
 
@@ -266,7 +266,7 @@
 
       margin-top: 40px;
 
-      border-radius: 15px;
+      border-radius: var(--buttonContainerRadius);
 
       padding: 10px;
 
@@ -279,7 +279,7 @@
         padding: 10px;
 
         transition: all 0.2s ease;
-        border-radius: 15px;
+        border-radius: var(--buttonRadius);
 
         cursor: pointer;
       }

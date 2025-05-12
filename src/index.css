@@ -22,15 +22,15 @@
 
   /* navbar colors*/
   --buttonColor: rgb(63, 63, 63);
-  --buttonWrapperColor: rgba(66, 66, 66, 0.725);
+  --buttonWrapperColor: rgba(91, 91, 91, 0.725);
   --buttonTextColor: white;
   --buttonFocusColor: rgba(85, 85, 85, 0.79);
   --buttonFocusColorTwo: #292929c9;
   --buttonHighLightColor: rgba(255, 255, 255, 0.627);
 
   /*Radius-values for varius containers*/
-  --filterContainerRadius: 0px;
-  --buttonContainerRadius: 30px;
+  --buttonContainerRadius: 0px;
+  --buttonRadius: 30px;
 
   --eventContainerRadius: 1.2px;
 

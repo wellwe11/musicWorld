@@ -506,7 +506,7 @@
   background-color: var(--buttonWrapperColor);
   backdrop-filter: blur(5px);
 
-  border-radius: 15px;
+  border-radius: var(--eventContainerRadius);
 
   .iconsContainer {
     margin-left: 50px;
