@@ -19,7 +19,7 @@
 
     transition: all 0.2s ease;
 
-    padding: 15px;
+    padding: 20px;
   }
 
   div:hover {
@@ -257,6 +257,7 @@
 
 .ticketButton {
   background-color: var(--buttonWrapperColor);
+  border-radius: var(--eventContainerRadius);
 
   display: flex;
   justify-content: center;

@@ -29,10 +29,10 @@
   --buttonHighLightColor: rgba(255, 255, 255, 0.627);
 
   /*Radius-values for varius containers*/
-  --buttonContainerRadius: 0px;
+  --buttonContainerRadius: 10px;
   --buttonRadius: 30px;
 
-  --eventContainerRadius: 1.2px;
+  --eventContainerRadius: 10px;
 
   display: grid;
 }
