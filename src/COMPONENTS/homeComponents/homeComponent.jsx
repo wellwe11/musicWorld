@@ -244,24 +244,20 @@ const ArtistProfile = ({
   }, []);
 
   return (
-    <div className={classes.artistWrapper}>
-      {artistData && (
-        <>
-          <>
-            <div className={classes.imageContainer}>
-              <img src={artist?.images[0]?.url} alt="" />
-              <div className={classes.artistTitle}>
-                <h4>{artist?.name}</h4>
-              </div>
-            </div>
-            <InterestedButton
-              isInterested={isInterested}
-              handleIsInterested={handleAddToInterested}
-            />
-          </>
-        </>
-      )}
-    </div>
+    artistData && (
+      <div className={classes.artistWrapper}>
+        <div className={classes.imageContainer}>
+          <img src={artist?.images[0]?.url} alt="" />
+        </div>
+        <div className={classes.artistTitle}>
+          <h5>{artist?.name}</h5>
+          <InterestedButton
+            isInterested={isInterested}
+            handleIsInterested={handleAddToInterested}
+          />
+        </div>
+      </div>
+    )
   );
 };
 
