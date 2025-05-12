@@ -422,23 +422,23 @@ const HomePageComponent = ({
         />
       </div>
       <div
-        className={loadElements > 2 ? classes.onLoadShow : classes.onLoadHidden}
+        className={`${classes.popularArtistsNearSection} ${
+          loadElements > 2 ? classes.onLoadShow : classes.onLoadHidden
+        }`}
       >
-        <div>
-          <PopularArtistsNear
-            artistData={eventsArray}
-            interestedArtists={interestedArtists}
-            setInterestedArtists={setInterestedArtists}
-            title={"Artists close to you"}
-            type={"near"}
-          />
-        </div>
+        <PopularArtistsNear
+          artistData={eventsArray}
+          interestedArtists={interestedArtists}
+          setInterestedArtists={setInterestedArtists}
+          title={"Artists close to you"}
+          type={"near"}
+        />
       </div>
       {interestedArtists.length > 0 && (
         <div
-          className={
+          className={`${classes.popularArtistsNearSection} ${
             loadElements > 3 ? classes.onLoadShow : classes.onLoadHidden
-          }
+          }`}
         >
           <PopularArtistsNear
             artistData={interestedArtists}
