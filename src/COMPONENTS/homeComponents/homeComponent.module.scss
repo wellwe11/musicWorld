@@ -303,7 +303,6 @@
       }
 
       .interestedButtonInterested {
-        background-color: rgb(113, 113, 113) !important;
         height: 30px;
         width: 100%;
         backdrop-filter: blur(10px);
@@ -314,7 +313,7 @@
 
           margin-left: 10px;
 
-          filter: invert(1);
+          filter: invert(1) !important;
         }
       }
 
@@ -328,7 +327,7 @@
 
         margin-left: 10px;
 
-        filter: invert(0.2);
+        filter: invert(0.1);
       }
     }
 
@@ -338,7 +337,7 @@
 
     .interestedButtonContainer:hover {
       .interestedPlus {
-        filter: invert(0.8);
+        filter: invert(0.4);
       }
     }
   }

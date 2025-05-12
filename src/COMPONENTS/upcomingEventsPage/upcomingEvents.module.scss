@@ -130,8 +130,8 @@
 
     .moreDates {
       position: absolute;
-      background-color: #3d3d4a;
-      border: 1px solid #575768;
+      background-color: var(--buttonColor);
+      border: 1px solid var(--buttonFocusColor);
 
       border-radius: 5px;
       max-height: 80px;
