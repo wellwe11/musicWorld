@@ -252,55 +252,59 @@ const NavBar = ({
 
   return (
     <div className={`${classes.navBarContainer}`}>
-      <NavTitle />
-      <SearchInput
-        dateFrom={dateFrom}
-        setDateFrom={setDateFrom}
-        dateTill={dateTill}
-        setDateTill={setDateTill}
-        genre={genre}
-        setGenre={setGenre}
-        country={country}
-        setCountry={setCountry}
-        city={city}
-        setCity={setCity}
-        events={events}
-        artist={artist}
-        setArtist={setArtist}
-      />
-      <div
-        className={`${classes.navBarButtons} ${
-          activeButton > 0 ? classes.buttonActive : ""
-        }`}
-      >
-        <div className={classes.navBarButtonsWrapper}>
-          {Object.keys(buttonsObject).map((el, index) => (
-            <NavButton
-              onClick={() => {
-                handleNavigate(buttonsObject[el]);
-                setActiveButton(index);
-              }}
-              key={index}
-              externalClass={activeButton === index ? classes.buttonTarget : ""}
-            >
-              {el}
-            </NavButton>
-          ))}
+      <div className={classes.navBarWrapper}>
+        <NavTitle />
+        <SearchInput
+          dateFrom={dateFrom}
+          setDateFrom={setDateFrom}
+          dateTill={dateTill}
+          setDateTill={setDateTill}
+          genre={genre}
+          setGenre={setGenre}
+          country={country}
+          setCountry={setCountry}
+          city={city}
+          setCity={setCity}
+          events={events}
+          artist={artist}
+          setArtist={setArtist}
+        />
+        <div
+          className={`${classes.navBarButtons} ${
+            activeButton > 0 ? classes.buttonActive : ""
+          }`}
+        >
+          <div className={classes.navBarButtonsWrapper}>
+            {Object.keys(buttonsObject).map((el, index) => (
+              <NavButton
+                onClick={() => {
+                  handleNavigate(buttonsObject[el]);
+                  setActiveButton(index);
+                }}
+                key={index}
+                externalClass={
+                  activeButton === index ? classes.buttonTarget : ""
+                }
+              >
+                {el}
+              </NavButton>
+            ))}
+          </div>
+          {name === "upcomingEvents" && (
+            <ExtendedButtons
+              setDateFrom={setDateFrom}
+              setDateTill={setDateTill}
+              dateFrom={dateFrom}
+              dateTill={dateTill}
+              setGenre={setGenre}
+              genre={genre}
+              setArtist={setArtist}
+              artist={artist}
+              setCity={setCity}
+              city={city}
+            />
+          )}
         </div>
-        {name === "upcomingEvents" && (
-          <ExtendedButtons
-            setDateFrom={setDateFrom}
-            setDateTill={setDateTill}
-            dateFrom={dateFrom}
-            dateTill={dateTill}
-            setGenre={setGenre}
-            genre={genre}
-            setArtist={setArtist}
-            artist={artist}
-            setCity={setCity}
-            city={city}
-          />
-        )}
       </div>
     </div>
   );

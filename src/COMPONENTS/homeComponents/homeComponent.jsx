@@ -1,18 +1,9 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import classes from "./homeComponent.module.scss";
 import BandText from "./pictureSliderTexts";
 
+import starIcon from "./../upcomingEventsPage/playIcons/star.png";
 import buttonClickArrow from "./images/arrow-right.png";
-import buttonClickPlus from "./images/plus.png";
-import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
-import NavButton from "../defaultPage/navBar/navButton";
-import { fetchDataTicketMaster } from "../../App";
 
 import CountryImageContainer from "./countryRepresenterComponent";
 import MusicImportSection from "./muiscImportSection";
@@ -171,23 +162,15 @@ const InterestedButton = ({ isInterested, handleIsInterested }) => {
       onClick={handleIsInterested}
     >
       {isInterested === true ? (
-        <NavButton externalClass={classes.interestedButtonInterested}>
+        <button className={classes.interestedButtonInterested}>
           Interested
-          <img
-            className={classes.interestedPlus}
-            src={buttonClickClose}
-            alt=""
-          />
-        </NavButton>
+          <img className={classes.interestedPlus} src={starIcon} alt="" />
+        </button>
       ) : (
-        <NavButton externalClass={classes.interestedButtonNotInterested}>
+        <button className={classes.interestedButtonNotInterested}>
           Interested
-          <img
-            className={classes.interestedPlus}
-            src={buttonClickPlus}
-            alt=""
-          />
-        </NavButton>
+          <img className={classes.interestedPlus} src={starIcon} alt="" />
+        </button>
       )}
     </div>
   );
@@ -250,7 +233,7 @@ const ArtistProfile = ({
           <img src={artist?.images[0]?.url} alt="" />
         </div>
         <div className={classes.artistTitle}>
-          <h>{artist?.name}</h>
+          <h3>{artist?.name}</h3>
           <InterestedButton
             isInterested={isInterested}
             handleIsInterested={handleAddToInterested}

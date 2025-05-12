@@ -1,67 +1,71 @@
 .navBarContainer {
-  background-color: var(--mainThemeColor);
+  background-color: var(--topThemeColor);
+  width: 100vw;
+  height: 400px;
+  .navBarWrapper {
+    // background-color: var(--mainThemeColor);
 
-  width: var(--homePageWidth);
+    width: var(--homePageWidth);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center !important;
-  justify-content: center !important;
-
-  justify-self: center !important;
-
-  border-top: 70px solid var(--mainThemeColor);
-  // box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-
-  .navTitleContainer {
-    height: 200px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    img {
-      height: 200px;
-      width: 200px;
-      transition: all 0.2s ease;
-      background-size: auto;
-      cursor: pointer;
-    }
-
-    img:hover {
-      height: 205px;
-      width: 205px;
-    }
-  }
-
-  .navBarButtons {
-    margin-top: 5px;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    align-items: center !important;
+    justify-content: center !important;
 
-    min-width: fit-content;
-    height: fit-content;
-    padding: 10px;
-    width: 65%;
-    min-width: 350px;
+    justify-self: center !important;
 
-    background-color: var(--buttonContainerTheme);
+    // box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
-    transition: all 0.1s ease-out;
-
-    .navBarButtonsWrapper {
+    .navTitleContainer {
+      height: 200px;
+      width: 100px;
       display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 200px;
+        width: 200px;
+        transition: all 0.2s ease;
+        background-size: auto;
+        cursor: pointer;
+      }
+
+      img:hover {
+        height: 205px;
+        width: 205px;
+      }
+    }
+
+    .navBarButtons {
+      margin-top: 5px;
+      border-bottom-left-radius: var(--filterContainerRadius);
+      border-bottom-right-radius: var(--filterContainerRadius);
+      display: flex;
+      flex-direction: column;
       justify-content: space-evenly;
-      align-items: flex-start;
+      align-items: center;
 
-      height: 60px;
-      min-width: 100%;
+      min-width: fit-content;
+      height: fit-content;
+      padding: 10px;
+      width: 65%;
+      min-width: 350px;
 
-      z-index: 1;
+      background-color: var(--buttonContainerTheme);
+
+      transition: all 0.1s ease-out;
+
+      .navBarButtonsWrapper {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
+
+        height: 60px;
+        min-width: 100%;
+
+        z-index: 1;
+      }
     }
   }
 }
@@ -78,9 +82,9 @@
     width: 100%;
     height: 80%;
 
-    color: white;
+    color: var(--buttonTextColor);
 
-    border-radius: 30px;
+    border-radius: var(--buttonContainerRadius);
 
     display: flex;
     justify-content: center;
@@ -90,15 +94,15 @@
     position: relative;
     transition: background-color 0.2s ease;
     overflow: hidden;
-    background-color: #545e78b9;
+    background-color: var(--buttonWrapperColor);
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   }
 
   .buttonTarget {
-    background-color: #666770c9 !important;
+    background-color: var(--buttonFocusColor) !important;
 
     .insideButtonWrapper {
-      background-color: #23242dc9 !important;
+      background-color: var(--buttonFocusColorTwo) !important;
     }
 
     .mouseDot {
@@ -111,13 +115,15 @@
     transition: all 0.2s ease;
     width: clamp(94%, 97%, 150px);
     height: clamp(88%, 93%, 45px);
-    background-color: #3d3d4a;
+    background-color: var(--buttonColor);
+
+    backdrop-filter: blur(20px);
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    border-radius: 30px;
+    border-radius: (var(--buttonContainerRadius));
 
     z-index: 1;
 
@@ -136,7 +142,7 @@
     display: none;
     border-radius: 50%;
 
-    background-color: rgba(145, 152, 190, 0.627);
+    background-color: var(--buttonHighLightColor);
     opacity: 50%;
 
     -webkit-mask-image: radial-gradient(
@@ -178,7 +184,7 @@
   animation: fadeIn 0.2s ease;
 
   .extendedButtonsWrapper {
-    width: 94%;
+    width: 93%;
     min-height: 100% !important;
     display: flex;
     justify-content: center;
@@ -279,7 +285,7 @@
       }
 
       button:hover {
-        background-color: #3d3d4a;
+        background-color: var(--buttonColor);
       }
     }
   }

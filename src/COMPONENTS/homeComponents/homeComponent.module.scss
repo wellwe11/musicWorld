@@ -144,7 +144,8 @@
 
   color: rgb(175, 172, 172);
   font-weight: lighter;
-  background-color: #13161cf0;
+  background-color: var(--mainThemeTwo);
+  opacity: 96%;
 
   display: flex;
   justify-content: center;
@@ -175,8 +176,9 @@
 
   color: white;
 
-  padding: 30px;
   width: var(--homePageWidth);
+
+  margin: 20px;
 
   scroll-behavior: smooth;
 
@@ -193,6 +195,7 @@
       justify-content: center;
       align-items: center;
       opacity: 0 !important;
+      pointer-events: none;
     }
 
     .opacityOn {
@@ -268,7 +271,7 @@
 
     color: white;
 
-    background-color: #3d3d4a73;
+    background-color: var(--buttonWrapperColor);
     backdrop-filter: blur(10px);
 
     width: 100%;
@@ -276,21 +279,47 @@
     height: 90px;
 
     .interestedButtonContainer {
+      cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
+
+      background-color: var(--buttonWrapperColor);
+      opacity: 90%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+      width: 90%;
+
+      margin-top: 5px;
+
+      button {
+        cursor: pointer;
+      }
 
       .interestedButtonNotInterested {
       }
 
       .interestedButtonInterested {
-        background-color: rgb(137, 151, 228) !important;
+        background-color: rgb(113, 113, 113) !important;
+        height: 30px;
+        width: 100%;
+        backdrop-filter: blur(10px);
+
+        .interestedPlus {
+          width: 13px;
+          height: 13px;
+
+          margin-left: 10px;
+
+          filter: invert(1);
+        }
       }
 
       .interestedButtonNotInterested,
       .interestedButtonInterested {
-        min-width: clamp(130px, 133px, 135px);
-        height: clamp(42px, 45px, 45px);
       }
 
       .interestedPlus {
@@ -299,13 +328,17 @@
 
         margin-left: 10px;
 
-        filter: invert(0.7);
+        filter: invert(0.2);
       }
     }
 
     .interestedButtonContainer:hover {
+      background-color: var(--buttonFocusColor);
+    }
+
+    .interestedButtonContainer:hover {
       .interestedPlus {
-        filter: invert(1);
+        filter: invert(0.8);
       }
     }
   }
@@ -402,22 +435,23 @@
 
     transition: all 0.4s ease;
 
-    border-left: 0.5px solid var(--buttonContainerTheme);
-    border-right: 0.5px solid var(--buttonContainerTheme);
+    border-left: 0.5px solid var(--topThemeColor);
+    border-right: 0.5px solid var(--topThemeColor);
   }
 
   .dateWrapper:hover {
     position: relative;
-    background-color: var(--buttonContainerTheme);
+    background-color: var(--topThemeColor);
   }
 
   .todayHighLight {
     color: white;
-    background-color: rgb(35, 35, 35);
+    background-color: rgb(77, 76, 76);
   }
 
   .displayedImageNumber {
-    color: rgb(155, 155, 155);
+    color: rgb(191, 191, 191);
+    background-color: rgb(35, 35, 35);
   }
 }
 
@@ -459,7 +493,7 @@
   background-repeat: no-repeat;
   overflow: hidden;
 
-  box-shadow: inset 0px 0px 30px 30px #13161c;
+  box-shadow: inset 0px 0px 30px 30px var(--mainThemeColor);
 }
 
 .musicExploreWrapper {
@@ -470,7 +504,7 @@
   width: calc(var(--homePageWidth) - 200px);
   min-height: 120px;
   padding: 10px;
-  background-color: #262930e7;
+  background-color: var(--buttonWrapperColor);
   backdrop-filter: blur(5px);
 
   border-radius: 15px;
@@ -528,14 +562,14 @@
   width: var(--homePageWidth);
 
   height: 400px;
-  border-top: 25px solid #13161c9f;
-  box-shadow: inset 0px 25px 0px 0px #13161c6a;
+  // border-top: 25px solid #13161c9f;
+  // box-shadow: inset 0px 25px 0px 0px #13161c6a;
 
   backdrop-filter: blur(5px);
   // background-color: #26293036;
   // margin-top: -50px;
 
-  background-color: var(--buttonContainerTheme);
+  background-color: var(--mainThemeColor);
 
   display: flex;
   justify-self: center;

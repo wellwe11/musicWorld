@@ -2,8 +2,8 @@
   width: 65%;
   min-width: 350px;
 
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
+  border-top-right-radius: var(--filterContainerRadius);
+  border-top-left-radius: var(--filterContainerRadius);
 
   background-color: var(--buttonContainerTheme);
   color: white;
