@@ -281,15 +281,16 @@
       align-items: center;
 
       .interestedButtonNotInterested {
-        min-width: clamp(120px, 130px, 135px) !important;
-        min-height: clamp(25px, 35px, 35px) !important;
       }
 
       .interestedButtonInterested {
-        min-width: clamp(120px, 130px, 135px) !important;
-        min-height: clamp(25px, 35px, 35px) !important;
-
         background-color: rgb(137, 151, 228) !important;
+      }
+
+      .interestedButtonNotInterested,
+      .interestedButtonInterested {
+        min-width: clamp(130px, 133px, 135px);
+        height: clamp(42px, 45px, 45px);
       }
 
       .interestedPlus {
