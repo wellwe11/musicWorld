@@ -546,13 +546,13 @@
 
       .musicImage {
         transition: all 0.2s ease;
-        padding: 7px;
+        padding: 14px;
         width: 60px;
         filter: invert(1);
       }
 
       .musicImage:hover {
-        transform: scale(1.1);
+        transform: scale(1.2);
       }
 
       .musicIcon:hover {
