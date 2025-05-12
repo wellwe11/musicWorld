@@ -175,7 +175,7 @@
 
   color: white;
 
-  min-height: 380px;
+  padding: 30px;
   width: var(--homePageWidth);
 
   scroll-behavior: smooth;
@@ -281,13 +281,13 @@
       align-items: center;
 
       .interestedButtonNotInterested {
-        height: 40px;
-        min-width: 120px;
+        min-width: clamp(120px, 130px, 135px) !important;
+        min-height: clamp(25px, 35px, 35px) !important;
       }
 
       .interestedButtonInterested {
-        height: 40px;
-        min-width: 120px;
+        min-width: clamp(120px, 130px, 135px) !important;
+        min-height: clamp(25px, 35px, 35px) !important;
 
         background-color: rgb(137, 151, 228) !important;
       }
