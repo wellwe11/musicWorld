@@ -317,6 +317,9 @@ export default App;
  * Remove loading from dropdown menu (fixed) so it doesnt appear everytime it drops down
  * fix artist-page bio-info so it applies stylers and such correctly
  *
+ *
+ * if you click play on an event (play button), and then select a new favorite, it will play that new favorite artist
+ *
  * Pages to create:
  * -- EVENT/ARTIST NOT FOUND PAGE --
  * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so

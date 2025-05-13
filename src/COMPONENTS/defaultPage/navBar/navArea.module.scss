@@ -5,10 +5,12 @@
   align-items: center;
 
   display: grid;
+  align-content: space-between;
   .navBarWrapper {
     // background-color: var(--mainThemeColor);
 
     width: var(--homePageWidth);
+    height: 100%;
 
     display: flex;
     flex-direction: column;
