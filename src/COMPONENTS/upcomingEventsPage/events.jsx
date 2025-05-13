@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import Event from "./eventComp";
 
 import classes from "./upcomingEvents.module.scss";
-import { EventContext } from "../../App";
 import { findFittingImage } from "../../PAGES/functions/findFittingImage";
-import LoadingSvg from "../artistPageComponents/media/loadingSvg";
 
 const Events = ({
   eventsArray,
@@ -40,11 +38,7 @@ const Events = ({
           (event, index) =>
             index >= minViewEvent &&
             index <= maxViewEVent && (
-              <div
-                key={index}
-                className={classes.eventContainer}
-                onClick={() => setClickedEvent(event.artist.id)}
-              >
+              <div key={index} className={classes.eventContainer}>
                 <Event
                   title={
                     event?.artist?._embedded?.attractions?.[0]?.name ||
@@ -60,6 +54,7 @@ const Events = ({
                   location={event?.event?._embedded?.venues[0]?.address?.line1}
                   clickedEvent={clickedEvent}
                   setClickedEvent={setClickedEvent}
+                  artistId={event.artist.id}
                   imageClicked={
                     clickedEvent === event.artist.id ? imageClicked : ""
                   }

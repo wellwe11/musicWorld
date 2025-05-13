@@ -300,6 +300,7 @@ export const PopularArtistsNear = React.memo(function PopularArtistsNear({
       if (followingArtistsContainerRef.current) {
         let targetWidth = followingArtistsContainerRef.current.offsetWidth;
         setArtistContainerWidth(targetWidth / 200);
+        console.log(targetWidth, targetWidth / 200);
       }
     };
 

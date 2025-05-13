@@ -24,7 +24,14 @@ const AddToFollowingButton = ({ isFav }) => {
   );
 };
 
-const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
+const EventImage = ({
+  imageSrc,
+  imageClicked,
+  setImageClicked,
+  clickedEvent,
+  setClickedEvent,
+  artistId,
+}) => {
   const [imageHover, setImageHover] = useState(false);
 
   const handleImageClicked = () => {
@@ -64,11 +71,16 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
   return (
     <div
       className={classes.eventImage}
-      onClick={handleImageClicked}
       onMouseEnter={() => handleImageHover().onHover()}
       onMouseLeave={() => handleImageHover().onLeave()}
     >
-      <div className={classes.playButtonContainer}>
+      <div
+        className={classes.playButtonContainer}
+        onClick={() => {
+          handleImageClicked();
+          setClickedEvent(artistId);
+        }}
+      >
         <svg height="130" width="130">
           {imageClicked ? (
             <circle
@@ -84,8 +96,6 @@ const EventImage = ({ imageSrc, imageClicked, setImageClicked }) => {
             ""
           )}
         </svg>
-
-        <div className={classes.logo}></div>
         {imageHover &&
           (imageClicked ? (
             <img className={classes.playPauseIcon} src={pauseIcon} alt="" />
@@ -123,6 +133,7 @@ const Event = React.memo(function Event({
   setClickedEvent,
   imageClicked,
   setImageClicked,
+  artistId,
 }) {
   const [showMoreDates, setShowMoreDates] = useState(false);
   const [isFav, setIsFav] = useState(false);
@@ -181,6 +192,7 @@ const Event = React.memo(function Event({
         setClickedEvent={setClickedEvent}
         setImageClicked={setImageClicked}
         imageClicked={imageClicked}
+        artistId={artistId}
       />
       <div className={classes.subInfo}>
         <div className={classes.titleAndAddToFavs}>
