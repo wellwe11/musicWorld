@@ -24,6 +24,8 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   }, [eventsArray]);
 
   const handleCurrentPage = (type) => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+
     switch (type) {
       case "+":
         if (currentPage < amountOfPages)
@@ -52,7 +54,10 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
   return (
     <div className={classes.pageToView}>
       <button
-        onClick={() => setCurrentPage(1)}
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: "auto" });
+          setCurrentPage(1);
+        }}
         style={{
           color: currentPage === 1 ? "gray" : "",
           position: "absolute",
