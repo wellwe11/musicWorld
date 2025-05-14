@@ -281,6 +281,7 @@ const App = () => {
                 country={country}
                 setDateFrom={setDateFrom}
                 setDateTill={setDateTill}
+                setArtist={setArtist}
               />
             )}
           </div>
@@ -313,7 +314,9 @@ export default App;
  *
  * home-page section that contains "Search your favorite blablabla (filter items)"
  *
-
+ * currently, clicking odd artists names (i.e. Yu (IBB) will bug the artist-page, because his actual name is Yu.)
+ * -- But there are several artists called Yu, and he wont be placed first in the array
+ *
  * fix artist-page bio-info so it applies stylers and such correctly
  *
  *

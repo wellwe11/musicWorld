@@ -6,6 +6,7 @@ import NavButton from "../defaultPage/navBar/navButton";
 
 import buttonClickPlus from "../homeComponents/images/plus.png";
 import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
+import starIcon from "../upcomingEventsPage/playIcons/star.png";
 
 import facebookIcon from "./media/facebook.png";
 import instagramIcon from "./media/instagram.png";
@@ -169,14 +170,19 @@ const ArtistProfile = ({
       isInterested &&
       !interestedArtists?.some((e) => e.artist.id === artist?.id)
     ) {
-      setInterestedArtists((artists) => [
-        ...artists,
-        {
-          artist: ticketMasterArtist?._embedded.attractions[0],
-          event: unfilteredEvents.length > 0 ? unfilteredEvents[0] : "",
-          UpcomingEventsPage: artistEvents ? artistEvents : "",
-        },
-      ]);
+      console.log(ticketMasterArtist);
+      if (ticketMasterArtist._embedded) {
+        setInterestedArtists((artists) => [
+          ...artists,
+          {
+            artist: ticketMasterArtist?._embedded.attractions[0],
+            event: unfilteredEvents.length > 0 ? unfilteredEvents[0] : "",
+            UpcomingEventsPage: artistEvents ? artistEvents : "",
+          },
+        ]);
+      } else {
+        console.log("No artist-profile on artist:", ticketMasterArtist);
+      }
     }
 
     // filter away artists that have false
@@ -231,27 +237,16 @@ const ArtistProfile = ({
               className={classes.interestedButtonContainer}
               onClick={changeIsInterested}
             >
-              {!isInterested ? (
-                <NavButton
-                  externalClass={classes.interestedButtonNotInterested}
-                >
-                  Interested
-                  <img
-                    className={classes.interestedPlus}
-                    src={buttonClickPlus}
-                    alt=""
-                  />
-                </NavButton>
-              ) : (
-                <NavButton externalClass={classes.interestedButtonInterested}>
-                  Interested
-                  <img
-                    className={classes.interestedPlus}
-                    src={buttonClickClose}
-                    alt=""
-                  />
-                </NavButton>
-              )}
+              <NavButton externalClass={classes.interestedButton}>
+                Interested
+                <img
+                  className={`${classes.interestedPlus} ${
+                    !isInterested ? "" : classes.interestedPlusInterested
+                  }`}
+                  src={starIcon}
+                  alt=""
+                />
+              </NavButton>
             </div>
             <div className={classes.linkButtonContainer}>
               <button onClick={() => window.open(bioInfo.instagram)}>
@@ -347,7 +342,7 @@ const ArtistPageComponent = ({
   const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
   const { data, secondaryData, loading, error } = useFetchData(
     "https://api.discogs.com/database/search?q=",
-    artist.replace(/\+/g, " "),
+    artist,
     `&type=artist&token=${DISCOGS_API_KEY}`
   );
 
@@ -415,7 +410,13 @@ const ArtistPageComponent = ({
 
   return (
     <div className={classes.artistPage}>
-      {displayPage ? (
+      {!displayPage && (
+        <>
+          <LoadingSvg />
+        </>
+      )}
+
+      {displayPage && !error && (
         <>
           <ArtistEvents
             events={artistEvents}
@@ -432,10 +433,15 @@ const ArtistPageComponent = ({
             artistEvents={artistEvents}
           />
         </>
-      ) : (
-        <>
-          <LoadingSvg />
-        </>
+      )}
+
+      {displayPage && error && (
+        <div className={classes.cantFindArtist}>
+          <h1>
+            Cant find {artist} {":("}
+          </h1>
+          <h3>Check if your search is correct</h3>
+        </div>
       )}
     </div>
   );

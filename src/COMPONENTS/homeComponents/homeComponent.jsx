@@ -8,6 +8,7 @@ import buttonClickArrow from "./images/arrow-right.png";
 import CountryImageContainer from "./countryRepresenterComponent";
 import MusicImportSection from "./muiscImportSection";
 import FindAppSection from "./downloadAppSection";
+import { useNavigate } from "react-router-dom";
 
 const EventsImagesWheel = ({
   eventsArray,
@@ -74,7 +75,7 @@ const EventsImagesWheel = ({
   }, [oneEventPerDay]);
 
   const logStuff = (e) => {
-    console.log(e);
+    console.log("hi", e);
   };
 
   const displayedImageAdd = () => {
@@ -195,9 +196,11 @@ const ArtistProfile = ({
   artistData,
   interestedArtists,
   setInterestedArtists,
+  setArtist,
 }) => {
   const [isInterested, setIsInterested] = useState(false);
   const [formattedDate, setFormattedDate] = useState("");
+  const navigate = useNavigate();
 
   const handleAddToInterested = () => {
     const newInterested = !isInterested;
@@ -243,11 +246,27 @@ const ArtistProfile = ({
     setFormattedDate(date);
   }, [artistData]);
 
+  const handleNavigate = (link) => {
+    navigate(`/${link}/`);
+  };
+
+  const logStuff = () => {
+    console.log(artistData);
+    const artistName = artistData?.artist.name.replace(/ /g, "+");
+
+    setArtist(artistName);
+    handleNavigate(`./home/artistPage/id=${artistName}`);
+  };
+
   return (
     artistData && (
       <div className={classes.artistWrapper}>
         <div className={classes.imageContainer}>
-          <img src={artistData?.artist?.images[0]?.url} alt="" />
+          <img
+            src={artistData?.artist?.images[0]?.url}
+            alt=""
+            onClick={logStuff}
+          />
         </div>
         <div className={classes.artistTitle}>
           <h3>{artistData?.artist.name}</h3>
@@ -279,6 +298,7 @@ export const PopularArtistsNear = React.memo(function PopularArtistsNear({
   interestedArtists,
   setInterestedArtists,
   title,
+  setArtist,
 }) {
   const scrollRef = useRef();
 
@@ -366,6 +386,7 @@ export const PopularArtistsNear = React.memo(function PopularArtistsNear({
                     interestedArtists={interestedArtists}
                     setInterestedArtists={setInterestedArtists}
                     artistData={artistData[index]}
+                    setArtist={setArtist}
                   />
                 </div>
               ))}
@@ -393,6 +414,7 @@ const HomePageComponent = ({
   country,
   setDateFrom,
   setDateTill,
+  setArtist,
 }) => {
   let isLoggedIn = false;
 
@@ -447,6 +469,7 @@ const HomePageComponent = ({
           interestedArtists={interestedArtists}
           setInterestedArtists={setInterestedArtists}
           title={"Artists close to you"}
+          setArtist={setArtist}
         />
       </div>
       {interestedArtists.length > 0 && (
@@ -460,6 +483,7 @@ const HomePageComponent = ({
             interestedArtists={interestedArtists}
             setInterestedArtists={setInterestedArtists}
             title={"Following artists"}
+            setArtist={setArtist}
           />
         </div>
       )}

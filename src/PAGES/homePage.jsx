@@ -10,6 +10,7 @@ const HomePage = React.memo(function HomePage({
   setInterestedArtists,
   country,
   setDateFrom,
+  setArtist,
 }) {
   return (
     <div className={classes.homePage}>
@@ -19,6 +20,7 @@ const HomePage = React.memo(function HomePage({
         setInterestedArtists={setInterestedArtists}
         country={country}
         setDateFrom={setDateFrom}
+        setArtist={setArtist}
       />
     </div>
   );

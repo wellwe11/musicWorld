@@ -25,24 +25,23 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      .interestedButtonNotInterested {
+
+      .interestedButton {
         height: 40px;
         min-width: 155px;
+
+        .interestedPlus {
+          width: 15px;
+          height: 15px;
+
+          margin-left: 15px;
+
+          filter: invert(0.7);
+        }
       }
 
-      .interestedButtonInterested {
-        height: 40px;
-        min-width: 155px;
-        background-color: rgb(137, 151, 228) !important;
-      }
-
-      .interestedPlus {
-        width: 15px;
-        height: 15px;
-
-        margin-left: 15px;
-
-        filter: invert(0.7);
+      .interestedPlusInterested {
+        filter: invert(1) !important;
       }
     }
     .titleContainer {
@@ -140,4 +139,9 @@
 
     filter: invert(1);
   }
+}
+
+.cantFindArtist {
+  display: flex;
+  flex-direction: column;
 }
