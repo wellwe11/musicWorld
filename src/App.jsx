@@ -167,6 +167,7 @@ const App = () => {
     if (name !== "artistPage") {
       setArtist("");
     }
+    window.scrollTo(0, 0);
   }, [name, home]);
 
   useEffect(() => {
@@ -184,6 +185,8 @@ const App = () => {
       console.log(3);
       fetchEvents();
     }
+
+    window.scrollTo(0, 0);
   }, [dateFrom, dateTill, genre, country, city, artist]);
 
   // once events are fetched, filter the events
