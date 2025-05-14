@@ -275,6 +275,7 @@ const App = () => {
                 interestedArtists={interestedArtists}
                 setInterestedArtists={setInterestedArtists}
                 loading={loading}
+                setArtist={setArtist}
               />
             ) : (
               <HomePage

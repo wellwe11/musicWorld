@@ -98,6 +98,7 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
   interestedArtists,
   setInterestedArtists,
   loading,
+  setArtist,
 }) {
   // const { loading } = useContext(EventContext);
   const [currentPage, setCurrentPage] = useState(1);
@@ -219,7 +220,7 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
                 interestedArtists={interestedArtists}
                 setInterestedArtists={setInterestedArtists}
                 title={"Following upcoming artists..."}
-                type={"following"}
+                setArtist={setArtist}
               />
             </div>
           )}
