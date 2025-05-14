@@ -207,7 +207,6 @@ const ArtistProfile = ({
       newInterested &&
       !interestedArtists?.some((e) => e?.artist.id === artistData?.artist.id)
     ) {
-      console.log(artistData);
       setInterestedArtists((artists) => [...artists, artistData]);
     } else if (!newInterested && interestedArtists?.length > 0) {
       setInterestedArtists((artists) =>
@@ -242,10 +241,8 @@ const ArtistProfile = ({
   useEffect(() => {
     const date = formatDate(artistData);
     setFormattedDate(date);
-    console.log(date);
   }, [artistData]);
 
-  console.log(artistData);
   return (
     artistData && (
       <div className={classes.artistWrapper}>

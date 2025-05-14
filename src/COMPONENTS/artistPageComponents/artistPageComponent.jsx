@@ -120,6 +120,13 @@ const ArtistProfile = ({
 
   const [bioInfo, setBioInfo] = useState({});
 
+  // fetch ticket-master for specific artist.
+  // This needs to be a lonely fetch, because I also need
+  // the artists events which have already been fetched in App.
+  // If we configure App-fetch to be the same as this fetch,
+  // I wont get the artists events.. So I would have to locally
+  // fetch artists-events, and in App fetch the artist, which
+  // is essentially the same.
   const getTicketMasterArtist = async () => {
     const fetchedArtist = await fetchTicketMasterProfile(
       data?.name.replace(/ /g, "_")
@@ -404,7 +411,7 @@ const ArtistPageComponent = ({
 
       return () => clearTimeout(timer);
     }
-  }, [artist, localLoading]);
+  }, [localLoading]);
 
   return (
     <div className={classes.artistPage}>

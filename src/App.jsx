@@ -313,6 +313,7 @@ export default App;
  *
  * home-page section that contains "Search your favorite blablabla (filter items)"
  *
+
  * fix artist-page bio-info so it applies stylers and such correctly
  *
  *
