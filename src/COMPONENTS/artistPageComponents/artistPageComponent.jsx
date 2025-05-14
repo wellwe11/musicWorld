@@ -14,6 +14,28 @@ import soundcloudIcon from "./media/soundcloud.png";
 import youtubeIcon from "./media/youtube.png";
 import { useNavigate } from "react-router-dom";
 import LoadingSvg from "./media/loadingSvg";
+import UpcomingEventsPage from "../../PAGES/upcomingEvents";
+
+const fetchTicketMasterProfile = async (artist) => {
+  const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
+  let url = `https://app.ticketmaster.com/discovery/v2/attractions.json?apikey=${ticketMasterApiKey}&keyword=${artist}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Fetched failed");
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    return data || [];
+  } catch (error) {
+    console.error("fetch error", error);
+    return [];
+  }
+};
 
 export const useFetchData = (base_URL, bandName, specifiedSearchWithAPI) => {
   const [data, setData] = useState([]);
@@ -89,12 +111,24 @@ const ArtistProfile = ({
   interestedArtists,
   setInterestedArtists,
   unfilteredEvents,
+  artistEvents,
 }) => {
   const [artistName, setArtistName] = useState();
   const [imageSource, setImageSource] = useState();
   const [isInterested, setIsInterested] = useState(null);
+  const [ticketMasterArtist, setTicketMasterArtist] = useState(null);
 
   const [bioInfo, setBioInfo] = useState({});
+
+  const getTicketMasterArtist = async () => {
+    const fetchedArtist = await fetchTicketMasterProfile(
+      data?.name.replace(/ /g, "_")
+    );
+
+    if (fetchedArtist) {
+      setTicketMasterArtist(fetchedArtist);
+    }
+  };
 
   useEffect(() => {
     setArtistName(data?.name);
@@ -117,28 +151,64 @@ const ArtistProfile = ({
   const artist = unfilteredEvents?.[0]?._embedded?.attractions?.[0];
 
   useEffect(() => {
+    if (data) {
+      getTicketMasterArtist();
+    }
+  }, [data]);
+
+  useEffect(() => {
     // if isInterested clicked and isn't in the interestedArtistsArray
-    if (isInterested && !interestedArtists?.some((e) => e.id === artist?.id)) {
-      return setInterestedArtists((artists) => [...artists, artist]);
+    if (
+      isInterested &&
+      !interestedArtists?.some((e) => e.artist.id === artist?.id)
+    ) {
+      setInterestedArtists((artists) => [
+        ...artists,
+        {
+          artist: ticketMasterArtist?._embedded.attractions[0],
+          event: unfilteredEvents.length > 0 ? unfilteredEvents[0] : "",
+          UpcomingEventsPage: artistEvents ? artistEvents : "",
+        },
+      ]);
     }
 
     // filter away artists that have false
     if (isInterested === false && interestedArtists?.length > 0) {
-      return setInterestedArtists((artists) =>
-        artists.filter((e) => e?.id !== artist?.id)
+      console.log(isInterested, interestedArtists);
+      setInterestedArtists((artists) =>
+        artists.filter(
+          (e) =>
+            e?.artist.id !== ticketMasterArtist?._embedded.attractions[0].id
+        )
       );
     }
   }, [isInterested]);
 
   useEffect(() => {
-    if (!interestedArtists?.some((e) => e?.id === artist?.id)) {
-      setIsInterested(false);
+    if (ticketMasterArtist) {
+      console.log(
+        ticketMasterArtist,
+        interestedArtists?.some((e) => e?.artist.id)
+      );
+      if (
+        !interestedArtists?.some(
+          (e) =>
+            e?.artist.id === ticketMasterArtist?._embedded.attractions[0].id
+        )
+      ) {
+        setIsInterested(false);
+      }
+      // sets true on-load if exists in array
+      if (
+        interestedArtists?.some(
+          (e) =>
+            e?.artist.id === ticketMasterArtist?._embedded.attractions[0].id
+        )
+      ) {
+        setIsInterested(true);
+      }
     }
-    // sets true on-load if exists in array
-    if (interestedArtists?.some((e) => e?.id === artist?.id)) {
-      return setIsInterested(true);
-    }
-  }, [artist]);
+  }, [ticketMasterArtist]);
 
   return (
     <div className={classes.artistProfile}>
@@ -352,6 +422,7 @@ const ArtistPageComponent = ({
             interestedArtists={interestedArtists}
             setInterestedArtists={setInterestedArtists}
             unfilteredEvents={unfilteredEvents}
+            artistEvents={artistEvents}
           />
         </>
       ) : (

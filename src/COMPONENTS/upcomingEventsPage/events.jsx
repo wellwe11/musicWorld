@@ -65,6 +65,7 @@ const Events = ({
                   interestedArtists={interestedArtists}
                   setInterestedArtists={setInterestedArtists}
                   artist={event?.artist}
+                  event={event}
                 />
               </div>
             )

@@ -10,15 +10,13 @@
   transition: all 0.2s ease;
 
   .eventContainer {
-    align-self: center;
     display: flex;
+    align-self: center;
     justify-content: center;
     align-items: center;
+
     width: 33%;
     min-height: 400px;
-
-    transition: all 0.2s ease;
-
     padding: 20px;
   }
 
@@ -66,7 +64,7 @@
     flex-direction: column;
     justify-content: space-between;
 
-    width: 100%;
+    min-width: 100%;
     min-height: 150px;
 
     background-color: var(--buttonWrapperColor);
@@ -102,6 +100,7 @@
 
       position: relative;
       width: 100%;
+      max-width: 290px;
 
       .moreDatesIcon {
         height: 15px;
@@ -154,7 +153,7 @@
   }
 }
 
-.event:hover {
+.event:hover .eventImage .coverPhoto {
   transform: scale(1.01);
 }
 
@@ -172,6 +171,8 @@
 
   overflow: hidden;
 
+  border-radius: var(--eventContainerRadius);
+
   .coverPhoto {
     object-fit: cover;
     height: 400px;
@@ -183,8 +184,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    border-radius: var(--eventContainerRadius);
   }
 
   .coverPhotoFaded {
@@ -316,5 +315,13 @@
 
       filter: invert(1);
     }
+  }
+}
+
+.pageEventsWrapper {
+  background-color: orange !important;
+
+  .locationTitle {
+    color: orange !important;
   }
 }

@@ -126,10 +126,8 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
     const localArray = [];
 
     eventsArray?.filter((event) => {
-      const artistsObject = event.artist;
-
-      if (interestedArtists.some((b) => artistsObject.id === b.id)) {
-        localArray.push(artistsObject);
+      if (interestedArtists.some((b) => event?.artist.id === b?.artist.id)) {
+        localArray.push(event);
       }
     });
 
@@ -205,8 +203,6 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
     }
   }, [eventsThisDate]);
 
-  console.log(events);
-
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}
@@ -231,10 +227,13 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
             {eventsThisDate.length > 0 && currentPage === 1 && (
               <div className={classes.pageEventsWrapper}>
                 <h1 className={classes.locationTitle}>
-                  {dateFrom ? "Events " + eventsThisDateName : "Events today"}
+                  {dateFrom
+                    ? "Events " + eventsThisDateName.replace(/_/g, " ")
+                    : "Events today"}
                 </h1>
                 {eventsThisDate && eventsThisDate.length > 0 ? (
                   <Events
+                    artistData={events}
                     eventsArray={eventsThisDate}
                     loading={loading}
                     minViewEvent={0}
@@ -258,12 +257,16 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
           <div className={classes.pageEventsWrapper}>
             <h1 className={classes.locationTitle}>
               Viewing events in{" "}
-              {city.charAt(0).toUpperCase() + city.slice(1) ||
-                eventsArray?.[0]?.event?._embedded?.venues?.[0]?.country
-                  ?.name ||
+              {city.charAt(0).toUpperCase() +
+                city.slice(1).replace(/_/g, " ") ||
+                eventsArray?.[0]?.event?._embedded?.venues?.[0]?.country?.name.replace(
+                  /_/g,
+                  " "
+                ) ||
                 "Loading location..."}
             </h1>
             <Events
+              artistData={events}
               eventsArray={eventsNotToday}
               loading={loading}
               minViewEvent={minViewEvent}

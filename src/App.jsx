@@ -311,14 +311,10 @@ export default App;
  *
  * Design app-section on homePage
  *
+ * home-page section that contains "Search your favorite blablabla (filter items)"
  *
- * Fix navbuttons border -- on bigger screen isnt central (probably make it grid instead of aligning self)
- *
- * Remove loading from dropdown menu (fixed) so it doesnt appear everytime it drops down
  * fix artist-page bio-info so it applies stylers and such correctly
  *
- *
- * if you click play on an event (play button), and then select a new favorite, it will play that new favorite artist
  *
  * Pages to create:
  * -- EVENT/ARTIST NOT FOUND PAGE --

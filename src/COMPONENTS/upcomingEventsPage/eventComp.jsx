@@ -134,6 +134,7 @@ const Event = React.memo(function Event({
   imageClicked,
   setImageClicked,
   artistId,
+  event,
 }) {
   const [showMoreDates, setShowMoreDates] = useState(false);
   const [isFav, setIsFav] = useState(false);
@@ -161,21 +162,20 @@ const Event = React.memo(function Event({
     setIsFav(newFavStatus);
 
     if (newFavStatus && !interestedArtists?.includes(artist)) {
-      setInterestedArtists((prevArtists) => [...prevArtists, artist]);
+      setInterestedArtists((prevArtists) => [...prevArtists, event]);
     } else if (
       !newFavStatus &&
-      interestedArtists?.some((a) => a.id.includes(artist.id))
+      interestedArtists?.some((a) => a?.artist.id.includes(artistId))
     ) {
-      console.log("asd");
       setInterestedArtists((artists) =>
-        artists.filter((a) => a.id !== artist.id)
+        artists.filter((a) => a?.artist.id !== artistId)
       );
     }
   };
 
   useEffect(() => {
     if (interestedArtists || date) {
-      if (interestedArtists?.some((a) => a.id.includes(artist.id))) {
+      if (interestedArtists?.some((a) => a?.artist.id.includes(artistId))) {
         setIsFav(true);
       } else {
         setIsFav(false);

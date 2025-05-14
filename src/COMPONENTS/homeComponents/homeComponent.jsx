@@ -176,22 +176,28 @@ const InterestedButton = ({ isInterested, handleIsInterested }) => {
   );
 };
 
+const formatDate = (artist) => {
+  if (artist?.event.length > 0) {
+    let artistDate = artist?.event.dates.start.localDate;
+    const updated = new Date(artistDate);
+
+    const dateOptions = { weekday: "short", month: "short", day: "numeric" };
+
+    const formattedDate = new Intl.DateTimeFormat("en-US", dateOptions).format(
+      updated
+    );
+
+    return formattedDate;
+  }
+};
+
 const ArtistProfile = ({
   artistData,
   interestedArtists,
   setInterestedArtists,
-  type,
 }) => {
   const [isInterested, setIsInterested] = useState(false);
-  let artist;
-
-  if (type === "near") {
-    artist = artistData.artist;
-  }
-
-  if (type === "following") {
-    artist = artistData;
-  }
+  const [formattedDate, setFormattedDate] = useState("");
 
   const handleAddToInterested = () => {
     const newInterested = !isInterested;
@@ -199,41 +205,56 @@ const ArtistProfile = ({
 
     if (
       newInterested &&
-      !interestedArtists?.some((e) => e?.id === artist?.id)
+      !interestedArtists?.some((e) => e?.artist.id === artistData?.artist.id)
     ) {
-      setInterestedArtists((artists) => [...artists, artist]);
+      console.log(artistData);
+      setInterestedArtists((artists) => [...artists, artistData]);
     } else if (!newInterested && interestedArtists?.length > 0) {
       setInterestedArtists((artists) =>
-        artists.filter((a) => a && a?.id !== artist?.id)
+        artists.filter((a) => a && a?.artist.id !== artistData?.artist.id)
       );
     }
   };
 
   useEffect(() => {
     // sets true on-load if exists in array
-    if (interestedArtists?.some((e) => e?.id === artist?.id)) {
+    if (
+      interestedArtists?.some((e) => e?.artist.id === artistData?.artist.id)
+    ) {
       setIsInterested(true);
     }
 
-    if (!interestedArtists?.some((e) => e?.id === artist?.id)) {
+    if (
+      !interestedArtists?.some((e) => e?.artist.id === artistData?.artist.id)
+    ) {
       setIsInterested(false);
     }
   }, [interestedArtists]);
 
   useEffect(() => {
-    if (interestedArtists?.some((e) => e?.id === artist?.id)) {
+    if (
+      interestedArtists?.some((e) => e?.artist.id === artistData?.artist.id)
+    ) {
       setIsInterested(true);
     }
   }, []);
 
+  useEffect(() => {
+    const date = formatDate(artistData);
+    setFormattedDate(date);
+    console.log(date);
+  }, [artistData]);
+
+  console.log(artistData);
   return (
     artistData && (
       <div className={classes.artistWrapper}>
         <div className={classes.imageContainer}>
-          <img src={artist?.images[0]?.url} alt="" />
+          <img src={artistData?.artist?.images[0]?.url} alt="" />
         </div>
         <div className={classes.artistTitle}>
-          <h3>{artist?.name}</h3>
+          <h3>{artistData?.artist.name}</h3>
+          <h5>{formattedDate}</h5>
           <InterestedButton
             isInterested={isInterested}
             handleIsInterested={handleAddToInterested}
@@ -261,7 +282,6 @@ export const PopularArtistsNear = React.memo(function PopularArtistsNear({
   interestedArtists,
   setInterestedArtists,
   title,
-  type,
 }) {
   const scrollRef = useRef();
 
@@ -300,7 +320,6 @@ export const PopularArtistsNear = React.memo(function PopularArtistsNear({
       if (followingArtistsContainerRef.current) {
         let targetWidth = followingArtistsContainerRef.current.offsetWidth;
         setArtistContainerWidth(targetWidth / 200);
-        console.log(targetWidth, targetWidth / 200);
       }
     };
 
@@ -350,7 +369,6 @@ export const PopularArtistsNear = React.memo(function PopularArtistsNear({
                     interestedArtists={interestedArtists}
                     setInterestedArtists={setInterestedArtists}
                     artistData={artistData[index]}
-                    type={type}
                   />
                 </div>
               ))}
@@ -432,7 +450,6 @@ const HomePageComponent = ({
           interestedArtists={interestedArtists}
           setInterestedArtists={setInterestedArtists}
           title={"Artists close to you"}
-          type={"near"}
         />
       </div>
       {interestedArtists.length > 0 && (
@@ -446,7 +463,6 @@ const HomePageComponent = ({
             interestedArtists={interestedArtists}
             setInterestedArtists={setInterestedArtists}
             title={"Following artists"}
-            type={"following"}
           />
         </div>
       )}

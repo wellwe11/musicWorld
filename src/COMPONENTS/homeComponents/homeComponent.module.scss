@@ -139,7 +139,7 @@
 }
 
 .bandTextContainer {
-  width: var(--homePageWidth);
+  min-width: var(--homePageWidth);
   height: fit-content;
   padding: 20px;
   position: absolute;
@@ -184,8 +184,7 @@
 
   color: white;
 
-  margin: 20px;
-  padding: 30px;
+  margin: 40px;
 
   scroll-behavior: smooth;
 
@@ -251,6 +250,8 @@
   width: 200px;
 
   position: relative;
+
+  overflow: hidden;
   .imageContainer {
     overflow: hidden;
     border-radius: var(--eventContainerRadius);
@@ -261,10 +262,19 @@
     align-items: center;
 
     img {
+      transition: all 0.3s ease;
       object-fit: cover;
 
       min-height: 240px;
       width: 100%;
+      border-radius: var(--eventContainerRadius);
+
+      cursor: pointer;
+    }
+
+    img:hover {
+      filter: blur(1px);
+      transform: scale(1.02);
     }
   }
 
@@ -286,7 +296,7 @@
     backdrop-filter: blur(10px);
 
     width: 100%;
-    min-height: 50px;
+    min-height: 70px;
     height: 90px;
 
     .interestedButtonContainer {
@@ -307,6 +317,8 @@
       border-radius: var(--eventContainerRadius);
 
       margin-top: 5px;
+
+      margin-bottom: 10px;
 
       button {
         border-radius: var(--eventContainerRadius);
