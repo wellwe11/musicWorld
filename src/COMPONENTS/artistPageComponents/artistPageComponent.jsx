@@ -370,7 +370,7 @@ const ArtistPageComponent = ({
       );
 
       if (fetchedArtist) {
-        setTicketMasterArtist(fetchedArtist?._embedded.attractions[0]);
+        setTicketMasterArtist(fetchedArtist?._embedded?.attractions?.[0]);
       }
     }
   };

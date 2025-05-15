@@ -153,20 +153,27 @@ const App = () => {
       setDateTill("");
       setGenre("");
       setCity("");
-      setArtist("");
     }
 
     if (name !== "artistPage") {
       setArtist("");
-      return window.scrollTo(0, 0);
     }
+    window.scrollTo(0, 0);
   }, [name, home]);
 
   useEffect(() => {
     console.log(dateFrom, dateTill, genre, country, city);
-    if (dateFrom || dateTill || genre || city) {
-      handleNavigate("./home/upcomingEvents");
 
+    if (artist) {
+      setDateFrom("");
+      setDateTill("");
+      setGenre("");
+      setCity("");
+    } else if (
+      name === "upcomingEvents" &&
+      (dateFrom || dateTill || genre || city)
+    ) {
+      handleNavigate("./home/upcomingEvents");
       fetchEvents();
     }
 
@@ -297,10 +304,6 @@ export default App;
  * add loading svg animations
  * -- to home-page
  * Fix so that the page doesnt refresh so many times
- *
- * Add dates to "Artists near you" on homepage
- * * Add dates to "Following artists" on homepage
- * * Add dates to "Artists near you" on upcomingEvents
  *
  * Design app-section on homePage
  *
