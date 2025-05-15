@@ -24,11 +24,7 @@ const Events = ({
   // such as the fetch. Loading is then turned true or false depending on the return of the JSON
   useEffect(() => {
     if (!loading) {
-      const timer = setTimeout(() => {
-        setDisplayEvents(true);
-      }, 1000);
-
-      return () => clearTimeout(timer);
+      setDisplayEvents(true);
     }
   }, [loading]);
 

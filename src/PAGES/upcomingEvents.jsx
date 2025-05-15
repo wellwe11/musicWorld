@@ -1,17 +1,7 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import Events from "../COMPONENTS/upcomingEventsPage/events";
 import classes from "./defaultPage.module.scss";
 
-import { EventContext, fetchDataTicketMaster } from "../App";
-
-import squareStyleIcon from "./window-of-four-rounded-squares.png";
-import listStyleIcon from "./list-text.png";
 import { PopularArtistsNear } from "../COMPONENTS/homeComponents/homeComponent";
 import LoadingSvg from "../COMPONENTS/artistPageComponents/media/loadingSvg";
 

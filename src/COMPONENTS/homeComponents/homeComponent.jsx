@@ -249,7 +249,6 @@ const ArtistProfile = ({
 
   useEffect(() => {
     const date = formatDate(artistData);
-    console.log(date);
     setFormattedDate(date);
   }, [artistData]);
 
@@ -258,7 +257,6 @@ const ArtistProfile = ({
   };
 
   const logStuff = () => {
-    console.log(artistData);
     const artistName = artistData?.artist.name.replace(/ /g, "+");
 
     handleNavigate(`./home/artistPage/id=${artistName}`);

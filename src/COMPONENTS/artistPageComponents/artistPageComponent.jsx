@@ -322,7 +322,7 @@ const ArtistPageComponent = ({
   };
 
   useEffect(() => {
-    if (link) {
+    if (!artist && link) {
       const artistName = link.replace(/id/g, "");
       let updateName = artistName.replace(/[=]/g, " ");
       setArtist(updateName);
@@ -331,7 +331,7 @@ const ArtistPageComponent = ({
       console.log("no artist active");
       handleNavigate("./home");
     }
-  }, [artist, link]);
+  }, [link]);
 
   // seperate fetch to display all upcoming events from artist
   const getEvents = async (artist) => {
@@ -368,6 +368,8 @@ const ArtistPageComponent = ({
       const fetchedArtist = await fetchTicketMasterProfile(
         artist.replace(/ /g, "_")
       );
+
+      console.log("fetched data:", fetchedArtist);
 
       if (fetchedArtist) {
         setTicketMasterArtist(fetchedArtist?._embedded?.attractions?.[0]);
@@ -416,8 +418,10 @@ const ArtistPageComponent = ({
   };
 
   useEffect(() => {
-    // get artists profile
-    getTicketMasterArtist(artist);
+    if (artist) {
+      // get artists profile
+      getTicketMasterArtist(artist);
+    }
   }, [artist]);
 
   useEffect(() => {

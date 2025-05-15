@@ -20,6 +20,9 @@ import LoadingSvg from "./COMPONENTS/artistPageComponents/media/loadingSvg";
 
 export const EventContext = createContext();
 
+// cache the API to avoid extra fetches
+const ticketMasterCache = new Map();
+
 export const fetchDataTicketMaster = async (
   size,
   page,
@@ -30,13 +33,13 @@ export const fetchDataTicketMaster = async (
   city,
   artist
 ) => {
-  const BASE_URL = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music`;
+  let BASE_URL = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music`;
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
   let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=200`;
 
   if (artist) {
-    url += `&keyword=${artist}`;
+    url += `&keyword=${artist.trim()}`;
 
     if (country) {
       url += `&countryCode=${country}`;
@@ -65,6 +68,13 @@ export const fetchDataTicketMaster = async (
     }
   }
 
+  if (ticketMasterCache.has(url)) {
+    console.log("Same api-fetch as previously:", url);
+    return ticketMasterCache.get(url);
+  }
+
+  console.log(url);
+
   try {
     const response = await fetch(url);
 
@@ -73,6 +83,8 @@ export const fetchDataTicketMaster = async (
     }
 
     const data = await response.json();
+
+    ticketMasterCache.set(url, data);
     console.log(data);
 
     return data || [];
@@ -155,28 +167,28 @@ const App = () => {
       setCity("");
     }
 
-    if (name !== "artistPage") {
-      setArtist("");
-    }
     window.scrollTo(0, 0);
-  }, [name, home]);
+  }, [name]);
 
   useEffect(() => {
+    console.log(artist);
     if (artist) {
       setDateFrom("");
       setDateTill("");
       setGenre("");
       setCity("");
-    } else if (
-      name === "upcomingEvents" &&
-      (dateFrom || dateTill || genre || city)
-    ) {
-      handleNavigate("./home/upcomingEvents");
-      fetchEvents();
-    } else if (country) {
-      fetchEvents();
     }
-  }, [dateFrom, dateTill, genre, country, city, name]);
+
+    if (country) {
+      fetchEvents();
+      return;
+    }
+
+    if (name !== "artistPage") {
+      setArtist("");
+      return fetchEvents();
+    }
+  }, [dateFrom, dateTill, genre, city, country, name]);
 
   // once events are fetched, filter the events
   useEffect(() => {
@@ -250,10 +262,10 @@ const App = () => {
             {name === "artistPage" && link ? (
               <ArtistPage
                 artistEvents={events}
-                artist={artist}
                 eventsArray={eventsArray}
                 interestedArtists={interestedArtists}
                 setInterestedArtists={setInterestedArtists}
+                artist={artist}
                 setArtist={setArtist}
                 country={country}
               />
@@ -307,6 +319,8 @@ export default App;
  *
  * fix artist-page bio-info so it applies stylers and such correctly
  *
+ * Fix so social-media icons arent displayed if there's no link on artist-page
+ * --add spotify-link
  *
  * Pages to create:
  * -- EVENT/ARTIST NOT FOUND PAGE --
