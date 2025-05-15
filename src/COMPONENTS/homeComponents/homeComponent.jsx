@@ -253,7 +253,7 @@ const ArtistProfile = ({
   }, [artistData]);
 
   const handleNavigate = (link) => {
-    window.open(`/${link}/`);
+    navigate(`/${link}/`);
   };
 
   const logStuff = () => {

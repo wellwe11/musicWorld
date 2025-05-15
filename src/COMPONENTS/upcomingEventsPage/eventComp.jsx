@@ -199,7 +199,7 @@ const Event = React.memo(function Event({
   }, [interestedArtists, date]);
 
   const handleNavigate = (link) => {
-    window.open(`/${link}/`);
+    navigate(`/${link}/`);
   };
 
   const openArtistPage = () => {

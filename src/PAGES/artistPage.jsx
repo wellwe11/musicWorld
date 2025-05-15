@@ -8,6 +8,7 @@ const ArtistPage = React.memo(function ArtistPage({
   setInterestedArtists,
   eventsArray,
   setArtist,
+  country,
 }) {
   return (
     <ArtistPageComponent
@@ -17,6 +18,7 @@ const ArtistPage = React.memo(function ArtistPage({
       setInterestedArtists={setInterestedArtists}
       eventsArray={eventsArray}
       setArtist={setArtist}
+      country={country}
     />
   );
 });

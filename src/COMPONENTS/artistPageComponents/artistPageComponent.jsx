@@ -25,7 +25,6 @@ const fetchTicketMasterProfile = async (artist) => {
     }
 
     const data = await response.json();
-    console.log(data);
 
     return data || [];
   } catch (error) {
@@ -109,30 +108,14 @@ const ArtistProfile = ({
   setInterestedArtists,
   unfilteredEvents,
   artistEvents,
+  ticketMasterArtist,
+  setTicketMasterArtist,
 }) => {
   const [artistName, setArtistName] = useState();
   const [imageSource, setImageSource] = useState();
   const [isInterested, setIsInterested] = useState(null);
-  const [ticketMasterArtist, setTicketMasterArtist] = useState(null);
 
   const [bioInfo, setBioInfo] = useState({});
-
-  // fetch ticket-master for specific artist.
-  // This needs to be a lonely fetch, because I also need
-  // the artists events which have already been fetched in App.
-  // If we configure App-fetch to be the same as this fetch,
-  // I wont get the artists events.. So I would have to locally
-  // fetch artists-events, and in App fetch the artist, which
-  // is essentially the same.
-  const getTicketMasterArtist = async () => {
-    const fetchedArtist = await fetchTicketMasterProfile(
-      data?.name.replace(/ /g, "_")
-    );
-
-    if (fetchedArtist) {
-      setTicketMasterArtist(fetchedArtist);
-    }
-  };
 
   useEffect(() => {
     setArtistName(data?.name);
@@ -155,18 +138,11 @@ const ArtistProfile = ({
   const artist = unfilteredEvents?.[0]?._embedded?.attractions?.[0];
 
   useEffect(() => {
-    if (data) {
-      getTicketMasterArtist();
-    }
-  }, [data]);
-
-  useEffect(() => {
     // if isInterested clicked and isn't in the interestedArtistsArray
     if (
       isInterested &&
       !interestedArtists?.some((e) => e.artist.id === artist?.id)
     ) {
-      console.log(ticketMasterArtist);
       if (ticketMasterArtist._embedded) {
         setInterestedArtists((artists) => [
           ...artists,
@@ -183,7 +159,6 @@ const ArtistProfile = ({
 
     // filter away artists that have false
     if (isInterested === false && interestedArtists?.length > 0) {
-      console.log(isInterested, interestedArtists);
       setInterestedArtists((artists) =>
         artists.filter(
           (e) =>
@@ -195,10 +170,6 @@ const ArtistProfile = ({
 
   useEffect(() => {
     if (ticketMasterArtist) {
-      console.log(
-        ticketMasterArtist,
-        interestedArtists?.some((e) => e?.artist.id)
-      );
       if (
         !interestedArtists?.some(
           (e) =>
@@ -272,16 +243,15 @@ const ArtistProfile = ({
   );
 };
 
-const ArtistEvents = ({ events, unfilteredEvents, loading }) => {
+const ArtistEvents = ({ events, unfilteredEvents }) => {
   return (
     <div className={classes.artistEventsContainer}>
-      {events && (
+      {events?.length > 0 && (
         <div className={classes.eventSectionContainer}>
           <h2>
-            Events in{" "}
-            {events?.events?.[0]?._embedded?.venues?.[0]?.country?.name}
+            Events in {events?.[0]?._embedded?.venues?.[0]?.country?.name}
           </h2>
-          {events?.events?.map((event, index) => (
+          {events?.map((event, index) => (
             <div className={classes.eventWrapper} key={index}>
               <div className={classes.eventTitle}>
                 <h4>{event?.name}</h4>
@@ -323,6 +293,7 @@ const ArtistEvents = ({ events, unfilteredEvents, loading }) => {
 };
 
 const ArtistPageComponent = ({
+  country,
   artistEvents,
   setArtist,
   artist,
@@ -333,9 +304,11 @@ const ArtistPageComponent = ({
   const navigate = useNavigate();
   const [localLoading, setLocalLoading] = useState(true);
   const [unfilteredEvents, setUnfilteredEvents] = useState(null);
+  const [eventsInCountry, setEventyInCountry] = useState(null);
   const [artistObject, setArtistObject] = useState(null);
   const [displayPage, setDisplayPage] = useState(false);
   const { link } = useParams();
+  const [ticketMasterArtist, setTicketMasterArtist] = useState(null);
 
   const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
   const { data, secondaryData, loading, error } = useFetchData(
@@ -373,32 +346,85 @@ const ArtistPageComponent = ({
       "",
       artist
     );
+
     if (fetchedData) {
       const onlyArtistEvents = displayOnlyArtistsEvents(fetchedData);
       setUnfilteredEvents(onlyArtistEvents);
-      if (localLoading) {
+      if (!localLoading) {
         return setArtistObject(fetchedData);
+      }
+    }
+  };
+
+  // fetch ticket-master for specific artist.
+  // This needs to be a lonely fetch, because I also need
+  // the artists events which have already been fetched in App.
+  // If we configure App-fetch to be the same as this fetch,
+  // I wont get the artists events.. So I would have to locally
+  // fetch artists-events, and in App fetch the artist, which
+  // is essentially the same.
+  const getTicketMasterArtist = async () => {
+    if (artist.length > 0) {
+      const fetchedArtist = await fetchTicketMasterProfile(
+        artist.replace(/ /g, "_")
+      );
+
+      if (fetchedArtist) {
+        setTicketMasterArtist(fetchedArtist?._embedded.attractions[0]);
       }
     }
   };
 
   // filters out any events related to artist, but isn't done by the artist (many events are either misq. events or fan-made)
   const displayOnlyArtistsEvents = (fetchedData) => {
-    let fixedEvents = fetchedData?._embedded?.events?.filter(
-      (ev) => data?.name === ev?._embedded?.attractions?.[0]?.name
+    let fixedEvents = fetchedData?._embedded?.events?.filter((ev) =>
+      ev?._embedded?.attractions?.some((a) => a?.id === ticketMasterArtist?.id)
     );
 
     if (fixedEvents) {
-      setLocalLoading(false);
+      let sortedByDate = fixedEvents.sort(
+        (a, b) =>
+          new Date(a.dates.start.localDate) - new Date(b.dates.start.localDate)
+      );
+
+      return sortedByDate;
     }
-    return fixedEvents;
   };
 
   useEffect(() => {
-    if (artist) {
+    if (unfilteredEvents?.length > 0) {
+      displayEventsInCurrentCountry();
+    }
+  }, [unfilteredEvents]);
+
+  const displayEventsInCurrentCountry = () => {
+    const fixedEvents = unfilteredEvents?.filter(
+      (ev) => ev?._embedded.venues[0].country.countryCode === country
+    );
+
+    if (fixedEvents) {
+      let sortedByDate = fixedEvents.sort(
+        (a, b) =>
+          new Date(a.dates.start.localDate) - new Date(b.dates.start.localDate)
+      );
+
+      if (sortedByDate) {
+        setLocalLoading(false);
+        setEventyInCountry(sortedByDate);
+      }
+    }
+  };
+
+  useEffect(() => {
+    // get artists profile
+    getTicketMasterArtist(artist);
+  }, [artist]);
+
+  useEffect(() => {
+    if (ticketMasterArtist) {
       getEvents(artist);
     }
-  }, [data]);
+  }, [ticketMasterArtist]);
 
   useEffect(() => {
     setDisplayPage(false);
@@ -422,19 +448,22 @@ const ArtistPageComponent = ({
       {displayPage && !error && (
         <>
           <ArtistEvents
-            events={artistEvents}
-            artist={artist}
+            events={eventsInCountry}
             unfilteredEvents={unfilteredEvents}
           />
-          <ArtistProfile
-            artistObject={artistObject}
-            data={data}
-            secondaryData={secondaryData}
-            interestedArtists={interestedArtists}
-            setInterestedArtists={setInterestedArtists}
-            unfilteredEvents={unfilteredEvents}
-            artistEvents={artistEvents}
-          />
+          {!localLoading && (
+            <ArtistProfile
+              artistObject={artistObject}
+              data={data}
+              secondaryData={secondaryData}
+              interestedArtists={interestedArtists}
+              setInterestedArtists={setInterestedArtists}
+              unfilteredEvents={unfilteredEvents}
+              artistEvents={eventsInCountry}
+              ticketMasterArtist={ticketMasterArtist}
+              setTicketMasterArtist={setTicketMasterArtist}
+            />
+          )}
         </>
       )}
 

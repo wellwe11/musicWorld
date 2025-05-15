@@ -65,8 +65,6 @@ export const fetchDataTicketMaster = async (
     }
   }
 
-  console.log(url);
-
   try {
     const response = await fetch(url);
 
@@ -118,8 +116,9 @@ const App = () => {
   };
 
   const getEvents = useCallback(
-    async (size, page, dateStart, dateEnd, genre, country, city, artist) => {
+    async (size, page, dateStart, dateEnd, genre, country, city) => {
       setLoading(true);
+
       const fetchedData = await fetchDataTicketMaster(
         size,
         page,
@@ -139,10 +138,12 @@ const App = () => {
   );
 
   const fetchEvents = () => {
-    if (dateFrom || dateTill || genre || country || city) {
-      getEvents("", "", dateFrom, dateTill, genre, country, city, "");
-    } else {
-      getEvents();
+    if (name !== "artistPage") {
+      if (dateFrom || dateTill || genre || country || city) {
+        getEvents("", "", dateFrom, dateTill, genre, country, city, "");
+      } else {
+        getEvents();
+      }
     }
   };
 
@@ -152,6 +153,7 @@ const App = () => {
       setDateTill("");
       setGenre("");
       setCity("");
+      setArtist("");
     }
 
     if (name !== "artistPage") {
@@ -167,10 +169,11 @@ const App = () => {
 
       fetchEvents();
     }
+
     if (country) {
       fetchEvents();
     }
-  }, [dateFrom, dateTill, genre, country, city]);
+  }, [dateFrom, dateTill, genre, country, city, name]);
 
   // once events are fetched, filter the events
   useEffect(() => {
@@ -249,6 +252,7 @@ const App = () => {
                 interestedArtists={interestedArtists}
                 setInterestedArtists={setInterestedArtists}
                 setArtist={setArtist}
+                country={country}
               />
             ) : name && !link ? (
               <PageToView

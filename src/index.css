@@ -126,7 +126,5 @@ h2 {
 
 html,
 body {
-  scroll-behavior: smooth;
   overflow: overlay;
-  overflow: auto;
 }
