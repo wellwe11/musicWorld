@@ -463,7 +463,7 @@ const HomePageComponent = ({
         />
       </div>
       <div
-        className={`${classes.popularArtistsNearSection} ${
+        className={`${
           loadElements > 2 ? classes.onLoadShow : classes.onLoadHidden
         }`}
       >
