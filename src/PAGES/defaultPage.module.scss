@@ -7,7 +7,9 @@
 }
 
 .routesContainer {
+  width: var(--homePageWidth);
   display: grid;
+  justify-content: center;
 }
 
 .pageToView {
