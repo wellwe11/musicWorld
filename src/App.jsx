@@ -171,7 +171,6 @@ const App = () => {
   }, [name]);
 
   useEffect(() => {
-    console.log(artist);
     if (artist) {
       setDateFrom("");
       setDateTill("");
@@ -193,7 +192,6 @@ const App = () => {
   // once events are fetched, filter the events
   useEffect(() => {
     if (events) {
-      console.log(events);
       return addEvents(events?.events, setEventsArray);
     }
   }, [events]);
@@ -219,8 +217,6 @@ const App = () => {
       if (target) observer.unobserve(target);
     };
   }, []);
-
-  console.log(interestedArtists);
 
   return (
     <div className={classes.appContainer}>

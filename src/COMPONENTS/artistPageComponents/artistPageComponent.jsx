@@ -259,7 +259,7 @@ const ArtistEvents = ({ events, unfilteredEvents }) => {
       )}
 
       <div className={classes.eventSectionContainer}>
-        <h2>All events</h2>
+        <h2>{events?.length > 0 ? "All other events" : "All events"}</h2>
         {unfilteredEvents?.map((event, index) => (
           <div className={classes.eventWrapper} key={index}>
             <div className={classes.eventTitle}>
@@ -298,6 +298,7 @@ const ArtistPageComponent = ({
   const [displayPage, setDisplayPage] = useState(false);
   const { link } = useParams();
   const [ticketMasterArtist, setTicketMasterArtist] = useState(null);
+  const [countriesOutsideCountry, setCountriesOutsideCountry] = useState();
 
   const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
   const { data, secondaryData, loading, error } = useFetchData(
@@ -382,9 +383,20 @@ const ArtistPageComponent = ({
     }
   };
 
+  const displayEventsOutsideCountry = () => {
+    const eventsOutsideCountry = unfilteredEvents?.filter(
+      (ev) => ev?._embedded.venues[0].country.countryCode !== country
+    );
+
+    if (eventsOutsideCountry) {
+      return setCountriesOutsideCountry(eventsOutsideCountry);
+    }
+  };
+
   useEffect(() => {
     if (unfilteredEvents?.length > 0) {
       displayEventsInCurrentCountry();
+      displayEventsOutsideCountry();
     }
   }, [unfilteredEvents]);
 
@@ -442,7 +454,7 @@ const ArtistPageComponent = ({
         <>
           <ArtistEvents
             events={eventsInCountry}
-            unfilteredEvents={unfilteredEvents}
+            unfilteredEvents={countriesOutsideCountry}
           />
           {!localLoading && (
             <ArtistProfile
