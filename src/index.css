@@ -91,10 +91,12 @@ table {
 }
 
 p {
+  margin-top: 2px;
+  margin-left: 2px;
   letter-spacing: 1px;
   font-size: 1rem;
   word-break: 1px;
-  line-height: 1.5;
+  line-height: 1;
 }
 
 /* Optional: Add some basic typography resets */
@@ -113,8 +115,18 @@ h6 {
   text-transform: uppercase;
 }
 
+h3 {
+  font-size: 1.3rem;
+}
+
+h1,
+h2 {
+  font-size: 1.6rem;
+}
+
 html,
 body {
+  scroll-behavior: smooth;
   overflow: overlay;
   overflow: auto;
 }

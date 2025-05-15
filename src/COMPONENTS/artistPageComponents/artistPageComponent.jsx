@@ -234,10 +234,10 @@ const ArtistProfile = ({
               onClick={changeIsInterested}
             >
               <NavButton externalClass={classes.interestedButton}>
-                Interested
+                <p>Interested</p>
                 <img
                   className={`${classes.interestedPlus} ${
-                    isInterested ? "" : classes.interestedPlusInterested
+                    !isInterested ? "" : classes.interestedPlusInterested
                   }`}
                   src={starIcon}
                   alt=""

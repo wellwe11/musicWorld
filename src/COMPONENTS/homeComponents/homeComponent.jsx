@@ -166,12 +166,12 @@ const InterestedButton = ({ isInterested, handleIsInterested, infoClick }) => {
       >
         {isInterested === true ? (
           <button className={classes.interestedButtonInterested}>
-            Interested
+            <p>Interested</p>
             <img className={classes.interestedPlus} src={starIcon} alt="" />
           </button>
         ) : (
           <button className={classes.interestedButtonNotInterested}>
-            Interested
+            <p>Interested</p>
             <img className={classes.interestedPlus} src={starIcon} alt="" />
           </button>
         )}
