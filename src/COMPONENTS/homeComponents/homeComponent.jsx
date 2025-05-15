@@ -184,7 +184,7 @@ const InterestedButton = ({ isInterested, handleIsInterested, infoClick }) => {
 };
 
 const formatDate = (artist) => {
-  if (artist?.event.length > 0) {
+  if (artist?.event) {
     let artistDate = artist?.event.dates.start.localDate;
     const updated = new Date(artistDate);
 
@@ -249,6 +249,7 @@ const ArtistProfile = ({
 
   useEffect(() => {
     const date = formatDate(artistData);
+    console.log(date);
     setFormattedDate(date);
   }, [artistData]);
 
@@ -272,7 +273,7 @@ const ArtistProfile = ({
         </div>
         <div className={classes.artistTitle}>
           <h3>{artistData?.artist.name}</h3>
-          <h5>{formattedDate}</h5>
+          <p>{formattedDate}</p>
           <InterestedButton
             isInterested={isInterested}
             handleIsInterested={handleAddToInterested}

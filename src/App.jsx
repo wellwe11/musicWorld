@@ -162,8 +162,6 @@ const App = () => {
   }, [name, home]);
 
   useEffect(() => {
-    console.log(dateFrom, dateTill, genre, country, city);
-
     if (artist) {
       setDateFrom("");
       setDateTill("");
@@ -175,9 +173,7 @@ const App = () => {
     ) {
       handleNavigate("./home/upcomingEvents");
       fetchEvents();
-    }
-
-    if (country) {
+    } else if (country) {
       fetchEvents();
     }
   }, [dateFrom, dateTill, genre, country, city, name]);
