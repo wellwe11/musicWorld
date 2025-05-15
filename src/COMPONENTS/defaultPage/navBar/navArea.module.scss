@@ -103,6 +103,28 @@
     overflow: hidden;
     background-color: var(--buttonWrapperColor);
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+    position: relative;
+
+    img {
+      visibility: hidden;
+      width: 25px;
+      height: 25px;
+      position: absolute;
+
+      filter: invert(1);
+    }
+
+    @media screen and (max-width: 1050px) {
+      p {
+        visibility: hidden;
+        display: none;
+      }
+
+      img {
+        visibility: visible;
+      }
+    }
   }
 
   .buttonTarget {
@@ -173,6 +195,11 @@
 
     transition: transform 0.1s, border 0.4s;
     pointer-events: none;
+
+    @media screen and (max-width: 1050px) {
+      display: none;
+      opacity: 0;
+    }
   }
 }
 

@@ -247,15 +247,15 @@ const ArtistProfile = ({
   }, [artistData]);
 
   const handleNavigate = (link) => {
-    navigate(`/${link}/`);
+    window.open(`/${link}/`);
   };
 
   const logStuff = () => {
     console.log(artistData);
     const artistName = artistData?.artist.name.replace(/ /g, "+");
 
-    setArtist(artistName);
     handleNavigate(`./home/artistPage/id=${artistName}`);
+    setArtist(artistName);
   };
 
   return (

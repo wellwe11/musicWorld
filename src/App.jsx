@@ -265,6 +265,7 @@ const App = () => {
                 eventsArray={eventsArray}
                 interestedArtists={interestedArtists}
                 setInterestedArtists={setInterestedArtists}
+                setArtist={setArtist}
               />
             ) : name && !link ? (
               <PageToView
@@ -317,9 +318,6 @@ export default App;
  * Design app-section on homePage
  *
  * home-page section that contains "Search your favorite blablabla (filter items)"
- *
- * currently, clicking odd artists names (i.e. Yu (IBB) will bug the artist-page, because his actual name is Yu.)
- * -- But there are several artists called Yu, and he wont be placed first in the array
  *
  * fix artist-page bio-info so it applies stylers and such correctly
  *

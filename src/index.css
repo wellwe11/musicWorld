@@ -13,6 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --homePageWidth: min(75vw, 1200px);
+  --maxWidth: 950px;
 
   /*Generic themes for the website*/
   --topThemeColor: var(--mainThemeTwo);

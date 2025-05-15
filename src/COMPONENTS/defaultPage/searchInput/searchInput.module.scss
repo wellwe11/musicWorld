@@ -33,6 +33,7 @@
 
   svg {
     min-width: 150% !important;
+    min-height: 150% !important;
   }
 
   .searchIcon path {
@@ -50,6 +51,10 @@
     margin-left: 5px;
     margin-right: 10px;
     position: relative;
+
+    @media screen and (max-width: 1050px) {
+      display: none;
+    }
   }
 
   .exitCity {

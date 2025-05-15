@@ -1,11 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "./artistPage.module.scss";
-import { isoCountries } from "../defaultPage/searchInput/inputInformation";
 import { fetchDataTicketMaster } from "../../App";
 import NavButton from "../defaultPage/navBar/navButton";
 
-import buttonClickPlus from "../homeComponents/images/plus.png";
-import buttonClickClose from "../../COMPONENTS/defaultPage/searchInput/close.png";
 import starIcon from "../upcomingEventsPage/playIcons/star.png";
 
 import facebookIcon from "./media/facebook.png";
@@ -13,9 +10,8 @@ import instagramIcon from "./media/instagram.png";
 import twitterIcon from "./media/twitter.png";
 import soundcloudIcon from "./media/soundcloud.png";
 import youtubeIcon from "./media/youtube.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingSvg from "./media/loadingSvg";
-import UpcomingEventsPage from "../../PAGES/upcomingEvents";
 
 const fetchTicketMasterProfile = async (artist) => {
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
@@ -328,6 +324,7 @@ const ArtistEvents = ({ events, unfilteredEvents, loading }) => {
 
 const ArtistPageComponent = ({
   artistEvents,
+  setArtist,
   artist,
   interestedArtists,
   setInterestedArtists,
@@ -338,6 +335,7 @@ const ArtistPageComponent = ({
   const [unfilteredEvents, setUnfilteredEvents] = useState(null);
   const [artistObject, setArtistObject] = useState(null);
   const [displayPage, setDisplayPage] = useState(false);
+  const { link } = useParams();
 
   const DISCOGS_API_KEY = import.meta.env.VITE_DISCOGS_API_KEY;
   const { data, secondaryData, loading, error } = useFetchData(
@@ -351,11 +349,16 @@ const ArtistPageComponent = ({
   };
 
   useEffect(() => {
-    if (!artist) {
+    if (link) {
+      const artistName = link.replace(/id/g, "");
+      let updateName = artistName.replace(/[=]/g, " ");
+      setArtist(updateName);
+    }
+    if (!artist && !link) {
       console.log("no artist active");
       handleNavigate("./home");
     }
-  }, [artist]);
+  }, [artist, link]);
 
   // seperate fetch to display all upcoming events from artist
   const getEvents = async (artist) => {

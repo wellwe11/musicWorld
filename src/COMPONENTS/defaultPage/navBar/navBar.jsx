@@ -6,6 +6,17 @@ import NavTitle from "./navTitle";
 import React, { useEffect, useRef, useState } from "react";
 import SearchInput from "../searchInput/searchInput";
 
+import dateIcon from "./images/date.png";
+import dateTillIcon from "./images/dateTill.png";
+import clearIcon from "./images/clear.png";
+import musicIcon from "./images/music.png";
+import searchIcon from "./images/search.png";
+
+import homeIcon from "./images/home.png";
+import aboutUsIcon from "./images/info.png";
+import eventsIcon from "./images/events.png";
+import accountIcon from "./images/account.png";
+
 const ExtendedButtons = ({
   setDateFrom,
   setDateTill,
@@ -129,7 +140,8 @@ const ExtendedButtons = ({
             onClick={handleDateFromShowPicker}
             externalClass={`${localDateFrom ? classes.buttonTarget : ""}`}
           >
-            {localDateFrom || dateFrom || "Date from"}
+            <p>{localDateFrom || dateFrom || "Date from"}</p>
+            <img src={dateIcon} alt="" />
           </NavButton>
           <input
             type="date"
@@ -149,7 +161,8 @@ const ExtendedButtons = ({
             onClick={handleDateTillShowPicker}
             externalClass={`${localDateTill ? classes.buttonTarget : ""}`}
           >
-            {localDateTill || dateTill || "Date till"}
+            <p>{localDateTill || dateTill || "Date till"}</p>
+            <img src={dateTillIcon} alt="" />
           </NavButton>
           <input
             type="date"
@@ -172,7 +185,8 @@ const ExtendedButtons = ({
                 localGenre || genreClicked ? classes.buttonTarget : ""
               }`}
             >
-              {musicGenres[localGenre] || musicGenres[genre] || "Genre"}
+              <p>{musicGenres[localGenre] || musicGenres[genre] || "Genre"}</p>
+              <img src={musicIcon} alt="" />
             </NavButton>
           )}
           {genreClicked && (
@@ -197,9 +211,13 @@ const ExtendedButtons = ({
           onClick={handleDatedFetch}
           externalClass={`${startSearch ? classes.buttonTarget : ""}`}
         >
-          Search filter
+          <p>Search filter</p>
+          <img src={searchIcon} alt="" />
         </NavButton>
-        <NavButton onClick={handleClearFilter}>Clear filter</NavButton>
+        <NavButton onClick={handleClearFilter}>
+          <img src={clearIcon} alt="" />
+          <p>Clear filter</p>
+        </NavButton>
       </div>
     </div>
   );
@@ -244,10 +262,23 @@ const NavBar = ({
   };
 
   const buttonsObject = {
-    Home: "home",
-    Events: "home/upcomingEvents",
-    "About us": "home/aboutUs",
-    Account: "home/account",
+    Home: {
+      icon: homeIcon,
+      link: "home",
+    },
+    Events: {
+      icon: eventsIcon,
+      link: "home/upcomingEvents",
+    },
+    "About us": {
+      icon: aboutUsIcon,
+      link: "home/aboutUs",
+    },
+
+    Account: {
+      icon: accountIcon,
+      link: "home/account",
+    },
   };
 
   return (
@@ -278,7 +309,7 @@ const NavBar = ({
             {Object.keys(buttonsObject).map((el, index) => (
               <NavButton
                 onClick={() => {
-                  handleNavigate(buttonsObject[el]);
+                  handleNavigate(buttonsObject[el].link);
                   setActiveButton(index);
                 }}
                 key={index}
@@ -286,7 +317,8 @@ const NavBar = ({
                   activeButton === index ? classes.buttonTarget : ""
                 }
               >
-                {el}
+                <p>{el}</p>
+                <img src={buttonsObject[el].icon} alt="" />
               </NavButton>
             ))}
           </div>
