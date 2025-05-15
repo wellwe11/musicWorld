@@ -15,6 +15,7 @@ const Events = ({
   setClickedEvent,
   imageClicked,
   setImageClicked,
+  setArtist,
 }) => {
   // useState for loading (via the useContext(eventContext)). I need it for setTimeout
   const [displayEvents, setDisplayEvents] = useState(false);
@@ -65,6 +66,7 @@ const Events = ({
                   interestedArtists={interestedArtists}
                   setInterestedArtists={setInterestedArtists}
                   artist={event?.artist}
+                  setArtist={setArtist}
                   event={event}
                 />
               </div>

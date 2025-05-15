@@ -245,6 +245,7 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
                     setClickedEvent={setClickedEvent}
                     imageClicked={imageClicked}
                     setImageClicked={setImageClicked}
+                    setArtist={setArtist}
                   />
                 ) : (
                   <div className={classes.loadingSvgContainer}>

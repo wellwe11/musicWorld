@@ -6,8 +6,20 @@ import playIcon from "./playIcons/play-button.png";
 import pauseIcon from "./playIcons/pause-button.png";
 
 import starIcon from "./playIcons/star.png";
+import InfoIcon from "../defaultPage/navBar/images/info.png";
 
 import arrowDownIcon from "../defaultPage/searchInput/arrow_Down.png";
+import { useNavigate } from "react-router-dom";
+
+const InfoButton = () => {
+  return (
+    <div className={classes.infoButtonContainer}>
+      <button className={classes.infoButton}>
+        <img className={classes.infoButtonIcon} src={InfoIcon} alt="" />
+      </button>
+    </div>
+  );
+};
 
 const AddToFollowingButton = ({ isFav }) => {
   return (
@@ -128,6 +140,7 @@ const Event = React.memo(function Event({
   onClickLink,
   interestedArtists,
   setInterestedArtists,
+  setArtist,
   artist,
   clickedEvent,
   setClickedEvent,
@@ -138,6 +151,8 @@ const Event = React.memo(function Event({
 }) {
   const [showMoreDates, setShowMoreDates] = useState(false);
   const [isFav, setIsFav] = useState(false);
+  const navigate = useNavigate();
+
   const createDate = (d) => {
     if (d) {
       const updatedDate = new Date(d);
@@ -183,6 +198,18 @@ const Event = React.memo(function Event({
     }
   }, [interestedArtists, date]);
 
+  const handleNavigate = (link) => {
+    window.open(`/${link}/`);
+  };
+
+  const openArtistPage = () => {
+    console.log(artist);
+    const artistName = artist?.name.replace(/ /g, "+");
+
+    handleNavigate(`./home/artistPage/id=${artistName}`);
+    setArtist(artistName);
+  };
+
   return (
     <div className={classes.event}>
       <EventImage
@@ -199,8 +226,13 @@ const Event = React.memo(function Event({
           <h3 className={classes.title}>
             {title.length < 30 ? title : title.slice(0, 30) + "..."}
           </h3>
-          <div onClick={handleIsFav}>
-            <AddToFollowingButton isFav={isFav} />
+          <div className={classes.favButtonsContainer}>
+            <div onClick={openArtistPage}>
+              <InfoButton />
+            </div>
+            <div onClick={handleIsFav}>
+              <AddToFollowingButton isFav={isFav} />
+            </div>
           </div>
         </div>
 

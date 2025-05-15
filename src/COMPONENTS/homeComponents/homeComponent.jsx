@@ -4,6 +4,7 @@ import BandText from "./pictureSliderTexts";
 
 import starIcon from "./../upcomingEventsPage/playIcons/star.png";
 import buttonClickArrow from "./images/arrow-right.png";
+import infoIcon from "../defaultPage/navBar/images/info.png";
 
 import CountryImageContainer from "./countryRepresenterComponent";
 import MusicImportSection from "./muiscImportSection";
@@ -156,23 +157,28 @@ const EventsImagesWheel = ({
   );
 };
 
-const InterestedButton = ({ isInterested, handleIsInterested }) => {
+const InterestedButton = ({ isInterested, handleIsInterested, infoClick }) => {
   return (
-    <div
-      className={classes.interestedButtonContainer}
-      onClick={handleIsInterested}
-    >
-      {isInterested === true ? (
-        <button className={classes.interestedButtonInterested}>
-          Interested
-          <img className={classes.interestedPlus} src={starIcon} alt="" />
-        </button>
-      ) : (
-        <button className={classes.interestedButtonNotInterested}>
-          Interested
-          <img className={classes.interestedPlus} src={starIcon} alt="" />
-        </button>
-      )}
+    <div className={classes.interestedButtonsContainer}>
+      <div
+        className={classes.interestedButtonContainer}
+        onClick={handleIsInterested}
+      >
+        {isInterested === true ? (
+          <button className={classes.interestedButtonInterested}>
+            Interested
+            <img className={classes.interestedPlus} src={starIcon} alt="" />
+          </button>
+        ) : (
+          <button className={classes.interestedButtonNotInterested}>
+            Interested
+            <img className={classes.interestedPlus} src={starIcon} alt="" />
+          </button>
+        )}
+      </div>
+      <button className={classes.interstedInfoButton} onClick={infoClick}>
+        <img src={infoIcon} alt="" />
+      </button>
     </div>
   );
 };
@@ -262,11 +268,7 @@ const ArtistProfile = ({
     artistData && (
       <div className={classes.artistWrapper}>
         <div className={classes.imageContainer}>
-          <img
-            src={artistData?.artist?.images[0]?.url}
-            alt=""
-            onClick={logStuff}
-          />
+          <img src={artistData?.artist?.images[0]?.url} alt="" />
         </div>
         <div className={classes.artistTitle}>
           <h3>{artistData?.artist.name}</h3>
@@ -274,6 +276,7 @@ const ArtistProfile = ({
           <InterestedButton
             isInterested={isInterested}
             handleIsInterested={handleAddToInterested}
+            infoClick={logStuff}
           />
         </div>
       </div>

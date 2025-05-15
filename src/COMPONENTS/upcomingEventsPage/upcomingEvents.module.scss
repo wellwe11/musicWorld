@@ -76,6 +76,12 @@
     .titleAndAddToFavs {
       display: flex;
       justify-content: space-between;
+
+      .favButtonsContainer {
+        display: flex;
+        justify-content: space-between;
+        width: 50px;
+      }
     }
 
     .title {
@@ -318,10 +324,20 @@
   }
 }
 
-.pageEventsWrapper {
-  background-color: orange !important;
+.infoButtonContainer {
+  .infoButton {
+    cursor: pointer;
+    .infoButtonIcon {
+      height: 19px;
+      width: 19px;
 
-  .locationTitle {
-    color: orange !important;
+      filter: invert(0.1);
+    }
+  }
+
+  .infoButton:hover {
+    .infoButtonIcon {
+      filter: invert(0.6);
+    }
   }
 }

@@ -299,39 +299,53 @@
     width: 100%;
     min-height: 70px;
     height: 90px;
+  }
+
+  .interestedButtonsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    overflow: hidden;
+
+    min-width: 87%;
+
+    margin-top: 5px;
+
+    margin-bottom: 10px;
+    height: 30px;
+    background-color: var(--buttonWrapperColor);
+    border-radius: var(--eventContainerRadius);
 
     .interestedButtonContainer {
-      cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
 
-      background-color: var(--buttonWrapperColor);
       opacity: 90%;
 
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 30px;
-      width: 90%;
-
-      border-radius: var(--eventContainerRadius);
-
-      margin-top: 5px;
-
-      margin-bottom: 10px;
+      height: 100%;
+      width: 75%;
+      border-right: 0.5px solid black;
 
       button {
         border-radius: var(--eventContainerRadius);
         cursor: pointer;
       }
 
+      .interestedButtonInterested,
       .interestedButtonNotInterested {
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+        height: 30px;
+        width: 100%;
       }
 
       .interestedButtonInterested {
-        height: 30px;
-        width: 100%;
         backdrop-filter: blur(10px);
 
         .interestedPlus {
@@ -355,6 +369,33 @@
         margin-left: 10px;
 
         filter: invert(0.1);
+      }
+    }
+
+    .interstedInfoButton {
+      border-left: 0.5px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      height: 100%;
+
+      cursor: pointer;
+      background-color: var(--buttonWrapperColor);
+
+      img {
+        width: 12px;
+        height: 12px;
+        filter: invert(0.1);
+        margin-right: 5px;
+      }
+    }
+
+    .interstedInfoButton:hover {
+      background-color: var(--buttonFocusColor) !important;
+
+      img {
+        filter: invert(0.6);
       }
     }
 

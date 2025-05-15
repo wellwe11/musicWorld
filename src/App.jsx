@@ -128,7 +128,7 @@ const App = () => {
         genre,
         country,
         city,
-        artist
+        ""
       );
       if (fetchedData) {
         setEvents(fetchedData._embedded);
@@ -139,19 +139,10 @@ const App = () => {
   );
 
   const fetchEvents = () => {
-    if (dateFrom || dateTill || genre || country || city || artist) {
-      return getEvents(
-        "",
-        "",
-        dateFrom,
-        dateTill,
-        genre,
-        country,
-        city,
-        artist
-      );
+    if (dateFrom || dateTill || genre || country || city) {
+      getEvents("", "", dateFrom, dateTill, genre, country, city, "");
     } else {
-      return getEvents();
+      getEvents();
     }
   };
 
@@ -162,16 +153,17 @@ const App = () => {
       setGenre("");
       setCity("");
       setArtist("");
+      return window.scrollTo(0, 0);
     }
 
     if (name !== "artistPage") {
       setArtist("");
+      return window.scrollTo(0, 0);
     }
-    window.scrollTo(0, 0);
   }, [name, home]);
 
   useEffect(() => {
-    console.log(dateFrom, dateTill, genre, country, city, artist);
+    console.log(dateFrom, dateTill, genre, country, city);
     if (dateFrom || dateTill || genre || city) {
       handleNavigate("./home/upcomingEvents");
 
@@ -182,11 +174,8 @@ const App = () => {
     }
 
     if (artist) {
-      console.log(3);
       fetchEvents();
     }
-
-    window.scrollTo(0, 0);
   }, [dateFrom, dateTill, genre, country, city, artist]);
 
   // once events are fetched, filter the events
