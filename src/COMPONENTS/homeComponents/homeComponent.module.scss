@@ -381,10 +381,9 @@
       align-items: center;
       flex: 1;
       height: 100%;
-      opacity: 90%;
+      opacity: 90% !important;
 
       cursor: pointer;
-      background-color: var(--buttonWrapperColor);
 
       img {
         width: 12px;
