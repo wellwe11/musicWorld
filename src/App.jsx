@@ -220,6 +220,8 @@ const App = () => {
     };
   }, []);
 
+  console.log(interestedArtists);
+
   return (
     <div className={classes.appContainer}>
       {/* <div ref={titleRef} className={classes.titleRefContainer}>
@@ -321,6 +323,9 @@ export default App;
  *
  * Fix so social-media icons arent displayed if there's no link on artist-page
  * --add spotify-link
+ *
+ * CANNOT ADD TO FOLLOWING ARTISTS ON ARTIST-PAGE
+ * ***** FIX!!!!!!!
  *
  * Pages to create:
  * -- EVENT/ARTIST NOT FOUND PAGE --

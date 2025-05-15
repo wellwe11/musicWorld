@@ -135,19 +135,17 @@ const ArtistProfile = ({
   const changeIsInterested = () =>
     isInterested ? setIsInterested(false) : setIsInterested(true);
 
-  const artist = unfilteredEvents?.[0]?._embedded?.attractions?.[0];
-
   useEffect(() => {
     // if isInterested clicked and isn't in the interestedArtistsArray
     if (
       isInterested &&
-      !interestedArtists?.some((e) => e.artist.id === artist?.id)
+      !interestedArtists?.some((e) => e.artist.id === ticketMasterArtist?.id)
     ) {
-      if (ticketMasterArtist._embedded) {
+      if (ticketMasterArtist) {
         setInterestedArtists((artists) => [
           ...artists,
           {
-            artist: ticketMasterArtist?._embedded.attractions[0],
+            artist: ticketMasterArtist,
             event: unfilteredEvents.length > 0 ? unfilteredEvents[0] : "",
             UpcomingEventsPage: artistEvents ? artistEvents : "",
           },
@@ -160,10 +158,7 @@ const ArtistProfile = ({
     // filter away artists that have false
     if (isInterested === false && interestedArtists?.length > 0) {
       setInterestedArtists((artists) =>
-        artists.filter(
-          (e) =>
-            e?.artist.id !== ticketMasterArtist?._embedded.attractions[0].id
-        )
+        artists.filter((e) => e?.artist.id !== ticketMasterArtist?.id)
       );
     }
   }, [isInterested]);
@@ -171,19 +166,13 @@ const ArtistProfile = ({
   useEffect(() => {
     if (ticketMasterArtist) {
       if (
-        !interestedArtists?.some(
-          (e) =>
-            e?.artist.id === ticketMasterArtist?._embedded.attractions[0].id
-        )
+        !interestedArtists?.some((e) => e?.artist.id === ticketMasterArtist?.id)
       ) {
         setIsInterested(false);
       }
       // sets true on-load if exists in array
       if (
-        interestedArtists?.some(
-          (e) =>
-            e?.artist.id === ticketMasterArtist?._embedded.attractions[0].id
-        )
+        interestedArtists?.some((e) => e?.artist.id === ticketMasterArtist?.id)
       ) {
         setIsInterested(true);
       }
