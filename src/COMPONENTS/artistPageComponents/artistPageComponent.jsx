@@ -237,7 +237,7 @@ const ArtistProfile = ({
                 Interested
                 <img
                   className={`${classes.interestedPlus} ${
-                    !isInterested ? "" : classes.interestedPlusInterested
+                    isInterested ? "" : classes.interestedPlusInterested
                   }`}
                   src={starIcon}
                   alt=""

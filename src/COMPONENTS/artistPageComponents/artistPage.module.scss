@@ -22,15 +22,17 @@
     max-width: 400px;
 
     .interestedButtonContainer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
 
       .interestedButton {
         height: 40px;
         min-width: 155px;
 
         .interestedPlus {
+          visibility: visible !important;
+          position: relative !important;
           width: 15px;
           height: 15px;
 

@@ -80,7 +80,8 @@
       .favButtonsContainer {
         display: flex;
         justify-content: space-between;
-        width: 50px;
+        align-items: center;
+        width: 40px;
       }
     }
 
@@ -328,8 +329,8 @@
   .infoButton {
     cursor: pointer;
     .infoButtonIcon {
-      height: 19px;
-      width: 19px;
+      height: 16px;
+      width: 16px;
 
       filter: invert(0.1);
     }

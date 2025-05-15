@@ -1,7 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: "Bebas Neue", sans-serif;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -75,8 +75,7 @@ html {
 }
 
 body {
-  font-family: sans-serif; /* Or your preferred font-family */
-  line-height: 1.5;
+  font-family: "Bebas Neue", sans-serif;
 }
 
 /* Set background and text color for body */
@@ -91,6 +90,13 @@ table {
   width: 100%;
 }
 
+p {
+  letter-spacing: 1px;
+  font-size: 1rem;
+  word-break: 1px;
+  line-height: 1.5;
+}
+
 /* Optional: Add some basic typography resets */
 h1,
 h2,
@@ -98,8 +104,13 @@ h3,
 h4,
 h5,
 h6 {
+  line-height: 1.5;
+  letter-spacing: 1px;
+  word-break: 1px;
+  font-size: 1rem;
   margin: 0;
-  font-weight: normal;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 html,
