@@ -37,7 +37,7 @@ export const fetchDataTicketMaster = async (
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
 
   let url = `${BASE_URL}&apikey=${ticketMasterApiKey}&size=200`;
-
+  console.log(dateStart, dateEnd, genre, country, city, artist);
   if (artist) {
     url += `&keyword=${artist.trim()}`;
 

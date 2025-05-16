@@ -267,11 +267,11 @@ const ArtistProfile = ({
     artistData && (
       <div className={classes.artistWrapper}>
         <div className={classes.imageContainer}>
+          <h6>{formattedDate ? formattedDate : ""}</h6>
           <img src={artistData?.artist?.images[0]?.url} alt="" />
         </div>
         <div className={classes.artistTitle}>
           <h3>{artistData?.artist.name}</h3>
-          <p>{formattedDate}</p>
           <InterestedButton
             isInterested={isInterested}
             handleIsInterested={handleAddToInterested}

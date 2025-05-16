@@ -17,7 +17,7 @@ const artistImages = {
   facebook: facebookIcon,
   instagram: instagramIcon,
   twitter: twitterIcon,
-  soundcloudIcon: soundcloudIcon,
+  soundcloud: soundcloudIcon,
   youtube: youtubeIcon,
 };
 
@@ -241,6 +241,7 @@ const ArtistProfile = ({
 };
 
 const ArtistEvents = ({ events, unfilteredEvents }) => {
+  console.log(events, unfilteredEvents);
   return (
     <div className={classes.artistEventsContainer}>
       {events?.length > 0 && (
@@ -266,7 +267,7 @@ const ArtistEvents = ({ events, unfilteredEvents }) => {
         </div>
       )}
 
-      {unfilteredEvents.length > 0 && (
+      {unfilteredEvents?.length > 0 && (
         <div className={classes.eventSectionContainer}>
           <h2>{events?.length > 0 ? "All other events" : "All events"}</h2>
           {unfilteredEvents?.map((event, index) => (
@@ -372,14 +373,23 @@ const ArtistPageComponent = ({
       console.log("fetched data:", fetchedArtist);
 
       if (fetchedArtist) {
+        console.log(artist);
+        const artistName = artist.trim().replace(/[+]/g, " ").toLowerCase();
+
         setLocalLoading(false);
-        setTicketMasterArtist(fetchedArtist?._embedded?.attractions?.[0]);
+        console.log(artistName);
+        setTicketMasterArtist(
+          fetchedArtist?._embedded?.attractions?.find(
+            (e) => e?.name?.toLowerCase() === artistName
+          )
+        );
       }
     }
   };
 
   // filters out any events related to artist, but isn't done by the artist (many events are either misq. events or fan-made)
   const displayOnlyArtistsEvents = (fetchedData) => {
+    console.log(fetchedData, ticketMasterArtist);
     let fixedEvents = fetchedData?._embedded?.events?.filter((ev) =>
       ev?._embedded?.attractions?.some((a) => a?.id === ticketMasterArtist?.id)
     );
@@ -405,10 +415,8 @@ const ArtistPageComponent = ({
   };
 
   useEffect(() => {
-    if (unfilteredEvents?.length > 0) {
-      displayEventsInCurrentCountry();
-      displayEventsOutsideCountry();
-    }
+    displayEventsInCurrentCountry();
+    displayEventsOutsideCountry();
   }, [unfilteredEvents]);
 
   const displayEventsInCurrentCountry = () => {
