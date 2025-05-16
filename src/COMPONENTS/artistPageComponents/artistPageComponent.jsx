@@ -335,7 +335,6 @@ const ArtistPageComponent = ({
 
   // seperate fetch to display all upcoming events from artist
   const getEvents = async (artist) => {
-    setLocalLoading(true);
     const fetchedData = await fetchDataTicketMaster(
       "",
       "",
@@ -364,6 +363,7 @@ const ArtistPageComponent = ({
   // fetch artists-events, and in App fetch the artist, which
   // is essentially the same.
   const getTicketMasterArtist = async () => {
+    setLocalLoading(true);
     if (artist.length > 0) {
       const fetchedArtist = await fetchTicketMasterProfile(
         artist.replace(/ /g, "_")
@@ -372,6 +372,7 @@ const ArtistPageComponent = ({
       console.log("fetched data:", fetchedArtist);
 
       if (fetchedArtist) {
+        setLocalLoading(false);
         setTicketMasterArtist(fetchedArtist?._embedded?.attractions?.[0]);
       }
     }
@@ -422,7 +423,6 @@ const ArtistPageComponent = ({
       );
 
       if (sortedByDate) {
-        setLocalLoading(false);
         setEventyInCountry(sortedByDate);
       }
     }
@@ -439,7 +439,7 @@ const ArtistPageComponent = ({
     if (ticketMasterArtist) {
       getEvents(artist);
     }
-  }, [ticketMasterArtist]);
+  }, [ticketMasterArtist, country]);
 
   useEffect(() => {
     setDisplayPage(false);

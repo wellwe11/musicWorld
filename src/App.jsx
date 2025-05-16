@@ -317,9 +317,6 @@ export default App;
  *
  * fix artist-page bio-info so it applies stylers and such correctly
  *
- * Fix so social-media icons arent displayed if there's no link on artist-page
- * --add spotify-link
- *
  * Pages to create:
  * -- EVENT/ARTIST NOT FOUND PAGE --
  * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so
