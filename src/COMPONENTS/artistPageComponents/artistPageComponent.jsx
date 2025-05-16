@@ -13,6 +13,14 @@ import youtubeIcon from "./media/youtube.png";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingSvg from "./media/loadingSvg";
 
+const artistImages = {
+  facebook: facebookIcon,
+  instagram: instagramIcon,
+  twitter: twitterIcon,
+  soundcloudIcon: soundcloudIcon,
+  youtube: youtubeIcon,
+};
+
 const fetchTicketMasterProfile = async (artist) => {
   const ticketMasterApiKey = import.meta.env.VITE_TICKETMASTER_API_KEY;
   let url = `https://app.ticketmaster.com/discovery/v2/attractions.json?apikey=${ticketMasterApiKey}&keyword=${artist}`;
@@ -124,11 +132,13 @@ const ArtistProfile = ({
     setBioInfo({
       realName: data?.realname,
       info: data?.profile,
-      instagram: findUrl(data?.urls, "instagram"),
-      facebook: findUrl(data?.urls, "facebook"),
-      twitter: findUrl(data?.urls, "twitter"),
-      soundcloud: findUrl(data?.urls, "soundcloud"),
-      youtube: findUrl(data?.urls, "youtube"),
+      socials: {
+        instagram: findUrl(data?.urls, "instagram"),
+        facebook: findUrl(data?.urls, "facebook"),
+        twitter: findUrl(data?.urls, "twitter"),
+        soundcloud: findUrl(data?.urls, "soundcloud"),
+        youtube: findUrl(data?.urls, "youtube"),
+      },
     });
   }, [data, secondaryData]);
 
@@ -204,23 +214,21 @@ const ArtistProfile = ({
                 />
               </NavButton>
             </div>
-            <div className={classes.linkButtonContainer}>
-              <button onClick={() => window.open(bioInfo.instagram)}>
-                <img src={instagramIcon} alt="" />
-              </button>
-              <button onClick={() => window.open(bioInfo.facebook)}>
-                <img src={facebookIcon} alt="" />
-              </button>
-              <button onClick={() => window.open(bioInfo.twitter)}>
-                <img src={twitterIcon} alt="" />
-              </button>
-              <button onClick={() => window.open(bioInfo.soundcloud)}>
-                <img src={soundcloudIcon} alt="" />
-              </button>
-              <button onClick={() => window.open(bioInfo.youtube)}>
-                <img src={youtubeIcon} alt="" />
-              </button>
-            </div>
+            {data && (
+              <div className={classes.linkButtonContainer}>
+                {Object.keys(bioInfo["socials"] || {}).map(
+                  (social, index) =>
+                    bioInfo["socials"][social] && (
+                      <button
+                        key={index}
+                        onClick={() => window.open(bioInfo["socials"][social])}
+                      >
+                        <img src={artistImages[social]} alt="" />
+                      </button>
+                    )
+                )}
+              </div>
+            )}
           </div>
         </div>
         <div className={classes.bioInfoContainer}>
@@ -258,25 +266,27 @@ const ArtistEvents = ({ events, unfilteredEvents }) => {
         </div>
       )}
 
-      <div className={classes.eventSectionContainer}>
-        <h2>{events?.length > 0 ? "All other events" : "All events"}</h2>
-        {unfilteredEvents?.map((event, index) => (
-          <div className={classes.eventWrapper} key={index}>
-            <div className={classes.eventTitle}>
-              <h4>{event?.name}</h4>
-            </div>
-            <div className={classes.eventSubInfo}>
-              <h5>{event?.dates?.start?.localDate}</h5>
-              <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
-              <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
+      {unfilteredEvents.length > 0 && (
+        <div className={classes.eventSectionContainer}>
+          <h2>{events?.length > 0 ? "All other events" : "All events"}</h2>
+          {unfilteredEvents?.map((event, index) => (
+            <div className={classes.eventWrapper} key={index}>
+              <div className={classes.eventTitle}>
+                <h4>{event?.name}</h4>
+              </div>
+              <div className={classes.eventSubInfo}>
+                <h5>{event?.dates?.start?.localDate}</h5>
+                <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
+                <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
 
-              <NavButton onClick={() => window.open(event?.url)}>
-                Ticket
-              </NavButton>
+                <NavButton onClick={() => window.open(event?.url)}>
+                  Ticket
+                </NavButton>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
