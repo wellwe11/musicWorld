@@ -56,14 +56,7 @@ const Events = ({
 
       observer.disconnect();
     };
-  }, [eventsArray, maxViewEvent, minViewEvent, loading]);
-
-  useEffect(() => {
-    displayEventRef.current = displayEventRef.current.slice(
-      0,
-      eventsArray.length
-    );
-  }, [eventsArray]);
+  }, [eventsArray, maxViewEvent, minViewEvent, loading, displayEvents]);
 
   console.log(eventsArray);
 
