@@ -21,7 +21,7 @@
     opacity: 0%;
     filter: blur(1px);
 
-    transition: all 0.6s ease;
+    transition: opacity 0.6s ease, filter 0.6s ease;
   }
 
   .show {
@@ -192,6 +192,8 @@
 
   border-radius: var(--eventContainerRadius);
 
+  transition: opacity 0.6s ease;
+
   .coverPhoto {
     object-fit: cover;
     height: 100%;
@@ -200,7 +202,7 @@
 
     border-bottom: none;
 
-    transition: transform 0.2s ease, filter 0.2s ease, opacity 0.6s ease;
+    transition: transform 0.2s ease, filter 0.2s ease;
   }
 
   .coverPhotoFaded {
