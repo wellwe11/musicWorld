@@ -113,7 +113,7 @@ const App = () => {
   const [displayFixedNavBar, setDisplayFixedNavBar] = useState(false);
 
   const namePage = {
-    upcomingEvents: UpcomingEventsPage,
+    events: UpcomingEventsPage,
     aboutUs: AboutUsPage,
     account: AccountPage,
     artistPage: ArtistPage,

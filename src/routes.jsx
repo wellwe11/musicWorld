@@ -2,7 +2,7 @@ import App from "./App";
 
 const routes = [
   {
-    path: "/home/:name?/:link?",
+    path: "/:home/:name?/:link?",
     element: <App />,
     // errorElement: <ErrorPage />,
   },

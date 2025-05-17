@@ -274,8 +274,8 @@ const Event = React.memo(function Event({
               onMouseEnter={() => setShowMoreDates(true)}
               onMouseLeave={() => setShowMoreDates(false)}
             >
-              {dateEnd?.map((date) => (
-                <h5 className={classes.moreDatesText}>
+              {dateEnd?.map((date, index) => (
+                <h5 className={classes.moreDatesText} key={index}>
                   {createDate(date.event.dates.start.localDate).dateDay} -{" "}
                   {date.event._embedded.venues[0].city.name}
                 </h5>

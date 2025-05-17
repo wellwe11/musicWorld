@@ -238,16 +238,15 @@ const NavBar = ({
   setArtist,
   events,
 }) => {
-  const [activeButton, setActiveButton] = useState(0);
+  const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
   const { home, name } = useParams();
 
   useEffect(() => {
     for (let i = 0; i < Object.keys(buttonsObject).length; i++) {
-      if (`home/${name}` === Object.values(buttonsObject)[i]) {
+      if (`home/${name}` === Object.values(buttonsObject)[i].link) {
         setActiveButton(i);
-      }
-      if (!name) {
+      } else if (!name) {
         setActiveButton(0);
       }
     }
@@ -262,20 +261,20 @@ const NavBar = ({
   };
 
   const buttonsObject = {
-    Home: {
+    home: {
       icon: homeIcon,
       link: "home",
     },
-    Events: {
+    events: {
       icon: eventsIcon,
-      link: "home/upcomingEvents",
+      link: "home/events",
     },
-    "About us": {
+    "about us": {
       icon: aboutUsIcon,
       link: "home/aboutUs",
     },
 
-    Account: {
+    account: {
       icon: accountIcon,
       link: "home/account",
     },
