@@ -266,8 +266,8 @@ const ArtistProfile = ({
   return (
     artistData && (
       <div className={classes.artistWrapper}>
+        <h6>{formattedDate ? formattedDate : ""}</h6>
         <div className={classes.imageContainer}>
-          <h6>{formattedDate ? formattedDate : ""}</h6>
           <img src={artistData?.artist?.images[0]?.url} alt="" />
         </div>
         <div className={classes.artistTitle}>
