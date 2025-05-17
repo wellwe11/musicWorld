@@ -215,7 +215,7 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
             </div>
           )}
           <div className={classes.eventsToday}>
-            {eventsThisDate.length > 0 && currentPage === 1 && (
+            {eventsThisDate?.length > 0 && currentPage === 1 && (
               <div className={classes.pageEventsWrapper}>
                 <h1 className={classes.locationTitle}>
                   {dateFrom
@@ -262,7 +262,7 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
               eventsArray={eventsNotToday}
               loading={loading}
               minViewEvent={minViewEvent}
-              maxViewEVent={maxViewEvent}
+              maxViewEvent={maxViewEvent}
               interestedArtists={interestedArtists}
               setInterestedArtists={setInterestedArtists}
               clickedEvent={clickedEvent}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Event from "./eventComp";
 
 import classes from "./upcomingEvents.module.scss";
@@ -7,7 +7,7 @@ import { findFittingImage } from "../../PAGES/functions/findFittingImage";
 const Events = ({
   eventsArray,
   loading,
-  maxViewEVent,
+  maxViewEvent,
   minViewEvent,
   interestedArtists,
   setInterestedArtists,
@@ -20,6 +20,8 @@ const Events = ({
   // useState for loading (via the useContext(eventContext)). I need it for setTimeout
   const [displayEvents, setDisplayEvents] = useState(false);
 
+  const displayEventRef = useRef([]);
+
   // displays loading before the fetches are finalized. Loading is stored in the same component
   // such as the fetch. Loading is then turned true or false depending on the return of the JSON
   useEffect(() => {
@@ -28,14 +30,53 @@ const Events = ({
     }
   }, [loading]);
 
+  useEffect(() => {
+    if (!displayEvents) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          console.log("show");
+          entry.target.classList.add(classes.show);
+        } else {
+          console.log("hide");
+          entry.target.classList.remove(classes.show);
+        }
+      });
+    });
+
+    displayEventRef.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      displayEventRef.current.forEach((el) => {
+        if (el) observer.unobserve(el);
+      });
+
+      observer.disconnect();
+    };
+  }, [eventsArray, maxViewEvent, minViewEvent]);
+
+  useEffect(() => {
+    displayEventRef.current = displayEventRef.current.slice(
+      0,
+      eventsArray.length
+    );
+  }, [eventsArray]);
+
   return (
     <div className={classes.events}>
       {displayEvents &&
         eventsArray?.map(
           (event, index) =>
             index >= minViewEvent &&
-            index <= maxViewEVent && (
-              <div key={index} className={classes.eventContainer}>
+            index <= maxViewEvent && (
+              <div
+                key={index}
+                className={classes.eventContainer}
+                ref={(el) => (displayEventRef.current[index] = el)}
+              >
                 <Event
                   title={
                     event?.artist?._embedded?.attractions?.[0]?.name ||
