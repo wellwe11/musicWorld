@@ -156,7 +156,7 @@ const ArtistProfile = ({
           ...artists,
           {
             artist: ticketMasterArtist,
-            event: unfilteredEvents.length > 0 ? unfilteredEvents[0] : "",
+            event: unfilteredEvents?.length > 0 ? unfilteredEvents?.[0] : "",
             UpcomingEventsPage: artistEvents ? artistEvents : "",
           },
         ]);
@@ -241,7 +241,6 @@ const ArtistProfile = ({
 };
 
 const ArtistEvents = ({ events, unfilteredEvents }) => {
-  console.log(events, unfilteredEvents);
   return (
     <div className={classes.artistEventsContainer}>
       {events?.length > 0 && (
@@ -370,14 +369,10 @@ const ArtistPageComponent = ({
         artist.replace(/ /g, "_")
       );
 
-      console.log("fetched data:", fetchedArtist);
-
       if (fetchedArtist) {
-        console.log(artist);
         const artistName = artist.trim().replace(/[+]/g, " ").toLowerCase();
 
         setLocalLoading(false);
-        console.log(artistName);
         setTicketMasterArtist(
           fetchedArtist?._embedded?.attractions?.find(
             (e) => e?.name?.toLowerCase() === artistName
@@ -389,7 +384,6 @@ const ArtistPageComponent = ({
 
   // filters out any events related to artist, but isn't done by the artist (many events are either misq. events or fan-made)
   const displayOnlyArtistsEvents = (fetchedData) => {
-    console.log(fetchedData, ticketMasterArtist);
     let fixedEvents = fetchedData?._embedded?.events?.filter((ev) =>
       ev?._embedded?.attractions?.some((a) => a?.id === ticketMasterArtist?.id)
     );

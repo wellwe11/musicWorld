@@ -271,7 +271,10 @@ const ArtistProfile = ({
           <img src={artistData?.artist?.images[0]?.url} alt="" />
         </div>
         <div className={classes.artistTitle}>
-          <h3>{artistData?.artist.name}</h3>
+          <h3>
+            {artistData?.artist.name.slice(0, 19)}
+            {artistData?.artist.name?.length > 19 && "..."}
+          </h3>
           <InterestedButton
             isInterested={isInterested}
             handleIsInterested={handleAddToInterested}

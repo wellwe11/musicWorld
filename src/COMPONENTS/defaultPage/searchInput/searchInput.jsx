@@ -175,7 +175,6 @@ const SearchInput = ({
 
   const handleInputChange = (e) => {
     if (e.key === "Enter") {
-      console.log(e.target.value);
       setInput(e.target.value);
       e.target.value = "";
     }
@@ -218,6 +217,8 @@ const SearchInput = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     let checkedInput = input.toString("").toLowerCase();
+
+    console.log("checkedInput:", checkedInput);
 
     // pre-define values to help faster rendering since the handleSubmit is so big
     let countryCodeFound = isoCountries[checkedInput];
@@ -284,11 +285,13 @@ const SearchInput = ({
       ) {
         setCountry(countryMatchFound[0]);
         // navigates to events to display events in city
+
         setCity(checkedInput);
 
         //-- need to help filter events in city on arist-page
         if (name !== "artistPage") {
           console.log("name !== artistPage");
+
           setArtist("");
           return handleNavigate("home/upcomingEvents");
         }
@@ -324,6 +327,7 @@ const SearchInput = ({
           let artistName = checkedInput.replace(/ /g, "+");
           setArtist(artistName);
           handleNavigate(`home/artistPage/id=${artistName}`);
+
           setCity("");
 
           // artistNames(input);
@@ -371,7 +375,7 @@ const SearchInput = ({
           setter={setCountry}
           object={Object.values(isoCountries)}
           textValue={Object.keys(isoCountries)}
-          reset={setCity}
+          reset={name === "upcomingEvents" ? setCity : ""}
         />
         <>
           <div className={classes.spacer}>
