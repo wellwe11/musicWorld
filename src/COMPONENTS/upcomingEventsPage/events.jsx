@@ -58,8 +58,6 @@ const Events = ({
     };
   }, [eventsArray, maxViewEvent, minViewEvent, loading, displayEvents]);
 
-  console.log(eventsArray);
-
   return (
     <div className={classes.events}>
       {displayEvents &&

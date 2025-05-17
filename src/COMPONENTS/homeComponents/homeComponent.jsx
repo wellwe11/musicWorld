@@ -496,7 +496,7 @@ const HomePageComponent = ({
         className={loadElements > 4 ? classes.onLoadShow : classes.onLoadHidden}
       >
         <MusicImportSection />
-        <FindAppSection />
+        {/* <FindAppSection /> */}
       </div>
     </div>
   );
