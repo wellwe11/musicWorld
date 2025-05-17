@@ -141,15 +141,12 @@
 .bandTextContainer {
   min-width: var(--homePageWidth);
   height: fit-content;
-  padding: 20px;
   position: absolute;
   bottom: 0;
   border-bottom-left-radius: var(--eventContainerRadius);
   border-bottom-right-radius: var(--eventContainerRadius);
-  font-size: 19px;
 
   color: rgb(175, 172, 172);
-  font-weight: lighter;
   background-color: var(--mainThemeTwo);
   opacity: 90%;
 
@@ -159,7 +156,10 @@
 
   z-index: 3;
 
-  p {
+  padding: 20px;
+  height: 90px;
+
+  h5 {
     width: 90%;
   }
 
@@ -620,7 +620,6 @@
     color: white;
 
     span {
-      font-weight: bold;
       transition: all 1s ease;
     }
   }

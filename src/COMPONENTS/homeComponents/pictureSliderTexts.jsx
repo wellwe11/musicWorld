@@ -14,29 +14,30 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
 
   const texts = {
     textOne: (
-      <p>
-        Feel the rhythm ignite as{" "}
+      <h5>
+        Let the rhythm spark as{" "}
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {bandName}
         </span>{" "}
-        brings their electrifying take on{" "}
+        unleashes their electrifying take on{" "}
         <span className={thickTextNr === 2 ? classes.thickText : ""}>
           {genre}
-        </span>{" "}
-        to the stage. Don't miss the energy, passion, and soul on{" "}
+        </span>
+        . Feel the pulse, the passion, and the power on{" "}
         <span className={thickTextNr === 3 ? classes.thickText : ""}>
           {date}
         </span>
-        —where music becomes more than sound.
-      </p>
+        —where music transcends sound and becomes sensation.
+      </h5>
     ),
+
     textTwo: (
-      <p>
-        Join{" "}
+      <h5>
+        Dive into the soundscape with{" "}
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {bandName}
-        </span>{" "}
-        as they transport you deep into the heart of{" "}
+        </span>
+        , as they lead you deep into the essence of{" "}
         <span className={thickTextNr === 2 ? classes.thickText : ""}>
           {genre}
         </span>
@@ -44,16 +45,17 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
         <span className={thickTextNr === 3 ? classes.thickText : ""}>
           {date}
         </span>
-        , they'll guide you through a journey of sound, stories, and powerful
-        melodies that stay with you.
-      </p>
+        , prepare for a journey through rhythm, story, and soul—music that
+        lingers long after the final note.
+      </h5>
     ),
+
     textThree: (
-      <p>
+      <h5>
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {bandName}
         </span>{" "}
-        blends raw emotion and masterful sound in their{" "}
+        channels raw emotion and refined sound in their signature{" "}
         <span className={thickTextNr === 2 ? classes.thickText : ""}>
           {genre}
         </span>{" "}
@@ -61,12 +63,13 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
         <span className={thickTextNr === 3 ? classes.thickText : ""}>
           {date}
         </span>{" "}
-        and witness a show that moves the body and the spirit.
-      </p>
+        for a show that stirs the spirit and moves the body.
+      </h5>
     ),
+
     textFour: (
-      <p>
-        Step into the world of{" "}
+      <h5>
+        Step into the vibrant world of{" "}
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {genre}
         </span>{" "}
@@ -74,32 +77,35 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
         <span className={thickTextNr === 2 ? classes.thickText : ""}>
           {bandName}
         </span>
-        , where each chord tells a story. Catch their unforgettable live set on{" "}
-        <span className={thickTextNr === 3 ? classes.thickText : ""}>
-          {date}
-        </span>{" "}
-        and feel the music like never before.
-      </p>
-    ),
-    textFive: (
-      <p>
-        <span className={thickTextNr === 1 ? classes.thickText : ""}>
-          {bandName}
-        </span>{" "}
-        is set to light up the stage with their signature{" "}
-        <span className={thickTextNr === 2 ? classes.thickText : ""}>
-          {genre}
-        </span>{" "}
-        style. On{" "}
+        , where every chord carries a story. Don’t miss their unforgettable live
+        set on{" "}
         <span className={thickTextNr === 3 ? classes.thickText : ""}>
           {date}
         </span>
-        , let yourself get lost in their sound—a pulse of passion, grit, and
-        musical fire.
-      </p>
+        —music that resonates beyond the stage.
+      </h5>
     ),
+
+    textFive: (
+      <h5>
+        <span className={thickTextNr === 1 ? classes.thickText : ""}>
+          {bandName}
+        </span>{" "}
+        is ready to ignite the stage with their unmistakable{" "}
+        <span className={thickTextNr === 2 ? classes.thickText : ""}>
+          {genre}
+        </span>{" "}
+        sound. Join them on{" "}
+        <span className={thickTextNr === 3 ? classes.thickText : ""}>
+          {date}
+        </span>{" "}
+        and get swept into a sonic storm of grit, fire, and unforgettable
+        rhythm.
+      </h5>
+    ),
+
     textSix: (
-      <p>
+      <h5>
         On{" "}
         <span className={thickTextNr === 1 ? classes.thickText : ""}>
           {date}
@@ -108,13 +114,13 @@ const PictureSliderTexts = ({ bandName, genre, date, index }) => {
         <span className={thickTextNr === 2 ? classes.thickText : ""}>
           {bandName}
         </span>{" "}
-        invites you to experience{" "}
+        invites you into the heart of{" "}
         <span className={thickTextNr === 3 ? classes.thickText : ""}>
           {genre}
-        </span>{" "}
-        at its most alive. It's more than a concert—it's a connection, a
-        movement, and a celebration of sound.
-      </p>
+        </span>
+        —a space where music becomes connection, movement, and celebration.
+        Don’t just hear it—**feel** it.
+      </h5>
     ),
   };
 
