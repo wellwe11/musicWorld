@@ -37,10 +37,15 @@ const Events = ({
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           console.log("show");
+          entry.target.style.willChange = "opacity";
           entry.target.classList.add(classes.show);
+          setTimeout(() => {
+            entry.target.style.willChange = "";
+          }, 700);
         } else {
           console.log("hide");
           entry.target.classList.remove(classes.show);
+          entry.target.style.willChange = "";
         }
       });
     });
