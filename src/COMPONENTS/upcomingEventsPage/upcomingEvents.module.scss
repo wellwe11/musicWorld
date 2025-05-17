@@ -19,12 +19,14 @@
     padding: 20px;
 
     opacity: 0%;
+    filter: blur(1px);
 
     transition: all 0.6s ease;
   }
 
   .show {
     opacity: 100%;
+    filter: blur(0px);
   }
 
   div:hover {
