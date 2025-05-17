@@ -75,6 +75,9 @@
 
     min-width: 100%;
     min-height: 150px;
+    z-index: 10;
+
+    transition: none !important;
 
     background-color: var(--buttonWrapperColor);
     backdrop-filter: blur(10px);
