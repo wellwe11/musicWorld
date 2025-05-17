@@ -27,17 +27,17 @@
     justify-content: center;
     align-items: center;
 
-    background-color: white;
     margin-left: 10px;
-  }
 
-  svg {
-    min-width: 150% !important;
-    min-height: 150% !important;
-  }
+    .searchIconImage {
+      height: 17px;
+      width: 17px;
 
-  .searchIcon path {
-    fill: var(--buttonContainerTheme);
+      filter: invert(0.9);
+    }
+    .searchIconImage:hover {
+      filter: invert(1);
+    }
   }
 
   .spacer {

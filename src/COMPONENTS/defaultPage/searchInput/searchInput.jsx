@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import classes from "./searchInput.module.scss";
-import { SearchSVG } from "./svg.jsx";
+
 import {
   isoCountries,
   regionsNotCountries,
@@ -12,6 +12,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import closeButton from "./close.png";
 import arrowButton from "./sort-arrows-couple-pointing-up-and-down.png";
 import LoadingSvg from "../../artistPageComponents/media/loadingSvg.jsx";
+
+import searchIcon from "./search.png";
 
 const CountrySelect = ({
   getter,
@@ -357,7 +359,7 @@ const SearchInput = ({
       }}
     >
       <div className={classes.searchIcon} onClick={(e) => handleSubmit(e)}>
-        <SearchSVG />
+        <img className={classes.searchIconImage} src={searchIcon} alt="" />
       </div>
       <input
         className={classes.searchInput}
