@@ -267,7 +267,7 @@ const NavBar = ({
     },
     events: {
       icon: eventsIcon,
-      link: "home/events",
+      link: "home/upcomingEvents",
     },
     "about us": {
       icon: aboutUsIcon,

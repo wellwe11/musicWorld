@@ -194,6 +194,8 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
     }
   }, [eventsThisDate]);
 
+  console.log(eventsThisDate, currentPage);
+
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}
@@ -228,7 +230,7 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
                     eventsArray={eventsThisDate}
                     loading={loading}
                     minViewEvent={0}
-                    maxViewEVent={eventsThisDate.length}
+                    maxViewEvent={eventsThisDate.length}
                     interestedArtists={interestedArtists}
                     setInterestedArtists={setInterestedArtists}
                     clickedEvent={clickedEvent}

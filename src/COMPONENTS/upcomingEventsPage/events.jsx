@@ -56,7 +56,7 @@ const Events = ({
 
       observer.disconnect();
     };
-  }, [eventsArray, maxViewEvent, minViewEvent]);
+  }, [eventsArray, maxViewEvent, minViewEvent, loading]);
 
   useEffect(() => {
     displayEventRef.current = displayEventRef.current.slice(
@@ -64,6 +64,8 @@ const Events = ({
       eventsArray.length
     );
   }, [eventsArray]);
+
+  console.log(eventsArray);
 
   return (
     <div className={classes.events}>

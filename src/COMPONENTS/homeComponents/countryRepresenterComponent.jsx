@@ -4,6 +4,7 @@ import classes from "./homeComponent.module.scss";
 
 import pexelsImageOne from "./images/pexels_imageOne.jpg";
 import pexelsImage from "./images/pexels_imageFour.webp";
+import { useNavigate } from "react-router-dom";
 
 const MonthsContainer = ({
   eventsArray,
@@ -11,6 +12,7 @@ const MonthsContainer = ({
   setDateFrom,
   setDateTill,
 }) => {
+  const navigate = useNavigate();
   const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
   const today = new Date();
 
@@ -44,6 +46,10 @@ const MonthsContainer = ({
     setCanLoad(true);
   };
 
+  const handleNavigate = (link) => {
+    navigate(`./${link}`);
+  };
+
   const handleDisplayedImage = (n) => {
     const nClicked = n + 1;
     setDateFrom(
@@ -51,6 +57,8 @@ const MonthsContainer = ({
         nClicked > 9 ? nClicked : "0" + nClicked
       }`
     );
+
+    handleNavigate("upcomingEvents");
 
     // setDateTill(
     //   `${todayYear}-${todayMonth > 9 ? todayMonth : "0" + todayMonth + 2}-${
