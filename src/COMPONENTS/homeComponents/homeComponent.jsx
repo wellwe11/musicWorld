@@ -9,6 +9,7 @@ import infoIcon from "../defaultPage/navBar/images/info.png";
 import CountryImageContainer from "./countryRepresenterComponent";
 import MusicImportSection from "./muiscImportSection";
 import FindAppSection from "./downloadAppSection";
+import DisplayFamousArtistsComponent from "./displayPopularArtists";
 import { useNavigate } from "react-router-dom";
 
 const EventsImagesWheel = ({
@@ -496,7 +497,8 @@ const HomePageComponent = ({
         className={loadElements > 4 ? classes.onLoadShow : classes.onLoadHidden}
       >
         <MusicImportSection />
-        {/* <FindAppSection /> */}
+        <DisplayFamousArtistsComponent />
+        <FindAppSection />
       </div>
     </div>
   );

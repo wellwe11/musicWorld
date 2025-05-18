@@ -321,4 +321,6 @@ export default App;
  * -- EVENT/ARTIST NOT FOUND PAGE --
  * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * ---currently, nothing is updated and you view the same things you searched prior to your un-found search
+ *
+ * -- Create new section to hover over current famous artists
  */
