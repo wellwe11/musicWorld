@@ -725,14 +725,14 @@
     width: var(--homePageWidth);
     background-color: orange;
 
-    padding: 50px;
+    padding: 20px;
     position: relative;
   }
 }
 
 .centerSection {
   width: 40%;
-  height: 400px;
+  height: 500px;
 
   display: flex;
   justify-content: center;
@@ -757,7 +757,7 @@
       background-color: white;
       width: 35%;
       height: 35%;
-      margin: 1%;
+      margin: 20px;
 
       border-radius: 50%;
     }
@@ -766,45 +766,36 @@
 
 .sideSectionContainer {
   position: relative;
-  width: 200px;
-  height: 150px;
 
   display: flex;
   justify-content: center;
   align-items: flex-end;
 
-  .sideSection {
-    content: "";
-
-    width: 100%;
-    height: 2px;
-    background-color: black;
-
-    transform: rotate(15deg);
-    transform-origin: bottom right;
-    position: relative;
-
-    .sideSectionArtists {
-      position: absolute;
-      right: -70px;
-      bottom: -87px;
-    }
+  .sideSectionArtists {
   }
 }
+
 .leftSection {
-  margin-right: -50px;
+  margin-right: -70px;
   position: relative;
   transform: rotateY(180deg);
+
   .leftTop {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 50px;
 
     h2 {
       transform: rotateY(180deg);
     }
 
     .artistsContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      transform: rotate(45deg);
+
       .artistContainer {
         padding: 10px;
       }
@@ -816,7 +807,7 @@
 
       .artistContainer:nth-of-type(2) {
         color: red;
-        margin-right: -20px;
+        margin-right: -30px;
       }
 
       .artistContainer:nth-of-type(3) {
@@ -828,7 +819,7 @@
   .leftBottom {
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: 50px;
     transform: rotateX(180deg);
 
     h2 {
@@ -836,6 +827,10 @@
     }
 
     .artistsContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      transform: rotate(45deg);
       .artistContainer {
         padding: 10px;
       }
@@ -847,7 +842,7 @@
 
       .artistContainer:nth-of-type(2) {
         color: red;
-        margin-right: -20px;
+        margin-right: -30px;
       }
 
       .artistContainer:nth-of-type(3) {
@@ -859,11 +854,11 @@
 }
 
 .rightSection {
-  margin-left: -50px;
+  margin-left: -60px;
   position: relative;
   .rightTop {
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
 
     h2 {
@@ -873,6 +868,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      transform: rotate(45deg);
       .artistContainer {
         padding: 10px;
       }
@@ -897,7 +893,7 @@
   .rightBottom {
     position: absolute;
     transform: rotateX(180deg);
-    bottom: 0;
+    bottom: 50px;
     left: 0;
 
     h2 {
@@ -908,6 +904,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      transform: rotate(45deg);
       .artistContainer {
         padding: 10px;
       }
@@ -928,4 +925,18 @@
       }
     }
   }
+}
+
+.artistContainer {
+  rotate: -45deg;
+
+  background-color: white;
+  height: 70px;
+  width: 70px;
+
+  border-radius: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
