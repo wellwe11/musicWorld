@@ -738,6 +738,8 @@
   justify-content: center;
   align-items: center;
 
+  position: relative;
+
   .circleContainer {
     display: flex;
     justify-content: center;
@@ -749,6 +751,8 @@
     border-radius: 50%;
 
     border: 3px solid black;
+
+    cursor: pointer;
 
     .circleContentContainer {
       display: flex;
@@ -762,6 +766,12 @@
       border-radius: 50%;
     }
   }
+}
+
+.genreList {
+  position: absolute;
+
+  display: flex;
 }
 
 .sideSectionContainer {
@@ -927,6 +937,11 @@
   }
 }
 
+.hoveringSection {
+  transition: all 0.2s ease;
+  opacity: 1 !important;
+}
+
 .artistContainer {
   rotate: -45deg;
 
@@ -939,4 +954,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+
+  transition: opacity 0.3s ease;
 }
