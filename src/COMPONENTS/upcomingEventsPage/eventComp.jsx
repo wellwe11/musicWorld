@@ -276,8 +276,8 @@ const Event = React.memo(function Event({
             >
               {dateEnd?.map((date, index) => (
                 <h5 className={classes.moreDatesText} key={index}>
-                  {createDate(date.event.dates.start.localDate).dateDay} -{" "}
-                  {date.event._embedded.venues[0].city.name}
+                  {createDate(date.dates.start.localDate).dateDay} -{" "}
+                  {date._embedded.venues[0].city.name}
                 </h5>
               ))}
             </div>

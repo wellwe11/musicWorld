@@ -492,95 +492,12 @@ export const musicGenres = {
   metal: "KnvZfZ7vAvt",
 };
 
-export const musicGenresWithSubGenres = {
-  rock: {
-    id: "KnvZfZ7vAeA",
-    subgenres: {
-      alternative: "Alternative Rock",
-      hard: "Hard Rock",
-      punk: "Punk Rock",
-      indie: "Indie Rock",
-    },
-  },
-  pop: {
-    id: "KnvZfZ7vAev",
-    subgenres: {
-      dance: "Dance Pop",
-      synth: "Synth-pop",
-      electropop: "Electropop",
-      teen: "Teen Pop",
-    },
-  },
-  hiphop: {
-    id: "KnvZfZ7vAv1",
-    subgenres: {
-      trap: "Trap",
-      boomBap: "Boom Bap",
-      gangsta: "Gangsta Rap",
-      loFi: "Lo-fi Hip Hop",
-    },
-  },
-  rnb: {
-    id: "KnvZfZ7vAee",
-    subgenres: {
-      contemporary: "Contemporary R&B",
-      neoSoul: "Neo Soul",
-      quietStorm: "Quiet Storm",
-      altRnb: "Alternative R&B",
-    },
-  },
-  jazz: {
-    id: "KnvZfZ7vAvE",
-    subgenres: {
-      smooth: "Smooth Jazz",
-      bebop: "Bebop",
-      cool: "Cool Jazz",
-      fusion: "Fusion Jazz",
-    },
-  },
-  classical: {
-    id: "KnvZfZ7v7nJ",
-    subgenres: {
-      baroque: "Baroque",
-      romantic: "Romantic",
-      modern: "Modern Classical",
-      crossover: "Classical Crossover",
-    },
-  },
-  country: {
-    id: "KnvZfZ7vAv6",
-    subgenres: {
-      bluegrass: "Bluegrass",
-      pop: "Country Pop",
-      honkyTonk: "Honky Tonk",
-      outlaw: "Outlaw Country",
-    },
-  },
-  electronic: {
-    id: "KnvZfZ7vAvF",
-    subgenres: {
-      house: "House",
-      techno: "Techno",
-      dnb: "Drum and Bass",
-      trance: "Trance",
-    },
-  },
-  reggae: {
-    id: "KnvZfZ7vAv1",
-    subgenres: {
-      roots: "Roots Reggae",
-      dancehall: "Dancehall",
-      dub: "Dub",
-      reggaeton: "Reggaeton",
-    },
-  },
-  metal: {
-    id: "KnvZfZ7vAvt",
-    subgenres: {
-      thrash: "Thrash Metal",
-      death: "Death Metal",
-      black: "Black Metal",
-      power: "Power Metal",
-    },
-  },
-};
+export const dailyMusicGenre = [
+  "Rock",
+  "Pop",
+  "Electronical",
+  "Hip-Hop",
+  "RnB",
+  "Jazz",
+  "Classical",
+];

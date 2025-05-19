@@ -32,7 +32,7 @@ export const addEvents = (array, setter) => {
             );
 
             if (artistObj) {
-              artistObj.otherEvents.push({ event });
+              artistObj.otherEvents.push(event);
             }
           }
         }

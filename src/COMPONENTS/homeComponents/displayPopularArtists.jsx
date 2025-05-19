@@ -3,26 +3,31 @@ import classes from "./homeComponent.module.scss";
 
 import {
   musicGenres,
-  musicGenresWithSubGenres,
+  dailyMusicGenre,
 } from "../defaultPage/searchInput/inputInformation";
 
-const ArtistProfile = ({ displayArtist }) => {
+const EventIcon = ({ displayArtist, eventDay }) => {
+  const date = eventDay?.dates?.start?.localDate;
+
   return (
     <div
       className={classes.artistContainer}
       style={{ opacity: displayArtist ? "1" : "0" }}
     >
-      <h2>Artist</h2>
+      <h2>{date}</h2>
     </div>
   );
 };
 
-const ArtistSection = ({ amount, isHovering }) => {
+const ArtistSection = ({ isHovering, event }) => {
   const [displayArtist, setDisplayArtist] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
-    if ((isHovering && !hasStarted) || (hasStarted && displayArtist < amount)) {
+    if (
+      (isHovering && !hasStarted) ||
+      (hasStarted && displayArtist < event?.events?.length)
+    ) {
       if (!hasStarted) setHasStarted(true);
 
       const timer = setTimeout(() => {
@@ -31,57 +36,47 @@ const ArtistSection = ({ amount, isHovering }) => {
 
       return () => clearTimeout(timer);
     }
-  }, [isHovering, displayArtist, hasStarted, amount]);
+  }, [isHovering, displayArtist, hasStarted]);
 
   return (
     <div className={classes.artistsContainer}>
-      {[...Array(amount)].map((artist, index) => (
-        <ArtistProfile key={index} displayArtist={index < displayArtist} />
+      {event?.events.map((event, index) => (
+        <EventIcon
+          key={index}
+          displayArtist={index < displayArtist}
+          eventDay={event}
+        />
       ))}
     </div>
   );
 };
 
-const CenterGenreButton = ({ activeGenre, setActiveGenre, genreOptions }) => {
-  const handleGenreChange = (e) => {
-    setActiveGenre(e.target.value);
-  };
+const CenterGenreButton = ({}) => {
+  const dayInWeekNumber = new Date().getDay();
+  const todaysGenre = dailyMusicGenre[dayInWeekNumber - 1];
 
   return (
     <div className={classes.genreList}>
-      <select value={genreOptions} onChange={handleGenreChange}>
-        <option value="">{activeGenre ? activeGenre : "Select Genre"}</option>
-        {genreOptions.map((genre) => (
-          <option key={genre} value={genre}>
-            {genre.charAt(0).toUpperCase() + genre.slice(1)}
-          </option>
-        ))}
-      </select>
+      <div>
+        <h4>{todaysGenre}</h4>
+      </div>
     </div>
   );
 };
 
-const CenterSection = ({
-  setIsHovering,
-  activeGenre,
-  setActiveGenre,
-  genreOptions,
-  subGenres,
-}) => {
+const CenterSection = ({ setIsHovering, events }) => {
+  console.log(events);
   return (
     <div className={classes.centerSection}>
-      <CenterGenreButton
-        activeGenre={activeGenre}
-        setActiveGenre={setActiveGenre}
-        genreOptions={genreOptions}
-      />
+      <CenterGenreButton />
       <div className={classes.circleContainer}>
-        {subGenres.map(([sGenre], index) => (
+        {events.map((artist, index) => (
           <div
             className={classes.circleContentContainer}
             onMouseEnter={() => setIsHovering((prevN) => [...prevN, index + 1])}
+            key={index}
           >
-            <p>{sGenre}</p>
+            <p>{artist.artist.name}</p>
           </div>
         ))}
       </div>
@@ -89,55 +84,86 @@ const CenterSection = ({
   );
 };
 
-const SideSection = ({ isHovering }) => {
+const SideSection = ({ isHovering, event }) => {
   return (
     <div className={classes.sideSectionContainer}>
       <div className={classes.sideSection}>
         <div className={classes.sideSectionArtists}>
-          <ArtistSection amount={3} isHovering={isHovering} />
+          <ArtistSection isHovering={isHovering} event={event} />
         </div>
       </div>
     </div>
   );
 };
 
-const LeftSection = ({ isHovering }) => {
+const LeftSection = ({ isHovering, events }) => {
   return (
     <div className={classes.leftSection}>
       <div className={`${classes.leftTop}`}>
-        <SideSection isHovering={isHovering.some((n) => n === 3)} />
+        <SideSection
+          isHovering={isHovering.some((n) => n === 3)}
+          event={events[0]}
+        />
       </div>
       <div className={classes.leftBottom}>
-        <SideSection isHovering={isHovering.some((n) => n === 1)} />
+        <SideSection
+          isHovering={isHovering.some((n) => n === 1)}
+          event={events[1]}
+        />
       </div>
     </div>
   );
 };
 
-const RightSection = ({ isHovering }) => {
+const RightSection = ({ isHovering, events }) => {
   return (
     <div className={classes.rightSection}>
       <div className={classes.rightTop}>
-        <SideSection isHovering={isHovering.some((n) => n === 4)} />
+        <SideSection
+          isHovering={isHovering.some((n) => n === 4)}
+          event={events[0]}
+        />
       </div>
       <div className={classes.rightBottom}>
-        <SideSection isHovering={isHovering.some((n) => n === 2)} />
+        <SideSection
+          isHovering={isHovering.some((n) => n === 2)}
+          event={events[1]}
+        />
       </div>
     </div>
   );
 };
 
-const DisplayFamousArtistsComponent = () => {
+const DisplayFamousArtistsComponent = ({ eventsArray }) => {
   const [isHovering, setIsHovering] = useState([]);
   const [activeGenre, setActiveGenre] = useState("");
 
-  const genreOptions = Object.keys(musicGenresWithSubGenres);
-  const subGenreOptions =
-    activeGenre && musicGenresWithSubGenres[activeGenre]?.subgenres
-      ? Object.entries(musicGenresWithSubGenres[activeGenre].subgenres)
-      : [];
+  // To decide which genre is today based on the day of the week.
+  const [genreOfToday, setGenreOfToday] = useState("");
 
-  console.log(isHovering);
+  // An object containing 4 artists and their next 3 concerts
+  const [artistsOfToday, setArtistsOfToday] = useState([]);
+
+  useEffect(() => {
+    const localArray = [];
+
+    if (!eventsArray || eventsArray.length === 0) return;
+
+    for (let i = 0; i < eventsArray?.length; i++) {
+      const artistEvent = eventsArray?.[i];
+
+      if (artistEvent.otherEvents.length === 2) {
+        localArray.push({
+          artist: artistEvent.artist,
+          events: [artistEvent.event, ...artistEvent.otherEvents],
+        });
+      }
+
+      if (localArray.length === 4) break;
+    }
+
+    setArtistsOfToday(localArray);
+  }, [eventsArray]);
 
   return (
     <div className={classes.displayFamousArtistsContainer}>
@@ -146,17 +172,17 @@ const DisplayFamousArtistsComponent = () => {
       </div>
       <div className={classes.displayFamousArtistsWrapper}>
         <div className={classes.artstSectionLeft}>
-          <LeftSection isHovering={isHovering} />
+          <LeftSection
+            isHovering={isHovering}
+            events={[artistsOfToday[0], artistsOfToday[1]].filter(Boolean)}
+          />
         </div>
-        <CenterSection
-          setIsHovering={setIsHovering}
-          activeGenre={activeGenre}
-          setActiveGenre={setActiveGenre}
-          genreOptions={genreOptions}
-          subGenres={subGenreOptions}
-        />
+        <CenterSection setIsHovering={setIsHovering} events={artistsOfToday} />
         <div>
-          <RightSection isHovering={isHovering} />
+          <RightSection
+            isHovering={isHovering}
+            events={[artistsOfToday[2], artistsOfToday[3]].filter(Boolean)}
+          />
         </div>
       </div>
     </div>

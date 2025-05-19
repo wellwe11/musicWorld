@@ -194,8 +194,6 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
     }
   }, [eventsThisDate]);
 
-  console.log(eventsThisDate, currentPage);
-
   return (
     <div className={classes.UpcomingEventsPage}>
       {/* Two icons which I will be using later */}
