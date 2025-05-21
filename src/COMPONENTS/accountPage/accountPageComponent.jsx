@@ -1,7 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./accountPageComponent.module.scss";
 
 const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
+  console.log(listItems);
+  const updatelistItemsButtonClickRef = useRef();
+
+  useEffect(() => {
+    if (updatelistItemsButtonClickRef.current) {
+      console.log(updatelistItemsButtonClickRef);
+    }
+  }, [listItems]);
+
   return (
     <div className={classes.listContainer}>
       {listKeys.map((listItem) => (
@@ -11,11 +20,11 @@ const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
             {Object.keys(listItems[listItem]).map((listValue, index) => (
               <li key={index}>
                 <button
+                  ref={updatelistItemsButtonClickRef}
                   onClick={() =>
                     setActiveTab({
                       section: listItem,
                       tab: listValue,
-                      sub: listItems[listItem][listValue],
                     })
                   }
                 >
@@ -106,6 +115,7 @@ const ActiveAccountTab = ({
   listItems,
   setListItems,
 }) => {
+  console.log(listItems, listItem);
   return (
     <div className={classes.activeAccountTabContainer}>
       {Object.keys(listItem)?.length > 0 ? (
@@ -163,10 +173,6 @@ const AccountPageComponent = () => {
 
   const listKeys = Object.keys(listItems);
 
-  useEffect(() => {
-    console.log(listItems);
-  }, [listItems]);
-
   return (
     <div className={classes.accountPageContainer}>
       <ListContainer
@@ -175,9 +181,9 @@ const AccountPageComponent = () => {
         setActiveTab={setActiveTab}
       />
       <ActiveAccountTab
-        section={activeTab?.section || []}
-        listItem={activeTab?.sub || []}
-        tab={activeTab?.tab || []}
+        section={activeTab?.section || ""}
+        tab={activeTab?.tab || ""}
+        listItem={listItems?.[activeTab?.section]?.[activeTab?.tab] || {}}
         listItems={listItems}
         setListItems={setListItems}
       />

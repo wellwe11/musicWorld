@@ -1,6 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState, createContext, useCallback, useRef } from "react";
-import {} from "react-scan";
 
 import classes from "../src/PAGES/defaultPage.module.scss";
 
