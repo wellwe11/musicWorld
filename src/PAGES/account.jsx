@@ -1,6 +1,6 @@
 import AccountPageComponent from "../COMPONENTS/accountPage/accountPageComponent";
 
-const AccountPage = () => {
+const AccountPage = ({}) => {
   return (
     <div>
       <AccountPageComponent />

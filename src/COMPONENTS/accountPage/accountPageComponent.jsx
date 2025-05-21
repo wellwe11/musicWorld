@@ -2,15 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import classes from "./accountPageComponent.module.scss";
 
 const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
-  console.log(listItems);
-  const updatelistItemsButtonClickRef = useRef();
-
-  useEffect(() => {
-    if (updatelistItemsButtonClickRef.current) {
-      console.log(updatelistItemsButtonClickRef);
-    }
-  }, [listItems]);
-
   return (
     <div className={classes.listContainer}>
       {listKeys.map((listItem) => (
@@ -20,7 +11,6 @@ const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
             {Object.keys(listItems[listItem]).map((listValue, index) => (
               <li key={index}>
                 <button
-                  ref={updatelistItemsButtonClickRef}
                   onClick={() =>
                     setActiveTab({
                       section: listItem,
@@ -51,25 +41,37 @@ const ChangeInput = ({
   const [changeInputValue, setChangeInputValue] = useState("");
 
   const handleInput = (e) => {
-    e.preventDefault();
+    if (e.key === "Enter") {
+      e.preventDefault();
 
-    const updatedLists = {
-      ...listItems,
-      [section]: {
-        [tab]: {
-          ...listItems[section][tab],
-          [input]: changeInputValue.target.value,
+      const updatedLists = {
+        ...listItems,
+        [section]: {
+          ...listItems[section],
+          [tab]: {
+            ...listItems[section][tab],
+            [input]: {
+              ...listItems[section][tab][input],
+              initial: changeInputValue,
+            },
+          },
         },
-      },
-    };
+      };
 
-    setListItems(updatedLists);
+      setListItems(updatedLists);
+      setChangeInputValue("");
+    }
   };
 
   return (
-    <form onSubmit={(e) => handleInput(e)}>
-      <input placeholder={`Change ${input}`} onChange={setChangeInputValue} />
-    </form>
+    <input
+      onKeyDown={handleInput}
+      value={changeInputValue}
+      placeholder={`Change ${input}`}
+      onChange={(e) => setChangeInputValue(e.target.value)}
+      type={listValue.type}
+      autoComplete={listValue?.autocomplete || ""}
+    />
   );
 };
 
@@ -83,10 +85,7 @@ const ChangeInputButton = ({
 }) => {
   const [changeInputClicked, setChangeInputClicked] = useState(false);
 
-  const handleChangeInputClicked = () =>
-    changeInputClicked
-      ? setChangeInputClicked(false)
-      : setChangeInputClicked(true);
+  const handleChangeInputClicked = () => setChangeInputClicked((prev) => !prev);
 
   return (
     <div className={classes.changeInputButton}>
@@ -95,14 +94,16 @@ const ChangeInputButton = ({
       </button>
 
       {changeInputClicked && (
-        <ChangeInput
-          tab={tab}
-          input={input}
-          listValue={inputValue}
-          setListItems={setListItems}
-          listItems={listItems}
-          section={section}
-        />
+        <form>
+          <ChangeInput
+            tab={tab}
+            input={input}
+            listValue={inputValue}
+            setListItems={setListItems}
+            listItems={listItems}
+            section={section}
+          />
+        </form>
       )}
     </div>
   );
@@ -115,7 +116,7 @@ const ActiveAccountTab = ({
   listItems,
   setListItems,
 }) => {
-  console.log(listItems, listItem);
+  console.log(section, listItem, tab, listItems);
   return (
     <div className={classes.activeAccountTabContainer}>
       {Object.keys(listItem)?.length > 0 ? (
@@ -124,7 +125,11 @@ const ActiveAccountTab = ({
           {Object.keys(listItem)?.map((subItem, index) => (
             <div className={classes.subItem} key={index}>
               <h4>
-                {subItem}: {listItem[subItem]}
+                {subItem}:{" "}
+                {listItem[subItem]?.type === "password" ||
+                listItem[subItem]?.type === "new-password"
+                  ? listItem[subItem]?.initial.replace(/[a-zA-Z0-9]/g, "*")
+                  : listItem[subItem]?.initial}
               </h4>
               <ChangeInputButton
                 input={subItem}
@@ -146,27 +151,34 @@ const ActiveAccountTab = ({
   );
 };
 
-const AccountPageComponent = () => {
+const AccountPageComponent = ({}) => {
   const [activeTab, setActiveTab] = useState({});
 
   const [listItems, setListItems] = useState({
     Account: {
       "User information": {
-        Email: "dragonSlayerX2000@hotmail.com",
-        Username: "Destroyer of worlds",
-        Password: "iamfockingcool",
+        Email: {
+          initial: "dragonSlayerX2000@hotmail.com",
+          type: "email",
+        },
+        Username: {
+          initial: "Destroyer of worlds",
+          type: "text",
+        },
+        Password: {
+          initial: "iamfockingcool",
+          type: "password",
+          autocomplete: "new-password",
+        },
       },
     },
-    subscription: {
+    Subscription: {
       "Manage subscription": {},
     },
-    Notifications: {
-      "Manage notifications": {},
-    },
-    location: {
+    Location: {
       "Update location": {},
     },
-    linkedAccounts: {
+    "Linked accounts": {
       "Manage linked accounts": {},
     },
   });
