@@ -323,4 +323,6 @@ export default App;
  * ---currently, nothing is updated and you view the same things you searched prior to your un-found search
  *
  * -- Create new section to hover over current famous artists
+ *
+ * fix so when you search for an artist, and they have no events, so that previous artists events are then removed (currently stays displayed)
  */

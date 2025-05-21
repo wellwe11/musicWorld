@@ -51,10 +51,7 @@ const ArtistSection = ({ isHovering, event }) => {
   );
 };
 
-const CenterGenreButton = ({}) => {
-  const dayInWeekNumber = new Date().getDay();
-  const todaysGenre = dailyMusicGenre[dayInWeekNumber - 1];
-
+const CenterGenreButton = ({ todaysGenre }) => {
   return (
     <div className={classes.genreList}>
       <div>
@@ -64,11 +61,11 @@ const CenterGenreButton = ({}) => {
   );
 };
 
-const CenterSection = ({ setIsHovering, events }) => {
+const CenterSection = ({ setIsHovering, events, todaysGenre }) => {
   console.log(events);
   return (
     <div className={classes.centerSection}>
-      <CenterGenreButton />
+      <CenterGenreButton todaysGenre={todaysGenre} />
       <div className={classes.circleContainer}>
         {events.map((artist, index) => (
           <div
@@ -77,6 +74,7 @@ const CenterSection = ({ setIsHovering, events }) => {
             key={index}
           >
             <p>{artist.artist.name}</p>
+            <img src={artist?.artist?.images?.[0]?.url} alt="" />
           </div>
         ))}
       </div>
@@ -139,7 +137,8 @@ const DisplayFamousArtistsComponent = ({ eventsArray }) => {
   const [activeGenre, setActiveGenre] = useState("");
 
   // To decide which genre is today based on the day of the week.
-  const [genreOfToday, setGenreOfToday] = useState("");
+  const dayInWeekNumber = new Date().getDay();
+  const todaysGenre = dailyMusicGenre[dayInWeekNumber - 1];
 
   // An object containing 4 artists and their next 3 concerts
   const [artistsOfToday, setArtistsOfToday] = useState([]);
@@ -151,8 +150,15 @@ const DisplayFamousArtistsComponent = ({ eventsArray }) => {
 
     for (let i = 0; i < eventsArray?.length; i++) {
       const artistEvent = eventsArray?.[i];
+      const artistGenre =
+        artistEvent.artist.classifications[0].genre.name.toLowerCase() ||
+        artistEvent.artist.classifications[0].subGenre.name.toLowerCase();
+      console.log(
+        artistGenre.toLowerCase() === todaysGenre.toLocaleLowerCase(),
+        artistEvent
+      );
 
-      if (artistEvent.otherEvents.length === 2) {
+      if (artistGenre === todaysGenre.toLowerCase()) {
         localArray.push({
           artist: artistEvent.artist,
           events: [artistEvent.event, ...artistEvent.otherEvents],
@@ -174,14 +180,18 @@ const DisplayFamousArtistsComponent = ({ eventsArray }) => {
         <div className={classes.artstSectionLeft}>
           <LeftSection
             isHovering={isHovering}
-            events={[artistsOfToday[0], artistsOfToday[1]].filter(Boolean)}
+            events={[artistsOfToday[2], artistsOfToday[1]].filter(Boolean)}
           />
         </div>
-        <CenterSection setIsHovering={setIsHovering} events={artistsOfToday} />
+        <CenterSection
+          setIsHovering={setIsHovering}
+          events={artistsOfToday}
+          todaysGenre={todaysGenre}
+        />
         <div>
           <RightSection
             isHovering={isHovering}
-            events={[artistsOfToday[2], artistsOfToday[3]].filter(Boolean)}
+            events={[artistsOfToday[3], artistsOfToday[1]].filter(Boolean)}
           />
         </div>
       </div>

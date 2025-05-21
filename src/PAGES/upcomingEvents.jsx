@@ -200,7 +200,7 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
       {/* <div className={classes.displayTypeIconsContainer}>
         <img src={listStyleIcon} alt="" />
         <img src={squareStyleIcon} alt="" />
-        </div> */}
+      </div> */}
       {events && eventsNotToday.length > 0 ? (
         <>
           {events.length > 0 && currentPage === 1 && (

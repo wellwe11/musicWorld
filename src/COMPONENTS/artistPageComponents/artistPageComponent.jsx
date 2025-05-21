@@ -435,13 +435,14 @@ const ArtistPageComponent = ({
       // get artists profile
       getTicketMasterArtist(artist);
     }
+    console.log(ticketMasterArtist);
   }, [artist]);
 
   useEffect(() => {
     if (ticketMasterArtist) {
       getEvents(artist);
     }
-  }, [ticketMasterArtist, country]);
+  }, [ticketMasterArtist, artist, country]);
 
   useEffect(() => {
     setDisplayPage(false);

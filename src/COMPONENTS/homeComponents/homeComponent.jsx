@@ -496,7 +496,7 @@ const HomePageComponent = ({
       <div
         className={loadElements > 4 ? classes.onLoadShow : classes.onLoadHidden}
       >
-        <DisplayFamousArtistsComponent eventsArray={eventsArray} />
+        {/* <DisplayFamousArtistsComponent eventsArray={eventsArray} /> */}
         <MusicImportSection />
         {/* <FindAppSection /> */}
       </div>

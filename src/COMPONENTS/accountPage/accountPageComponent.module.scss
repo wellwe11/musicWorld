@@ -1,0 +1,68 @@
+.accountPageContainer {
+  width: var(--homePageWidth);
+  min-height: 500px;
+  background-color: orange;
+
+  display: flex;
+}
+
+.listContainer {
+  width: 30%;
+  section {
+    padding: 5px;
+    margin-top: 10px;
+
+    li {
+      button {
+        position: relative;
+        cursor: pointer;
+        color: var(--buttonColor);
+
+        transition: all 0.2s ease;
+
+        .underline {
+          position: absolute;
+          bottom: 4px;
+          width: 0px;
+          height: 1.5px;
+          background-color: black;
+          transition: all 0.2s ease;
+        }
+      }
+
+      button:hover {
+        color: var(--buttonFocusColorTwo);
+
+        .underline {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.activeAccountTabContainer {
+  .tabsSection {
+    .subItem {
+      margin-bottom: 10px;
+    }
+  }
+
+  .listSection {
+  }
+}
+
+.changeInputButton {
+  width: fit-content;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    border-radius: var(--buttonRadius);
+    padding: 10px;
+    background-color: white;
+    cursor: pointer;
+  }
+}

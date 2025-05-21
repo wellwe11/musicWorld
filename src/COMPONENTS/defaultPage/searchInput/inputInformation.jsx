@@ -495,7 +495,7 @@ export const musicGenres = {
 export const dailyMusicGenre = [
   "Rock",
   "Pop",
-  "Electronical",
+  "Dance/Electronic",
   "Hip-Hop",
   "RnB",
   "Jazz",
