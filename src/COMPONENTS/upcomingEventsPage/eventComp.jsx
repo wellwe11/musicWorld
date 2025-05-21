@@ -46,9 +46,7 @@ const EventImage = ({
 }) => {
   const [imageHover, setImageHover] = useState(false);
 
-  const handleImageClicked = () => {
-    return imageClicked ? setImageClicked(false) : setImageClicked(true);
-  };
+  const handleImageClicked = () => setImageClicked(imageClicked ? false : true);
 
   const handleImageHover = () => {
     const onHover = () => {
@@ -80,11 +78,14 @@ const EventImage = ({
     setImageClicked(false);
   }, []);
 
+  const handleMouseEnter = () => setImageHover(true);
+  const handleMouseLeave = () => setImageHover(false);
+
   return (
     <div
       className={classes.eventImage}
-      onMouseEnter={() => handleImageHover().onHover()}
-      onMouseLeave={() => handleImageHover().onLeave()}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div
         className={classes.playButtonContainer}
@@ -108,12 +109,13 @@ const EventImage = ({
             ""
           )}
         </svg>
-        {imageHover &&
-          (imageClicked ? (
-            <img className={classes.playPauseIcon} src={pauseIcon} alt="" />
-          ) : (
-            <img className={classes.playPauseIcon} src={playIcon} alt="" />
-          ))}
+        {imageHover && (
+          <img
+            className={classes.playPauseIcon}
+            src={imageClicked ? pauseIcon : playIcon}
+            alt=""
+          />
+        )}
         {imageClicked && (
           <img className={classes.playPauseIcon} src={pauseIcon} alt="" />
         )}
@@ -124,6 +126,7 @@ const EventImage = ({
         }`}
         src={imageSrc}
         alt=""
+        loading="lazy"
       />
     </div>
   );

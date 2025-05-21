@@ -114,13 +114,9 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
   const [events, setEvents] = useState([]);
 
   const findArtistsNear = () => {
-    const localArray = [];
-
-    eventsArray?.filter((event) => {
-      if (interestedArtists.some((b) => event?.artist.id === b?.artist.id)) {
-        localArray.push(event);
-      }
-    });
+    const localArray = eventsArray?.filter((event) =>
+      interestedArtists.some((b) => event?.artist.id === b?.artist.id)
+    );
 
     return setEvents(localArray);
   };

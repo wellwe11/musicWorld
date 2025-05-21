@@ -119,6 +119,7 @@ const EventsImagesWheel = ({
                     <img
                       className={classes.visibleImage}
                       src={event?.[0]?.url}
+                      loading="lazy"
                       alt=""
                     />
 
@@ -269,7 +270,7 @@ const ArtistProfile = ({
       <div className={classes.artistWrapper}>
         <h6>{formattedDate ? formattedDate : ""}</h6>
         <div className={classes.imageContainer}>
-          <img src={artistData?.artist?.images[0]?.url} alt="" />
+          <img src={artistData?.artist?.images[0]?.url} alt="" loading="lazy" />
         </div>
         <div className={classes.artistTitle}>
           <h3>
