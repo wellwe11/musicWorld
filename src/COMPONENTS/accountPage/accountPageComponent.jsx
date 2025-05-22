@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import classes from "./accountPageComponent.module.scss";
+import { isoCountries } from "../defaultPage/searchInput/inputInformation";
 
 const handleInput = (
   e,
@@ -8,31 +9,25 @@ const handleInput = (
   tab,
   input,
   changeInputValue,
-  setListItems,
-  setChangeInputValue
+  setListItems
 ) => {
   console.log(e);
-  if (e.key === "Enter" || e.mouse === 0) {
-    console.log("asd");
-    e.preventDefault();
 
-    const updatedLists = {
-      ...listItems,
-      [section]: {
-        ...listItems[section],
-        [tab]: {
-          ...listItems[section][tab],
-          [input]: {
-            ...listItems[section][tab][input],
-            initial: changeInputValue,
-          },
+  const updatedLists = {
+    ...listItems,
+    [section]: {
+      ...listItems[section],
+      [tab]: {
+        ...listItems[section][tab],
+        [input]: {
+          ...listItems[section][tab][input],
+          initial: changeInputValue,
         },
       },
-    };
+    },
+  };
 
-    setListItems(updatedLists);
-    setChangeInputValue("");
-  }
+  setListItems(updatedLists);
 };
 
 const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
@@ -63,32 +58,94 @@ const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
     </div>
   );
 };
-
 const ChangeInput = ({
-  input,
   listValue,
-  changeInputValue,
-  setChangeInputValue,
+  section,
+  tab,
+  input,
+  listItems,
+  setListItems,
 }) => {
   return (
     <input
-      value={changeInputValue}
-      placeholder={`Change ${input}`}
-      onChange={(e) => setChangeInputValue(e.target.value)}
-      type={listValue.type}
+      placeholder="Change"
+      defaultValue={listValue.initial}
+      onKeyDown={(e) =>
+        e.key === "Enter"
+          ? handleInput(
+              e,
+              listItems,
+              section,
+              tab,
+              input,
+              e.target.value,
+              setListItems
+            )
+          : ""
+      }
+      type={listValue.type || "text"}
       autoComplete={listValue?.autocomplete || ""}
     />
   );
 };
-
-const RadioInput = ({ listValue, changeInputValue, setChangeInputValue }) => {
+const RadioInput = ({
+  listValue,
+  section,
+  tab,
+  input,
+  listItems,
+  setListItems,
+}) => {
   return (
     <input
-      onChange={() => setChangeInputValue((prevState) => !prevState)}
+      onChange={(e) =>
+        handleInput(
+          e,
+          listItems,
+          section,
+          tab,
+          input,
+          e.target.checked,
+          setListItems
+        )
+      }
       type={listValue.type}
       autoComplete={listValue?.autocomplete || ""}
-      checked={changeInputValue}
+      checked={listValue.initial}
     />
+  );
+};
+const ListInput = ({
+  listValue,
+  section,
+  tab,
+  input,
+  listItems,
+  setListItems,
+}) => {
+  const countries = Object.keys(isoCountries);
+
+  return (
+    <select
+      value={listValue.initial}
+      onChange={(e) =>
+        handleInput(
+          e,
+          listItems,
+          section,
+          tab,
+          input,
+          e.target.value,
+          setListItems
+        )
+      }
+    >
+      {countries.map((country) => (
+        <option key={country} value={country}>
+          {country}
+        </option>
+      ))}
+    </select>
   );
 };
 
@@ -106,59 +163,45 @@ const ChangeInputButton = ({
     setChangeInputClicked((prev) => !prev);
   };
 
-  const [changeInputValue, setChangeInputValue] = useState("");
-  const [changeradioValue, setChangeRadioValue] = useState(false);
+  return inputValue.type !== "checkbox" && !inputValue.extended ? (
+    <div className={classes.changeInputButton}>
+      <button onClick={(e) => handleChangeInputClicked(e)}>
+        <h4>Change {input}</h4>
+      </button>
 
-  console.log(listItems, section, tab, input);
-  return (
-    <form
-      onKeyDown={(e) =>
-        handleInput(
-          e,
-          listItems,
-          section,
-          tab,
-          input,
-          changeInputValue,
-          setListItems,
-          setChangeInputValue
-        )
-      }
-    >
-      {inputValue.type !== "checkbox" ? (
-        <div className={classes.changeInputButton}>
-          <button onClick={(e) => handleChangeInputClicked(e)}>
-            <h4>Change {input}</h4>
-          </button>
-
-          {changeInputClicked && (
-            <ChangeInput
-              tab={tab}
-              input={input}
-              listValue={inputValue}
-              setListItems={setListItems}
-              listItems={listItems}
-              section={section}
-              changeInputValue={changeInputValue}
-              setChangeInputValue={setChangeInputValue}
-            />
-          )}
-        </div>
-      ) : (
-        <div>
-          <RadioInput
-            tab={tab}
-            input={input}
-            listValue={inputValue}
-            setListItems={setListItems}
-            listItems={listItems}
-            section={section}
-            changeInputValue={changeradioValue}
-            setChangeInputValue={setChangeRadioValue}
-          />
-        </div>
+      {changeInputClicked && (
+        <ChangeInput
+          listValue={inputValue}
+          input={input}
+          section={section}
+          tab={tab}
+          listItems={listItems}
+          setListItems={setListItems}
+        />
       )}
-    </form>
+    </div>
+  ) : inputValue.type === "checkbox" ? (
+    <div>
+      <RadioInput
+        listValue={inputValue}
+        input={input}
+        section={section}
+        tab={tab}
+        listItems={listItems}
+        setListItems={setListItems}
+      />
+    </div>
+  ) : inputValue.extended ? (
+    <ListInput
+      listValue={inputValue}
+      input={input}
+      section={section}
+      tab={tab}
+      listItems={listItems}
+      setListItems={setListItems}
+    />
+  ) : (
+    ""
   );
 };
 
@@ -233,12 +276,20 @@ const AccountPageComponent = ({}) => {
       },
     },
     Location: {
-      "Update location": {},
+      "Update location": {
+        Location: {
+          type: "text",
+          initial: "Germany",
+          extended: true,
+        },
+      },
     },
     "Linked accounts": {
       "Manage linked accounts": {},
     },
   });
+
+  console.log(listItems);
 
   const listKeys = Object.keys(listItems);
 
