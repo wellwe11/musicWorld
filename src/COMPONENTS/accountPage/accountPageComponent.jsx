@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import classes from "./accountPageComponent.module.scss";
 import { isoCountries } from "../defaultPage/searchInput/inputInformation";
 
+// this is to access and update listItems which contains specifics for inputs and how they manage their inputs
 const handleInput = (
-  e,
   listItems,
   section,
   tab,
@@ -11,8 +11,6 @@ const handleInput = (
   changeInputValue,
   setListItems
 ) => {
-  console.log(e);
-
   const updatedLists = {
     ...listItems,
     [section]: {
@@ -58,6 +56,7 @@ const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
     </div>
   );
 };
+
 const ChangeInput = ({
   listValue,
   section,
@@ -68,12 +67,10 @@ const ChangeInput = ({
 }) => {
   return (
     <input
-      placeholder="Change"
-      defaultValue={listValue.initial}
+      placeholder={"Change information..."}
       onKeyDown={(e) =>
         e.key === "Enter"
           ? handleInput(
-              e,
               listItems,
               section,
               tab,
@@ -100,7 +97,6 @@ const RadioInput = ({
     <input
       onChange={(e) =>
         handleInput(
-          e,
           listItems,
           section,
           tab,
@@ -130,7 +126,6 @@ const ListInput = ({
       value={listValue.initial}
       onChange={(e) =>
         handleInput(
-          e,
           listItems,
           section,
           tab,
@@ -140,6 +135,7 @@ const ListInput = ({
         )
       }
     >
+      <option>{listValue.initial}</option>
       {countries.map((country) => (
         <option key={country} value={country}>
           {country}
@@ -288,8 +284,6 @@ const AccountPageComponent = ({}) => {
       "Manage linked accounts": {},
     },
   });
-
-  console.log(listItems);
 
   const listKeys = Object.keys(listItems);
 
