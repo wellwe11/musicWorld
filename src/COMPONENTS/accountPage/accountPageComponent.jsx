@@ -1,6 +1,40 @@
 import { useEffect, useRef, useState } from "react";
 import classes from "./accountPageComponent.module.scss";
 
+const handleInput = (
+  e,
+  listItems,
+  section,
+  tab,
+  input,
+  changeInputValue,
+  setListItems,
+  setChangeInputValue
+) => {
+  console.log(e);
+  if (e.key === "Enter" || e.mouse === 0) {
+    console.log("asd");
+    e.preventDefault();
+
+    const updatedLists = {
+      ...listItems,
+      [section]: {
+        ...listItems[section],
+        [tab]: {
+          ...listItems[section][tab],
+          [input]: {
+            ...listItems[section][tab][input],
+            initial: changeInputValue,
+          },
+        },
+      },
+    };
+
+    setListItems(updatedLists);
+    setChangeInputValue("");
+  }
+};
+
 const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
   return (
     <div className={classes.listContainer}>
@@ -33,44 +67,27 @@ const ListContainer = ({ listKeys, listItems, setActiveTab }) => {
 const ChangeInput = ({
   input,
   listValue,
-  listItems,
-  setListItems,
-  tab,
-  section,
+  changeInputValue,
+  setChangeInputValue,
 }) => {
-  const [changeInputValue, setChangeInputValue] = useState("");
-
-  const handleInput = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-
-      const updatedLists = {
-        ...listItems,
-        [section]: {
-          ...listItems[section],
-          [tab]: {
-            ...listItems[section][tab],
-            [input]: {
-              ...listItems[section][tab][input],
-              initial: changeInputValue,
-            },
-          },
-        },
-      };
-
-      setListItems(updatedLists);
-      setChangeInputValue("");
-    }
-  };
-
   return (
     <input
-      onKeyDown={handleInput}
       value={changeInputValue}
       placeholder={`Change ${input}`}
       onChange={(e) => setChangeInputValue(e.target.value)}
       type={listValue.type}
       autoComplete={listValue?.autocomplete || ""}
+    />
+  );
+};
+
+const RadioInput = ({ listValue, changeInputValue, setChangeInputValue }) => {
+  return (
+    <input
+      onChange={() => setChangeInputValue((prevState) => !prevState)}
+      type={listValue.type}
+      autoComplete={listValue?.autocomplete || ""}
+      checked={changeInputValue}
     />
   );
 };
@@ -84,28 +101,64 @@ const ChangeInputButton = ({
   section,
 }) => {
   const [changeInputClicked, setChangeInputClicked] = useState(false);
+  const handleChangeInputClicked = (e) => {
+    e.preventDefault();
+    setChangeInputClicked((prev) => !prev);
+  };
 
-  const handleChangeInputClicked = () => setChangeInputClicked((prev) => !prev);
+  const [changeInputValue, setChangeInputValue] = useState("");
+  const [changeradioValue, setChangeRadioValue] = useState(false);
 
+  console.log(listItems, section, tab, input);
   return (
-    <div className={classes.changeInputButton}>
-      <button onClick={handleChangeInputClicked}>
-        <h4>Change {input}</h4>
-      </button>
+    <form
+      onKeyDown={(e) =>
+        handleInput(
+          e,
+          listItems,
+          section,
+          tab,
+          input,
+          changeInputValue,
+          setListItems,
+          setChangeInputValue
+        )
+      }
+    >
+      {inputValue.type !== "checkbox" ? (
+        <div className={classes.changeInputButton}>
+          <button onClick={(e) => handleChangeInputClicked(e)}>
+            <h4>Change {input}</h4>
+          </button>
 
-      {changeInputClicked && (
-        <form>
-          <ChangeInput
+          {changeInputClicked && (
+            <ChangeInput
+              tab={tab}
+              input={input}
+              listValue={inputValue}
+              setListItems={setListItems}
+              listItems={listItems}
+              section={section}
+              changeInputValue={changeInputValue}
+              setChangeInputValue={setChangeInputValue}
+            />
+          )}
+        </div>
+      ) : (
+        <div>
+          <RadioInput
             tab={tab}
             input={input}
             listValue={inputValue}
             setListItems={setListItems}
             listItems={listItems}
             section={section}
+            changeInputValue={changeradioValue}
+            setChangeInputValue={setChangeRadioValue}
           />
-        </form>
+        </div>
       )}
-    </div>
+    </form>
   );
 };
 
@@ -116,7 +169,6 @@ const ActiveAccountTab = ({
   listItems,
   setListItems,
 }) => {
-  console.log(section, listItem, tab, listItems);
   return (
     <div className={classes.activeAccountTabContainer}>
       {Object.keys(listItem)?.length > 0 ? (
@@ -173,7 +225,12 @@ const AccountPageComponent = ({}) => {
       },
     },
     Subscription: {
-      "Manage subscription": {},
+      "Manage subscription": {
+        "Subscribe to our newsletter": {
+          type: "checkbox",
+          initial: true,
+        },
+      },
     },
     Location: {
       "Update location": {},
