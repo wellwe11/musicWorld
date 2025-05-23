@@ -308,7 +308,6 @@ export default App;
  *
  * add loading svg animations
  * -- to home-page
- * Fix so that the page doesnt refresh so many times
  *
  * Design app-section on homePage
  *
@@ -324,4 +323,7 @@ export default App;
  * -- Create new section to hover over current famous artists
  *
  * fix so when you search for an artist, and they have no events, so that previous artists events are then removed (currently stays displayed)
+ *
+ * check bug with dates on home-page (if date is i.e. 27th, check if the image-wheel works correclty)
+ * -- if date is too late, maybe the images dont display, or the dates are bugged?
  */

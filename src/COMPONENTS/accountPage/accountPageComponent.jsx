@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./accountPageComponent.module.scss";
 import { isoCountries } from "../defaultPage/searchInput/inputInformation";
+
+import settingsIcon from "./media/settings.png";
+import trashIcon from "./media/trash-can.png";
 
 // this is to access and update listItems which contains specifics for inputs and how they manage their inputs
 const handleInput = (
@@ -68,18 +71,19 @@ const ChangeInput = ({
   return (
     <input
       placeholder={"Change information..."}
-      onKeyDown={(e) =>
-        e.key === "Enter"
-          ? handleInput(
-              listItems,
-              section,
-              tab,
-              input,
-              e.target.value,
-              setListItems
-            )
-          : ""
-      }
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          handleInput(
+            listItems,
+            section,
+            tab,
+            input,
+            e.target.value,
+            setListItems
+          );
+          e.target.value = "";
+        }
+      }}
       type={listValue.type || "text"}
       autoComplete={listValue?.autocomplete || ""}
     />
@@ -145,6 +149,52 @@ const ListInput = ({
   );
 };
 
+const LinkInput = ({
+  input,
+  inputValue,
+  listItems,
+  setListItems,
+  tab,
+  section,
+}) => {
+  console.log(input, inputValue, listItems, tab, section);
+  const [displayInput, setDisplayInput] = useState(false);
+
+  const handleDisplayInput = () => setDisplayInput((prev) => !prev);
+  return (
+    <div>
+      <button
+        onClick={() =>
+          handleInput(listItems, section, tab, input, "", setListItems)
+        }
+      >
+        <img src={trashIcon} alt="" />
+      </button>
+      <button onClick={handleDisplayInput}>
+        <img src={settingsIcon} alt="" />
+      </button>
+      {displayInput && (
+        <input
+          placeholder="hello"
+          onKeyDown={(e) => {
+            e.key === "Enter"
+              ? handleInput(
+                  listItems,
+                  section,
+                  tab,
+                  input,
+                  e.target.value,
+                  setListItems
+                )
+              : "";
+          }}
+          type="link"
+        />
+      )}
+    </div>
+  );
+};
+
 const ChangeInputButton = ({
   input,
   inputValue,
@@ -154,30 +204,43 @@ const ChangeInputButton = ({
   section,
 }) => {
   const [changeInputClicked, setChangeInputClicked] = useState(false);
+
   const handleChangeInputClicked = (e) => {
     e.preventDefault();
     setChangeInputClicked((prev) => !prev);
   };
 
-  return inputValue.type !== "checkbox" && !inputValue.extended ? (
-    <div className={classes.changeInputButton}>
+  return inputValue.type !== "checkbox" &&
+    inputValue.type !== "link" &&
+    !inputValue.extended ? (
+    <div
+      className={classes.changeInputButton}
+      onMouseLeave={(e) =>
+        changeInputClicked ? handleChangeInputClicked(e) : ""
+      }
+    >
       <button onClick={(e) => handleChangeInputClicked(e)}>
-        <h4>Change {input}</h4>
+        <img src={settingsIcon} alt="" />
       </button>
-
       {changeInputClicked && (
-        <ChangeInput
-          listValue={inputValue}
-          input={input}
-          section={section}
-          tab={tab}
-          listItems={listItems}
-          setListItems={setListItems}
-        />
+        <div
+          onKeyDown={(e) =>
+            e.key === "Enter" ? handleChangeInputClicked(e) : ""
+          }
+        >
+          <ChangeInput
+            listValue={inputValue}
+            input={input}
+            section={section}
+            tab={tab}
+            listItems={listItems}
+            setListItems={setListItems}
+          />
+        </div>
       )}
     </div>
   ) : inputValue.type === "checkbox" ? (
-    <div>
+    <div className={classes.radioContainer}>
       <RadioInput
         listValue={inputValue}
         input={input}
@@ -187,15 +250,28 @@ const ChangeInputButton = ({
         setListItems={setListItems}
       />
     </div>
+  ) : inputValue.type === "link" ? (
+    <div className={classes.linkedAccountsContainer}>
+      <LinkInput
+        listValue={inputValue}
+        input={input}
+        section={section}
+        tab={tab}
+        listItems={listItems}
+        setListItems={setListItems}
+      />
+    </div>
   ) : inputValue.extended ? (
-    <ListInput
-      listValue={inputValue}
-      input={input}
-      section={section}
-      tab={tab}
-      listItems={listItems}
-      setListItems={setListItems}
-    />
+    <div className={classes.locationContainer}>
+      <ListInput
+        listValue={inputValue}
+        input={input}
+        section={section}
+        tab={tab}
+        listItems={listItems}
+        setListItems={setListItems}
+      />
+    </div>
   ) : (
     ""
   );
@@ -215,13 +291,17 @@ const ActiveAccountTab = ({
           <h2>{tab}</h2>
           {Object.keys(listItem)?.map((subItem, index) => (
             <div className={classes.subItem} key={index}>
-              <h4>
-                {subItem}:{" "}
-                {listItem[subItem]?.type === "password" ||
-                listItem[subItem]?.type === "new-password"
-                  ? listItem[subItem]?.initial.replace(/[a-zA-Z0-9]/g, "*")
-                  : listItem[subItem]?.initial}
-              </h4>
+              <div className={classes.subItemContainer}>
+                <h4>
+                  <div className={classes.subItemTitle}>{subItem}: </div>
+                  <div className={classes.subItemInfo}>
+                    {listItem[subItem]?.type === "password" ||
+                    listItem[subItem]?.type === "new-password"
+                      ? listItem[subItem]?.initial.replace(/[a-zA-Z0-9]/g, "*")
+                      : listItem[subItem]?.initial}
+                  </div>
+                </h4>
+              </div>
               <ChangeInputButton
                 input={subItem}
                 inputValue={listItem[subItem]}
@@ -281,7 +361,16 @@ const AccountPageComponent = ({}) => {
       },
     },
     "Linked accounts": {
-      "Manage linked accounts": {},
+      "Manage linked accounts": {
+        Spotify: {
+          type: "link",
+          initial: `https://open.spotify.com/user/snyggey?si=cf019bee26ed46db`,
+        },
+        YouTube: {
+          type: "link",
+          initial: `Youtube.com`,
+        },
+      },
     },
   });
 

@@ -1,0 +1,31 @@
+.aboutUsComponent {
+  width: var(--homePageWidth);
+  .profileSection {
+    border: 1px solid var(--buttonContainerTheme);
+    border-radius: var(--eventContainerRadius);
+    display: flex;
+    color: white;
+
+    .bioImageContainer {
+      min-width: 200px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        height: 150px;
+        filter: invert(1);
+      }
+    }
+
+    .bioInfoContainer {
+      section {
+        padding: 10px;
+
+        img {
+          filter: invert(1);
+        }
+      }
+    }
+  }
+}
