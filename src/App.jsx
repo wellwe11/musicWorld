@@ -306,11 +306,6 @@ export default App;
 /**
  * todos:
  *
- * add loading svg animations
- * -- to home-page
-
- * fix artist-page bio-info so it applies stylers and such correctly
- *
  * Pages to create:
  * -- EVENT/ARTIST NOT FOUND PAGE --
  * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so
@@ -318,17 +313,19 @@ export default App;
  *
  *
  * fix so when you search for an artist, and they have no events, so that previous artists events are then removed (currently stays displayed)
+ * Fix home-page pictureslider bottom border-radius leakings (currently, image leaks out a little bit, idk why)
+ * -- add loading svg animation to the image when it isnt loaded
+ * Fix musicImportContent so it scales with resizing browser
+ * Fix artist-page bio-info so it applies stylers and such correctly
  *
  * check bug with dates on home-page (if date is i.e. 27th, check if the image-wheel works correclty)
  * -- if date is too late, maybe the images dont display, or the dates are bugged?
- * 
+ *
  * ''' ellies projects '''
  * - ellie fixes logo with mery to fit font
  */
 
-/**
- *
- * extras
+/** extras
  *
  * Design app-section on homePage
  * home-page section that contains "Search your favorite blablabla (filter items)"

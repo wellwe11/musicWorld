@@ -94,12 +94,10 @@ p {
   margin-top: 2px;
   margin-left: 2px;
   letter-spacing: 1px;
-  font-size: 1rem;
   word-break: 1px;
   line-height: 1;
 }
 
-/* Optional: Add some basic typography resets */
 h1,
 h2,
 h3,
@@ -109,18 +107,83 @@ h6 {
   line-height: 1.5;
   letter-spacing: 1px;
   word-break: 1px;
-  font-size: 1rem;
+
   margin: 0;
   text-transform: uppercase;
 }
 
-h3 {
-  font-size: 1.3rem;
+@media screen and (min-width: 1001px) {
+  p {
+    font-size: 1rem;
+  }
+
+  h3,
+  h4,
+  h6 {
+    font-size: 1rem;
+  }
+
+  h1,
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
 }
 
-h1,
-h2 {
-  font-size: 1.6rem;
+@media screen and (max-width: 1000px) {
+  p {
+    font-size: 0.8rem;
+  }
+  h3,
+  h6 {
+    font-size: 0.8rem;
+  }
+
+  h1,
+  h2 {
+    font-size: 1.3rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+
+  h5 {
+    font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  p {
+    font-size: 0.8rem;
+  }
+  h3,
+  h6 {
+    font-size: 0.7rem;
+  }
+
+  h1,
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  h3 {
+    font-size: 0.8rem;
+  }
+
+  h4 {
+    font-size: 0.8rem;
+  }
+
+  h5 {
+    font-size: 0.8rem;
+  }
 }
 
 html,
