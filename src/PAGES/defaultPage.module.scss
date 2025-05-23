@@ -76,3 +76,9 @@
 .homePage {
   width: 100%;
 }
+
+.accountPage {
+  width: var(--homePageWidth);
+  display: flex;
+  justify-content: center;
+}

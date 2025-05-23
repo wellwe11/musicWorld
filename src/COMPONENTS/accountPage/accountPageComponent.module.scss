@@ -1,10 +1,8 @@
 .accountPageContainer {
-  width: var(--homePageWidth);
-  min-height: 500px;
-  background-color: var(--buttonColor);
+  width: 65%;
+  min-width: 350px;
 
   border-radius: var(--buttonRadius);
-  padding: 10px;
 
   display: flex;
 
@@ -12,7 +10,14 @@
 }
 
 .listContainer {
-  width: 30%;
+  min-width: 50%;
+
+  border-top-left-radius: var(--buttonContainerRadius);
+  border-bottom-left-radius: var(--buttonContainerRadius);
+  border: 1px solid var(--buttonWrapperColor);
+
+  padding: 10px;
+
   section {
     padding: 5px;
     margin-top: 10px;
@@ -46,13 +51,21 @@
 }
 
 .activeAccountTabContainer {
+  min-width: 50%;
+
+  border-top-right-radius: var(--buttonContainerRadius);
+  border-bottom-right-radius: var(--buttonContainerRadius);
+  border: 1px solid var(--buttonWrapperColor);
+  border-left: none;
+  padding: 10px;
+
   .tabsSection {
     .subItem {
-      margin-bottom: 10px;
-
+      padding: 10px;
       display: flex;
       align-items: center;
       min-width: 500px;
+      min-height: 48px;
 
       .subItemContainer {
         .subItemTitle,
@@ -69,14 +82,14 @@
 }
 
 .changeInputButton {
-  margin-left: 5px;
+  margin-left: 10px;
   width: fit-content;
 
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
 
-  height: 30px;
+  min-height: 38px;
   min-width: 200px;
 
   button {
@@ -97,6 +110,7 @@
   input {
     background-color: white;
     margin-left: 10px;
+    color: black;
   }
 }
 
@@ -106,6 +120,14 @@
 
 .locationContainer {
   margin-left: 30px;
+
+  border: 1px solid var(--buttonWrapperColor);
+  border-radius: var(--buttonRadius);
+  padding: 5px;
+
+  select {
+    outline: none;
+  }
 }
 
 .linkedAccountsContainer {

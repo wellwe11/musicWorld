@@ -1,8 +1,9 @@
 import AccountPageComponent from "../COMPONENTS/accountPage/accountPageComponent";
+import classes from "./defaultPage.module.scss";
 
 const AccountPage = ({}) => {
   return (
-    <div>
+    <div className={classes.accountPage}>
       <AccountPageComponent />
     </div>
   );

@@ -1,26 +1,43 @@
 .aboutUsComponent {
   width: var(--homePageWidth);
+  min-height: 400px;
   .profileSection {
-    border: 1px solid var(--buttonContainerTheme);
-    border-radius: var(--eventContainerRadius);
+    margin-bottom: 10px;
     display: flex;
+    justify-content: center;
     color: white;
+    width: 100%;
+    position: relative;
 
     .bioImageContainer {
-      min-width: 200px;
+      position: absolute;
+      left: 0;
+      top: 25%;
+      width: 10%;
 
       display: flex;
       justify-content: center;
       align-items: center;
       img {
+        @media screen and (max-width: 700px) {
+          display: none;
+        }
         height: 150px;
         filter: invert(1);
       }
     }
 
     .bioInfoContainer {
+      border: 1px solid var(--buttonWrapperColor);
+      border-radius: var(--eventContainerRadius);
+      width: 65%;
+      padding: 10px;
+      min-width: 350px;
       section {
         padding: 10px;
+        p {
+          text-align: justify;
+        }
 
         img {
           filter: invert(1);

@@ -16,17 +16,12 @@ const TextSection = ({ profileKeys, profileObject }) => {
     <div className={classes.bioInfoContainer}>
       {profileKeys.map((section) => (
         <section key={section}>
-          <h3>{section}:</h3>
           {typeof profileObject[section] === "object" &&
           !Array.isArray(profileObject[section]) ? (
             Object.entries(profileObject[section]).map(([key, value]) =>
               typeof value === "object" && value.icon && value.link ? (
                 <div key={key}>
-                  <a
-                    href={value.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={value.link} target="_blank">
                     <img src={value.icon} alt={`${key} icon`} width={20} />
                   </a>
                 </div>
@@ -45,10 +40,10 @@ const TextSection = ({ profileKeys, profileObject }) => {
 
 const Profile = ({ image, profileKeys, profileObject }) => {
   return (
-    <section className={classes.profileSection}>
+    <div className={classes.profileSection}>
       <ImageArea image={image} />
       <TextSection profileKeys={profileKeys} profileObject={profileObject} />
-    </section>
+    </div>
   );
 };
 
