@@ -17,3 +17,21 @@ export const robinInformation = {
     },
   },
 };
+
+export const websiteInformation = {
+  Name: {
+    "Full name": "About this website",
+  },
+  Bio: {
+    text: "This website was a personal project I built to get familiar with React and to apply the skills I’ve learned over the past year. I used the Ticketmaster API to fetch event data and Discogs to retrieve artist information. The idea for the project was inspired by my passion for music. I wanted to create something that combined both my technical knowledge and personal interests. It was a great way to explore real-world APIs, manage dynamic content, and build a user-friendly interface around a topic I truly enjoy.",
+  },
+  Contact: {
+    Email: " ",
+  },
+  Links: {
+    icon: {
+      icon: " ",
+      link: " ",
+    },
+  },
+};

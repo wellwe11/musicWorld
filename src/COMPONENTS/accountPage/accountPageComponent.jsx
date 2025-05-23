@@ -288,17 +288,22 @@ const ActiveAccountTab = ({
     <div className={classes.activeAccountTabContainer}>
       {Object.keys(listItem)?.length > 0 ? (
         <div className={classes.tabsSection}>
-          <h2>{tab}</h2>
+          <h3 className={classes.tabTitle}>{tab}</h3>
           {Object.keys(listItem)?.map((subItem, index) => (
             <div className={classes.subItem} key={index}>
               <div className={classes.subItemContainer}>
                 <h4>
                   <div className={classes.subItemTitle}>{subItem}: </div>
                   <div className={classes.subItemInfo}>
-                    {listItem[subItem]?.type === "password" ||
-                    listItem[subItem]?.type === "new-password"
-                      ? listItem[subItem]?.initial.replace(/[a-zA-Z0-9]/g, "*")
-                      : listItem[subItem]?.initial}
+                    <h6>
+                      {listItem[subItem]?.type === "password" ||
+                      listItem[subItem]?.type === "new-password"
+                        ? listItem[subItem]?.initial.replace(
+                            /[a-zA-Z0-9]/g,
+                            "*"
+                          )
+                        : listItem[subItem]?.initial}
+                    </h6>
                   </div>
                 </h4>
               </div>

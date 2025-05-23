@@ -308,11 +308,7 @@ export default App;
  *
  * add loading svg animations
  * -- to home-page
- *
- * Design app-section on homePage
- *
- * home-page section that contains "Search your favorite blablabla (filter items)"
- *
+
  * fix artist-page bio-info so it applies stylers and such correctly
  *
  * Pages to create:
@@ -320,10 +316,22 @@ export default App;
  * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * ---currently, nothing is updated and you view the same things you searched prior to your un-found search
  *
- * -- Create new section to hover over current famous artists
  *
  * fix so when you search for an artist, and they have no events, so that previous artists events are then removed (currently stays displayed)
  *
  * check bug with dates on home-page (if date is i.e. 27th, check if the image-wheel works correclty)
  * -- if date is too late, maybe the images dont display, or the dates are bugged?
+ * 
+ * ''' ellies projects '''
+ * - ellie fixes logo with mery to fit font
+ */
+
+/**
+ *
+ * extras
+ *
+ * Design app-section on homePage
+ * home-page section that contains "Search your favorite blablabla (filter items)"
+ * * -- Create new section to hover over current famous artists
+ *
  */

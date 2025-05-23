@@ -60,14 +60,21 @@
   padding: 10px;
 
   .tabsSection {
+    margin-top: 10px;
+
+    .tabTitle {
+      margin-left: 5px;
+    }
+
     .subItem {
-      padding: 10px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       min-width: 500px;
       min-height: 48px;
 
       .subItemContainer {
+        padding: 5px;
         .subItemTitle,
         .subItemInfo {
           max-width: 213px;
