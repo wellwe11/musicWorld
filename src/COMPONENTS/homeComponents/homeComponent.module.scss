@@ -316,6 +316,9 @@
       width: 100%;
 
       cursor: pointer;
+
+      display: block;
+      will-change: transform, filter;
     }
 
     img:hover {
