@@ -631,7 +631,8 @@
     min-width: 250px;
     height: 65px;
     .musicIconButton {
-      width: 25%;
+      max-width: 25%;
+      min-width: 25%;
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -642,11 +643,12 @@
         height: 100%;
         width: 100%;
         cursor: pointer;
-        transition: all 0.2s ease;
         border-radius: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        transition: all 0.2s ease;
       }
 
       .musicImage {
@@ -661,7 +663,7 @@
         transform: scale(1);
 
         .musicImage {
-          transform: scale(1.1);
+          transform: scale(1.05);
         }
       }
     }
