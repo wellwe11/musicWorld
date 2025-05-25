@@ -660,6 +660,8 @@
         height: 60%;
 
         filter: invert(1);
+
+        will-change: transform, filter;
       }
 
       .musicIcon:hover {
