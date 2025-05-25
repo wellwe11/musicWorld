@@ -453,65 +453,77 @@ const HomePageComponent = ({
 
   return (
     <div className={classes.homePageComponentContainer}>
-      <div
-        className={loadElements > 0 ? classes.onLoadShow : classes.onLoadHidden}
-      >
-        <CountryImageContainer
-          country={country}
-          eventsArray={oneEventPerDay.slice(0, 6)}
-          displayedImage={displayedImage}
-          setDisplayedImage={setDisplayedImage}
-          setDateFrom={setDateFrom}
-          setDateTill={setDateTill}
-        />
-      </div>
+      {eventsArray?.length > 0 ? (
+        <>
+          <div
+            className={
+              loadElements > 0 ? classes.onLoadShow : classes.onLoadHidden
+            }
+          >
+            <CountryImageContainer
+              country={country}
+              eventsArray={oneEventPerDay.slice(0, 6)}
+              displayedImage={displayedImage}
+              setDisplayedImage={setDisplayedImage}
+              setDateFrom={setDateFrom}
+              setDateTill={setDateTill}
+            />
+          </div>
 
-      <div
-        className={loadElements > 1 ? classes.onLoadShow : classes.onLoadHidden}
-      >
-        <EventsImagesWheel
-          eventsArray={eventsArray}
-          displayedImage={displayedImage}
-          setDisplayedImage={setDisplayedImage}
-          oneEventPerDay={oneEventPerDay}
-          setOneEventPerDay={setOneEventPerDay}
-        />
-      </div>
-      <div
-        className={`${
-          loadElements > 2 ? classes.onLoadShow : classes.onLoadHidden
-        }`}
-      >
-        <PopularArtistsNear
-          artistData={eventsArray}
-          interestedArtists={interestedArtists}
-          setInterestedArtists={setInterestedArtists}
-          title={"Artists close to you"}
-          setArtist={setArtist}
-        />
-      </div>
-      {interestedArtists.length > 0 && (
-        <div
-          className={`${classes.popularArtistsNearSection} ${
-            loadElements > 3 ? classes.onLoadShow : classes.onLoadHidden
-          }`}
-        >
-          <PopularArtistsNear
-            artistData={interestedArtists}
-            interestedArtists={interestedArtists}
-            setInterestedArtists={setInterestedArtists}
-            title={"Following artists"}
-            setArtist={setArtist}
-          />
-        </div>
+          <div
+            className={
+              loadElements > 1 ? classes.onLoadShow : classes.onLoadHidden
+            }
+          >
+            <EventsImagesWheel
+              eventsArray={eventsArray}
+              displayedImage={displayedImage}
+              setDisplayedImage={setDisplayedImage}
+              oneEventPerDay={oneEventPerDay}
+              setOneEventPerDay={setOneEventPerDay}
+            />
+          </div>
+          <div
+            className={`${
+              loadElements > 2 ? classes.onLoadShow : classes.onLoadHidden
+            }`}
+          >
+            <PopularArtistsNear
+              artistData={eventsArray}
+              interestedArtists={interestedArtists}
+              setInterestedArtists={setInterestedArtists}
+              title={"Artists close to you"}
+              setArtist={setArtist}
+            />
+          </div>
+          {interestedArtists.length > 0 && (
+            <div
+              className={`${classes.popularArtistsNearSection} ${
+                loadElements > 3 ? classes.onLoadShow : classes.onLoadHidden
+              }`}
+            >
+              <PopularArtistsNear
+                artistData={interestedArtists}
+                interestedArtists={interestedArtists}
+                setInterestedArtists={setInterestedArtists}
+                title={"Following artists"}
+                setArtist={setArtist}
+              />
+            </div>
+          )}
+          <div
+            className={
+              loadElements > 4 ? classes.onLoadShow : classes.onLoadHidden
+            }
+          >
+            {/* <DisplayFamousArtistsComponent eventsArray={eventsArray} /> */}
+            <MusicImportSection />
+            {/* <FindAppSection /> */}
+          </div>
+        </>
+      ) : (
+        <h1>{"Current location has no events... :("}</h1>
       )}
-      <div
-        className={loadElements > 4 ? classes.onLoadShow : classes.onLoadHidden}
-      >
-        {/* <DisplayFamousArtistsComponent eventsArray={eventsArray} /> */}
-        <MusicImportSection />
-        {/* <FindAppSection /> */}
-      </div>
     </div>
   );
 };
