@@ -39,12 +39,14 @@ const EventsImagesWheel = ({
     for (let i = 0; i < eventsArray?.length; i++) {
       const iDate = eventsArray[i]?.event.dates.start.localDate;
       const iDay = new Date(iDate).getDate();
+      const iMonth = new Date(iDate).getMonth();
 
       if (!localArr.some((a) => a.date === iDate)) {
         localArr.push({
           date: iDate,
           event: eventsArray[i]?.event,
           day: iDay,
+          month: iMonth + 1,
         });
       }
     }

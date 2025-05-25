@@ -59,17 +59,13 @@ const MonthsContainer = ({
     );
 
     handleNavigate("upcomingEvents");
-
-    // setDateTill(
-    //   `${todayYear}-${todayMonth > 9 ? todayMonth : "0" + todayMonth + 2}-${
-    //     nClicked > 9 ? nClicked : "0" + nClicked
-    //   }`
-    // );
   };
 
   useEffect(() => {
     getMOnthlyDays();
   }, []);
+
+  console.log(dailyMonths, eventsArray[0]);
 
   return (
     <div className={classes.datesContainer}>
@@ -81,7 +77,9 @@ const MonthsContainer = ({
                 ? classes.todayHighLight
                 : eventsArray.some(
                     (d, indexTwo) =>
-                      d.day === day.dayNr && indexTwo === displayedImage
+                      d.day === day.dayNr &&
+                      d.month === day.month &&
+                      indexTwo === displayedImage
                   )
                 ? classes.displayedImageNumber
                 : ""
