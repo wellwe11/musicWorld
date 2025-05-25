@@ -43,6 +43,7 @@ export const addEvents = (array, setter) => {
 
   if (canPush) {
     updatedArray.push(artistsArray);
+    console.log(artistsArray);
   }
 
   if (updatedArray.length > 0) {

@@ -192,6 +192,8 @@ const App = () => {
   useEffect(() => {
     if (events) {
       return addEvents(events?.events, setEventsArray);
+    } else {
+      setEventsArray([]);
     }
   }, [events]);
 
@@ -305,17 +307,6 @@ export default App;
 
 /**
  * todos:
- *
- * Pages to create:
- * -- EVENT/ARTIST NOT FOUND PAGE --
- * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so
- * ---currently, nothing is updated and you view the same things you searched prior to your un-found search
- *
- *
- * Minor update:
- * Add proper size to next-page buttons on upcoming events
- * -- currently, they are very small as they are fonts. Add actual images/svgs
- *
  *
  * Potential bugs:
  * check bug with dates on home-page (if date is i.e. 27th, check if the image-wheel works correclty)

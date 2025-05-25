@@ -24,15 +24,21 @@
 
   position: relative;
   button {
-    font-size: 20px;
-    font-weight: 600;
     margin: 10px;
 
     cursor: pointer;
+
+    background-color: var(--buttonColor);
+    width: 40px;
+    border-radius: var(--buttonRadius);
+
+    h2 {
+      margin-top: 3px;
+    }
   }
 
   button:hover {
-    font-weight: 800;
+    background-color: var(--buttonWrapperColor);
   }
 
   p {

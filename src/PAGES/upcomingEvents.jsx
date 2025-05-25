@@ -52,10 +52,10 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
           color: currentPage === 1 ? "gray" : "",
           position: "absolute",
           left: "0",
-          marginLeft: "-25px",
+          marginLeft: "-35px",
         }}
       >
-        {skipToFirst}
+        <h2>{skipToFirst}</h2>
       </button>
       <button
         onClick={() => handleCurrentPage("-")}
@@ -63,18 +63,18 @@ const PageToView = ({ eventsArray, currentPage, setCurrentPage }) => {
           color: maxPageReached === "-" ? "gray" : "",
         }}
       >
-        {previous}
+        <h2>{previous}</h2>
       </button>
-      <p>
+      <h5>
         {currentPage} of {amountOfPages}
-      </p>
+      </h5>
       <button
         onClick={() => handleCurrentPage("+")}
         style={{
           color: maxPageReached === "+" ? "gray" : "",
         }}
       >
-        {next}
+        <h2>{next}</h2>
       </button>
     </div>
   );
@@ -90,8 +90,10 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
   loading,
   setArtist,
 }) {
+  console.log(eventsArray);
   // const { loading } = useContext(EventContext);
   const [currentPage, setCurrentPage] = useState(1);
+  const [noEvents, setNoEvents] = useState(false);
 
   const [maxViewEvent, setMaxViewEVent] = useState(11);
   const [minViewEvent, setMinViewEvent] = useState(0);
@@ -123,10 +125,25 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
 
   useEffect(() => {
     // if to protect from odd renders after searching for artist
-    if (eventsArray?.length > 1) {
-      findArtistsNear();
-    }
+    const timer = setTimeout(() => {
+      if (eventsArray?.length > 0) {
+        setNoEvents(false);
+        return findArtistsNear();
+      } else {
+        setNoEvents(true);
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, [eventsArray, interestedArtists]);
+
+  const NoArtistsFound = () => {
+    return (
+      <div>
+        <h1>{"No events :("}</h1>
+      </div>
+    );
+  };
 
   useEffect(() => {
     if (currentPage === 1) {
@@ -197,86 +214,90 @@ const UpcomingEventsPage = React.memo(function UpcomingEventsPage({
         <img src={listStyleIcon} alt="" />
         <img src={squareStyleIcon} alt="" />
       </div> */}
-      {events && eventsNotToday.length > 0 ? (
-        <>
-          {events.length > 0 && currentPage === 1 && (
-            <div>
-              <PopularArtistsNear
-                artistData={events}
-                interestedArtists={interestedArtists}
-                setInterestedArtists={setInterestedArtists}
-                title={"Following upcoming artists..."}
-                setArtist={setArtist}
-              />
-            </div>
-          )}
-          <div className={classes.eventsToday}>
-            {eventsThisDate?.length > 0 && currentPage === 1 && (
-              <div className={classes.pageEventsWrapper}>
-                <h1 className={classes.locationTitle}>
-                  {dateFrom
-                    ? "Events " + eventsThisDateName.replace(/_/g, " ")
-                    : "Events today"}
-                </h1>
-                {eventsThisDate && eventsThisDate.length > 0 ? (
-                  <Events
-                    artistData={events}
-                    eventsArray={eventsThisDate}
-                    loading={loading}
-                    minViewEvent={0}
-                    maxViewEvent={eventsThisDate.length}
-                    interestedArtists={interestedArtists}
-                    setInterestedArtists={setInterestedArtists}
-                    clickedEvent={clickedEvent}
-                    setClickedEvent={setClickedEvent}
-                    imageClicked={imageClicked}
-                    setImageClicked={setImageClicked}
-                    setArtist={setArtist}
-                  />
-                ) : (
-                  <div className={classes.loadingSvgContainer}>
-                    <LoadingSvg />
-                  </div>
-                )}
+      {!noEvents ? (
+        eventsArray?.length > 0 ? (
+          <>
+            {events.length > 0 && currentPage === 1 && (
+              <div>
+                <PopularArtistsNear
+                  artistData={events}
+                  interestedArtists={interestedArtists}
+                  setInterestedArtists={setInterestedArtists}
+                  title={"Following upcoming artists..."}
+                  setArtist={setArtist}
+                />
               </div>
             )}
-          </div>
+            <div className={classes.eventsToday}>
+              {eventsThisDate?.length > 0 && currentPage === 1 && (
+                <div className={classes.pageEventsWrapper}>
+                  <h1 className={classes.locationTitle}>
+                    {dateFrom
+                      ? "Events " + eventsThisDateName.replace(/_/g, " ")
+                      : "Events today"}
+                  </h1>
+                  {eventsThisDate && eventsThisDate.length > 0 ? (
+                    <Events
+                      artistData={events}
+                      eventsArray={eventsThisDate}
+                      loading={loading}
+                      minViewEvent={0}
+                      maxViewEvent={eventsThisDate.length}
+                      interestedArtists={interestedArtists}
+                      setInterestedArtists={setInterestedArtists}
+                      clickedEvent={clickedEvent}
+                      setClickedEvent={setClickedEvent}
+                      imageClicked={imageClicked}
+                      setImageClicked={setImageClicked}
+                      setArtist={setArtist}
+                    />
+                  ) : (
+                    <div className={classes.loadingSvgContainer}>
+                      <LoadingSvg />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
 
-          <div className={classes.pageEventsWrapper}>
-            <h1 className={classes.locationTitle}>
-              Viewing events in{" "}
-              {city.charAt(0).toUpperCase() +
-                city.slice(1).replace(/_/g, " ") ||
-                eventsArray?.[0]?.event?._embedded?.venues?.[0]?.country?.name.replace(
-                  /_/g,
-                  " "
-                ) ||
-                "Loading location..."}
-            </h1>
-            <Events
-              artistData={events}
-              eventsArray={eventsNotToday}
-              loading={loading}
-              minViewEvent={minViewEvent}
-              maxViewEvent={maxViewEvent}
-              interestedArtists={interestedArtists}
-              setInterestedArtists={setInterestedArtists}
-              clickedEvent={clickedEvent}
-              setClickedEvent={setClickedEvent}
-              imageClicked={imageClicked}
-              setImageClicked={setImageClicked}
+            <div className={classes.pageEventsWrapper}>
+              <h1 className={classes.locationTitle}>
+                Viewing events in{" "}
+                {city.charAt(0).toUpperCase() +
+                  city.slice(1).replace(/_/g, " ") ||
+                  eventsArray?.[0]?.event?._embedded?.venues?.[0]?.country?.name.replace(
+                    /_/g,
+                    " "
+                  ) ||
+                  "Loading location..."}
+              </h1>
+              <Events
+                artistData={events}
+                eventsArray={eventsNotToday}
+                loading={loading}
+                minViewEvent={minViewEvent}
+                maxViewEvent={maxViewEvent}
+                interestedArtists={interestedArtists}
+                setInterestedArtists={setInterestedArtists}
+                clickedEvent={clickedEvent}
+                setClickedEvent={setClickedEvent}
+                imageClicked={imageClicked}
+                setImageClicked={setImageClicked}
+              />
+            </div>
+            <PageToView
+              eventsArray={eventsArray}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
             />
+          </>
+        ) : (
+          <div className={classes.loadingSvgContainer}>
+            <LoadingSvg />
           </div>
-          <PageToView
-            eventsArray={eventsArray}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </>
+        )
       ) : (
-        <div className={classes.loadingSvgContainer}>
-          <LoadingSvg />
-        </div>
+        <NoArtistsFound />
       )}
     </div>
   );
