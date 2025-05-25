@@ -311,13 +311,6 @@ export default App;
  * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * ---currently, nothing is updated and you view the same things you searched prior to your un-found search
  *
- * Bugs to fix:
- * Fix home-page pictureslider bottom border-radius leakings (currently, image leaks out a little bit, idk why)
- * -- add loading svg animation to the image when it isnt loaded
- *
- * Fix artist-page bio-info so it applies stylers and such correctly
- * Remove scroll-bar for all account-page items (visible on bigger screens)
- *
  *
  * Minor update:
  * Add proper size to next-page buttons on upcoming events

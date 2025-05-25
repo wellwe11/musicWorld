@@ -11,6 +11,7 @@ import MusicImportSection from "./muiscImportSection";
 import FindAppSection from "./downloadAppSection";
 import DisplayFamousArtistsComponent from "./displayPopularArtists";
 import { useNavigate } from "react-router-dom";
+import LoadingSvg from "../artistPageComponents/media/loadingSvg";
 
 const EventsImagesWheel = ({
   eventsArray,
@@ -90,13 +91,13 @@ const EventsImagesWheel = ({
 
   return (
     <>
-      {displayEvents && (
+      {displayEvents?.length > 0 ? (
         <div
           className={classes.pictureSliderContainer}
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          {displayEvents.slice(0, 6).map((event, index) => {
+          {displayEvents?.slice(0, 6).map((event, index) => {
             if (index === displayedImage) {
               return (
                 <div
@@ -143,7 +144,7 @@ const EventsImagesWheel = ({
           })}
 
           <div className={classes.activeImageButtons}>
-            {[...Array(6)].map((_, index) => (
+            {displayEvents?.slice(0, 6)?.map((_, index) => (
               <button
                 key={index}
                 className={`${classes.buttonDot} ${
@@ -153,6 +154,10 @@ const EventsImagesWheel = ({
               />
             ))}
           </div>
+        </div>
+      ) : (
+        <div className={classes.loadingSvgContainer}>
+          <LoadingSvg />
         </div>
       )}
     </>

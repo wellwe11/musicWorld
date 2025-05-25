@@ -207,6 +207,22 @@ const ArtistProfile = ({
     }
   }, [ticketMasterArtist]);
 
+  // fixes links that are included inside of discogs API.info fetch
+  // found function online:
+  const resolveDiscogsLinks = (bio) => {
+    if (bio) {
+      return bio.replace(/\[(l|a|r|m)(\d+)\]/g, (match, type, id) => {
+        const baseUrls = {
+          l: "https://www.discogs.com/label/",
+          a: "https://www.discogs.com/artist/",
+          r: "https://www.discogs.com/release/",
+          m: "https://www.discogs.com/master/",
+        };
+        return `<a href="${baseUrls[type]}${id}" target="_blank" rel="noopener noreferrer">${baseUrls[type]}${id}</a>`;
+      });
+    }
+  };
+
   return (
     <div className={classes.artistProfile}>
       <div className={classes.profileContainer}>
@@ -240,7 +256,12 @@ const ArtistProfile = ({
         </div>
         <div className={classes.bioInfoContainer}>
           <h3>{bioInfo.realName}</h3>
-          <h4>{bioInfo.info}</h4>
+          <h4
+            className="artistBio"
+            dangerouslySetInnerHTML={{
+              __html: bioInfo ? resolveDiscogsLinks(bioInfo?.info) : "",
+            }}
+          />
         </div>
       </div>
     </div>
@@ -248,7 +269,6 @@ const ArtistProfile = ({
 };
 
 const ArtistEvents = ({ events, unfilteredEvents }) => {
-  console.log(unfilteredEvents);
   return (
     <div className={classes.artistEventsContainer}>
       {events?.length > 0 && (
