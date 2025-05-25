@@ -154,10 +154,10 @@
 
   scrollbar-width: none;
   -ms-overflow-style: none;
+  background-color: var(--black);
 
   select {
     outline: none;
-    background-color: var(--black);
   }
 
   @media screen and (max-width: 1200px) {
