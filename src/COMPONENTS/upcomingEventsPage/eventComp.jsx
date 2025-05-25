@@ -210,8 +210,9 @@ const Event = React.memo(function Event({
     const artistName = artist?.name.replace(/ /g, "+");
 
     if (artistName) {
-      handleNavigate(`./home/artistPage/id=${artistName}`);
+      console.log(artistName, setArtist);
       setArtist(artistName);
+      handleNavigate(`./home/artistPage/id=${artistName}`);
     }
   };
 
