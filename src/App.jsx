@@ -311,17 +311,32 @@ export default App;
  * ---if no genre/artist/event in (city/country)/date etc is found, display a page that says so
  * ---currently, nothing is updated and you view the same things you searched prior to your un-found search
  *
+ * Pages/components to finish designing:
+ * Footer
+ * Artist-page
  *
+ *
+ * Bugs to fix:
  * fix so when you search for an artist, and they have no events, so that previous artists events are then removed (currently stays displayed)
  * Fix home-page pictureslider bottom border-radius leakings (currently, image leaks out a little bit, idk why)
  * -- add loading svg animation to the image when it isnt loaded
  * Fix musicImportContent so it scales with resizing browser
  * Fix artist-page bio-info so it applies stylers and such correctly
+ * Fix visual bug when you hover artists images. Currently it's very shaky
+ * Remove scroll-bar for all account-page items (visible on bigger screens)
  *
+ *
+ * Minor update:
+ * Add proper size to next-page buttons on upcoming events
+ * -- currently, they are very small as they are fonts. Add actual images/svgs
+ *
+ *
+ * Potential bugs:
  * check bug with dates on home-page (if date is i.e. 27th, check if the image-wheel works correclty)
  * -- if date is too late, maybe the images dont display, or the dates are bugged?
  *
- * ''' ellies projects '''
+ *
+ * Ellies projects:
  * - ellie fixes logo with mery to fit font
  */
 
@@ -329,6 +344,8 @@ export default App;
  *
  * Design app-section on homePage
  * home-page section that contains "Search your favorite blablabla (filter items)"
- * * -- Create new section to hover over current famous artists
+ * -- Create new section that has todays "genre" and will display artists within those genres
+ * --- Currently displaying artists around the genre, make it so genre is on top and artists are below (this simplifies the structure if there is a lack of artists)
+ *
  *
  */

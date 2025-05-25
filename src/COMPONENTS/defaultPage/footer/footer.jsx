@@ -1,32 +1,41 @@
+import { useNavigate } from "react-router-dom";
 import classes from "./footer.module.scss";
 
-const FooterButtons = ({ buttons, buttonsTitle }) => {
+const FooterButtons = ({ buttons, buttonsTitle, clickEvent }) => {
+  const pages = {
+    Home: "home",
+    Events: "home/upcomingEvents",
+    "About us": "home/aboutUs",
+    Account: "home/account",
+  };
+
   return (
     <div className={classes.footerButtonsWrapper}>
-      <h4>{buttonsTitle}</h4>
+      <h3>{buttonsTitle}</h3>
       {buttons.map((button, index) => (
-        <button key={index}>{button}</button>
+        <button key={index} onClick={() => clickEvent(pages[button])}>
+          {button}
+        </button>
       ))}
     </div>
   );
 };
 
 const FooterInformation = () => {
-  const us = ["Who Are We", "Find Locations", "Partners", "Our Future"];
-  const brand = ["Style & Fit", "Technology", "Press", "Events"];
-  const help = [
-    "Shipping & Returns",
-    "Repairs",
-    "Warranty",
-    "FAQ",
-    "Contact Us",
-  ];
+  const navigate = useNavigate();
+  const tabs = ["Home", "Events", "About us", "Account"];
+
+  const handleEvent = (link) => {
+    navigate(`/${link}/`);
+  };
 
   return (
     <div className={classes.footerButtonsContainer}>
-      <FooterButtons buttons={us} buttonsTitle={"US"} />
-      <FooterButtons buttons={brand} buttonsTitle={"BRAND"} />
-      <FooterButtons buttons={help} buttonsTitle={"HELP"} />
+      <FooterButtons
+        buttons={tabs}
+        buttonsTitle={"Tabs"}
+        clickEvent={handleEvent}
+      />
     </div>
   );
 };
@@ -35,17 +44,19 @@ const FooterInformationTwo = () => {
   return (
     <div className={classes.footerInformationTwo}>
       <div className={classes.headerContainer}>
-        <h3>CONTACT US FOR FURTHER INFORMATION</h3>
+        <h3>CONTACT:</h3>
       </div>
-      <p>
-        Whether you're a collector or visiting for the first time, we're here to
-        assist!
-      </p>
       <div className={classes.pContainer}>
-        <p>+12 345 6789 10</p>
-        <p> || </p>
-        <p>RyanderEmail@someEmail.com</p>
+        <p>robin1ryan@hotmail.com</p>
       </div>
+    </div>
+  );
+};
+
+const CopyRightSection = () => {
+  return (
+    <div className={classes.copyRightContainer}>
+      <h4>© Copyright 2025. All Rights Reserved</h4>
     </div>
   );
 };
@@ -55,9 +66,10 @@ const Footer = () => {
     <footer className={classes.footer}>
       <div className={classes.footerContainer}>
         <FooterInformation />
-        <div className={classes.seperatorLine}></div>
+
         <FooterInformationTwo />
       </div>
+      <CopyRightSection />
     </footer>
   );
 };

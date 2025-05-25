@@ -1,35 +1,28 @@
 .footer {
-  background-color: var(--mainThemeColor);
   width: var(--homePageWidth);
-  justify-self: center;
-  .footerContainer {
-    justify-self: center;
-    color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
 
+  .footerContainer {
+    padding: 30px;
+    width: 65%;
+    min-width: 350px;
+
+    color: white;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
-    min-height: 250px;
-    padding: 10px;
-  }
-
-  .seperatorLine {
-    background-color: white;
-    width: 1px;
-    height: 210px;
-
-    justify-self: center;
-    align-self: center;
   }
 }
 
 .footerButtonsContainer {
-  width: 40%;
-  height: 70%;
-  align-self: center;
+  height: 100%;
+  width: 60%;
   display: flex;
-  justify-content: space-between;
-  // border-right: 1px solid white;
+  align-self: center;
+  justify-content: space-evenly;
 
   .footerButtonsWrapper {
     display: flex;
@@ -42,6 +35,7 @@
   button {
     margin-top: 5px;
     width: fit-content;
+    cursor: pointer;
   }
 
   button:hover {
@@ -52,13 +46,9 @@
 .footerInformationTwo {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 
-  justify-content: center;
-
-  justify-self: center;
-  align-self: center;
-
-  height: 60%;
   width: 40%;
 
   .headerContainer {
@@ -77,4 +67,11 @@
   h3,
   p {
   }
+}
+
+.copyRightContainer {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
