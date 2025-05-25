@@ -140,6 +140,24 @@
       }
     }
   }
+
+  @media screen and (max-width: 1000px) {
+    .pictureSliderContainer {
+      min-height: 500px;
+      .pictureSliderImage {
+        height: 400px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .pictureSliderContainer {
+      min-height: 400px;
+      .pictureSliderImage {
+        height: 300px;
+      }
+    }
+  }
 }
 
 .bandTextContainer {
@@ -215,6 +233,15 @@
       justify-content: center;
       align-items: center;
       opacity: 1 !important;
+    }
+
+    @media screen and (max-width: 700px) {
+      flex-direction: column;
+
+      .opacityOn {
+        padding: 20px;
+        margin-top: 50px;
+      }
     }
   }
 
