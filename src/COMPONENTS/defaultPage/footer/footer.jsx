@@ -65,9 +65,9 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
       <div className={classes.footerContainer}>
-        <FooterInformation />
+        {/* <FooterInformation />
 
-        <FooterInformationTwo />
+        <FooterInformationTwo /> */}
       </div>
       <CopyRightSection />
     </footer>

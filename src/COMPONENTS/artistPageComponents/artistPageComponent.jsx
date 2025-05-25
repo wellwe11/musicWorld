@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import classes from "./artistPage.module.scss";
 import { fetchDataTicketMaster } from "../../App";
-import NavButton from "../defaultPage/navBar/navButton";
 
 import starIcon from "../upcomingEventsPage/playIcons/star.png";
-
 import facebookIcon from "./media/facebook.png";
 import instagramIcon from "./media/instagram.png";
 import twitterIcon from "./media/twitter.png";
 import soundcloudIcon from "./media/soundcloud.png";
 import youtubeIcon from "./media/youtube.png";
+import ticketIcon from "./media/ticket.png";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingSvg from "./media/loadingSvg";
 
@@ -108,6 +107,25 @@ const findUrl = (urls, keyword) => {
   }
 };
 
+const InterestedButton = ({ isInterested, changeIsInterested }) => {
+  return (
+    <div
+      className={classes.interestedButtonContainer}
+      onClick={changeIsInterested}
+    >
+      <button className={classes.interestedButton}>
+        <img
+          className={`${classes.interestedPlus} ${
+            !isInterested ? "" : classes.interestedPlusInterested
+          }`}
+          src={starIcon}
+          alt=""
+        />
+      </button>
+    </div>
+  );
+};
+
 const ArtistProfile = ({
   artistObject,
   data,
@@ -193,27 +211,16 @@ const ArtistProfile = ({
     <div className={classes.artistProfile}>
       <div className={classes.profileContainer}>
         <div className={classes.titleContainer}>
-          <h2>{artistName}</h2>
+          <h2 className={classes.artistTitle}>{artistName}</h2>
         </div>
 
         <div className={classes.imageContainer}>
           <img src={imageSource} alt="" />
           <div className={classes.linkButtonsContainer}>
-            <div
-              className={classes.interestedButtonContainer}
-              onClick={changeIsInterested}
-            >
-              <NavButton externalClass={classes.interestedButton}>
-                <p>Interested</p>
-                <img
-                  className={`${classes.interestedPlus} ${
-                    !isInterested ? "" : classes.interestedPlusInterested
-                  }`}
-                  src={starIcon}
-                  alt=""
-                />
-              </NavButton>
-            </div>
+            <InterestedButton
+              isInterested={isInterested}
+              changeIsInterested={changeIsInterested}
+            />
             {data && (
               <div className={classes.linkButtonContainer}>
                 {Object.keys(bioInfo["socials"] || {}).map(
@@ -241,11 +248,12 @@ const ArtistProfile = ({
 };
 
 const ArtistEvents = ({ events, unfilteredEvents }) => {
+  console.log(unfilteredEvents);
   return (
     <div className={classes.artistEventsContainer}>
       {events?.length > 0 && (
         <div className={classes.eventSectionContainer}>
-          <h2>
+          <h2 className={classes.eventsTitle}>
             Events in {events?.[0]?._embedded?.venues?.[0]?.country?.name}
           </h2>
           {events?.map((event, index) => (
@@ -257,9 +265,13 @@ const ArtistEvents = ({ events, unfilteredEvents }) => {
                 <h5>{event?.dates?.start?.localDate}</h5>
                 <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
                 <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
-                <NavButton onClick={() => window.open(event?.url)}>
-                  Ticket
-                </NavButton>
+                <button
+                  className={classes.ticketButton}
+                  onClick={() => window.open(event?.url)}
+                >
+                  <div className={classes.whiteCoverHover}></div>
+                  <img src={ticketIcon} alt="" />
+                </button>
               </div>
             </div>
           ))}
@@ -268,7 +280,9 @@ const ArtistEvents = ({ events, unfilteredEvents }) => {
 
       {unfilteredEvents?.length > 0 && (
         <div className={classes.eventSectionContainer}>
-          <h2>{events?.length > 0 ? "All other events" : "All events"}</h2>
+          <h2 className={classes.eventsTitle}>
+            {events?.length > 0 ? "All other events" : "All events"}
+          </h2>
           {unfilteredEvents?.map((event, index) => (
             <div className={classes.eventWrapper} key={index}>
               <div className={classes.eventTitle}>
@@ -279,9 +293,13 @@ const ArtistEvents = ({ events, unfilteredEvents }) => {
                 <h5>{event?._embedded?.venues?.[0]?.country?.name}</h5>
                 <h5>{event?._embedded?.venues?.[0]?.city?.name}</h5>
 
-                <NavButton onClick={() => window.open(event?.url)}>
-                  Ticket
-                </NavButton>
+                <button
+                  className={classes.ticketButton}
+                  onClick={() => window.open(event?.url)}
+                >
+                  <div className={classes.whiteCoverHover}></div>
+                  <img src={ticketIcon} alt="" />
+                </button>
               </div>
             </div>
           ))}
@@ -348,7 +366,13 @@ const ArtistPageComponent = ({
 
     if (fetchedData) {
       const onlyArtistEvents = displayOnlyArtistsEvents(fetchedData);
-      setUnfilteredEvents(onlyArtistEvents);
+      if (onlyArtistEvents) {
+        setUnfilteredEvents(onlyArtistEvents);
+      } else {
+        setUnfilteredEvents([]);
+      }
+
+      console.log(onlyArtistEvents);
       if (!localLoading) {
         return setArtistObject(fetchedData);
       }
@@ -435,8 +459,8 @@ const ArtistPageComponent = ({
       // get artists profile
       getTicketMasterArtist(artist);
     }
-    console.log(ticketMasterArtist);
-  }, [artist]);
+    console.log("asdasd:", ticketMasterArtist, artist);
+  }, [artist, eventsArray]);
 
   useEffect(() => {
     if (ticketMasterArtist) {

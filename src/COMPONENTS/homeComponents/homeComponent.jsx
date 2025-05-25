@@ -159,7 +159,11 @@ const EventsImagesWheel = ({
   );
 };
 
-const InterestedButton = ({ isInterested, handleIsInterested, infoClick }) => {
+export const InterestedButton = ({
+  isInterested,
+  handleIsInterested,
+  infoClick,
+}) => {
   return (
     <div className={classes.interestedButtonsContainer}>
       <div

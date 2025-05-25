@@ -67,18 +67,33 @@
     }
 
     .subItem {
-      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      min-width: 500px;
+      flex-wrap: wrap;
+
+      margin-bottom: 10px;
       min-height: 48px;
+      height: fit-content;
 
       .subItemContainer {
         padding: 5px;
+
+        display: flex;
+        flex-wrap: wrap;
+        overflow: scroll;
+
         .subItemTitle,
         .subItemInfo {
           max-width: 213px;
+
           overflow: scroll;
+
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+
+        .subItemInfo::-webkit-scrollbar {
+          display: none;
         }
       }
     }
@@ -97,7 +112,6 @@
   align-items: flex-end;
 
   min-height: 38px;
-  min-width: 200px;
 
   button {
     border-radius: var(--buttonRadius);
@@ -126,15 +140,22 @@
 }
 
 .locationContainer {
-  margin-left: 30px;
+  margin-left: 10%;
 
   border: 1px solid var(--buttonWrapperColor);
   border-radius: var(--buttonRadius);
   padding: 5px;
 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
   select {
     outline: none;
   }
+}
+
+.locationContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .linkedAccountsContainer {

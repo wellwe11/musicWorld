@@ -18,6 +18,11 @@
   align-content: center;
   justify-self: flex-end;
 
+  .artistTitle {
+    padding: 10px;
+    padding-left: 0px;
+  }
+
   .profileContainer {
     max-width: 400px;
 
@@ -27,16 +32,25 @@
       align-items: center !important;
 
       .interestedButton {
-        height: 40px;
-        min-width: 155px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        overflow: hidden;
+
+        opacity: 90%;
+
+        width: 50px;
+        height: 30px;
+        background-color: var(--buttonWrapperColor);
+        border-radius: calc(var(--eventContainerRadius) / 2);
 
         .interestedPlus {
           visibility: visible !important;
           position: relative !important;
           width: 15px;
           height: 15px;
-
-          margin-left: 15px;
 
           filter: invert(0.1);
         }
@@ -57,6 +71,7 @@
 
     .imageContainer {
       img {
+        border-radius: calc(var(--eventContainerRadius) / 2);
         height: 400px;
         width: 400px;
 
@@ -108,8 +123,13 @@
     min-width: 300px;
     display: flex;
     flex-direction: column;
+
+    .eventsTitle {
+      padding: 10px;
+    }
   }
   .eventWrapper {
+    border-radius: calc(var(--eventContainerRadius) / 2);
     padding: 10px;
     margin-bottom: 15px;
 
@@ -117,24 +137,69 @@
 
     display: flex;
     justify-content: space-between;
+    align-items: stretch;
     background-color: var(--buttonContainerTheme);
     border: 1px solid black;
 
     color: white;
 
     .eventTitle {
-      flex: 1;
+      display: flex;
+      max-width: 35%;
     }
 
     .eventSubInfo {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      width: 50%;
-      height: fit-content;
+      width: 65%;
 
       h5 {
         max-width: 30%;
+      }
+
+      .ticketButton {
+        overflow: hidden;
+        min-height: 53px;
+        height: 100%;
+        width: 30px;
+
+        position: relative;
+        cursor: pointer;
+
+        .whiteCoverHover {
+          position: absolute;
+          top: 0;
+          left: -30px;
+          width: 30px;
+          height: 100%;
+          background-color: white;
+          transition: all 0.2s ease;
+          z-index: 1;
+
+          border-top-right-radius: calc(var(--eventContainerRadius) / 2 - 5px);
+          border-bottom-right-radius: calc(
+            var(--eventContainerRadius) / 2 - 5px
+          );
+        }
+
+        img {
+          transition: all 0.2s ease;
+          height: 20px;
+          position: relative;
+          z-index: 2;
+          filter: invert(1);
+        }
+      }
+
+      .ticketButton:hover {
+        .whiteCoverHover {
+          left: 0;
+        }
+
+        img {
+          filter: invert(0);
+        }
       }
     }
   }

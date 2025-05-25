@@ -292,8 +292,8 @@ const ActiveAccountTab = ({
           {Object.keys(listItem)?.map((subItem, index) => (
             <div className={classes.subItem} key={index}>
               <div className={classes.subItemContainer}>
-                <h4>
-                  <div className={classes.subItemTitle}>{subItem}: </div>
+                <div className={classes.subItemTitle}>
+                  <h4>{subItem}:</h4>
                   <div className={classes.subItemInfo}>
                     <h6>
                       {listItem[subItem]?.type === "password" ||
@@ -305,7 +305,7 @@ const ActiveAccountTab = ({
                         : listItem[subItem]?.initial}
                     </h6>
                   </div>
-                </h4>
+                </div>
               </div>
               <ChangeInputButton
                 input={subItem}
