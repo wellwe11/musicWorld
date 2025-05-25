@@ -630,12 +630,12 @@
         filter: invert(1);
       }
 
-      .musicImage:hover {
-        transform: scale(1.1);
-      }
-
       .musicIcon:hover {
         transform: scale(1);
+
+        .musicImage {
+          transform: scale(1.1);
+        }
       }
     }
   }

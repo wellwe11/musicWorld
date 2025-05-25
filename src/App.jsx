@@ -308,11 +308,6 @@ export default App;
 /**
  * todos:
  *
- * Potential bugs:
- * check bug with dates on home-page (if date is i.e. 27th, check if the image-wheel works correclty)
- * -- if date is too late, maybe the images dont display, or the dates are bugged?
- *
- *
  * Ellies projects:
  * - ellie fixes logo with mery to fit font
  */
