@@ -81,6 +81,9 @@
         flex-wrap: wrap;
         overflow: scroll;
 
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+
         .subItemTitle,
         .subItemInfo {
           max-width: 213px;
@@ -94,6 +97,10 @@
         .subItemInfo::-webkit-scrollbar {
           display: none;
         }
+      }
+
+      .subItemContainer::-webkit-scrollbar {
+        display: none;
       }
     }
   }
@@ -150,6 +157,7 @@
 
   select {
     outline: none;
+    background-color: var(--black);
   }
 
   @media screen and (max-width: 1200px) {

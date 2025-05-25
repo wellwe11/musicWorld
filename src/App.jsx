@@ -308,13 +308,23 @@ export default App;
 /**
  * todos:
  *
+ * BUGS:
+ * SOME artists appear laggy when hovering in following artists
+ *
+ *
  * Ellies projects:
  * - ellie fixes logo with mery to fit font
+ * Connect to youtube/spotify/soundcloud apps appear laggy when hovering
+ * remove scroll-bars on account-page
  */
 
 /** extras
  *
  * Design app-section on homePage
+ * When searching for artists: Display an array of several artists as options (in-case correct artist does not appear)
+ * -- Let user select correct artist
+ * -- If no image/info is displayeable from discogs, use a fallback image
+ *
  * home-page section that contains "Search your favorite blablabla (filter items)"
  * -- Create new section that has todays "genre" and will display artists within those genres
  * --- Currently displaying artists around the genre, make it so genre is on top and artists are below (this simplifies the structure if there is a lack of artists)
