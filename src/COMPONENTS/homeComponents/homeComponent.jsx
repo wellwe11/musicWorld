@@ -464,13 +464,15 @@ const HomePageComponent = ({
   }, [eventsArray, country]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (loadElements < 5) {
-        setLoadElements((prev) => prev + 1);
-      }
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [loadElements]);
+    if (displayHomePage !== loader && displayHomePage) {
+      const timer = setTimeout(() => {
+        if (loadElements < 5) {
+          setLoadElements((prev) => prev + 1);
+        }
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [loadElements, displayHomePage]);
 
   return (
     <div className={classes.homePageComponentContainer}>
