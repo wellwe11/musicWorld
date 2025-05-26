@@ -170,13 +170,6 @@ const App = () => {
   }, [name]);
 
   useEffect(() => {
-    if (artist) {
-      setDateFrom("");
-      setDateTill("");
-      setGenre("");
-      setCity("");
-    }
-
     if (country) {
       fetchEvents();
       return;
@@ -185,6 +178,13 @@ const App = () => {
     if (name !== "artistPage") {
       setArtist("");
       return fetchEvents();
+    }
+
+    if (artist) {
+      setDateFrom("");
+      setDateTill("");
+      setGenre("");
+      setCity("");
     }
   }, [dateFrom, dateTill, genre, city, country, name]);
 

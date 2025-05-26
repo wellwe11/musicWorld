@@ -206,11 +206,9 @@ const Event = React.memo(function Event({
   };
 
   const openArtistPage = () => {
-    console.log(artist);
     const artistName = artist?.name.replace(/ /g, "+");
 
     if (artistName) {
-      console.log(artistName, setArtist);
       setArtist(artistName);
       handleNavigate(`./home/artistPage/id=${artistName}`);
     }

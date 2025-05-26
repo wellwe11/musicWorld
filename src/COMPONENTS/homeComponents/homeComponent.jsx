@@ -441,6 +441,27 @@ const HomePageComponent = ({
   const [loadElements, setLoadElements] = useState(0);
 
   const [oneEventPerDay, setOneEventPerDay] = useState([]);
+  const [displayHomePage, setDisplayHomePage] = useState(null);
+  let loader = "loading";
+
+  useEffect(() => {
+    console.log("asdasd");
+    setDisplayHomePage(loader);
+
+    if (eventsArray?.length > 0) {
+      setDisplayHomePage(true);
+    } else {
+      const timer = setTimeout(() => {
+        if (eventsArray?.length > 0) {
+          setDisplayHomePage(true);
+        } else {
+          setDisplayHomePage(false);
+        }
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [eventsArray, country]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -453,7 +474,9 @@ const HomePageComponent = ({
 
   return (
     <div className={classes.homePageComponentContainer}>
-      {eventsArray?.length > 0 ? (
+      {displayHomePage === loader && <LoadingSvg />}
+
+      {displayHomePage !== loader && displayHomePage && (
         <>
           <div
             className={
@@ -521,9 +544,9 @@ const HomePageComponent = ({
             {/* <FindAppSection /> */}
           </div>
         </>
-      ) : (
-        <h1>{"Current location has no events... :("}</h1>
       )}
+
+      {!displayHomePage && <h1>{"Current location has no events... :("}</h1>}
     </div>
   );
 };

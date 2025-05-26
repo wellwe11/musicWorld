@@ -63,8 +63,6 @@ const Events = ({
     };
   }, [eventsArray, maxViewEvent, minViewEvent, loading, displayEvents]);
 
-  console.log(setArtist);
-
   return (
     <div className={classes.events}>
       {displayEvents &&

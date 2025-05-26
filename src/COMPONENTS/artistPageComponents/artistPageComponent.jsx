@@ -392,7 +392,6 @@ const ArtistPageComponent = ({
         setUnfilteredEvents([]);
       }
 
-      console.log(onlyArtistEvents);
       if (!localLoading) {
         return setArtistObject(fetchedData);
       }
@@ -479,7 +478,6 @@ const ArtistPageComponent = ({
       // get artists profile
       getTicketMasterArtist(artist);
     }
-    console.log("asdasd:", ticketMasterArtist, artist);
   }, [artist, eventsArray]);
 
   useEffect(() => {

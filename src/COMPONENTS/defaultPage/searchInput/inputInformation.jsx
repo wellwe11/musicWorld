@@ -1,469 +1,144 @@
 export const isoCountries = {
-  USA: "US",
-  andorra: "AD",
-  anguilla: "AI",
-  argentina: "AR",
-  australia: "AU",
-  austria: "AT",
-  azerbaijan: "AZ",
-  bahamas: "BS",
-  bahrain: "BH",
-  barbados: "BB",
-  belgium: "BE",
-  bermuda: "BM",
-  brazil: "BR",
-  bulgaria: "BG",
-  canada: "CA",
-  chile: "CL",
-  china: "CN",
-  colombia: "CO",
-  "costa rica": "CR",
-  croatia: "HR",
-  cyprus: "CY",
-  "czech republic": "CZ",
-  denmark: "DK",
-  "dominican republic": "DO",
-  ecuador: "EC",
-  estonia: "EE",
-  "faroe islands": "FO",
-  finland: "FI",
-  france: "FR",
-  georgia: "GE",
-  germany: "DE",
-  ghana: "GH",
-  gibraltar: "GI",
-  "great britain": "GB",
-  greece: "GR",
-  "hong kong": "HK",
-  hungary: "HU",
-  iceland: "IS",
-  india: "IN",
-  ireland: "IE",
-  israel: "IL",
-  italy: "IT",
-  jamaica: "JM",
-  japan: "JP",
-  "korea, republic of": "KR",
-  latvia: "LV",
-  lebanon: "LB",
-  lithuania: "LT",
-  luxembourg: "LU",
-  malaysia: "MY",
-  malta: "MT",
-  mexico: "MX",
-  monaco: "MC",
-  montenegro: "ME",
-  morocco: "MA",
-  netherlands: "NL",
-  "netherlands antilles": "AN",
-  "new zealand": "NZ",
-  "northern ireland": "ND",
-  norway: "NO",
-  peru: "PE",
-  poland: "PL",
-  portugal: "PT",
-  romania: "RO",
-  "russian federation": "RU",
-  saint_lucia: "LC",
-  saudi_arabia: "SA",
-  serbia: "RS",
-  singapore: "SG",
-  slovakia: "SK",
-  slovenia: "SI",
-  "south africa": "ZA",
-  spain: "ES",
-  sweden: "SE",
-  switzerland: "CH",
-  taiwan: "TW",
-  thailand: "TH",
-  "trinidad and tobago": "TT",
-  turkey: "TR",
-  ukraine: "UA",
-  "united arab emirates": "AE",
-  uruguay: "UY",
-  venezuela: "VE",
+  USA: "US", // United States
+  germany: "DE", // Deutschland
+  france: "FR", // France
+  italy: "IT", // Italia
+  spain: "ES", // España
+  netherlands: "NL", // Nederland
+  poland: "PL", // Polska
+  sweden: "SE", // Sverige
+  norway: "NO", // Norge
+  finland: "FI", // Suomi
+  denmark: "DK", // Danmark
+  portugal: "PT", // Portugal
+  belgium: "BE", // België / Belgique
+  switzerland: "CH", // Schweiz / Suisse / Svizzera
+  austria: "AT", // Österreich
+  ireland: "IE", // Éire
+  "czech republic": "CZ", // Česká republika
+  slovakia: "SK", // Slovensko
+  hungary: "HU", // Magyarország
+  romania: "RO", // România
+  bulgaria: "BG", // Bălgariya
 };
+
 export const bigCities = {
   US: {
-    new_york: "NY",
-    los_angeles: "LA",
-    chicago: "Chi",
-    houston: "Hou",
-    miami: "Mia",
-  },
-  AD: {
-    andorra_la_vella: "AV",
-    escaldes: "Es",
-  },
-  AI: {
-    the_valley: "TV",
-    blowing_point: "BP",
-  },
-  AR: {
-    buenos_aires: "BA",
-    cordoba: "Co",
-    rosario: "Ro",
-    mendoza: "Me",
-  },
-  AU: {
-    sydney: "Sy",
-    melbourne: "Me",
-    brisbane: "Br",
-    perth: "Pe",
-    adelaide: "Ad",
-  },
-  AT: {
-    vienna: "Vi",
-    graz: "Gr",
-    linz: "Li",
-    salzburg: "Sa",
-  },
-  AZ: {
-    baku: "Ba",
-    ganja: "Ga",
-    sumqayit: "Su",
-  },
-  BS: {
-    nassau: "Na",
-    freeport: "Fr",
-  },
-  BH: {
-    manama: "Ma",
-    riffa: "Ri",
-  },
-  BB: {
-    bridgetown: "Br",
-    speightstown: "Sp",
-  },
-  BE: {
-    brussels: "Br",
-    antwerp: "An",
-    ghent: "Gh",
-    bruges: "Brg",
-  },
-  BM: {
-    hamilton: "Ha",
-    saint_george: "SG",
-  },
-  BR: {
-    sao_paulo: "SP",
-    rio_de_janeiro: "RJ",
-    brasilia: "Br",
-    salvador: "Sa",
-  },
-  BG: {
-    sofia: "So",
-    plovdiv: "Pl",
-    varna: "Va",
-  },
-  CA: {
-    toronto: "To",
-    vancouver: "Va",
-    montreal: "Mo",
-    calgary: "Ca",
-  },
-  CL: {
-    santiago: "Sa",
-    valparaiso: "Va",
-    concepcion: "Co",
-  },
-  CN: {
-    beijing: "Be",
-    shanghai: "Sh",
-    guangzhou: "Gu",
-    shenzhen: "SZ",
-  },
-  CO: {
-    bogota: "Bo",
-    medellin: "Me",
-    cali: "Ca",
-  },
-  CR: {
-    san_jose: "SJ",
-    limon: "Li",
-  },
-  HR: {
-    zagreb: "Za",
-    split: "Sp",
-    rijeka: "Ri",
-  },
-  CY: {
-    nicosia: "Ni",
-    limassol: "Li",
-  },
-  CZ: {
-    prague: "Pr",
-    brno: "Br",
-    ostrava: "Os",
-  },
-  DK: {
-    copenhagen: "Co",
-    aarhus: "Aa",
-    odense: "Od",
-  },
-  DO: {
-    santo_domingo: "SD",
-    santiago: "Sa",
-  },
-  EC: {
-    quito: "Qi",
-    guayaquil: "Gu",
-  },
-  EE: {
-    tallinn: "Ta",
-    tartu: "Ta",
-  },
-  FO: {
-    torshavn: "To",
-    klaksvik: "Kl",
-  },
-  FI: {
-    helsinki: "He",
-    espoo: "Es",
-    tampere: "Ta",
-    vantaa: "Va",
-    oulu: "Ou",
-  },
-  FR: {
-    paris: "Pa",
-    marseille: "Ma",
-    lyon: "Ly",
-    toulouse: "To",
-    nice: "Ni",
-  },
-  GE: {
-    tbilisi: "Tb",
-    batumi: "Ba",
+    new_york: "NY", // Native name: New York
+    los_angeles: "LA", // Native name: Los Angeles
+    chicago: "Chi", // Native name: Chicago
+    houston: "Hou", // Native name: Houston
+    miami: "Mia", // Native name: Miami
   },
   DE: {
-    berlin: "Be",
-    munich: "Mu",
-    hamburg: "Ha",
-    cologne: "Co",
-    frankfurt: "Fr",
+    berlin: "Be", // Native name: Berlin
+    münchen: "Mu", // Native name: München
+    hamburg: "Ha", // Native name: Hamburg
+    köln: "Co", // Native name: Köln
+    frankfurt: "Fr", // Native name: Frankfurt am Main
   },
-  GH: {
-    accra: "Ac",
-    kumasi: "Ku",
-  },
-  GI: {
-    gibraltar: "Gi",
-  },
-  GB: {
-    london: "Lo",
-    birmingham: "Bi",
-    manchester: "Ma",
-    liverpool: "Li",
-    leeds: "Le",
-  },
-  GR: {
-    athens: "At",
-    thessaloniki: "Th",
-  },
-  HK: {
-    hong_kong: "HK",
-  },
-  HU: {
-    budapest: "Bu",
-    debrecen: "De",
-  },
-  IS: {
-    reykjavik: "Re",
-    akureyri: "Ak",
-  },
-  IN: {
-    mumbai: "Mu",
-    delhi: "De",
-    bangalore: "Ba",
-    chennai: "Ch",
-    kolkata: "Ko",
-  },
-  IE: {
-    dublin: "Du",
-    cork: "Co",
-  },
-  IL: {
-    tel_aviv: "TA",
-    jerusalem: "Je",
+  FR: {
+    paris: "Pa", // Native name: Paris
+    marseille: "Ma", // Native name: Marseille
+    lyon: "Ly", // Native name: Lyon
+    toulouse: "To", // Native name: Toulouse
+    nice: "Ni", // Native name: Nice
   },
   IT: {
-    rome: "Ro",
-    milan: "Mi",
-    naples: "Na",
-    turin: "Tu",
-  },
-  JM: {
-    kingston: "Ki",
-    montego_bay: "MB",
-  },
-  JP: {
-    tokyo: "To",
-    osaka: "Os",
-    kyoto: "Ky",
-  },
-  KR: {
-    seoul: "Se",
-    busan: "Bu",
-  },
-  LV: {
-    riga: "Ri",
-    daugavpils: "Da",
-  },
-  LB: {
-    beirut: "Be",
-  },
-  LT: {
-    vilnius: "Vi",
-    kaunas: "Ka",
-  },
-  LU: {
-    luxembourg: "Lu",
-  },
-  MY: {
-    kuala_lumpur: "KL",
-    george_town: "GT",
-  },
-  MT: {
-    valletta: "Va",
-    birkirkara: "Bi",
-  },
-  MX: {
-    mexico_city: "MC",
-    guadalajara: "Gu",
-    monterrey: "Mo",
-  },
-  MC: {
-    monaco: "Mo",
-  },
-  ME: {
-    podgorica: "Po",
-    niksic: "Ni",
-  },
-  MA: {
-    casablanca: "Ca",
-    rabat: "Ra",
-  },
-  NL: {
-    amsterdam: "Am",
-    rotterdam: "Ro",
-    the_hague: "TH",
-    utrecht: "Ut",
-  },
-  AN: {
-    willemstad: "Wi",
-  },
-  NZ: {
-    auckland: "Au",
-    wellington: "We",
-    christchurch: "Ch",
-  },
-  ND: {
-    belfast: "Be",
-    derry: "De",
-  },
-  NO: {
-    oslo: "Os",
-    bergen: "Be",
-    stavanger: "St",
-    trondheim: "Tr",
-  },
-  PE: {
-    lima: "Li",
-    arequipa: "Ar",
-  },
-  PL: {
-    warsaw: "Wa",
-    krakow: "Kr",
-    wroclaw: "Wr",
-    gdansk: "Gd",
-  },
-  PT: {
-    lisbon: "Li",
-    porto: "Po",
-  },
-  RO: {
-    bucharest: "Bu",
-    cluj: "Cl",
-  },
-  RU: {
-    moscow: "Mo",
-    saint_petersburg: "SP",
-  },
-  LC: {
-    castries: "Ca",
-  },
-  SA: {
-    riyadh: "Ri",
-    jeddah: "Je",
-  },
-  RS: {
-    belgrade: "Be",
-    novi_sad: "NS",
-  },
-  SG: {
-    singapore: "Si",
-  },
-  SK: {
-    bratislava: "Br",
-    kosice: "Ko",
-  },
-  SI: {
-    ljubljana: "Lj",
-    maribor: "Ma",
-  },
-  ZA: {
-    johannesburg: "Jo",
-    cape_town: "CT",
+    roma: "Ro", // Native name: Roma
+    milano: "Mi", // Native name: Milano
+    napoli: "Na", // Native name: Napoli
+    torino: "To", // Native name: Torino
   },
   ES: {
-    madrid: "Ma",
-    barcelona: "Ba",
-    valencia: "Va",
-    seville: "Se",
+    madrid: "Ma", // Native name: Madrid
+    barcelona: "Ba", // Native name: Barcelona
+    valencia: "Va", // Native name: Valencia
+    sevilla: "Se", // Native name: Sevilla
+  },
+  NL: {
+    amsterdam: "Am", // Native name: Amsterdam
+    rotterdam: "Ro", // Native name: Rotterdam
+    den_haag: "DH", // Native name: Den Haag
+    utrecht: "Ut", // Native name: Utrecht
+  },
+  PL: {
+    warszawa: "Wa", // Native name: Warszawa
+    kraków: "Kr", // Native name: Kraków
+    wrocław: "Wr", // Native name: Wrocław
+    gdańsk: "Gd", // Native name: Gdańsk
   },
   SE: {
-    stockholm: "St",
-    gothenburg: "Go",
-    malmö: "Ma",
-    uppsala: "Up",
-    västerås: "Vä",
+    stockholm: "St", // Native name: Stockholm
+    göteborg: "Go", // Native name: Göteborg
+    malmö: "Ma", // Native name: Malmö
+    uppsala: "Up", // Native name: Uppsala
+    västerås: "Vä", // Native name: Västerås
+  },
+  NO: {
+    oslo: "Os", // Native name: Oslo
+    bergen: "Be", // Native name: Bergen
+    stavanger: "St", // Native name: Stavanger
+    trondheim: "Tr", // Native name: Trondheim
+  },
+  FI: {
+    helsinki: "He", // Native name: Helsinki
+    espoo: "Es", // Native name: Espoo
+    tampere: "Ta", // Native name: Tampere
+    vantaa: "Va", // Native name: Vantaa
+    oulu: "Ou", // Native name: Oulu
+  },
+  DK: {
+    københavn: "Co", // Native name: København
+    aarhus: "Aa", // Native name: Aarhus
+    odense: "Od", // Native name: Odense
+  },
+  PT: {
+    lisboa: "Li", // Native name: Lisboa
+    porto: "Po", // Native name: Porto
+  },
+  BE: {
+    bruxelles: "Br", // Native name: Bruxelles
+    antwerpen: "An", // Native name: Antwerpen
+    gent: "Gh", // Native name: Gent
+    brugge: "Brg", // Native name: Brugge
   },
   CH: {
-    zurich: "Zu",
-    geneva: "Ge",
-    basel: "Ba",
+    zürich: "Zu", // Native name: Zürich
+    genève: "Ge", // Native name: Genève
+    basel: "Ba", // Native name: Basel
   },
-  TW: {
-    taipei: "Ta",
-    kaohsiung: "Ka",
+  AT: {
+    wien: "Vi", // Native name: Wien
+    graz: "Gr", // Native name: Graz
+    linz: "Li", // Native name: Linz
+    salzburg: "Sa", // Native name: Salzburg
   },
-  TH: {
-    bangkok: "Ba",
-    chiang_mai: "CM",
+  IE: {
+    baile_áth_cliath: "Du", // Native name: Baile Átha Cliath (Dublin)
+    corcaigh: "Co", // Native name: Corcaigh (Cork)
   },
-  TT: {
-    port_of_spain: "PS",
-    san_fernando: "SF",
+  CZ: {
+    praha: "Pr", // Native name: Praha
+    brno: "Br", // Native name: Brno
+    ostrava: "Os", // Native name: Ostrava
   },
-  TR: {
-    istanbul: "Is",
-    ankara: "An",
-    izmir: "Iz",
+  SK: {
+    bratislava: "Br", // Native name: Bratislava
+    košice: "Ko", // Native name: Košice
   },
-  UA: {
-    kyiv: "Ky",
-    lviv: "Lv",
+  HU: {
+    budapest: "Bu", // Native name: Budapest
+    debrecen: "De", // Native name: Debrecen
   },
-  AE: {
-    dubai: "Du",
-    abu_dhabi: "AD",
+  RO: {
+    bucurești: "Bu", // Native name: București
+    cluj_napoca: "Cl", // Native name: Cluj-Napoca
   },
-  UY: {
-    montevideo: "Mo",
-  },
-  VE: {
-    caracas: "Ca",
-    maracaibo: "Ma",
+  BG: {
+    sofia: "So", // Native name: Sofia
+    plovdiv: "Pl", // Native name: Plovdiv
+    varna: "Va", // Native name: Varna
   },
 };
 
