@@ -93,7 +93,7 @@ const EventsImagesWheel = ({
 
   return (
     <>
-      {displayEvents?.length > 0 ? (
+      {displayEvents?.length > 0 && (
         <div
           className={classes.pictureSliderContainer}
           onMouseEnter={() => setIsHovering(true)}
@@ -127,7 +127,7 @@ const EventsImagesWheel = ({
                     />
 
                     <BandText
-                      data={oneEventPerDay[index].event}
+                      data={oneEventPerDay[index]?.event}
                       index={index}
                     />
 
@@ -156,10 +156,6 @@ const EventsImagesWheel = ({
               />
             ))}
           </div>
-        </div>
-      ) : (
-        <div className={classes.loadingSvgContainer}>
-          <LoadingSvg />
         </div>
       )}
     </>

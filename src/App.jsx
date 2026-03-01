@@ -309,13 +309,10 @@ export default App;
  * todos:
  *
  * BUGS:
- * SOME artists appear laggy when hovering in following artists
  *
  *
  * Ellies projects:
  * - ellie fixes logo with mery to fit font
- * Connect to youtube/spotify/soundcloud apps appear laggy when hovering
- * remove scroll-bars on account-page
  */
 
 /** extras
